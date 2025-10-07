@@ -970,11 +970,11 @@ Ou:
 
 ## 🎉 Parabéns!
 
-Você chegou ao fim do guia! Agora está pronto para fazer sua primeira contribuição.
+Você chegou ao fim do guia! Agora está pronto para fazer sua primeira contribuição ao **Work Connect**.
 
 **Próximos passos:**
 1. ✅ Configure seu ambiente
-2. ✅ Escolha uma Issue para trabalhar
+2. ✅ Escolha uma Issue para trabalhar (foco: gestão de estoque)
 3. ✅ Siga o fluxo de contribuição
 4. ✅ Abra seu primeiro PR
 
@@ -982,11 +982,44 @@ Você chegou ao fim do guia! Agora está pronto para fazer sua primeira contribu
 
 ---
 
+## 👥 Autores do TCC
+
+### Equipe de Desenvolvimento
+
+1. **Patrick Lima de Santana**
+2. **Rafael Nascimento De Oliveira Bastos**
+3. **Antonio Lucas da Silva da Conceição Lima**
+4. **Rodrigo Santos de Oliveira Riquelme Damasceno Neri**
+5. **Matheus Mendes Conceição Santana Santos**
+
+### Instituição
+
+**SENAI - Serviço Nacional de Aprendizagem Industrial**  
+Curso Técnico em Desenvolvimento de Sistemas  
+2024-2025
+
+### Agradecimentos
+
+- Professores e coordenação do SENAI
+- PMEs que compartilharam desafios de gestão de estoque
+- Comunidade open-source (React.js, Node.js, PostgreSQL)
+- Todos os contribuidores via GitHub
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a **MIT License** - veja [LICENSE](./LICENSE) para detalhes.
+
+---
+
 <div align="center">
 
-**Obrigado por contribuir com o WorkConnect! 🙏**
+**Obrigado por contribuir com o Work Connect! 🙏**
 
-[🏠 Voltar ao README](./README.md) · [🗺️ Ver Roadmap](./ROADMAP.md)
+**Sistema de Gestão de Estoque para PMEs**
+
+[🏠 Voltar ao README](./README.md) · [🗺️ Ver Roadmap](./ROADMAP.md) · [📚 Documentação](./doc/INDEX-DIAGRAMAS.md)
 
 </div>
 

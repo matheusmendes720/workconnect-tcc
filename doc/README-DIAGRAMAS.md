@@ -1,184 +1,362 @@
-# 📊 Diagramas de Classes - WorkConnect
+# 📊 Guia de Diagramas - Work Connect
+## Sistema de Gestão de Estoque para PMEs
 
-Este diretório contém os diagramas de classes UML em formato Mermaid para modelagem do banco de dados do sistema WorkConnect.
+Este diretório contém os diagramas técnicos em formato Mermaid para modelagem do Work Connect, sistema focado em gestão de estoque com conformidade LGPD.
 
 ---
 
 ## 📁 Arquivos Disponíveis
 
-### 1️⃣ [diagrama-classes-completo.md](./diagrama-classes-completo.md)
-**Versão Técnica Completa e Robusta**
+### 1️⃣ [Diagrama de Classes - Gestão de Estoque](./diagrama-classes-estoque.md)
+**Versão:** Core - Focado em Estoque + LGPD
 
-Diagrama completo baseado nas especificações do projeto, incluindo:
-- ✅ Sistema completo de RFID e Código de Barras
-- ✅ Módulo de Manutenção e Ordens de Serviço
-- ✅ Sistema de Alertas Automáticos
-- ✅ Controle avançado de movimentação
-- ✅ Múltiplos locais de estoque
-- ✅ Sistema de permissões granulares
-- ✅ Rastreabilidade completa
+**Conteúdo:**
+- ✅ 12 classes essenciais
+- ✅ 6 módulos principais
+- ✅ Sistema de alertas automáticos
+- ✅ Conformidade LGPD integrada
+- ✅ Custo médio ponderado
+- ✅ Relacionamento com até 3 fornecedores por produto
+- ✅ 4 perfis de acesso (Admin, Gerente, Operador, Consulta)
 
-**Ideal para:** Implementação completa do sistema conforme especificações técnicas.
+**Ideal para:** 
+- Desenvolvimento em React.js/Node.js
+- Planejamento de classes e objetos
+- Arquitetura de software
+- Apresentação técnica do TCC
 
-### 2️⃣ [diagrama-classes-simplificado.md](./diagrama-classes-simplificado.md)
-**Versão Simplificada e Compreensível**
+**🔗 Acesso:** [diagrama-classes-estoque.md](./diagrama-classes-estoque.md)
 
-Diagrama simplificado baseado no contexto atual da aplicação web:
-- ✅ Estrutura alinhada com as telas HTML existentes
-- ✅ Funcionalidades core: Dashboard, Finanças, Vendas, Estoque
-- ✅ Entrada manual de dados (sem RFID)
-- ✅ Estrutura básica e clara
-- ✅ Fácil compreensão
+---
 
-**Ideal para:** MVP, prototipagem rápida, apresentações e desenvolvimento incremental.
+### 2️⃣ [Modelo Conceitual (MER)](./diagrama-mer-conceitual.md)
+**Versão:** Conceitual - Estoque + LGPD
+
+**Conteúdo:**
+- ✅ 8 entidades principais
+- ✅ Relacionamentos e cardinalidades
+- ✅ 20 regras de negócio (15 estoque + 5 LGPD)
+- ✅ Processos de anonimização
+- ✅ Planos de preços (R$ 149/299/599)
+- ✅ Métricas de sucesso (ROI 150%)
+
+**Ideal para:**
+- Compreensão do modelo de negócio
+- Validação com stakeholders
+- Planejamento de banco de dados
+- Apresentação para clientes PME
+
+**🔗 Acesso:** [diagrama-mer-conceitual.md](./diagrama-mer-conceitual.md)
+
+---
+
+### 3️⃣ [Diagrama DER - Gestão de Estoque](./diagrama-der-estoque.md) ⭐
+**Versão:** Físico - PostgreSQL + LGPD
+
+**Conteúdo (~900 linhas):**
+- ✅ 10 tabelas completas com tipos SQL
+- ✅ 10 scripts CREATE TABLE prontos
+- ✅ 4 triggers automáticos (status, alertas, custo, LGPD)
+- ✅ 5 views úteis (estoque completo, produtos críticos, etc)
+- ✅ 3 stored procedures (movimentação, exportação LGPD, anonimização)
+- ✅ 3 jobs automáticos (limpeza, expiração, LGPD)
+- ✅ Índices de performance (simples e compostos)
+- ✅ Constraints e validações (CHECK, UNIQUE, FK)
+- ✅ Scripts de backup e recovery
+- ✅ Configurações PostgreSQL (50 usuários)
+- ✅ Multi-tenant (isolamento por empresa)
+- ✅ Dados de exemplo (seed)
+
+**Ideal para:**
+- Implementação do banco de dados
+- DBAs e desenvolvedores backend
+- Migração de dados Excel
+- Otimização de performance
+
+**🔗 Acesso:** [diagrama-der-estoque.md](./diagrama-der-estoque.md)
+
+---
+
+### 4️⃣ [Diagramas de Casos de Uso - Estoque](./diagrama-casos-de-uso-estoque.md)
+**Versão:** Completa - 27 Casos de Uso
+
+**Conteúdo (~700 linhas):**
+- ✅ 27 casos de uso especificados
+- ✅ 5 atores (Admin, Gerente, Operador, Consulta, Sistema)
+- ✅ 6 módulos funcionais
+- ✅ Especificação detalhada (pré-condições, fluxos, pós-condições)
+- ✅ Fluxos alternativos e exceções
+- ✅ Relacionamentos (include, extend)
+- ✅ Matriz de rastreabilidade
+- ✅ 3 casos de uso LGPD (críticos)
+
+**Módulos:**
+1. Dashboard (5 casos)
+2. Gestão de Produtos (8 casos)
+3. Gestão de Fornecedores (4 casos)
+4. Movimentações (4 casos)
+5. Alertas (2 casos)
+6. Relatórios (5 casos)
+7. LGPD (3 casos - CRÍTICOS)
+
+**Ideal para:**
+- Levantamento de requisitos
+- Planejamento de sprints
+- Testes de aceitação
+- Documentação funcional
+
+**🔗 Acesso:** [diagrama-casos-de-uso-estoque.md](./diagrama-casos-de-uso-estoque.md)
+
+---
+
+### 5️⃣ [Conformidade LGPD](./LGPD-COMPLIANCE.md) ⭐ NOVO
+**Versão:** 1.0 - Documentação Legal
+
+**Conteúdo (~900 linhas):**
+- ✅ O que é LGPD (lei, definições, penalidades)
+- ✅ Dados coletados e bases legais
+- ✅ Direitos dos titulares (acesso, portabilidade, exclusão)
+- ✅ Implementação técnica:
+  - Banco de dados (campos, tabelas)
+  - Backend (middleware, controllers)
+  - Frontend (componentes React)
+- ✅ Processos detalhados:
+  - Coleta de consentimento
+  - Exportação de dados (JSON)
+  - Exclusão/Anonimização (90 dias)
+- ✅ Auditoria e logs (6 meses retenção)
+- ✅ Segurança (criptografia, controle de acesso)
+- ✅ Procedimento de incidentes
+- ✅ Checklist de conformidade
+
+**Importância:** 🔴 CRÍTICA - Requisito legal obrigatório
+
+**Ideal para:**
+- Compliance e jurídico
+- Auditoria de conformidade
+- Apresentação para clientes
+- Documentação oficial do TCC
+
+**🔗 Acesso:** [LGPD-COMPLIANCE.md](./LGPD-COMPLIANCE.md)
 
 ---
 
 ## 🔍 Como Visualizar os Diagramas
 
-### Opção 1: GitHub (Recomendado)
+### Opção 1: GitHub (Recomendado) ⭐
 O GitHub renderiza automaticamente diagramas Mermaid em arquivos `.md`:
-1. Abra o arquivo desejado diretamente no GitHub
-2. O diagrama será renderizado automaticamente
+1. Abra qualquer arquivo `.md` no GitHub
+2. Role até o diagrama
+3. Será renderizado automaticamente e interativo
+
+**Vantagens:**
+- Sem instalação
+- Links clicáveis funcionam
+- Compartilhamento fácil
 
 ### Opção 2: Visual Studio Code
-1. Instale a extensão [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+1. Instale extensão: [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
 2. Abra o arquivo `.md`
-3. Pressione `Ctrl+Shift+V` (ou `Cmd+Shift+V` no Mac) para preview
+3. Pressione `Ctrl+Shift+V` (Win/Linux) ou `Cmd+Shift+V` (Mac)
+
+**Vantagens:**
+- Edição e preview simultâneos
+- Integrado ao editor
 
 ### Opção 3: Mermaid Live Editor
 1. Acesse [https://mermaid.live/](https://mermaid.live/)
 2. Copie o código Mermaid do diagrama
-3. Cole no editor online
+3. Cole no editor
 4. Visualize e exporte (PNG, SVG, PDF)
 
-### Opção 4: Ferramentas de Diagramação
-- **Draw.io**: Importe via "Insert > Advanced > Mermaid"
-- **Notion**: Cole o código em bloco Mermaid
-- **Obsidian**: Suporte nativo para Mermaid
+**Vantagens:**
+- Exportação em múltiplos formatos
+- Edição online
+- Sem instalação
+
+### Opção 4: Obsidian
+- Suporte nativo a Mermaid
+- Ótimo para documentação interligada
+- [obsidian.md](https://obsidian.md)
 
 ---
 
-## 🎯 Quando Usar Cada Versão
+## 🎯 Quando Usar Cada Diagrama
 
-### Use o Diagrama COMPLETO quando:
-- ✅ Iniciar o desenvolvimento do sistema completo
-- ✅ Necessitar de funcionalidades RFID/Código de Barras
-- ✅ Implementar sistema de manutenção e ordens de serviço
-- ✅ Precisar de rastreabilidade completa
-- ✅ Desenvolver para ambiente industrial/almoxarifado
+### Use o Diagrama de CLASSES quando:
+- ✅ Planejar estrutura de código (React/Node.js)
+- ✅ Definir objetos e métodos
+- ✅ Entender relacionamentos entre classes
+- ✅ Documentar arquitetura OOP
 
-### Use o Diagrama SIMPLIFICADO quando:
-- ✅ Criar MVP ou protótipo inicial
-- ✅ Apresentar o sistema para stakeholders não-técnicos
-- ✅ Desenvolver incrementalmente (começar simples)
-- ✅ Focar apenas em vendas e finanças básicas
-- ✅ Trabalhar com equipe pequena ou iniciante
+### Use o MER CONCEITUAL quando:
+- ✅ Apresentar modelo de negócio
+- ✅ Validar requisitos com cliente
+- ✅ Entender regras de negócio
+- ✅ Planejar banco de dados (alto nível)
 
----
+### Use o DER FÍSICO quando:
+- ✅ Implementar banco PostgreSQL
+- ✅ Criar tabelas e índices
+- ✅ Configurar triggers e procedures
+- ✅ Otimizar performance de queries
+- ✅ Migrar dados de Excel
 
-## 🔄 Migração entre Versões
+### Use os CASOS DE USO quando:
+- ✅ Levantar requisitos funcionais
+- ✅ Planejar desenvolvimento (sprints)
+- ✅ Criar testes de aceitação
+- ✅ Documentar funcionalidades
+- ✅ Apresentar para usuários finais
 
-### De Simplificado → Completo
-O diagrama simplificado é um **subconjunto** do completo. Para migrar:
-1. Mantenha todas as tabelas/classes existentes
-2. Adicione as novas tabelas conforme necessário
-3. Implemente os módulos avançados gradualmente
-4. Não há perda de dados, apenas adição de funcionalidades
-
-### Abordagem Recomendada
-```
-Fase 1: Implementar versão SIMPLIFICADA (MVP)
-  ↓
-Fase 2: Testar com usuários reais
-  ↓
-Fase 3: Coletar feedback e requisitos
-  ↓
-Fase 4: Migrar gradualmente para versão COMPLETA
-  ↓
-Fase 5: Adicionar RFID, Serviços, Alertas, etc.
-```
+### Use o documento LGPD quando:
+- ✅ Implementar conformidade legal
+- ✅ Responder auditoria
+- ✅ Treinar equipe
+- ✅ Apresentar para jurídico/compliance
+- ✅ Deploy em produção
 
 ---
 
-## 📋 Comparativo Rápido
+## 📋 Comparativo: Escopo Real vs Imaginado
 
-| Funcionalidade | Simplificado | Completo |
+| Funcionalidade | Versão 1.0 (Antiga) | Versão 2.0 (Real) |
 |---|:---:|:---:|
-| **Usuários e Login** | ✅ | ✅ |
-| **Dashboard** | ✅ | ✅ |
-| **Estoque Básico** | ✅ | ✅ |
-| **Vendas** | ✅ | ✅ |
-| **Finanças** | ✅ | ✅ |
-| **Relatórios Básicos** | ✅ | ✅ |
-| **RFID/Código de Barras** | ❌ | ✅ |
-| **Ordens de Serviço** | ❌ | ✅ |
-| **Alertas Automáticos** | ❌ | ✅ |
-| **Múltiplos Locais** | ❌ | ✅ |
-| **Permissões Avançadas** | ❌ | ✅ |
-| **Rastreamento Completo** | ❌ | ✅ |
-| **Histórico de Leituras** | ❌ | ✅ |
+| **Gestão de Estoque** | ✅ | ✅ |
+| **Produtos e Categorias** | ✅ | ✅ |
+| **Fornecedores** | ✅ | ✅ |
+| **Movimentações** | ✅ | ✅ |
+| **Alertas Automáticos** | ✅ | ✅ |
+| **Relatórios (PDF/Excel/CSV)** | Apenas CSV | ✅ Todos |
+| **LGPD** | ❌ | ✅ Obrigatório |
+| **Sistema RFID** | ✅ | ❌ (QR futuro) |
+| **Ordens de Serviço** | ✅ | ❌ Removido |
+| **Vendas Complexas** | ✅ | ❌ Simplificado |
+| **Finanças Avançadas** | ✅ | ❌ Simplificado |
+| **Multi-local** | ✅ | ❌ Simplificado |
+| **Público** | Indústrias | ✅ PMEs |
+| **Stack** | HTML/CSS/JS | ✅ React/Node/PostgreSQL |
 
 ---
 
 ## 🛠️ Implementação no Banco de Dados
 
-### SQL a partir dos Diagramas
+### Sequência de Implementação
 
-Ambos os diagramas podem ser traduzidos para SQL. Exemplo:
-
-#### Da Classe Produto para Tabela SQL:
+**Passo 1:** Criar banco
 ```sql
-CREATE TABLE produtos (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
-    codigo VARCHAR(50) UNIQUE NOT NULL,
-    valor_unitario DECIMAL(10,2) NOT NULL,
-    quantidade INTEGER NOT NULL DEFAULT 0,
-    quantidade_minima INTEGER NOT NULL DEFAULT 0,
-    status VARCHAR(20) NOT NULL,
-    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_codigo (codigo),
-    INDEX idx_status (status)
-);
+CREATE DATABASE workconnect_db
+    WITH ENCODING='UTF8'
+         LC_COLLATE='pt_BR.UTF-8'
+         LC_CTYPE='pt_BR.UTF-8'
+         TEMPLATE=template0;
 ```
 
+**Passo 2:** Executar scripts de criação (ordem)
+1. perfil
+2. usuario
+3. categoria
+4. produto
+5. fornecedor
+6. produto_fornecedor
+7. movimentacao_estoque
+8. alerta_reposicao
+9. relatorio
+10. auditoria_lgpd
+
+**Passo 3:** Criar triggers (4)
+1. fn_atualizar_status_produto
+2. fn_gerar_alerta_reposicao
+3. fn_calcular_custo_medio
+4. fn_auditar_lgpd
+
+**Passo 4:** Criar views (5)
+1. vw_estoque_completo
+2. vw_produtos_criticos
+3. vw_movimentacoes_mes
+4. vw_dashboard_alertas
+5. vw_analise_fornecedores
+
+**Passo 5:** Criar procedures (3)
+1. sp_registrar_movimentacao
+2. sp_exportar_dados_usuario
+3. sp_anonimizar_usuario
+
+**Passo 6:** Inserir dados de exemplo (seed)
+
+**Passo 7:** Configurar jobs automáticos (3)
+1. job_limpar_alertas_antigos (diário 02:00)
+2. job_expirar_relatorios (diário 03:00)
+3. job_anonimizar_usuarios (diário 04:00)
+
 ### ORMs Recomendados
-- **Java**: Hibernate, JPA
-- **Python**: SQLAlchemy, Django ORM
-- **Node.js**: Sequelize, TypeORM, Prisma
-- **PHP**: Eloquent (Laravel), Doctrine
-- **C#**: Entity Framework
+
+| Linguagem | ORM | Características |
+|-----------|-----|-----------------|
+| **Node.js** ⭐ | Sequelize | Migrations, validações, hooks |
+| JavaScript | TypeORM | TypeScript, decorators |
+| JavaScript | Prisma | Type-safe, migrações automáticas |
+| Python | SQLAlchemy | Maduro, completo |
+| Python | Django ORM | Admin pronto |
+| PHP | Eloquent (Laravel) | Simples, eloquente |
+| Java | Hibernate/JPA | Padrão enterprise |
+
+**Recomendação para o TCC:** **Sequelize** (mesma linguagem frontend/backend)
 
 ---
 
 ## 📚 Documentação Relacionada
 
-- [Requisitos do Projeto](./Requisitos%20principais%20do%20projeto.txt)
-- [Cenário Fictício](./Cenário%20Fictício.docx)
-- [Projeto de Apresentação](./Projeto%20De%20Apresentaçao%20de%20Lucas.docx)
+### Documentos do TCC
+
+- [Requisitos do Projeto](./Requisitos%20principais%20do%20projeto.txt) - Especificações originais
+- [Projeto de Apresentação](./Projeto%20De%20Apresentaçao%20(2).pdf) - PDF oficial do TCC
+- [Cenário Fictício](./Cenário%20Fictício.docx) - Contexto de uso
+
+### Documentos Root
+
+- [README.md](../README.md) - Apresentação do projeto
+- [CONTRIBUTING.md](../CONTRIBUTING.md) - Guia de contribuição
+- [ROADMAP.md](../ROADMAP.md) - Planejamento de desenvolvimento
+- [INDEX-DIAGRAMAS.md](./INDEX-DIAGRAMAS.md) - Índice centralizador
 
 ---
 
 ## 🤝 Contribuindo
 
 Para sugerir melhorias nos diagramas:
-1. Analise o contexto (simplificado vs completo)
-2. Mantenha consistência com os padrões UML
-3. Use nomenclatura em português (PT-BR)
-4. Documente as mudanças
+
+1. Analise o diagrama atual
+2. Verifique alinhamento com escopo do TCC (PDF oficial)
+3. Mantenha foco em **gestão de estoque**
+4. Use nomenclatura em **português (PT-BR)**
+5. Mantenha conformidade **LGPD**
+6. Abra Issue ou PR no GitHub
+7. Siga [CONTRIBUTING.md](../CONTRIBUTING.md)
+
+### Padrões a Seguir
+
+- ✅ Nomenclatura PT-BR consistente
+- ✅ Sintaxe Mermaid válida
+- ✅ Comentários explicativos
+- ✅ Organização modular por seções
+- ✅ Links internos clicáveis
+- ✅ Exemplos práticos
+- ✅ Referências cruzadas entre documentos
 
 ---
 
 ## 📄 Licença
 
-Documentação do projeto WorkConnect - Sistema de Gestão Empresarial  
-© 2025 - Todos os direitos reservados
+Documentação do projeto Work Connect - Sistema de Gestão de Estoque  
+© 2025 - SENAI - TCC  
+Licença MIT
 
 ---
 
 ## 🎨 Legenda de Símbolos
 
+### UML (Classes)
 - `+` = Público (public)
 - `-` = Privado (private)
 - `#` = Protegido (protected)
@@ -186,8 +364,39 @@ Documentação do projeto WorkConnect - Sistema de Gestão Empresarial
 - `1` = Um (cardinalidade)
 - `0..1` = Zero ou um (opcional)
 
+### MER/DER (Banco de Dados)
+- `PK` = Primary Key (chave primária)
+- `FK` = Foreign Key (chave estrangeira)
+- `||--||` = Relacionamento 1:1
+- `||--o{` = Relacionamento 1:N
+- `}o--o{` = Relacionamento N:M
+
 ---
 
-**Última atualização:** Outubro 2025  
-**Versão dos Diagramas:** 1.0
+## 👥 Autores do TCC
 
+1. Patrick Lima de Santana
+2. Rafael Nascimento De Oliveira Bastos
+3. Antonio Lucas da Silva da Conceição Lima
+4. Rodrigo Santos de Oliveira Riquelme Damasceno Neri
+5. Matheus Mendes Conceição Santana Santos
+
+**Instituição:** SENAI - Curso Técnico em Desenvolvimento de Sistemas  
+**Período:** 2024-2025
+
+---
+
+<div align="center">
+
+**Documentação Técnica Completa**
+
+**Work Connect - Gestão de Estoque para PMEs**
+
+[🏠 README](../README.md) · [📚 Índice](./INDEX-DIAGRAMAS.md) · [🔒 LGPD](./LGPD-COMPLIANCE.md)
+
+</div>
+
+---
+
+**Última atualização:** Janeiro 2025  
+**Versão:** 2.0 - Refatorado para Escopo Real

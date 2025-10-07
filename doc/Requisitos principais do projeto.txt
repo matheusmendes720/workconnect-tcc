@@ -1,0 +1,25 @@
+Requisitos principais do projeto:
+Controle e automatização de estoque
+
+A automação dos processos de entrada e saída:
+Etiquetas RFID ou códigos de barras para rastrear automaticamente cada ferramenta ou insumo;
+Leitores automáticos na entrada/saída do almoxarifado para registrar movimentações em tempo real;
+Integração com o sistema de manutenção para saber o que foi utilizado em cada serviço;
+Alertas automáticos de reposição quando itens atingem níveis mínimos.
+
+Exemplos:
+Ele entra no almoxarifado e retira as ferramentas e peças necessárias;
+O sistema automaticamente registra a retirada dos itens no nome dele;
+Caso algum item esteja em falta, o sistema já pode ter alertado a necessidade de reposição antes que o técnico precise dele;
+Após o serviço, o técnico devolve os itens reutilizáveis, e o sistema registra automaticamente;
+O histórico da manutenção fica completo, inclusive com o que foi consumido.
+
+O que vamos utilizar?
+Brainstorming, Questionário
+
+
+
+
+
+
+Usar IA para criar um cenário da empresa, colocar o detalhamento da empresa

@@ -1,0 +1,436 @@
+/* --- Configurações Globais e Variáveis --- */
+:root {
+    --cor-primaria: #7b112c;         /* Dark Red (Sanguine) */
+    --cor-secundaria: #b71c3b;       /* Sanguine Red */
+    --cor-destaque: #ff4e50;         /* Vivid Sanguine/Highlight */
+    --cor-fundo: #1a0a0e;            /* Very dark, almost black with a hint of red */
+    --cor-texto-principal: #fff0f3;  /* Light pinkish white */
+    --cor-texto-secundario: #e57373; /* Muted red */
+    --cor-branco: #ffffff;
+    --glass-bg: rgba(60, 10, 30, 0.7);
+    --font-principal: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-principal);
+    background: linear-gradient(135deg, #2d0a13 0%, #7b112c 100%);
+    color: var(--cor-texto-principal);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 80px 0;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: var(--cor-secundaria);
+    transform: translateY(-3px);
+}
+
+/* --- Header e Navegação --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(60, 10, 30, 0.85);
+    box-shadow: 0 2px 12px rgba(123, 17, 44, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    padding: 15px 0;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cor-destaque);
+    text-shadow: 0 2px 8px #7b112c44;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.main-nav a {
+    margin-left: 25px;
+    text-decoration: none;
+    color: var(--cor-texto-secundario);
+    font-weight: 500;
+    transition: color 0.3s;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+}
+
+.main-nav a:hover {
+    color: var(--cor-destaque);
+    border-bottom: 2px solid var(--cor-destaque);
+}
+
+/* --- Seção 1: Herói --- */
+#hero {
+    background: linear-gradient(120deg, #7b112c 0%, #1a0a0e 100%);
+    padding-top: 150px;
+    text-align: center;
+    color: var(--cor-branco);
+    box-shadow: 0 8px 32px 0 rgba(123, 17, 44, 0.15);
+}
+
+#hero h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+#hero p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    color: var(--cor-texto-secundario);
+}
+
+#hero .hero-image {
+    margin-top: 50px;
+    max-width: 800px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+#hero .container {
+    background: var(--glass-bg);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(123, 17, 44, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 40px 20px 40px 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: inline-block;
+}
+
+/* --- Seção 2: Problema --- */
+#problema {
+    background-color: var(--cor-branco);
+    color: #111;
+}
+
+#problema .problema-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+#problema .problema-card {
+    padding: 20px;
+    color: #111;
+}
+
+#problema .problema-card i {
+    font-size: 3rem;
+    color: var(--cor-primaria);
+    margin-bottom: 20px;
+}
+
+#problema .problema-card h3 {
+    margin-bottom: 10px;
+}
+
+#problema .agitacao {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.1rem;
+    font-style: italic;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--cor-texto-secundario);
+}
+
+/* --- Seção 3: Solução --- */
+#solucao {
+    background-color: var(--cor-fundo);
+}
+
+#solucao .container {
+    text-align: center;
+}
+
+#solucao p {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    font-size: 1.1rem;
+}
+
+/* --- Seção 4: Benefícios --- */
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.beneficio-card {
+    background-color: var(--cor-branco);
+    color: #111;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.beneficio-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.beneficio-card i {
+    font-size: 2.5rem;
+    color: var(--cor-secundaria);
+    margin-bottom: 15px;
+}
+
+.beneficio-card h3 {
+    margin-bottom: 10px;
+}
+
+/* --- Seção 5: Prova Social --- */
+#prova-social {
+     background-color: var(--cor-fundo);
+}
+
+.resultados-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.resultado-item span {
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--cor-primaria);
+}
+
+.prova-social-bloco, .autoridade-bloco {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.prova-social-bloco {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+.caso-sucesso {
+    background-color: var(--cor-branco);
+    color: #111;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.caso-sucesso blockquote {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.caso-sucesso cite {
+    font-weight: 600;
+}
+
+.autoridade-bloco {
+    background-color: #e6f0ff;
+    color: #111;
+}
+
+/* --- Seção 6: FAQ --- */
+.faq-item {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.faq-pergunta {
+    padding: 15px 0;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+}
+
+.faq-pergunta::after {
+    content: '\f078'; /* Font Awesome Down Arrow */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 10px;
+    transition: transform 0.3s;
+}
+
+.faq-pergunta.active::after {
+    transform: rotate(180deg);
+}
+
+.faq-resposta {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+.faq-resposta p {
+    padding: 0 10px 20px 10px;
+    color: var(--cor-texto-secundario);
+}
+
+/* --- Seção 7: Oferta --- */
+#oferta {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    text-align: center;
+}
+
+#oferta h2 {
+    color: var(--cor-branco);
+}
+
+#oferta .preco {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+#oferta .oferta-especial {
+    background-color: rgba(255,255,255,0.1);
+    padding: 20px;
+    border: 2px dashed var(--cor-destaque);
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 30px auto 40px auto;
+}
+
+#oferta .oferta-especial h3 {
+    color: var(--cor-destaque);
+    margin-bottom: 10px;
+}
+
+#oferta .cta-button {
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-principal);
+}
+
+#oferta .cta-button:hover {
+    background-color: #ffc400;
+}
+
+/* --- Seção 8: Footer --- */
+footer {
+    background-color: var(--cor-texto-principal);
+    color: var(--cor-fundo);
+    padding: 40px 0;
+    text-align: center;
+}
+
+footer p {
+    margin-bottom: 20px;
+}
+
+footer .footer-links a {
+    color: var(--cor-fundo);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer .social-icons a {
+    color: var(--cor-fundo);
+    font-size: 1.5rem;
+    margin: 0 10px;
+}
+
+/* --- Floating WhatsApp Button --- */
+.whatsapp-float {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: linear-gradient(135deg, #baffd3 60%, #7b112c 100%);
+    color: #fff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    box-shadow: 0 4px 16px rgba(123,17,44,0.25);
+    z-index: 2000;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 32px rgba(123,17,44,0.35);
+    background: linear-gradient(135deg, #7b112c 0%, #25d366 100%);
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 2rem;
+    }
+
+    #hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .main-nav {
+        display: none; /* Escondido para menu hamburguer no futuro */
+    }
+    
+    .resultados-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

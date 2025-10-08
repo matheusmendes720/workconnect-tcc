@@ -1,7 +1,7 @@
 # 📝 Changelog - Tutorial de Contribuição Completo
 
 📍 **Navegação:**
-🏠 [README Principal](../README.md) | 📖 [Tutorial Completo](./TUTORIAL_CONTRIBUICAO_COMPLETO.md) | 📊 [Resumo](./TUTORIAL_SUMMARY.md)
+🏠 [README Principal](./README.md) | 📖 [Tutorial Completo](./TUTORIAL_CONTRIBUICAO_COMPLETO.md) | 📊 [Resumo](./TUTORIAL_SUMMARY.md)
 
 ---
 

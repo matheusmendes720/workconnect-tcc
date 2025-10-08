@@ -1,6 +1,11 @@
 # 🔒 Conformidade LGPD - Work Connect
 ## Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018)
 
+📍 **Navegação:**
+🏠 [README Principal](../README.md) | 📚 [Índice Diagramas](./INDEX-DIAGRAMAS.md) | 📖 [Tutorial](../TUTORIAL_CONTRIBUICAO_COMPLETO.md)
+
+---
+
 **Documento:** Conformidade Legal Obrigatória  
 **Versão:** 1.0  
 **Data:** 2025  

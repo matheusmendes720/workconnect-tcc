@@ -1,6 +1,11 @@
 # Diagramas de Casos de Uso - Work Connect
 ## Sistema de Gestão de Estoque para PMEs
 
+📍 **Navegação:**
+🏠 [README Principal](../README.md) | 📚 [Índice Diagramas](./INDEX-DIAGRAMAS.md) | 📖 [Tutorial](../TUTORIAL_CONTRIBUICAO_COMPLETO.md)
+
+---
+
 **Versão:** Completa - Focada em Gestão de Estoque  
 **Foco:** Requisitos funcionais com conformidade LGPD  
 **Propósito:** Documentação de 27 casos de uso do sistema

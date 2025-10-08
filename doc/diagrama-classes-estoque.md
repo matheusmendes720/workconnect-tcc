@@ -1,6 +1,11 @@
 # Diagrama de Classes - Work Connect
 ## Sistema de Gestão de Estoque para PMEs
 
+📍 **Navegação:**
+🏠 [README Principal](../README.md) | 📚 [Índice Diagramas](./INDEX-DIAGRAMAS.md) | 📖 [Tutorial](../TUTORIAL_CONTRIBUICAO_COMPLETO.md)
+
+---
+
 **Versão:** Core - Focado em Estoque  
 **Baseado em:** Especificações do TCC e análise de requisitos de PMEs  
 **Propósito:** Modelagem para sistema de gestão de estoque com conformidade LGPD

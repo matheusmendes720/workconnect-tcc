@@ -1,6 +1,11 @@
 # Modelo Conceitual (MER) - Work Connect
 ## Modelo Entidade-Relacionamento para Gestão de Estoque
 
+📍 **Navegação:**
+🏠 [README Principal](../README.md) | 📚 [Índice Diagramas](./INDEX-DIAGRAMAS.md) | 📖 [Tutorial](../TUTORIAL_CONTRIBUICAO_COMPLETO.md)
+
+---
+
 **Versão:** Conceitual Focado em Estoque  
 **Foco:** Entidades, Relacionamentos e Cardinalidades para PMEs  
 **Propósito:** Compreensão do modelo de negócio com conformidade LGPD

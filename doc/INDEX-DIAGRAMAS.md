@@ -1,6 +1,11 @@
 # 📚 Índice Completo de Diagramas - Work Connect
 ## Documentação Visual do Sistema de Gestão de Estoque
 
+📍 **Navegação:**
+🏠 [README Principal](../README.md) | 📖 [Tutorial](../TUTORIAL_CONTRIBUICAO_COMPLETO.md) | 📊 [Guia Diagramas](./README-DIAGRAMAS.md)
+
+---
+
 **Projeto:** Work Connect  
 **Versão:** 2.0 - Refatorado (Escopo Real do TCC)  
 **Data:** 2025  
@@ -11,6 +16,8 @@
 ## 📖 Sobre Este Documento
 
 Este é o **índice centralizador** de toda a documentação visual do Work Connect. Aqui você encontra links diretos para todos os diagramas técnicos, suas descrições, propósitos e orientações de uso.
+
+> 📖 **Para implementar:** Consulte o [Tutorial Completo](../TUTORIAL_CONTRIBUICAO_COMPLETO.md) para guias passo-a-passo de como usar estes diagramas no desenvolvimento
 
 **⚠️ Versão 2.0 - Mudanças Importantes:**
 - Foco em **Gestão de Estoque** para PMEs
@@ -33,6 +40,27 @@ doc/
 ├── LGPD-COMPLIANCE.md                      ← Conformidade LGPD ⭐ NOVO
 └── Requisitos principais do projeto.txt    ← Especificações originais
 ```
+
+---
+
+## 🔗 Links Rápidos
+
+### 📖 Para Desenvolvedores
+- [🔗 Implementar com Tutorial](../TUTORIAL_CONTRIBUICAO_COMPLETO.md#13-exemplo-prático-1-adicionar-validação-de-cpf)
+- [🔗 Padrões de Código](../CONTRIBUTING.md#-padrões-de-código)
+- [🔗 Roadmap de Desenvolvimento](../ROADMAP.md)
+
+### 📊 Por Tipo de Diagrama
+- [📊 Classes UML](./diagrama-classes-estoque.md) - Arquitetura do sistema
+- [🗄️ MER Conceitual](./diagrama-mer-conceitual.md) - Modelo de dados
+- [💾 DER Físico](./diagrama-der-estoque.md) - Implementação SQL
+- [👥 Casos de Uso](./diagrama-casos-de-uso-estoque.md) - Funcionalidades
+- [🔒 LGPD](./LGPD-COMPLIANCE.md) - Conformidade legal
+
+### 🎯 Por Fase do Projeto
+- [🗺️ FASE 1: MVP](../ROADMAP.md#-fase-1-mvp---interface-e-prototipagem) - Interface HTML/CSS/JS
+- [🗺️ FASE 2: Frontend](../ROADMAP.md#-fase-2-funcionalidades-avançadas-frontend) - React.js
+- [🗺️ FASE 3: Backend](../ROADMAP.md#-fase-3-backend-e-banco-de-dados) - Node.js + PostgreSQL
 
 ---
 

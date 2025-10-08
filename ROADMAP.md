@@ -1,9 +1,16 @@
 # 🗺️ Roadmap de Desenvolvimento - Work Connect
 ## Planejamento Completo: MVP ao Sistema Funcional de Gestão de Estoque
 
+📍 **Navegação:**
+🏠 [README Principal](../README.md) | 📖 [Tutorial Completo](./TUTORIAL_CONTRIBUICAO_COMPLETO.md) | 📘 [CONTRIBUTING](./CONTRIBUTING.md)
+
+---
+
 **Projeto:** Work Connect - Sistema de Gestão de Estoque para PMEs  
 **Período:** Dezembro 2024 - Agosto 2025 (9 meses)  
 **Objetivo:** Protótipo completamente funcional com conformidade LGPD
+
+> 📖 **Para implementar:** Consulte o [Tutorial Completo](./TUTORIAL_CONTRIBUICAO_COMPLETO.md) para guias passo-a-passo
 
 ---
 

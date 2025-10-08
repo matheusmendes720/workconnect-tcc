@@ -42,6 +42,73 @@
 
 ---
 
+## 🧭 Navegação Completa
+
+### 📄 Documentação Principal
+
+| Arquivo | Descrição | Para Quem |
+|---------|-----------|-----------|
+| 📖 [TUTORIAL_CONTRIBUICAO_COMPLETO.md](./TUTORIAL_CONTRIBUICAO_COMPLETO.md) | **Tutorial definitivo (7.200+ linhas)** - Do zero ao Pull Request | 👶 Iniciantes absolutos |
+| 📘 [CONTRIBUTING.md](./CONTRIBUTING.md) | Guia técnico conciso para desenvolvedores | 💼 Desenvolvedores experientes |
+| 🗺️ [ROADMAP.md](./ROADMAP.md) | Planejamento completo em 8 fases | 🎯 Todos os contribuidores |
+| 📊 [TUTORIAL_SUMMARY.md](./TUTORIAL_SUMMARY.md) | Resumo executivo do tutorial | ⏱️ Leitores apressados |
+| 📝 [CHANGELOG_TUTORIAL.md](./CHANGELOG_TUTORIAL.md) | Histórico de versões do tutorial | 📚 Desenvolvedores do tutorial |
+| 🧭 [COMO_CONTRIBUIR_README.md](./COMO_CONTRIBUIR_README.md) | Guia rápido de navegação | 🎯 Todos os perfis |
+
+### 📚 Documentação Técnica (`/doc`)
+
+| Arquivo | Tipo | Descrição |
+|---------|------|-----------|
+| 📊 [diagrama-classes-estoque.md](./doc/diagrama-classes-estoque.md) | UML | 12 classes focadas em estoque |
+| 🗄️ [diagrama-mer-conceitual.md](./doc/diagrama-mer-conceitual.md) | MER | 8 entidades, 20 regras |
+| 💾 [diagrama-der-estoque.md](./doc/diagrama-der-estoque.md) | DER SQL | 10 tabelas + triggers + views |
+| 👥 [diagrama-casos-de-uso-estoque.md](./doc/diagrama-casos-de-uso-estoque.md) | UML | 27 casos especificados |
+| 🔒 [LGPD-COMPLIANCE.md](./doc/LGPD-COMPLIANCE.md) | Legal | Conformidade completa |
+| 📚 [INDEX-DIAGRAMAS.md](./doc/INDEX-DIAGRAMAS.md) | Índice | Navegação centralizada |
+| 📖 [README-DIAGRAMAS.md](./doc/README-DIAGRAMAS.md) | Guia | Como usar os diagramas |
+
+### 📁 Estrutura da Aplicação (`/app`)
+
+| Diretório | Descrição | Tecnologia |
+|-----------|-----------|------------|
+| 📁 [app/dashboard/](./app/dashboard) | Módulo principal com gráficos | HTML/CSS/JS |
+| 📁 [app/dashboard/css/](./app/dashboard/css) | Estilos globais e específicos | CSS3 |
+| 📁 [app/dashboard/js/](./app/dashboard/js) | Scripts interativos | JavaScript ES6+ |
+| 📁 [app/landing/](./app/landing) | Landing page de apresentação | HTML/CSS/JS |
+| 📄 [app/dash.html](./app/dash.html) | Dashboard principal | HTML |
+| 📄 [app/estoque.html](./app/estoque.html) | Gestão de estoque | HTML |
+| 📄 [app/relatorios.html](./app/relatorios.html) | Relatórios | HTML |
+
+### 🎯 Como Escolher seu Guia
+
+```
+👶 Sou iniciante absoluto
+    ↓
+📖 TUTORIAL_CONTRIBUICAO_COMPLETO.md
+    ↓
+⏱️ 4-6h leitura + 8-12h prática
+
+💼 Já sei programar
+    ↓
+📘 CONTRIBUTING.md
+    ↓
+⏱️ 30 minutos leitura
+
+👥 Estou em grupo TCC
+    ↓
+📖 Tutorial → Seção 4 (Git Workflow Colaborativo)
+    ↓
+⏱️ 45 minutos leitura
+
+📱 Quero contribuir pelo celular
+    ↓
+📖 Tutorial → PARTE 3 (Workflow Mobile)
+    ↓
+⚠️ Complementar, não substituto
+```
+
+---
+
 ## 🎯 Sobre o Projeto
 
 ### O que é o Work Connect?
@@ -187,24 +254,24 @@ graph TB
 
 ```
 workconnect/
-├── 📁 app/                              # Aplicação frontend (MVP atual)
-│   ├── 📁 dashboard/                    # Módulo de dashboard
-│   │   ├── 📁 css/
-│   │   │   ├── common.css               # Estilos globais, variáveis CSS
-│   │   │   └── pages.css                # Estilos específicos
-│   │   ├── 📁 js/
-│   │   │   ├── common.js                # Utilitários (exportar CSV)
-│   │   │   └── dash.js                  # Dashboard interativo
-│   │   └── 📁 pages/
-│   │       └── dash.html                # Dashboard principal
-│   ├── 📁 landing/                      # Landing page
-│   │   ├── 📁 css/
-│   │   │   └── landing.css
-│   │   ├── 📁 js/
-│   │   │   └── landing.js
-│   │   └── index.html
-│   ├── dash.html                        # Dashboard
-│   ├── estoque.html                     # Gestão de Estoque ⭐
+├── 📁 [app/](./app)                              # Aplicação frontend (MVP atual)
+│   ├── 📁 [dashboard/](./app/dashboard)                    # Módulo de dashboard
+│   │   ├── 📁 [css/](./app/dashboard/css)
+│   │   │   ├── [common.css](./app/dashboard/css/common.css)               # Estilos globais, variáveis CSS
+│   │   │   └── [pages.css](./app/dashboard/css/pages.css)                # Estilos específicos
+│   │   ├── 📁 [js/](./app/dashboard/js)
+│   │   │   ├── [common.js](./app/dashboard/js/common.js)                # Utilitários (exportar CSV)
+│   │   │   └── [dash.js](./app/dashboard/js/dash.js)                  # Dashboard interativo
+│   │   └── 📁 [pages/](./app/dashboard/pages)
+│   │       └── [dash.html](./app/dashboard/pages/dash.html)                # Dashboard principal
+│   ├── 📁 [landing/](./app/landing)                      # Landing page
+│   │   ├── 📁 [css/](./app/landing/css)
+│   │   │   └── [landing.css](./app/landing/css/landing.css)
+│   │   ├── 📁 [js/](./app/landing/js)
+│   │   │   └── [landing.js](./app/landing/js/landing.js)
+│   │   └── [index.html](./app/landing/index.html)
+│   ├── [dash.html](./app/dash.html)                        # Dashboard
+│   ├── [estoque.html](./app/estoque.html)                     # Gestão de Estoque ⭐
 │   ├── financas.html                    # Finanças (básico)
 │   ├── vendas.html                      # Vendas (básico)
 │   ├── relatorios.html                  # Relatórios
@@ -545,9 +612,50 @@ code .
 
 Adoramos contribuições! Este é um projeto de TCC colaborativo.
 
-### Guia Completo
+### 📊 Comparação de Guias
 
-📖 **Leia:** [CONTRIBUTING.md](./CONTRIBUTING.md) (completo com Git, padrões, templates)
+| Aspecto | 📖 Tutorial Completo | 📘 Contributing |
+|---------|---------------------|-----------------|
+| **Público** | 👶 Iniciantes absolutos | 💼 Desenvolvedores experientes |
+| **Tamanho** | 7.200+ linhas | ~1.000 linhas |
+| **Tempo leitura** | 4-6 horas | 30 minutos |
+| **Setup** | Passo-a-passo detalhado | Resumido |
+| **AI Tools** | Foco principal | Mencionado |
+| **Mobile** | Workflow completo | Não coberto |
+| **Grupos** | Workflow colaborativo | Individual |
+
+### 🎓 Para Iniciantes em Programação
+
+📖 **NOVO! Leia:** [TUTORIAL_CONTRIBUICAO_COMPLETO.md](./TUTORIAL_CONTRIBUICAO_COMPLETO.md) 
+
+**🌟 Tutorial Definitivo (7.200+ linhas):**
+- 🎯 **Zero conhecimento necessário** - Assume que você nunca programou
+- 🤖 **Foco em AI Tools** - Windsurf + Cascade AI + ChatGPT
+- 💻 **Workflow completo** - Do clone ao Pull Request
+- 📱 **Suporte mobile** - GitHub Mobile + ChatGPT (com limitações realistas)
+- 👥 **Git colaborativo** - Workflow para grupos de TCC
+- 📚 **20 seções completas** - 3 exemplos práticos de código
+- 🎨 **15+ diagramas visuais** - ASCII art educacional
+- ⏱️ **8-12 horas** para primeira contribuição bem-sucedida
+
+> 📊 **Resumo:** [TUTORIAL_SUMMARY.md](./TUTORIAL_SUMMARY.md) | 🧭 **Navegação:** [COMO_CONTRIBUIR_README.md](./COMO_CONTRIBUIR_README.md)
+
+### 📱 Para Desenvolvimento Mobile-Only
+
+📖 **NOVO! Leia:** [WORKFLOW_MOBILE_COMPLETO.md](./WORKFLOW_MOBILE_COMPLETO.md) 
+
+**🌟 Guia Mobile Completo (2.700+ linhas):**
+- 📱 **Tier 1:** Replit Mobile + GitHub Mobile + ChatGPT
+- 🔧 **Tier 2:** Acode Editor + Spck + MGit  
+- ⚡ **Tier 3:** Termux + Code-Server + VS Code
+- 🎯 **7 partes completas:** Setup → Workflows → Troubleshooting
+- 📋 **4 casos práticos:** Code review, bug fixes, docs, features
+- 🔗 **Cross-references:** Links para tutorial PC quando necessário
+- ⏱️ **30min - 8h** dependendo da complexidade
+
+### 🔧 Para Desenvolvedores Experientes
+
+📖 **Leia:** [CONTRIBUTING.md](./CONTRIBUTING.md) (guia técnico conciso)
 
 **Inclui:**
 - Configuração do ambiente (Git, VS Code)
@@ -556,6 +664,8 @@ Adoramos contribuições! Este é um projeto de TCC colaborativo.
 - Conventional Commits
 - Templates de Issues e PRs
 - FAQ completa
+
+> 🗺️ **Roadmap:** [ROADMAP.md](./ROADMAP.md) | 📚 **Documentação:** [doc/](./doc/)
 
 ### Roadmap e Tarefas
 

@@ -1,6 +1,11 @@
 # Diagrama Entidade-Relacionamento (DER) - Work Connect
 ## Modelo Físico de Banco de Dados para Gestão de Estoque
 
+📍 **Navegação:**
+🏠 [README Principal](../README.md) | 📚 [Índice Diagramas](./INDEX-DIAGRAMAS.md) | 📖 [Tutorial](../TUTORIAL_CONTRIBUICAO_COMPLETO.md)
+
+---
+
 **Versão:** Modelo Físico Detalhado com LGPD  
 **Foco:** Estrutura de tabelas, atributos, tipos SQL, chaves e conformidade  
 **Propósito:** Implementação direta no PostgreSQL

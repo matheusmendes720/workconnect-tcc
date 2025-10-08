@@ -1,6 +1,13 @@
 # 🤝 Guia de Contribuição - WorkConnect
 
+📍 **Navegação:**
+🏠 [README Principal](../README.md) | 📖 [Tutorial para Iniciantes](./TUTORIAL_CONTRIBUICAO_COMPLETO.md) | 🗺️ [ROADMAP](./ROADMAP.md)
+
+---
+
 Obrigado por seu interesse em contribuir com o WorkConnect! Este guia vai te ajudar a fazer sua primeira contribuição, mesmo que você nunca tenha usado Git/GitHub antes.
+
+> 👶 **Sou iniciante absoluto?** Leia primeiro o [📖 Tutorial Completo](./TUTORIAL_CONTRIBUICAO_COMPLETO.md) (7.200+ linhas)
 
 ---
 

@@ -1,283 +1,395 @@
-<!-- eef75cae-9da3-4a04-ac7f-c4733521b288 9c62cbbc-e4aa-4b21-b2e6-06501dcce04a -->
-# Presentation Folder Reorganization Plan
+<!-- eef75cae-9da3-4a04-ac7f-c4733521b288 bcef640c-1cf3-498a-b3e2-2cf023cfb07b -->
+# Documentação Completa de Modelagem de Dados - WorkConnect
 
-## Phase 1: File Cleanup and Deletion
+## Objetivo
 
-### Files to Delete (Redundant/Test/Experimental)
+Criar documentação completa e diagramas profissionais explicando os modelos CONCEITUAL e LÓGICO do banco de dados WorkConnect, incluindo:
 
-**Root Level:**
+- Documentos explicativos simples e concisos
+- Diagramas ERD, EER e Casos de Uso em Mermaid.js
+- Exportação dos diagramas como imagens (PNG/SVG)
 
-- `dashboard.html` - Test/experimental file
-- `launch.bat` / `launch.sh` - Test launcher scripts
-- `start-dashboard.bat` / `start-dashboard.sh` - Test scripts
-- `ALL_IN_ONE.md` - Redundant (info in README.md)
-- `TODO_STATUS.md` - Status file, not needed
-- `EXECUTION_STATUS.md` - Status file, not needed
-- `FINAL_STATUS.md` - Status file, not needed
-- `SUMMARY.md` - Redundant summary
-- `README_FINAL.md` - Redundant README
-- `QUICK_EXECUTE.md` - Redundant quick start
-- `EXPORT_CHECKLIST.md` - Can be merged into main checklist
-- `COMPLETE_CHECKLIST.md` - Can be merged into main checklist
-
-**Scripts Folder (PostgreSQL-specific test scripts):**
-
-- All `.bat` and `.sh` scripts (50+ files) - PostgreSQL setup/test scripts
-- All `.ps1` PowerShell scripts - PostgreSQL setup scripts
-- All `.sql` connection scripts - PostgreSQL-specific
-- All DBeaver guides (10+ files) - PostgreSQL-specific
-- All DB Schema guides (6+ files) - PostgreSQL-specific
-- All setup/check scripts - PostgreSQL-specific
-- Keep only: MySQL Workbench guides (to be created)
-
-**Database Folder:**
-
-- `setup.bat` / `setup.sh` - PostgreSQL setup scripts
-- `verify.sql` - PostgreSQL verification
-- Keep: `demo-queries.sql` (can be adapted for MySQL)
-- Keep: `README.md` (update for MySQL)
-
-### Files to Keep and Reorganize
-
-**Documentation:**
-
-- `README.md` - Main documentation (update for MySQL Workbench)
-- `PRESENTATION_GUIDE.md` - Presentation guide (update)
-- `ARCHITECTURE.md` - Architecture documentation (keep)
-- `NEXT_STEPS.md` - Next steps (update)
-
-**Slides:**
-
-- All files in `slides/` folder (keep)
-
-**Diagrams:**
-
-- `diagrams/README.md` (update)
-- `diagrams/architecture-diagram.md` (keep)
-- `diagrams/modules/` (keep structure)
-
-**Docs:**
-
-- `docs/schemaspy/` (can remove or keep for reference)
-
-## Phase 2: New Folder Structure
+## Estrutura de Arquivos
 
 ```
 presentation/
-├── README.md                          # Main documentation (updated)
-├── ARCHITECTURE.md                    # Architecture overview
-├── PRESENTATION_GUIDE.md              # Presentation guide (updated)
-│
-├── documentation/                     # All documentation files
-│   ├── guides/                       # Step-by-step guides
-│   │   ├── mysql-workbench-setup.md
-│   │   ├── mysql-workbench-erd-guide.md
-│   │   ├── export-erd-guide.md
-│   │   └── presentation-preparation.md
-│   ├── reference/                    # Reference materials
-│   │   ├── quick-reference.md
-│   │   ├── statistics-summary.md
-│   │   └── database-schema-reference.md
-│   └── architecture/                 # Architecture docs
-│       └── architecture-diagram.md
-│
-├── slides/                           # Presentation slides
-│   ├── presentation.md               # Main presentation
-│   ├── quick-reference.md            # Quick reference
-│   └── statistics-summary.md         # Statistics
-│
-├── erd/                              # ERD modeling files
-│   ├── mysql-workbench/              # MySQL Workbench files
-│   │   ├── workconnect-eer.mwb       # MySQL Workbench model file
-│   │   ├── export/                   # Exported diagrams
-│   │   │   ├── full-erd.png
-│   │   │   ├── full-erd.pdf
-│   │   │   └── modules/              # Module-specific diagrams
-│   │   └── scripts/                  # MySQL Workbench scripts
-│   │       ├── export-erd.sql
-│   │       └── reverse-engineer.sql
-│   ├── conceptual/                   # Conceptual model files
-│   │   ├── entities.md
-│   │   ├── relationships.md
-│   │   └── business-rules.md
-│   └── logical/                      # Logical model files
-│       ├── tables-specification.md
-│       ├── relationships-specification.md
-│       └── constraints-specification.md
-│
-├── database/                         # Database-related files
-│   ├── schema/                       # Schema files
-│   │   ├── mysql/                   # MySQL schema
-│   │   │   ├── schema.sql
-│   │   │   ├── triggers.sql
-│   │   │   ├── views.sql
-│   │   │   └── seed.sql
-│   │   └── reference/               # Reference schemas
-│   │       └── postgresql/          # Archived PostgreSQL (if needed)
-│   ├── queries/                      # SQL queries
-│   │   ├── demo-queries.sql
-│   │   ├── verification-queries.sql
-│   │   └── test-queries.sql
-│   └── README.md                     # Database documentation
-│
-├── diagrams/                         # Generated diagrams
-│   ├── full-erd/                    # Full ERD exports
-│   │   ├── png/
-│   │   ├── pdf/
-│   │   └── svg/
-│   ├── modules/                     # Module-specific diagrams
-│   │   ├── 01-auth/
-│   │   ├── 02-inventory/
-│   │   ├── 03-sales/
-│   │   ├── 04-finances/
-│   │   ├── 05-logistics/
-│   │   ├── 06-reports/
-│   │   └── 07-audit/
-│   └── architecture/                # Architecture diagrams
-│       └── system-overview.png
-│
-└── scripts/                          # Utility scripts (if needed)
-    └── mysql-workbench/              # MySQL Workbench utilities
-        └── export-diagrams.bat       # Export script (if needed)
+├── documentation/
+│   ├── models/
+│   │   ├── MODELO_CONCEITUAL_COMPLETO.md          # Documento único CONCEITUAL
+│   │   ├── MODELO_LOGICO_COMPLETO.md              # Documento único LÓGICO
+│   │   ├── MODELO_COMPLETO_CONSOLIDADO.md         # Documento consolidado (CONCEITUAL + LÓGICO)
+│   │   └── README.md                              # Índice da documentação
+│   └── diagrams/
+│       ├── erd-conceitual.md                      # ERD Conceitual (Mermaid)
+│       ├── eer-logico.md                          # EER Lógico (Mermaid)
+│       ├── casos-de-uso.md                        # Casos de Uso (Mermaid)
+│       └── README.md                              # Índice dos diagramas
+├── diagrams/
+│   ├── exports/
+│   │   ├── erd-conceitual.png                     # Export PNG
+│   │   ├── erd-conceitual.svg                     # Export SVG
+│   │   ├── eer-logico.png                         # Export PNG
+│   │   ├── eer-logico.svg                         # Export SVG
+│   │   ├── casos-de-uso.png                       # Export PNG
+│   │   └── casos-de-uso.svg                       # Export SVG
+│   └── mermaid/
+│       ├── erd-conceitual.mmd                     # Arquivo Mermaid original
+│       ├── eer-logico.mmd                         # Arquivo Mermaid original
+│       └── casos-de-uso.mmd                       # Arquivo Mermaid original
+└── scripts/
+    └── export-diagrams.js                         # Script Node.js para exportar diagramas
 ```
 
-## Phase 3: Create MySQL Workbench Documentation
+## Fase 1: Documentação do Modelo Conceitual
 
-### New Files to Create
+### Arquivo: `presentation/documentation/models/MODELO_CONCEITUAL_COMPLETO.md`
 
-1. **documentation/guides/mysql-workbench-setup.md**
+**Conteúdo:**
 
-   - Installation guide
-   - Connection setup
-   - Initial configuration
+1. **Introdução ao Modelo Conceitual**
 
-2. **documentation/guides/mysql-workbench-erd-guide.md**
+   - O que é modelagem conceitual
+   - Objetivos e princípios
+   - Abordagem do WorkConnect
 
-   - How to create EER model
-   - How to reverse engineer from database
-   - How to design from scratch
-   - Best practices
+2. **Entidades e Atributos** (por módulo)
 
-3. **documentation/guides/export-erd-guide.md**
+   - Módulo 1: Usuários & Autenticação
+     - PERFIL, USUARIO, SESSAO
+   - Módulo 2: Inventário (Estoque)
+     - CATEGORIA, PRODUTO, FORNECEDOR, ARMAZEM, MOVIMENTACAO_ESTOQUE, ALERTA_REPOSICAO
+   - Módulo 3: Vendas
+     - CLIENTE, CANAL_VENDA, VENDA, VENDA_ITEM, METODO_PAGAMENTO, PAGAMENTO
+   - Módulo 4: Finanças
+     - CATEGORIA_FINANCEIRA, CONTA_FINANCEIRA, TRANSACAO_FINANCEIRA
+   - Módulo 5: Logística
+     - TRANSPORTADORA, MOTORISTA, PEDIDO, PEDIDO_ITEM, ROTA, ENVIO
+   - Módulo 6: Relatórios
+     - RELATORIO
+   - Módulo 7: Auditoria LGPD
+     - AUDITORIA_LGPD
 
-   - How to export diagrams
-   - Export formats (PNG, PDF, SVG)
-   - Export settings
-   - Batch export
+3. **Relacionamentos e Cardinalidades**
 
-4. **erd/mysql-workbench/workconnect-eer.mwb**
+   - Tipos de relacionamento (1:1, 1:N, N:M)
+   - Relacionamentos hierárquicos (self-referencing)
+   - Tabelas de junção (junction tables)
 
-   - MySQL Workbench model file (to be created)
-   - Complete EER model of WorkConnect database
+4. **Regras de Negócio**
 
-5. **erd/conceptual/entities.md**
+   - Regras de integridade
+   - Regras de validação
+   - Regras de conformidade LGPD
 
-   - List of all entities
-   - Entity descriptions
-   - Attributes per entity
+5. **Normalização**
 
-6. **erd/conceptual/relationships.md**
+   - Formas normais aplicadas
+   - Decisões de desnormalização (se houver)
 
-   - All relationships
-   - Cardinalities
-   - Relationship descriptions
+**Fonte de dados:** `presentation/erd/conceptual/entities.md`, `presentation/erd/conceptual/relationships.md`, `presentation/erd/conceptual/business-rules.md`
 
-7. **erd/logical/tables-specification.md**
+## Fase 2: Documentação do Modelo Lógico
 
-   - Complete table specifications
-   - Columns, types, constraints
-   - Indexes
+### Arquivo: `presentation/documentation/models/MODELO_LOGICO_COMPLETO.md`
 
-## Phase 4: Update Existing Documentation
+**Conteúdo:**
 
-### Files to Update
+1. **Introdução ao Modelo Lógico**
 
-1. **README.md**
+   - O que é modelagem lógica
+   - Mapeamento Conceitual → Lógico
+   - Implementação MySQL
 
-   - Remove PostgreSQL references
-   - Add MySQL Workbench focus
-   - Update structure references
-   - Add quick start for MySQL Workbench
+2. **Especificação de Tabelas** (por módulo)
 
-2. **PRESENTATION_GUIDE.md**
+   - Estrutura completa de cada tabela
+   - Tipos de dados MySQL
+   - Constraints (PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK)
+   - Índices
+   - Comentários e documentação
 
-   - Update tool references (pgAdmin/DBeaver → MySQL Workbench)
-   - Update ERD generation steps
-   - Update demo instructions
+3. **Chaves Estrangeiras e Integridade Referencial**
 
-3. **database/README.md**
+   - Todas as FK definidas
+   - Ações ON DELETE/ON UPDATE
+   - Justificativas das ações
 
-   - Update for MySQL schema
-   - Remove PostgreSQL-specific instructions
-   - Add MySQL setup instructions
+4. **Constraints e Validações**
 
-4. **diagrams/README.md**
+   - CHECK constraints
+   - UNIQUE constraints
+   - NOT NULL constraints
+   - Validações de formato (email, CNPJ, etc.)
 
-   - Update for MySQL Workbench exports
-   - Update diagram generation instructions
+5. **Otimizações e Performance**
 
-## Phase 5: Migration Tasks
+   - Índices criados
+   - Particionamento (se aplicável)
+   - Considerações de performance
 
-### Tasks to Execute
+**Fonte de dados:** `presentation/erd/logical/tables-specification.md`, `presentation/erd/logical/relationships-specification.md`, `presentation/erd/logical/constraints-specification.md`, `database/schema-mysql.sql`
 
-1. Delete all identified redundant/test files
-2. Create new folder structure
-3. Move existing files to new locations
-4. Create MySQL Workbench documentation
-5. Update all documentation references
-6. Create initial MySQL Workbench model structure
-7. Create conceptual and logical model documentation
+## Fase 3: Documento Consolidado
 
-## File Movement Map
+### Arquivo: `presentation/documentation/models/MODELO_COMPLETO_CONSOLIDADO.md`
 
-**From → To:**
+**Conteúdo:**
 
-- `slides/presentation.md` → `slides/presentation.md` (keep)
-- `slides/quick-reference.md` → `documentation/reference/quick-reference.md`
-- `slides/statistics-summary.md` → `documentation/reference/statistics-summary.md`
-- `diagrams/architecture-diagram.md` → `documentation/architecture/architecture-diagram.md`
-- `database/demo-queries.sql` → `database/queries/demo-queries.sql`
-- `ARCHITECTURE.md` → `documentation/architecture/ARCHITECTURE.md` (or keep root)
+1. **Visão Geral do Sistema**
 
-## Cleanup Summary
+   - Arquitetura geral
+   - Módulos e suas responsabilidades
+   - Fluxo de dados
 
-**Files to Delete:** ~70+ files
+2. **Modelo Conceitual** (resumo)
 
-- Root: 12 files
-- Scripts: 50+ files
-- Database: 2 files
+   - Entidades principais
+   - Relacionamentos principais
+   - Regras de negócio essenciais
 
-**Files to Keep:** ~10 files
+3. **Modelo Lógico** (resumo)
 
-- Documentation: 4 files
-- Slides: 3 files
-- Database: 2 files
-- Diagrams: 1 file
+   - Estrutura de tabelas
+   - Integridade referencial
+   - Constraints principais
 
-**New Files to Create:** ~10 files
+4. **Mapeamento Conceitual → Lógico**
 
-- MySQL Workbench guides: 3 files
-- ERD documentation: 4 files
-- Updated READMEs: 3 files
+   - Como entidades viraram tabelas
+   - Como relacionamentos viraram FKs
+   - Decisões de implementação
 
-## Expected Outcome
+5. **Princípios de Design**
 
-Clean, organized structure focused on:
+   - Normalização
+   - Performance
+   - Escalabilidade
+   - Conformidade LGPD
+   - Manutenibilidade
 
-1. MySQL Workbench EER modeling
-2. Conceptual and logical data modeling
-3. ERD export and presentation
-4. Clear documentation hierarchy
-5. No redundant or test files
+6. **Estatísticas do Modelo**
+
+   - Número de tabelas por módulo
+   - Número de relacionamentos
+   - Complexidade geral
+
+## Fase 4: Diagrama ERD Conceitual (Mermaid)
+
+### Arquivo: `presentation/documentation/diagrams/erd-conceitual.md`
+
+**Diagrama Mermaid:**
+
+- Usar sintaxe `erDiagram` do Mermaid
+- Mostrar todas as entidades (27 tabelas)
+- Mostrar relacionamentos com cardinalidades
+- Agrupar por módulos usando cores
+- Estilização cuidadosa para melhor visibilidade
+
+**Estrutura:**
+
+```mermaid
+erDiagram
+    %% Módulo 1: Usuários & Autenticação
+    PERFIL ||--o{ USUARIO : "tem"
+    USUARIO ||--o{ SESSAO : "possui"
+    
+    %% Módulo 2: Inventário
+    CATEGORIA ||--o{ CATEGORIA : "subcategoria"
+    CATEGORIA ||--o{ PRODUTO : "classifica"
+    PRODUTO }o--o{ FORNECEDOR : "fornecido por"
+    PRODUTO ||--o{ MOVIMENTACAO_ESTOQUE : "tem"
+    ...
+```
+
+**Estilização:**
+
+- Cores diferentes por módulo
+- Labels claros
+- Cardinalidades visíveis
+- Agrupamento visual
+
+## Fase 5: Diagrama EER Lógico (Mermaid)
+
+### Arquivo: `presentation/documentation/diagrams/eer-logico.md`
+
+**Diagrama Mermaid:**
+
+- Usar sintaxe `erDiagram` do Mermaid
+- Mostrar todas as tabelas com tipos de dados principais
+- Mostrar chaves primárias (PK)
+- Mostrar chaves estrangeiras (FK)
+- Mostrar constraints importantes
+- Agrupar por módulos
+
+**Estrutura:**
+
+```mermaid
+erDiagram
+    %% Módulo 1: Usuários & Autenticação
+    perfil {
+        bigint id PK
+        varchar nome UK
+        json permissoes
+    }
+    usuario {
+        bigint id PK
+        varchar email UK
+        bigint perfil_id FK
+    }
+    perfil ||--o{ usuario : "fk_usuario_perfil"
+    ...
+```
+
+**Estilização:**
+
+- Cores por módulo
+- Destaque para PKs e FKs
+- Tipos de dados visíveis
+- Constraints indicadas
+
+## Fase 6: Diagrama de Casos de Uso (Mermaid)
+
+### Arquivo: `presentation/documentation/diagrams/casos-de-uso.md`
+
+**Diagrama Mermaid:**
+
+- Usar sintaxe `graph` ou `flowchart` do Mermaid
+- Mostrar atores (Administrador, Gerente, Operador, Consulta, Vendedor, Sistema)
+- Mostrar casos de uso por módulo
+- Mostrar relacionamentos ator ↔ caso de uso
+- Agrupar por módulos
+
+**Estrutura:**
+
+```mermaid
+graph TB
+    subgraph "Módulo 1: Usuários & Autenticação"
+        UC1[Gerenciar Usuários]
+        UC2[Gerenciar Perfis]
+        UC3[Autenticar Usuário]
+    end
+    
+    Admin((Administrador))
+    Admin --> UC1
+    Admin --> UC2
+    ...
+```
+
+**Estilização:**
+
+- Cores por módulo
+- Formas diferentes para atores e casos de uso
+- Agrupamento visual claro
+
+**Fonte de dados:** `docs/diagrams/use-cases/diagrama-casos-de-uso-estoque.md`, `doc/diagrama-casos-de-uso-estoque.md`
+
+## Fase 7: Script de Exportação
+
+### Arquivo: `presentation/scripts/export-diagrams.js`
+
+**Funcionalidades:**
+
+- Usar `@mermaid-js/mermaid-cli` para exportar diagramas
+- Ler arquivos `.md` com código Mermaid
+- Exportar para PNG (alta resolução)
+- Exportar para SVG (vetorial)
+- Salvar em `presentation/diagrams/exports/`
+
+**Dependências:**
+
+- `@mermaid-js/mermaid-cli` (npm package)
+- Node.js
+
+**Uso:**
+
+```bash
+node presentation/scripts/export-diagrams.js
+```
+
+## Fase 8: Documentação de Apoio
+
+### Arquivo: `presentation/documentation/models/README.md`
+
+**Conteúdo:**
+
+- Índice da documentação
+- Links para todos os documentos
+- Guia de navegação
+- Explicação da estrutura
+
+### Arquivo: `presentation/documentation/diagrams/README.md`
+
+**Conteúdo:**
+
+- Índice dos diagramas
+- Links para todos os diagramas
+- Instruções de visualização
+- Instruções de exportação
+
+## Detalhes Técnicos
+
+### Estilização Mermaid
+
+**Cores por Módulo:**
+
+- Módulo 1 (Usuários): `#3b82f6` (azul)
+- Módulo 2 (Inventário): `#10b981` (verde)
+- Módulo 3 (Vendas): `#f59e0b` (laranja)
+- Módulo 4 (Finanças): `#8b5cf6` (roxo)
+- Módulo 5 (Logística): `#ec4899` (rosa)
+- Módulo 6 (Relatórios): `#6366f1` (índigo)
+- Módulo 7 (Auditoria): `#ef4444` (vermelho)
+
+**Aplicação de estilos:**
+
+```mermaid
+%% Exemplo de estilo
+style PERFIL fill:#3b82f6,color:#fff
+style USUARIO fill:#3b82f6,color:#fff
+```
+
+### Exportação de Diagramas
+
+**Configuração:**
+
+- PNG: 300 DPI, fundo branco
+- SVG: vetorial, fundo transparente
+- Tamanho: ajustar para melhor visualização
+
+**Ferramenta:**
+
+- `mmdc` (Mermaid CLI) via `@mermaid-js/mermaid-cli`
+
+## Checklist de Implementação
+
+- [ ] Criar `MODELO_CONCEITUAL_COMPLETO.md`
+- [ ] Criar `MODELO_LOGICO_COMPLETO.md`
+- [ ] Criar `MODELO_COMPLETO_CONSOLIDADO.md`
+- [ ] Criar `erd-conceitual.md` com diagrama Mermaid
+- [ ] Criar `eer-logico.md` com diagrama Mermaid
+- [ ] Criar `casos-de-uso.md` com diagrama Mermaid
+- [ ] Criar `export-diagrams.js`
+- [ ] Criar `README.md` para documentação
+- [ ] Criar `README.md` para diagramas
+- [ ] Executar script de exportação
+- [ ] Verificar qualidade dos diagramas exportados
+- [ ] Atualizar índices e navegação
+
+## Arquivos de Referência
+
+- `database/schema-mysql.sql` - Schema completo MySQL
+- `presentation/erd/conceptual/entities.md` - Entidades conceituais
+- `presentation/erd/conceptual/relationships.md` - Relacionamentos conceituais
+- `presentation/erd/conceptual/business-rules.md` - Regras de negócio
+- `presentation/erd/logical/tables-specification.md` - Especificação de tabelas
+- `presentation/erd/logical/relationships-specification.md` - Especificação de FKs
+- `presentation/erd/logical/constraints-specification.md` - Especificação de constraints
+- `docs/diagrams/use-cases/diagrama-casos-de-uso-estoque.md` - Casos de uso existentes
 
 ### To-dos
 
-- [x] Delete redundant root-level files (dashboard.html, launchers, status files, redundant READMEs)
-- [x] Delete all PostgreSQL-specific scripts from scripts/ folder (50+ files)
-- [x] Remove PostgreSQL setup scripts from database/ folder
-- [x] Create new folder structure (documentation/, erd/, diagrams/, database/schema/, etc.)
-- [x] Move existing files to new organized locations
-- [x] Create MySQL Workbench documentation (setup guide, ERD guide, export guide)
-- [x] Create conceptual and logical ERD documentation files
-- [x] Update all existing documentation (README.md, PRESENTATION_GUIDE.md, etc.) for MySQL Workbench
-- [x] Create initial MySQL Workbench model file structure and folders
+- [x] Schema MySQL corrigido - compatível com MySQL 9.5+
+- [x] Constraints problemáticas removidas (chk_nao_circular)
+- [x] TINYINT(1) trocado por BOOLEAN
+- [x] DROP TABLE IF EXISTS adicionado para limpeza
+- [x] Todas as constraints duplicadas renomeadas para nomes únicos

@@ -1,0 +1,100 @@
+graph TB
+    subgraph "WorkConnect - Sistema Completo"
+        subgraph M1["🔵 Módulo 1: Usuários & Autenticação"]
+            UC1A[Gerenciar Usuários]
+            UC1B[Gerenciar Perfis]
+            UC1C[Autenticar Usuário]
+        end
+        
+        subgraph M2["🟢 Módulo 2: Inventário"]
+            UC2A[Gerenciar Produtos]
+            UC2B[Gerenciar Categorias]
+            UC2C[Gerenciar Fornecedores]
+            UC2D[Gerenciar Movimentações]
+            UC2E[Gerenciar Alertas]
+        end
+        
+        subgraph M3["🟠 Módulo 3: Vendas"]
+            UC3A[Gerenciar Clientes]
+            UC3B[Processar Vendas]
+            UC3C[Gerenciar Pagamentos]
+        end
+        
+        subgraph M4["🟣 Módulo 4: Finanças"]
+            UC4A[Gerenciar Contas]
+            UC4B[Gerenciar Transações]
+            UC4C[Gerenciar Categorias Financeiras]
+        end
+        
+        subgraph M5["🔴 Módulo 5: Logística"]
+            UC5A[Gerenciar Pedidos]
+            UC5B[Gerenciar Envios]
+            UC5C[Gerenciar Rotas]
+        end
+        
+        subgraph M6["🟦 Módulo 6: Relatórios"]
+            UC6A[Gerar Relatórios]
+            UC6B[Visualizar Relatórios]
+        end
+        
+        subgraph M7["🔴 Módulo 7: Auditoria LGPD"]
+            UC7A[Auditar Acessos]
+            UC7B[Gerenciar Consentimentos]
+        end
+    end
+    
+    Admin((👤 Administrador))
+    Gerente((👔 Gerente))
+    Operador((👷 Operador))
+    Consulta((👁️ Consulta))
+    Vendedor((💼 Vendedor))
+    Sistema((🤖 Sistema<br/>Automático))
+    
+    Admin --> UC1A
+    Admin --> UC1B
+    Admin --> UC2A
+    Admin --> UC2B
+    Admin --> UC2C
+    Admin --> UC3A
+    Admin --> UC4A
+    Admin --> UC4B
+    Admin --> UC5A
+    Admin --> UC6A
+    Admin --> UC7A
+    Admin --> UC7B
+    
+    Gerente --> UC2A
+    Gerente --> UC2D
+    Gerente --> UC2E
+    Gerente --> UC3B
+    Gerente --> UC4B
+    Gerente --> UC5A
+    Gerente --> UC6A
+    
+    Operador --> UC2D
+    Operador --> UC5A
+    
+    Consulta --> UC6B
+    
+    Vendedor --> UC3A
+    Vendedor --> UC3B
+    Vendedor --> UC3C
+    
+    Sistema -.->|automático| UC2E
+    Sistema -.->|calcula| UC2A
+    Sistema -.->|gera| UC4B
+    
+    style Admin fill:#dc2626,color:#fff
+    style Gerente fill:#f59e0b,color:#fff
+    style Operador fill:#3b82f6,color:#fff
+    style Consulta fill:#10b981,color:#fff
+    style Vendedor fill:#8b5cf6,color:#fff
+    style Sistema fill:#6366f1,color:#fff
+    
+    style M1 fill:#3b82f6,color:#fff
+    style M2 fill:#10b981,color:#fff
+    style M3 fill:#f59e0b,color:#fff
+    style M4 fill:#8b5cf6,color:#fff
+    style M5 fill:#ec4899,color:#fff
+    style M6 fill:#6366f1,color:#fff
+    style M7 fill:#ef4444,color:#fff

@@ -1,0 +1,24 @@
+{
+  "name": "workconnect-diagram-exporter",
+  "version": "1.0.0",
+  "description": "Scripts para exportar diagramas Mermaid do WorkConnect",
+  "main": "export-diagrams.js",
+  "scripts": {
+    "export": "node export-diagrams.js",
+    "export:diagrams": "node export-diagrams.js"
+  },
+  "keywords": [
+    "mermaid",
+    "diagrams",
+    "export",
+    "workconnect"
+  ],
+  "author": "WorkConnect Development Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^10.9.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

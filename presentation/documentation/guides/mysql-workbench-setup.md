@@ -1,4 +1,5 @@
 # MySQL Workbench - Setup Guide
+
 ## Installation and Initial Configuration
 
 ---
@@ -8,23 +9,25 @@
 ### Windows
 
 1. **Download MySQL Workbench**
+
    - Visit: https://dev.mysql.com/downloads/workbench/
    - Download MySQL Workbench Installer for Windows
    - Run the installer
    - Follow installation wizard
-
 2. **Install MySQL Server (if not installed)**
+
    - MySQL Workbench installer includes option to install MySQL Server
-   - Or download separately from: https://dev.mysql.com/downloads/mysql/
+   - Or download separately from: z
 
 ### macOS
 
 1. **Using Homebrew (Recommended)**
+
    ```bash
    brew install --cask mysql-workbench
    ```
-
 2. **Manual Installation**
+
    - Visit: https://dev.mysql.com/downloads/workbench/
    - Download macOS DMG file
    - Open DMG and drag MySQL Workbench to Applications
@@ -32,12 +35,13 @@
 ### Linux
 
 1. **Ubuntu/Debian**
+
    ```bash
    sudo apt update
    sudo apt install mysql-workbench
    ```
-
 2. **Fedora/RHEL**
+
    ```bash
    sudo dnf install mysql-workbench
    ```
@@ -62,6 +66,7 @@
 ### Connection Settings
 
 **For Remote MySQL Server:**
+
 - Hostname: IP address or hostname
 - Port: 3306 (or custom port)
 - Username: MySQL username
@@ -117,6 +122,7 @@
 ## Next Steps
 
 After setup:
+
 1. Create database (if not exists)
 2. Import schema (see `mysql-workbench-erd-guide.md`)
 3. Create EER model (see `mysql-workbench-erd-guide.md`)
@@ -130,6 +136,7 @@ After setup:
 **Problem:** Cannot connect to MySQL server
 
 **Solutions:**
+
 - Verify MySQL Server is running
 - Check hostname and port
 - Verify firewall settings
@@ -140,6 +147,7 @@ After setup:
 **Problem:** Wrong username/password
 
 **Solutions:**
+
 - Verify username and password
 - Reset MySQL root password if needed
 - Check user privileges
@@ -149,6 +157,7 @@ After setup:
 **Problem:** Application crashes on launch
 
 **Solutions:**
+
 - Update to latest version
 - Check system requirements
 - Reinstall if necessary
@@ -176,4 +185,3 @@ After setup:
 - MySQL Workbench Documentation: https://dev.mysql.com/doc/workbench/en/
 - MySQL Server Documentation: https://dev.mysql.com/doc/
 - Community Forums: https://forums.mysql.com/
-

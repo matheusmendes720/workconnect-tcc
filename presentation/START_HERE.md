@@ -14,11 +14,17 @@ cd presentation\scripts
 verify-setup.bat
 ```
 
-### 3. Leia o Guia Rápido (5 minutos)
-Abra: **`QUICK_START_EXAM.md`**
+### 3. Execute Agora (15 minutos) ⚡
+Abra: **`EXECUTE_NOW.md`** - Guia rápido de execução
 
-### 4. Comece a Criar o Modelo (2-3 horas)
-Siga: **`documentation/guides/step-by-step-eer-creation.md`**
+**NOVO! Reverse Engineering Automático:**
+- Criar banco: 5 min
+- Reverse Engineering: 2 min  
+- Organizar: 5 min
+- **Total: ~15 minutos!** vs 2-3 horas manual
+
+### 4. Leia o Guia Completo (opcional)
+Siga: **`NEXT_STEPS_EXECUTION.md`** - Passo a passo detalhado
 
 ---
 

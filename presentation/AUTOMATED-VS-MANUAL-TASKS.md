@@ -47,6 +47,30 @@
 
 **Status:** ✅ Criado
 
+### Script 3: Criar Banco MySQL Automaticamente
+**Arquivo:** `scripts/create-mysql-database.bat` (Windows) ou `create-mysql-database.sh` (Linux/Mac)
+
+**O que faz:**
+- Cria o banco `workconnect_db` automaticamente
+- Executa o schema MySQL completo
+- Insere dados iniciais (seed)
+- Verifica criação
+
+**Status:** ✅ Criado
+
+**Uso:**
+```bash
+# Windows
+cd presentation\scripts
+create-mysql-database.bat
+
+# Linux/Mac
+cd presentation/scripts
+./create-mysql-database.sh
+```
+
+**Tempo:** ~5 minutos (vs manual: 30+ minutos)
+
 ---
 
 ## 👤 TAREFAS MANUAIS (Você Precisa Fazer)
@@ -67,6 +91,31 @@
 ---
 
 ### 2. Criar Modelo EER no MySQL Workbench
+
+#### ⚡ OPÇÃO A: Reverse Engineering (RECOMENDADO - 20 minutos)
+**Tempo:** ~20 minutos
+**Dificuldade:** Fácil
+**Automatizável:** ✅ Sim (via Reverse Engineering)
+
+**Passos:**
+1. Executar script de criação do banco (5 min)
+2. Abrir MySQL Workbench
+3. Database → Reverse Engineer (Ctrl+R)
+4. Selecionar schema `workconnect_db`
+5. Importar todas as tabelas
+6. Ajustar layout (opcional)
+7. Salvar modelo
+
+**Guia:** `documentation/guides/REVERSE_ENGINEERING_GUIDE.md`
+**Quick Start:** `documentation/guides/REVERSE_ENGINEERING_QUICK_START.md`
+
+**Vantagens:**
+- ✅ Automático - todas as tabelas importadas
+- ✅ Relacionamentos preservados
+- ✅ Tipos corretos
+- ✅ Rápido - ~20 minutos vs 2-3 horas
+
+#### 📝 OPÇÃO B: Criar Manualmente (2-3 horas)
 **Tempo:** 2-3 horas
 **Dificuldade:** Média
 **Automatizável:** ❌ Não (requer interface gráfica)
@@ -86,6 +135,8 @@
 - Use `erd/logical/relationships-specification.md` para relacionamentos
 - Use `scripts/table-creation-checklist.md` para acompanhar progresso
 - Siga o guia passo a passo detalhado
+
+**Recomendação:** Use a **Opção A (Reverse Engineering)** para economizar tempo!
 
 ---
 
@@ -147,7 +198,13 @@
    - [ ] Download e instalação
    - [ ] Verificar funcionamento
 
-2. **Criar Modelo EER** ⏱️ 2-3 horas
+2. **Criar Modelo EER** ⏱️ 20 minutos (Reverse Engineering) ou 2-3 horas (Manual)
+   - [ ] Executar script de criação do banco
+   - [ ] Fazer Reverse Engineering no MySQL Workbench
+   - [ ] Ajustar layout (opcional)
+   - [ ] Salvar modelo
+   
+   **OU (se preferir manual):**
    - [ ] Criar todas as tabelas
    - [ ] Criar todos os relacionamentos
    - [ ] Organizar visualmente
@@ -185,20 +242,41 @@
 
 ## ⏱️ TEMPO TOTAL ESTIMADO
 
-**Mínimo (Essencial):**
+**Mínimo (Essencial) - COM REVERSE ENGINEERING:**
+- Instalação: 10 min
+- Criar banco: 5 min
+- Modelo EER (Reverse): 2 min
+- Ajustar layout: 10 min
+- Exportação: 20 min
+- Preparação: 20 min
+- **TOTAL: ~1 hora** ⚡
+
+**Recomendado (Completo) - COM REVERSE ENGINEERING:**
+- Instalação: 10 min
+- Criar banco: 5 min
+- Modelo EER (Reverse): 2 min
+- Ajustar layout: 15 min
+- Exportação: 30 min
+- Preparação: 30 min
+- Prática: 30 min
+- **TOTAL: ~2 horas** ⚡
+
+**Mínimo (Essencial) - MANUAL:**
 - Instalação: 10 min
 - Modelo EER: 2 horas (versão simplificada)
 - Exportação: 20 min
 - Preparação: 20 min
 - **TOTAL: ~3 horas**
 
-**Recomendado (Completo):**
+**Recomendado (Completo) - MANUAL:**
 - Instalação: 10 min
 - Modelo EER: 3 horas (completo e organizado)
 - Exportação: 30 min
 - Preparação: 30 min
 - Prática: 30 min
 - **TOTAL: ~5 horas**
+
+**💡 RECOMENDAÇÃO: Use Reverse Engineering para economizar 2-3 horas!**
 
 ---
 

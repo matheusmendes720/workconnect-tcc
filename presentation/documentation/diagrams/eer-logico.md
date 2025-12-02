@@ -1,0 +1,546 @@
+# WorkConnect - EER Lógico
+## Diagrama Enhanced Entity-Relationship do Modelo Lógico
+
+---
+
+## Visão Geral
+
+Este diagrama representa o **modelo lógico** do WorkConnect, mostrando todas as tabelas com tipos de dados MySQL, constraints e relacionamentos técnicos.
+
+**Total de Tabelas:** 27  
+**Total de Foreign Keys:** 50+  
+**Total de Constraints:** 100+  
+**Engine:** InnoDB  
+**Charset:** utf8mb4
+
+---
+
+## Diagrama Completo
+
+```mermaid
+erDiagram
+    %% ============================================
+    %% MÓDULO 1: USUÁRIOS & AUTENTICAÇÃO
+    %% ============================================
+    perfil ||--o{ usuario : "fk_usuario_perfil"
+    usuario ||--o{ sessao : "fk_sessao_usuario"
+    
+    perfil {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_50 nome UK "NOT NULL, CHECK"
+        TEXT descricao
+        JSON permissoes "NOT NULL, DEFAULT '{}'"
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    usuario {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_255 nome "NOT NULL"
+        VARCHAR_255 email UK "NOT NULL"
+        VARCHAR_255 hash_senha "NOT NULL"
+        BIGINT perfil_id FK "NOT NULL"
+        BOOLEAN ativo "DEFAULT TRUE"
+        BOOLEAN consentimento_lgpd "DEFAULT FALSE"
+        TIMESTAMP data_consentimento
+        TIMESTAMP data_exclusao_solicitada
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP ultimo_acesso
+    }
+    
+    sessao {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT usuario_id FK "NOT NULL"
+        VARCHAR_500 token UK "NOT NULL"
+        VARCHAR_45 ip_address
+        TEXT user_agent
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP data_expiracao "NOT NULL"
+        BOOLEAN ativo "DEFAULT TRUE"
+    }
+    
+    %% ============================================
+    %% MÓDULO 2: INVENTÁRIO (ESTOQUE)
+    %% ============================================
+    categoria ||--o{ categoria : "fk_categoria_pai"
+    categoria ||--o{ produto : "fk_produto_categoria"
+    produto }o--o{ fornecedor : "produto_fornecedor"
+    produto ||--o{ movimentacao_estoque : "fk_mov_produto"
+    produto ||--o{ alerta_reposicao : "fk_alerta_produto"
+    usuario ||--o{ movimentacao_estoque : "fk_mov_usuario"
+    armazem ||--o{ produto : "fk_produto_armazem"
+    
+    categoria {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_100 nome "NOT NULL"
+        TEXT descricao
+        BIGINT categoria_pai_id FK
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    produto {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_50 codigo UK "NOT NULL"
+        VARCHAR_255 nome "NOT NULL"
+        TEXT descricao
+        BIGINT categoria_id FK "NOT NULL"
+        INT quantidade_atual "NOT NULL, DEFAULT 0, CHECK >= 0"
+        INT quantidade_minima "NOT NULL, CHECK > 0"
+        INT quantidade_maxima "NOT NULL, CHECK > min"
+        DECIMAL_10_2 preco_aquisicao "NOT NULL, CHECK >= 0"
+        DECIMAL_10_2 preco_venda "CHECK >= 0"
+        DECIMAL_10_2 custo_medio_ponderado "DEFAULT 0"
+        VARCHAR_20 unidade_medida "DEFAULT 'UN'"
+        DATE prazo_validade
+        VARCHAR_200 localizacao_fisica
+        BIGINT armazem_id FK
+        VARCHAR_20 status "NOT NULL, DEFAULT 'CRITICO', CHECK"
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_cadastro "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP data_atualizacao "ON UPDATE CURRENT_TIMESTAMP"
+    }
+    
+    fornecedor {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_255 razao_social "NOT NULL"
+        VARCHAR_255 nome_fantasia
+        VARCHAR_18 cnpj UK "NOT NULL"
+        VARCHAR_20 telefone
+        VARCHAR_255 email
+        TEXT endereco
+        VARCHAR_100 cidade
+        VARCHAR_2 estado
+        VARCHAR_10 cep
+        INT tempo_medio_entrega_dias "DEFAULT 7, CHECK > 0"
+        TEXT condicoes_pagamento
+        DECIMAL_3_2 avaliacao "CHECK 0-5"
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_cadastro "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    produto_fornecedor {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT produto_id FK "NOT NULL"
+        BIGINT fornecedor_id FK "NOT NULL"
+        DECIMAL_10_2 preco_atual "NOT NULL, CHECK >= 0"
+        INT prazo_entrega_dias "DEFAULT 7, CHECK > 0"
+        INT prioridade "NOT NULL, CHECK 1-3"
+        TIMESTAMP data_vinculo "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP data_ultima_atualizacao "ON UPDATE CURRENT_TIMESTAMP"
+    }
+    
+    movimentacao_estoque {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT produto_id FK "NOT NULL"
+        BIGINT usuario_id FK "NOT NULL"
+        VARCHAR_30 tipo "NOT NULL, CHECK"
+        INT quantidade "NOT NULL, CHECK > 0"
+        DECIMAL_10_2 preco_unitario "CHECK >= 0"
+        VARCHAR_50 documento_fiscal
+        TEXT observacao
+        VARCHAR_100 local_origem
+        VARCHAR_100 local_destino
+        BIGINT venda_id FK
+        TIMESTAMP data_hora "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    alerta_reposicao {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT produto_id FK "NOT NULL"
+        TIMESTAMP data_alerta "DEFAULT CURRENT_TIMESTAMP"
+        INT quantidade_sugerida "NOT NULL, CHECK > 0"
+        VARCHAR_20 prioridade "NOT NULL, CHECK"
+        BOOLEAN visualizado "DEFAULT FALSE"
+        TIMESTAMP data_visualizacao
+        TIMESTAMP data_resolucao
+        TEXT observacao
+    }
+    
+    armazem {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_255 nome "NOT NULL"
+        TEXT descricao
+        TEXT endereco
+        VARCHAR_100 cidade
+        VARCHAR_2 estado
+        VARCHAR_10 cep
+        INT capacidade "CHECK > 0"
+        INT capacidade_atual "DEFAULT 0, CHECK >= 0"
+        BIGINT responsavel_id FK
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    %% ============================================
+    %% MÓDULO 3: VENDAS
+    %% ============================================
+    cliente ||--o{ venda : "fk_venda_cliente"
+    usuario ||--o{ venda : "fk_venda_usuario"
+    canal_venda ||--o{ venda : "fk_venda_canal"
+    venda ||--o{ venda_item : "fk_vi_venda"
+    produto ||--o{ venda_item : "fk_vi_produto"
+    venda ||--o{ pagamento : "fk_pagamento_venda"
+    metodo_pagamento ||--o{ pagamento : "fk_pagamento_metodo"
+    venda ||--o| movimentacao_estoque : "fk_mov_venda"
+    
+    cliente {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_255 nome "NOT NULL"
+        VARCHAR_20 tipo "NOT NULL, DEFAULT 'FISICA', CHECK"
+        VARCHAR_14 cpf UK
+        VARCHAR_18 cnpj UK
+        VARCHAR_255 email
+        VARCHAR_20 telefone
+        VARCHAR_20 celular
+        TEXT endereco
+        VARCHAR_100 cidade
+        VARCHAR_2 estado
+        VARCHAR_10 cep
+        DATE data_nascimento
+        TEXT observacoes
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_cadastro "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP data_atualizacao "ON UPDATE CURRENT_TIMESTAMP"
+    }
+    
+    canal_venda {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_100 nome UK "NOT NULL"
+        TEXT descricao
+        VARCHAR_50 tipo "NOT NULL, CHECK"
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    venda {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_50 numero_venda UK "NOT NULL"
+        BIGINT cliente_id FK
+        BIGINT usuario_id FK "NOT NULL"
+        BIGINT canal_venda_id FK "NOT NULL"
+        TIMESTAMP data_venda "DEFAULT CURRENT_TIMESTAMP"
+        DATE data_entrega
+        DECIMAL_10_2 subtotal "NOT NULL, DEFAULT 0, CHECK >= 0"
+        DECIMAL_10_2 desconto "DEFAULT 0, CHECK >= 0"
+        DECIMAL_10_2 acrescimo "DEFAULT 0, CHECK >= 0"
+        DECIMAL_10_2 total "NOT NULL, DEFAULT 0, CHECK"
+        VARCHAR_50 status "NOT NULL, DEFAULT 'PENDENTE', CHECK"
+        TEXT observacoes
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP data_atualizacao "ON UPDATE CURRENT_TIMESTAMP"
+    }
+    
+    venda_item {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT venda_id FK "NOT NULL"
+        BIGINT produto_id FK "NOT NULL"
+        INT quantidade "NOT NULL, CHECK > 0"
+        DECIMAL_10_2 preco_unitario "NOT NULL, CHECK >= 0"
+        DECIMAL_10_2 desconto "DEFAULT 0, CHECK >= 0"
+        DECIMAL_10_2 total_item "NOT NULL, CHECK"
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    metodo_pagamento {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_100 nome UK "NOT NULL"
+        TEXT descricao
+        VARCHAR_50 tipo "NOT NULL, CHECK"
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    pagamento {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT venda_id FK "NOT NULL"
+        BIGINT metodo_pagamento_id FK "NOT NULL"
+        DECIMAL_10_2 valor "NOT NULL, CHECK > 0"
+        TIMESTAMP data_pagamento "DEFAULT CURRENT_TIMESTAMP"
+        DATE data_vencimento
+        VARCHAR_50 status "NOT NULL, DEFAULT 'PENDENTE', CHECK"
+        VARCHAR_200 codigo_transacao
+        TEXT observacoes
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    %% ============================================
+    %% MÓDULO 4: FINANÇAS
+    %% ============================================
+    categoria_financeira ||--o{ categoria_financeira : "fk_cat_fin_pai"
+    conta_financeira ||--o{ transacao_financeira : "fk_trans_conta"
+    categoria_financeira ||--o{ transacao_financeira : "fk_trans_categoria"
+    venda ||--o| transacao_financeira : "fk_trans_venda"
+    fornecedor ||--o{ transacao_financeira : "fk_trans_fornecedor"
+    usuario ||--o{ transacao_financeira : "fk_trans_usuario"
+    
+    categoria_financeira {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_100 nome "NOT NULL"
+        TEXT descricao
+        VARCHAR_20 tipo "NOT NULL, CHECK"
+        BIGINT categoria_pai_id FK
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    conta_financeira {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_100 nome "NOT NULL"
+        TEXT descricao
+        VARCHAR_50 tipo "NOT NULL, CHECK"
+        VARCHAR_100 banco
+        VARCHAR_20 agencia
+        VARCHAR_50 conta
+        DECIMAL_10_2 saldo_inicial "DEFAULT 0"
+        DECIMAL_10_2 saldo_atual "DEFAULT 0"
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    transacao_financeira {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT conta_financeira_id FK "NOT NULL"
+        BIGINT categoria_financeira_id FK "NOT NULL"
+        VARCHAR_20 tipo "NOT NULL, CHECK"
+        VARCHAR_255 descricao "NOT NULL"
+        DECIMAL_10_2 valor "NOT NULL, CHECK > 0"
+        DATE data_transacao "NOT NULL"
+        DATE data_vencimento
+        DATE data_pagamento
+        VARCHAR_50 status "NOT NULL, DEFAULT 'PENDENTE', CHECK"
+        BIGINT venda_id FK
+        BIGINT fornecedor_id FK
+        TEXT observacoes
+        BIGINT usuario_id FK "NOT NULL"
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP data_atualizacao "ON UPDATE CURRENT_TIMESTAMP"
+    }
+    
+    %% ============================================
+    %% MÓDULO 5: LOGÍSTICA
+    %% ============================================
+    armazem ||--o{ pedido : "fk_pedido_armazem"
+    cliente ||--o{ pedido : "fk_pedido_cliente"
+    venda ||--o| pedido : "fk_pedido_venda"
+    pedido ||--o{ pedido_item : "fk_pi_pedido"
+    produto ||--o{ pedido_item : "fk_pi_produto"
+    pedido ||--|| envio : "fk_envio_pedido"
+    transportadora ||--o{ envio : "fk_envio_transportadora"
+    rota ||--o{ envio : "fk_envio_rota"
+    motorista ||--o{ rota : "fk_rota_motorista"
+    usuario ||--o{ pedido : "fk_pedido_usuario"
+    usuario ||--o| armazem : "fk_armazem_responsavel"
+    
+    transportadora {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_255 razao_social "NOT NULL"
+        VARCHAR_255 nome_fantasia
+        VARCHAR_18 cnpj UK "NOT NULL"
+        VARCHAR_20 telefone
+        VARCHAR_255 email
+        TEXT endereco
+        VARCHAR_100 cidade
+        VARCHAR_2 estado
+        VARCHAR_10 cep
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_cadastro "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    motorista {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_255 nome "NOT NULL"
+        VARCHAR_14 cpf UK "NOT NULL"
+        VARCHAR_20 cnh
+        VARCHAR_20 telefone
+        VARCHAR_255 email
+        BOOLEAN ativo "DEFAULT TRUE"
+        TIMESTAMP data_cadastro "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    pedido {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_50 numero_pedido UK "NOT NULL"
+        BIGINT venda_id FK
+        BIGINT cliente_id FK "NOT NULL"
+        BIGINT armazem_id FK "NOT NULL"
+        VARCHAR_50 status "NOT NULL, DEFAULT 'PENDENTE', CHECK"
+        VARCHAR_20 prioridade "DEFAULT 'NORMAL', CHECK"
+        TIMESTAMP data_pedido "DEFAULT CURRENT_TIMESTAMP"
+        DATE data_previsao_entrega
+        TEXT observacoes
+        BIGINT usuario_id FK "NOT NULL"
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP data_atualizacao "ON UPDATE CURRENT_TIMESTAMP"
+    }
+    
+    pedido_item {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT pedido_id FK "NOT NULL"
+        BIGINT produto_id FK "NOT NULL"
+        INT quantidade "NOT NULL, CHECK > 0"
+        INT quantidade_separada "DEFAULT 0, CHECK >= 0"
+        TEXT observacoes
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+    }
+    
+    rota {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR_255 nome "NOT NULL"
+        TEXT descricao
+        BIGINT motorista_id FK "NOT NULL"
+        DATE data_rota "NOT NULL"
+        VARCHAR_50 status "NOT NULL, DEFAULT 'AGENDADA', CHECK"
+        INT total_paradas "DEFAULT 0"
+        INT paradas_concluidas "DEFAULT 0, CHECK >= 0"
+        TEXT observacoes
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP data_atualizacao "ON UPDATE CURRENT_TIMESTAMP"
+    }
+    
+    envio {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT pedido_id FK "NOT NULL"
+        BIGINT transportadora_id FK
+        BIGINT rota_id FK
+        VARCHAR_100 codigo_rastreamento
+        VARCHAR_50 status "NOT NULL, DEFAULT 'PENDENTE', CHECK"
+        DATE data_envio
+        DATE data_previsao_entrega
+        DATE data_entrega
+        TEXT observacoes
+        TIMESTAMP data_criacao "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP data_atualizacao "ON UPDATE CURRENT_TIMESTAMP"
+    }
+    
+    %% ============================================
+    %% MÓDULO 6: RELATÓRIOS
+    %% ============================================
+    usuario ||--o{ relatorio : "fk_relatorio_usuario"
+    
+    relatorio {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT usuario_id FK "NOT NULL"
+        VARCHAR_255 titulo "NOT NULL"
+        VARCHAR_50 tipo "NOT NULL, CHECK"
+        DATE periodo_inicio "NOT NULL"
+        DATE periodo_fim "NOT NULL"
+        VARCHAR_10 formato "NOT NULL, CHECK"
+        VARCHAR_500 caminho_arquivo
+        JSON parametros
+        TIMESTAMP data_geracao "DEFAULT CURRENT_TIMESTAMP"
+        TIMESTAMP data_expiracao
+    }
+    
+    %% ============================================
+    %% MÓDULO 7: AUDITORIA LGPD
+    %% ============================================
+    usuario ||--o{ auditoria_lgpd : "fk_auditoria_usuario"
+    
+    auditoria_lgpd {
+        BIGINT id PK "AUTO_INCREMENT"
+        BIGINT usuario_id FK "NOT NULL"
+        VARCHAR_50 acao "NOT NULL, CHECK"
+        TIMESTAMP data_hora "DEFAULT CURRENT_TIMESTAMP"
+        VARCHAR_45 ip_origem "NOT NULL"
+        TEXT dados_acessados
+        TEXT justificativa
+    }
+```
+
+---
+
+## Legenda
+
+### Tipos de Dados MySQL
+
+- **BIGINT** - Números inteiros grandes (64 bits)
+- **VARCHAR(n)** - String de tamanho variável (máximo n caracteres)
+- **TEXT** - String de tamanho variável (até 65.535 caracteres)
+- **DECIMAL(10,2)** - Números decimais com precisão (10 dígitos, 2 decimais)
+- **INT** - Números inteiros (32 bits)
+- **BOOLEAN** - Valores booleanos (TRUE/FALSE)
+- **DATE** - Data (YYYY-MM-DD)
+- **TIMESTAMP** - Data e hora (YYYY-MM-DD HH:MM:SS)
+- **JSON** - Dados em formato JSON
+
+### Constraints
+
+- **PK** - Primary Key (Chave Primária)
+- **FK** - Foreign Key (Chave Estrangeira)
+- **UK** - Unique Key (Chave Única)
+- **NOT NULL** - Campo obrigatório
+- **DEFAULT** - Valor padrão
+- **CHECK** - Validação de dados
+- **AUTO_INCREMENT** - Incremento automático
+- **ON UPDATE CURRENT_TIMESTAMP** - Atualização automática de timestamp
+
+### Ações ON DELETE
+
+- **RESTRICT** - Impede exclusão se houver registros filhos
+- **CASCADE** - Exclui registros filhos quando pai é excluído
+- **SET NULL** - Define FK como NULL quando pai é excluído
+
+---
+
+## Índices
+
+### Índices Primários
+Todas as tabelas têm índice primário em `id`.
+
+### Índices de Foreign Keys
+Todas as foreign keys são automaticamente indexadas pelo InnoDB.
+
+### Índices Adicionais
+
+**Por Frequência de Consulta:**
+- `INDEX (status)` - Para filtros por status
+- `INDEX (ativo)` - Para filtros de registros ativos
+- `INDEX (data_venda)` - Para consultas por período
+- `INDEX (tipo)` - Para filtros por tipo
+
+**Índices Compostos:**
+- `INDEX (produto_id, data_hora)` em `movimentacao_estoque`
+- `INDEX (venda_id, status)` em `venda`
+
+**Índices FULLTEXT:**
+- `FULLTEXT (nome)` em `produto`
+- `FULLTEXT (nome)` em `cliente`
+
+---
+
+## Constraints Principais
+
+### CHECK Constraints
+
+**Validação de Enumeração:**
+- Status: `status IN ('OK', 'BAIXO', 'CRITICO')`
+- Tipos: `tipo IN ('FISICA', 'JURIDICA')`
+- Ações: `acao IN ('ACESSO_DADOS', 'EXPORTACAO_DADOS', ...)`
+
+**Validação de Intervalo:**
+- Quantidades: `quantidade > 0`
+- Preços: `preco >= 0`
+- Avaliações: `avaliacao BETWEEN 0 AND 5`
+
+**Validação de Lógica:**
+- Total: `total = subtotal - desconto + acrescimo`
+- Quantidade máxima: `quantidade_maxima > quantidade_minima`
+
+---
+
+## Engine e Configuração
+
+- **Engine:** InnoDB (suporte a transações e foreign keys)
+- **Charset:** utf8mb4 (Unicode completo, incluindo emojis)
+- **Collation:** utf8mb4_unicode_ci (ordenação case-insensitive)
+
+---
+
+**Versão:** 1.0.0  
+**Data:** 2025-01-12  
+**Autor:** WorkConnect Development Team
+
+**Referências:**
+- [Modelo Lógico Completo](../models/MODELO_LOGICO_COMPLETO.md)
+- [Schema MySQL](../../../database/schema-mysql.sql)
+

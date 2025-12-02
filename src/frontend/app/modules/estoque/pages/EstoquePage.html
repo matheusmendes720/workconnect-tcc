@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque | WorkConnect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="../../landing/index.html" style="color: inherit; text-decoration: none;">WorkConnect</a>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="dash.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+            <li class="nav-item"><a href="financas.html"><i class="fas fa-wallet"></i> <span>Finanças</span></a></li>
+            <li class="nav-item"><a href="vendas.html"><i class="fas fa-chart-bar"></i> <span>Vendas</span></a></li>
+            <li class="nav-item"><a href="estoque.html" class="active"><i class="fas fa-boxes-stacked"></i> <span>Estoque</span></a></li>
+            <li class="nav-item"><a href="relatorios.html"><i class="fas fa-file-alt"></i> <span>Relatórios</span></a></li>
+            <li class="nav-item"><a href="configuracoes.html"><i class="fas fa-cog"></i> <span>Configurações</span></a></li>
+        </ul>
+        <div class="sidebar-footer">
+            &copy; 2025 WorkConnect
+        </div>
+    </aside>
+    <main class="main-content">
+        <header class="page-header">
+            <h1>Estoque</h1>
+            <p>Controle e análise do estoque de produtos.</p>
+        </header>
+        <div class="widgets-grid">
+            <!-- Indicadores de Estoque -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Itens em Estoque</h3>
+                    <i class="fas fa-box card-icon"></i>
+                </div>
+                <div>
+                    <span class="metric-value">120</span>
+                </div>
+                <div class="metric-label">Produtos cadastrados</div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Itens Críticos</h3>
+                    <i class="fas fa-exclamation-triangle card-icon"></i>
+                </div>
+                <div>
+                    <span class="metric-value" style="color: #facc15;">5</span>
+                </div>
+                <div class="metric-label">Abaixo do mínimo</div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Valor Total em Estoque</h3>
+                    <i class="fas fa-money-bill-wave card-icon"></i>
+                </div>
+                <div>
+                    <span class="metric-value">R$ 8.500,00</span>
+                </div>
+                <div class="metric-label">Estimado</div>
+            </div>
+            <!-- Gráficos -->
+            <div class="card" style="grid-column: span 2;">
+                <div class="card-header">
+                    <h3 class="card-title">Evolução do Estoque (6 meses)</h3>
+                    <i class="fas fa-chart-line card-icon"></i>
+                </div>
+                <canvas id="estoqueChart" height="80"></canvas>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Entradas/Saídas por Semana</h3>
+                    <i class="fas fa-exchange-alt card-icon"></i>
+                </div>
+                <canvas id="movimentacaoChart" height="120"></canvas>
+            </div>
+            <!-- Alertas de Estoque -->
+            <div class="card" style="grid-column: span 2;">
+                <div class="card-header">
+                    <h3 class="card-title">Alertas de Estoque</h3>
+                    <i class="fas fa-bell card-icon"></i>
+                </div>
+                <div class="alerta-estoque"><i class="fas fa-exclamation-circle"></i> Produto A: Estoque crítico!</div>
+                <div class="alerta-estoque" style="background:rgba(234,179,8,0.15);color:#facc15;"><i class="fas fa-exclamation-circle"></i> Produto C: Estoque baixo.</div>
+            </div>
+            <!-- Tabela de Produtos -->
+            <div class="card table-container" style="grid-column: span 2;">
+                <button class="export-btn" id="exportBtn"><i class="fas fa-file-export"></i> Exportar CSV</button>
+                <div class="card-header" style="margin-bottom: 0.5rem;">
+                    <h3 class="card-title">Produtos em Estoque</h3>
+                    <i class="fas fa-table card-icon"></i>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table class="data-table" id="produtosTable">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Mínimo</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Produto A</td>
+                                <td>3</td>
+                                <td>10</td>
+                                <td><span class="status-badge status-critico">Crítico</span></td>
+                            </tr>
+                            <tr>
+                                <td>Produto B</td>
+                                <td>25</td>
+                                <td>10</td>
+                                <td><span class="status-badge status-ok">OK</span></td>
+                            </tr>
+                            <tr>
+                                <td>Produto C</td>
+                                <td>8</td>
+                                <td>10</td>
+                                <td><span class="status-badge status-baixo">Baixo</span></td>
+                            </tr>
+                            <tr>
+                                <td>Produto D</td>
+                                <td>40</td>
+                                <td>20</td>
+                                <td><span class="status-badge status-ok">OK</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/common.js"></script>
+    <script src="../js/estoque.js"></script>
+</body>
+</html>
+

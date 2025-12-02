@@ -1,0 +1,34 @@
+{
+  "name": "workconnect",
+  "version": "2.0.0",
+  "description": "WorkConnect - Sistema de Gestão de Estoque Inteligente para PMEs",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config src/frontend/config/vite.config.js",
+    "build": "vite build --config src/frontend/config/vite.config.js",
+    "preview": "vite preview --config src/frontend/config/vite.config.js",
+    "serve": "node scripts/server/server.js 3001",
+    "setup": "powershell -ExecutionPolicy Bypass -File scripts/setup/create-structure.ps1",
+    "migrate": "powershell -ExecutionPolicy Bypass -File scripts/setup/migrate-files.ps1",
+    "organize": "powershell -ExecutionPolicy Bypass -File scripts/setup/organize-remaining-files.ps1",
+    "finalize": "powershell -ExecutionPolicy Bypass -File scripts/setup/finalize-organization.ps1",
+    "cleanup": "powershell -ExecutionPolicy Bypass -File scripts/setup/cleanup-root-files.ps1"
+  },
+  "keywords": [
+    "dashboard",
+    "estoque",
+    "gestao",
+    "logistica",
+    "inventory-management",
+    "sme",
+    "tcc",
+    "senai"
+  ],
+  "author": "WorkConnect Team",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {}
+}
+

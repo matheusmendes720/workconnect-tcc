@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkConnect - Visual Database Presentation Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .stat-card .number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .label {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .module-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .module-card.module-1 { border-left-color: #e74c3c; }
+        .module-card.module-2 { border-left-color: #3498db; }
+        .module-card.module-3 { border-left-color: #2ecc71; }
+        .module-card.module-4 { border-left-color: #f39c12; }
+        .module-card.module-5 { border-left-color: #9b59b6; }
+        .module-card.module-6 { border-left-color: #1abc9c; }
+        .module-card.module-7 { border-left-color: #34495e; }
+
+        .module-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .module-card .tables {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .module-card .tables li {
+            padding: 5px 0;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .module-card .tables li:last-child {
+            border-bottom: none;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .action-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .action-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .action-card .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .action-card .btn:hover {
+            background: #5568d3;
+        }
+
+        .progress-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .progress-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-item label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #eee;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 1s;
+        }
+
+        .diagram-preview {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .diagram-preview h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .mermaid-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        .footer {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 WorkConnect Database</h1>
+            <p>Visual Presentation Dashboard - Modelo de Dados Completo</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">30+</div>
+                <div class="label">Tabelas</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">7</div>
+                <div class="label">Módulos</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">11</div>
+                <div class="label">Triggers</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">15</div>
+                <div class="label">Views</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">80+</div>
+                <div class="label">Índices</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">50+</div>
+                <div class="label">Foreign Keys</div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <h2>📊 Progresso do Projeto</h2>
+            <div class="progress-item">
+                <label>Automação e Scripts: <strong>100%</strong></label>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%">100%</div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <label>Documentação: <strong>100%</strong></label>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%">100%</div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <label>Materiais de Apresentação: <strong>100%</strong></label>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%">100%</div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <label>Setup do Banco: <strong>Pronto</strong></label>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%">85%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modules-grid">
+            <div class="module-card module-1">
+                <h3>1️⃣ Usuários & Autenticação</h3>
+                <p>Gestão de acesso e segurança</p>
+                <ul class="tables">
+                    <li>📋 perfil</li>
+                    <li>👤 usuario</li>
+                    <li>🔐 sessao</li>
+                </ul>
+            </div>
+
+            <div class="module-card module-2">
+                <h3>2️⃣ Inventário (Estoque)</h3>
+                <p>Gestão completa de produtos</p>
+                <ul class="tables">
+                    <li>📦 categoria</li>
+                    <li>📦 produto</li>
+                    <li>🏭 fornecedor</li>
+                    <li>📊 movimentacao_estoque</li>
+                    <li>⚠️ alerta_reposicao</li>
+                </ul>
+            </div>
+
+            <div class="module-card module-3">
+                <h3>3️⃣ Vendas</h3>
+                <p>Gestão de vendas e clientes</p>
+                <ul class="tables">
+                    <li>👥 cliente</li>
+                    <li>💰 venda</li>
+                    <li>🛒 venda_item</li>
+                    <li>📱 canal_venda</li>
+                    <li>💳 pagamento</li>
+                </ul>
+            </div>
+
+            <div class="module-card module-4">
+                <h3>4️⃣ Finanças</h3>
+                <p>Gestão financeira completa</p>
+                <ul class="tables">
+                    <li>📊 categoria_financeira</li>
+                    <li>🏦 conta_financeira</li>
+                    <li>💵 transacao_financeira</li>
+                </ul>
+            </div>
+
+            <div class="module-card module-5">
+                <h3>5️⃣ Logística</h3>
+                <p>Gestão de pedidos e envios</p>
+                <ul class="tables">
+                    <li>🏭 armazem</li>
+                    <li>📦 pedido</li>
+                    <li>🚚 envio</li>
+                    <li>🗺️ rota</li>
+                    <li>🚗 motorista</li>
+                </ul>
+            </div>
+
+            <div class="module-card module-6">
+                <h3>6️⃣ Relatórios</h3>
+                <p>Geração de relatórios</p>
+                <ul class="tables">
+                    <li>📄 relatorio</li>
+                </ul>
+            </div>
+
+            <div class="module-card module-7">
+                <h3>7️⃣ Auditoria LGPD</h3>
+                <p>Conformidade legal</p>
+                <ul class="tables">
+                    <li>🔍 auditoria_lgpd</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="actions-grid">
+            <div class="action-card">
+                <h3>📚 Documentação</h3>
+                <p>Acesse toda a documentação do projeto</p>
+                <a href="README.md" class="btn" target="_blank">Ver Documentação</a>
+            </div>
+
+            <div class="action-card">
+                <h3>🚀 Quick Start</h3>
+                <p>Início rápido em 5 minutos</p>
+                <a href="QUICK_START.md" class="btn" target="_blank">Quick Start</a>
+            </div>
+
+            <div class="action-card">
+                <h3>📊 Slides</h3>
+                <p>Apresentação completa (17 slides)</p>
+                <a href="slides/presentation.md" class="btn" target="_blank">Ver Slides</a>
+            </div>
+
+            <div class="action-card">
+                <h3>🎯 Guia de Apresentação</h3>
+                <p>Roteiro completo para apresentação</p>
+                <a href="PRESENTATION_GUIDE.md" class="btn" target="_blank">Ver Guia</a>
+            </div>
+
+            <div class="action-card">
+                <h3>🏗️ Arquitetura</h3>
+                <p>Visão arquitetural do modelo</p>
+                <a href="ARCHITECTURE.md" class="btn" target="_blank">Ver Arquitetura</a>
+            </div>
+
+            <div class="action-card">
+                <h3>✅ Status</h3>
+                <p>Status completo do projeto</p>
+                <a href="FINAL_STATUS.md" class="btn" target="_blank">Ver Status</a>
+            </div>
+        </div>
+
+        <div class="diagram-preview">
+            <h2>🔗 Integrações entre Módulos</h2>
+            <div class="mermaid-container">
+                <pre class="mermaid">
+flowchart TD
+    A[Venda Criada] --> B[Venda Item]
+    A --> C[Pagamento]
+    
+    B --> D[Trigger: Movimentação Estoque]
+    D --> E[Atualiza Quantidade Produto]
+    E --> F[Recalcula Status Produto]
+    F --> G{Gera Alerta?}
+    G -->|Sim| H[Alerta Reposição]
+    
+    C --> I[Trigger: Transação Financeira]
+    I --> J[Atualiza Saldo Conta]
+    
+    A --> K[Gera Pedido]
+    K --> L[Pedido Item]
+    L --> M[Envio]
+    M --> N[Rota]
+    
+    style A fill:#e1f5ff
+    style D fill:#fff4e1
+    style I fill:#fff4e1
+    style F fill:#e8f5e9
+    style J fill:#e8f5e9
+                </pre>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>WorkConnect Database Model</strong> - Sistema de Gestão Empresarial</p>
+            <p>Modelo de Dados PostgreSQL - 30+ Tabelas | 7 Módulos | 100% LGPD Compliant</p>
+            <p style="margin-top: 10px; color: #999;">Última atualização: <span id="date"></span></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+        document.getElementById('date').textContent = new Date().toLocaleDateString('pt-BR');
+    </script>
+</body>
+</html>
+

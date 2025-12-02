@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <name>WorkConnect Database</name>
+    <description>WorkConnect Database Model - PostgreSQL</description>
+    <folders/>
+    <connections>
+        <connection id="workconnect_db" provider="postgresql" driver="postgresql" name="WorkConnect DB">
+            <configuration>
+                <host-name>localhost</host-name>
+                <port>5432</port>
+                <database-name>workconnect_db</database-name>
+                <user-name>postgres</user-name>
+                <save-password>false</save-password>
+                <show-database>true</show-database>
+                <show-non-default-database>false</show-non-default-database>
+                <show-utility-databases>false</show-utility-databases>
+                <auto-commit>true</auto-commit>
+                <confirm-data-change>true</confirm-data-change>
+                <show-system-objects>false</show-system-objects>
+                <read-only>false</read-only>
+            </configuration>
+        </connection>
+    </connections>
+    <virtual-models/>
+    <data-sources>
+        <data-source id="workconnect_db" provider="postgresql" driver="postgresql" name="WorkConnect DB">
+            <configuration>
+                <host-name>localhost</host-name>
+                <port>5432</port>
+                <database-name>workconnect_db</database-name>
+                <user-name>postgres</user-name>
+                <save-password>false</save-password>
+                <show-database>true</show-database>
+                <show-non-default-database>false</show-non-default-database>
+                <show-utility-databases>false</show-utility-databases>
+                <auto-commit>true</auto-commit>
+                <confirm-data-change>true</confirm-data-change>
+                <show-system-objects>false</show-system-objects>
+                <read-only>false</read-only>
+            </configuration>
+        </data-source>
+    </data-sources>
+</project>
+

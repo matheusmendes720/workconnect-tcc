@@ -1,13 +1,12 @@
 # 📦 Work Connect - Gestão de Estoque para PMEs
 
-```
-██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗     ██████╗ ██████╗ ███╗   ██╗███╗   ██╗███████╗ ██████╗████████╗
-██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝    ██╔════╝██╔═══██╗████╗  ██║████╗  ██║██╔════╝██╔════╝╚══██╔══╝
-██║ █╗ ██║██║   ██║██████╔╝█████╔╝     ██║     ██║   ██║██╔██╗ ██║██╔██╗ ██║█████╗  ██║        ██║   
-██║███╗██║██║   ██║██╔══██╗██╔═██╗     ██║     ██║   ██║██║╚██╗██║██║╚██╗██║██╔══╝  ██║        ██║   
-╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗    ╚██████╗╚██████╔╝██║ ╚████║██║ ╚████║███████╗╚██████╗   ██║   
- ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═╝   
-```
+██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗ ██████╗ ██████╗ ███╗   ██╗███╗   ██╗███████╗ ██████╗████████╗
+██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝██╔════╝██╔═══██╗████╗  ██║████╗  ██║██╔════╝██╔════╝╚══██╔══╝
+██║ █╗ ██║██║   ██║██████╔╝█████╔╝ ██║     ██║   ██║██╔██╗ ██║██╔██╗ ██║█████╗  ██║        ██║   
+██║███╗██║██║   ██║██╔══██╗██╔═██╗ ██║     ██║   ██║██║╚██╗██║██║╚██╗██║██╔══╝  ██║        ██║   
+╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗╚██████╗╚██████╔╝██║ ╚████║██║ ╚████║███████╗╚██████╗   ██║   
+ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═╝   
+                                                                                                 
 
 <div align="center">
 
@@ -215,92 +214,147 @@ graph LR
 
 ## 📁 Estrutura do Projeto
 
-### Diagrama de Pastas (Atual)
+### 🎯 Nova Estrutura Modular (v2.0.0)
+
+O projeto foi reorganizado seguindo padrões modernos de arquitetura modular:
 
 ```mermaid
 graph TB
-    Root[📁 Work Connect - Raiz] --> App[📁 app/]
-    Root --> Doc[📁 doc/]
-    Root --> Files[📄 Arquivos Root]
+    Root[📁 WorkConnect - Raiz] --> Src[📁 src/]
+    Root --> Docs[📁 docs/]
+    Root --> Scripts[📁 scripts/]
+    Root --> Config[📁 config/]
     
-    App --> Dashboard[📁 dashboard/]
-    App --> Landing[📁 landing/]
-    App --> HTMLs[📄 Páginas HTML]
+    Src --> Frontend[📁 frontend/]
+    Src --> Backend[📁 backend/]
+    Src --> Database[📁 database/]
     
-    Dashboard --> CSS[📁 css/]
-    Dashboard --> JS[📁 js/]
+    Frontend --> Modules[📁 app/modules/]
+    Frontend --> Shared[📁 app/shared/]
+    Frontend --> Core[📁 app/core/]
+    Frontend --> Assets[📁 assets/]
     
-    Landing --> LandingCSS[📁 css/]
-    Landing --> LandingJS[📁 js/]
+    Modules --> Dashboard[📁 dashboard/]
+    Modules --> Estoque[📁 estoque/]
+    Modules --> Vendas[📁 vendas/]
+    Modules --> Financas[📁 financas/]
+    Modules --> Logistica[📁 logistica/]
+    Modules --> Relatorios[📁 relatorios/]
+    Modules --> Configuracoes[📁 configuracoes/]
     
-    Doc --> DiagClasses[📊 diagrama-classes-estoque.md]
-    Doc --> DiagMER[🗄️ diagrama-mer-conceitual.md]
-    Doc --> DiagDER[💾 diagrama-der-estoque.md]
-    Doc --> DiagCasos[👥 diagrama-casos-de-uso-estoque.md]
-    Doc --> LGPD[🔒 LGPD-COMPLIANCE.md]
-    Doc --> Index[📚 INDEX-DIAGRAMAS.md]
-    
-    Files --> README[📄 README.md]
-    Files --> Contributing[📄 CONTRIBUTING.md]
-    Files --> Roadmap[📄 ROADMAP.md]
+    Docs --> Architecture[📁 architecture/]
+    Docs --> Diagrams[📁 diagrams/]
+    Docs --> Guides[📁 guides/]
+    Docs --> Compliance[📁 compliance/]
     
     style Root fill:#dc2626,color:#fff
-    style App fill:#b91c1c,color:#fff
-    style Doc fill:#991b1b,color:#fff
-    style LGPD fill:#16a34a,color:#fff
+    style Src fill:#16a34a,color:#fff
+    style Docs fill:#2563eb,color:#fff
+    style Modules fill:#9333ea,color:#fff
 ```
 
 ### Estrutura Detalhada
 
 ```
 workconnect/
-├── 📁 [app/](./app)                              # Aplicação frontend (MVP atual)
-│   ├── 📁 [dashboard/](./app/dashboard)                    # Módulo de dashboard
-│   │   ├── 📁 [css/](./app/dashboard/css)
-│   │   │   ├── [common.css](./app/dashboard/css/common.css)               # Estilos globais, variáveis CSS
-│   │   │   └── [pages.css](./app/dashboard/css/pages.css)                # Estilos específicos
-│   │   ├── 📁 [js/](./app/dashboard/js)
-│   │   │   ├── [common.js](./app/dashboard/js/common.js)                # Utilitários (exportar CSV)
-│   │   │   └── [dash.js](./app/dashboard/js/dash.js)                  # Dashboard interativo
-│   │   └── 📁 [pages/](./app/dashboard/pages)
-│   │       └── [dash.html](./app/dashboard/pages/dash.html)                # Dashboard principal
-│   ├── 📁 [landing/](./app/landing)                      # Landing page
-│   │   ├── 📁 [css/](./app/landing/css)
-│   │   │   └── [landing.css](./app/landing/css/landing.css)
-│   │   ├── 📁 [js/](./app/landing/js)
-│   │   │   └── [landing.js](./app/landing/js/landing.js)
-│   │   └── [index.html](./app/landing/index.html)
-│   ├── [dash.html](./app/dash.html)                        # Dashboard
-│   ├── [estoque.html](./app/estoque.html)                     # Gestão de Estoque ⭐
-│   ├── financas.html                    # Finanças (básico)
-│   ├── vendas.html                      # Vendas (básico)
-│   ├── relatorios.html                  # Relatórios
-│   └── configuracoes.html               # Configurações + LGPD
-├── 📁 doc/                              # Documentação técnica completa
-│   ├── diagrama-classes-estoque.md      # 12 Classes UML
-│   ├── diagrama-mer-conceitual.md       # 8 Entidades MER
-│   ├── diagrama-der-estoque.md          # 10 Tabelas SQL ⭐
-│   ├── diagrama-casos-de-uso-estoque.md # 27 Casos de Uso
-│   ├── LGPD-COMPLIANCE.md               # Conformidade Legal ⭐
-│   ├── INDEX-DIAGRAMAS.md               # Índice Centralizador
-│   ├── README-DIAGRAMAS.md              # Guia dos Diagramas
-│   └── Requisitos principais do projeto.txt
-├── README.md                            # Este arquivo
-├── CONTRIBUTING.md                      # Guia de contribuição
-├── ROADMAP.md                           # Planejamento completo
-└── AGENTS.md                            # Configuração de agentes
+├── 📁 src/                              # 🎯 Código-fonte
+│   ├── 📁 frontend/                     # Frontend (MVP atual)
+│   │   ├── 📁 app/
+│   │   │   ├── 📁 modules/              # Módulos por domínio
+│   │   │   │   ├── 📁 dashboard/        # Dashboard principal
+│   │   │   │   │   ├── components/      # Componentes UI
+│   │   │   │   │   ├── pages/           # Páginas HTML
+│   │   │   │   │   ├── services/        # Lógica de negócio
+│   │   │   │   │   └── styles/          # Estilos do módulo
+│   │   │   │   ├── 📁 estoque/          # Gestão de Estoque ⭐
+│   │   │   │   ├── 📁 vendas/           # Vendas
+│   │   │   │   ├── 📁 financas/         # Finanças
+│   │   │   │   ├── 📁 logistica/        # Logística
+│   │   │   │   ├── 📁 relatorios/       # Relatórios
+│   │   │   │   └── 📁 configuracoes/    # Configurações + LGPD
+│   │   │   ├── 📁 shared/               # Código compartilhado
+│   │   │   │   ├── components/          # Componentes reutilizáveis
+│   │   │   │   ├── services/            # Serviços compartilhados
+│   │   │   │   ├── utils/               # Utilitários
+│   │   │   │   └── constants/           # Constantes
+│   │   │   ├── 📁 core/                 # Core da aplicação
+│   │   │   │   ├── auth/                # Autenticação
+│   │   │   │   ├── routing/             # Roteamento
+│   │   │   │   ├── state/               # Estado global
+│   │   │   │   └── api/                 # Cliente API
+│   │   │   └── 📁 landing/              # Landing page
+│   │   ├── 📁 assets/                   # Assets estáticos
+│   │   │   ├── images/                  # Imagens
+│   │   │   ├── icons/                   # Ícones
+│   │   │   ├── fonts/                   # Fontes
+│   │   │   └── styles/                  # Estilos globais
+│   │   │       ├── base/                # Base (reset, variáveis)
+│   │   │       ├── components/          # Componentes
+│   │   │       ├── themes/              # Temas
+│   │   │       └── utilities/           # Utilitários CSS
+│   │   └── 📁 config/                   # Configuração frontend
+│   │       └── vite.config.js
+│   │
+│   ├── 📁 backend/                      # Backend (futuro Node.js)
+│   │   └── src/
+│   │       ├── modules/                 # Módulos por domínio
+│   │       ├── shared/                  # Código compartilhado
+│   │       ├── core/                    # Core do backend
+│   │       └── infrastructure/          # Infraestrutura
+│   │
+│   └── 📁 database/                     # 🗄️ Banco de dados
+│       ├── migrations/                  # Migrações versionadas
+│       ├── schemas/                     # Schemas SQL
+│       ├── seeds/                       # Dados iniciais
+│       ├── triggers/                    # Triggers
+│       ├── views/                       # Views
+│       └── scripts/                     # Scripts utilitários
+│
+├── 📁 docs/                             # 📚 Documentação
+│   ├── architecture/                    # Arquitetura e design
+│   ├── diagrams/                        # Diagramas UML/MER/DER
+│   │   ├── classes/                     # Diagramas de classes
+│   │   ├── database/                    # Diagramas de banco
+│   │   └── use-cases/                   # Casos de uso
+│   ├── compliance/                      # LGPD e conformidade
+│   ├── guides/                          # Guias de desenvolvimento
+│   ├── requirements/                    # Requisitos de negócio
+│   └── presentation/                    # Materiais de apresentação
+│
+├── 📁 scripts/                          # 🔧 Scripts de automação
+│   ├── setup/                           # Scripts de setup
+│   ├── build/                           # Scripts de build
+│   ├── deploy/                          # Scripts de deploy
+│   └── maintenance/                     # Scripts de manutenção
+│
+├── 📁 config/                           # ⚙️ Configurações
+│   ├── environments/                    # Configs por ambiente
+│   └── docker/                          # Configurações Docker
+│
+├── 📁 tests/                            # 🧪 Testes
+│   ├── e2e/                             # Testes end-to-end
+│   ├── integration/                     # Testes de integração
+│   └── fixtures/                        # Dados de teste
+│
+├── 📄 .cursorrules                      # Regras do Cursor IDE
+├── 📄 package.json                      # Dependências e scripts
+├── 📄 README.md                         # Este arquivo
+├── 📄 ROADMAP.md                        # Roadmap do projeto
+└── 📄 CHANGELOG.md                      # Histórico de mudanças
 ```
 
 ### Links Rápidos para Navegação
 
 | Diretório | Descrição | Link |
 |-----------|-----------|------|
-| [`app/`](./app) | Aplicação frontend (MVP em HTML/CSS/JS) | [Explorar →](./app) |
-| [`app/dashboard/`](./app/dashboard) | Módulo dashboard com gráficos e métricas | [Explorar →](./app/dashboard) |
-| [`app/dashboard/css/`](./app/dashboard/css) | Estilos globais e específicos | [Explorar →](./app/dashboard/css) |
-| [`app/dashboard/js/`](./app/dashboard/js) | Scripts interativos (Chart.js, to-do list) | [Explorar →](./app/dashboard/js) |
-| [`app/landing/`](./app/landing) | Landing page de apresentação | [Explorar →](./app/landing) |
-| [`doc/`](./doc) | **Documentação técnica completa** (diagramas, LGPD) | [Explorar →](./doc) |
+| [`src/frontend/`](./src/frontend) | Aplicação frontend modular | [Explorar →](./src/frontend) |
+| [`src/frontend/app/modules/`](./src/frontend/app/modules) | Módulos por domínio | [Explorar →](./src/frontend/app/modules) |
+| [`src/database/`](./src/database) | Schemas e migrações do banco | [Explorar →](./src/database) |
+| [`docs/`](./docs) | **Documentação completa** | [Explorar →](./docs) |
+| [`docs/guides/`](./docs/guides) | Guias de desenvolvimento | [Explorar →](./docs/guides) |
+| [`docs/diagrams/`](./docs/diagrams) | Diagramas técnicos | [Explorar →](./docs/diagrams) |
+
+> **📝 Nota**: A estrutura antiga em `app/` foi preservada para referência. Veja [`docs/guides/MIGRATION_GUIDE.md`](./docs/guides/MIGRATION_GUIDE.md) para detalhes da migração.
 
 ---
 

@@ -186,6 +186,12 @@ erDiagram
     AUDITORIA_LGPD }o--|| USUARIO : "usuario_id"
 ```
 
+### Visualização do Diagrama ERD
+
+![Diagrama ERD - Work Connect](./image/diagrama-der-estoque/1764598057901.png)
+
+![Diagrama ERD - Work Connect Alternativo](./image/diagrama-der-estoque/1764598107685.png)
+
 ---
 
 ## Scripts SQL de Criação - PostgreSQL

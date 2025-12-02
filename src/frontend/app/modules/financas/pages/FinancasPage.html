@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças | WorkConnect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="../../landing/index.html" style="color: inherit; text-decoration: none;">WorkConnect</a>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="dash.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+            <li class="nav-item"><a href="financas.html" class="active"><i class="fas fa-wallet"></i> <span>Finanças</span></a></li>
+            <li class="nav-item"><a href="vendas.html"><i class="fas fa-chart-bar"></i> <span>Vendas</span></a></li>
+            <li class="nav-item"><a href="estoque.html"><i class="fas fa-boxes-stacked"></i> <span>Estoque</span></a></li>
+            <li class="nav-item"><a href="relatorios.html"><i class="fas fa-file-alt"></i> <span>Relatórios</span></a></li>
+            <li class="nav-item"><a href="configuracoes.html"><i class="fas fa-cog"></i> <span>Configurações</span></a></li>
+        </ul>
+        <div class="sidebar-footer">
+            &copy; 2025 WorkConnect
+        </div>
+    </aside>
+    <main class="main-content">
+        <header class="page-header">
+            <h1>Finanças</h1>
+            <p>Visão detalhada das finanças do seu negócio.</p>
+        </header>
+        <div class="widgets-grid">
+            <!-- Indicadores Financeiros -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Saldo Atual</h3>
+                    <i class="fas fa-piggy-bank card-icon"></i>
+                </div>
+                <div>
+                    <span class="metric-value">R$ 18.450,00</span>
+                </div>
+                <div class="metric-label">Atualizado em 16/06/2025</div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Receitas do Mês</h3>
+                    <i class="fas fa-arrow-down card-icon"></i>
+                </div>
+                <div>
+                    <span class="metric-value">R$ 25.300,00</span>
+                    <span class="metric-change positive"><i class="fas fa-arrow-up"></i> 12%</span>
+                </div>
+                <div class="metric-label">vs. Mês Anterior</div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Despesas do Mês</h3>
+                    <i class="fas fa-arrow-up card-icon"></i>
+                </div>
+                <div>
+                    <span class="metric-value">R$ 14.200,00</span>
+                    <span class="metric-change negative"><i class="fas fa-arrow-up"></i> 8%</span>
+                </div>
+                <div class="metric-label">vs. Mês Anterior</div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Saldo Projetado</h3>
+                    <i class="fas fa-chart-line card-icon"></i>
+                </div>
+                <div>
+                    <span class="metric-value">R$ 21.000,00</span>
+                </div>
+                <div class="metric-label">Próximo mês</div>
+            </div>
+            <!-- Gráficos -->
+            <div class="card" style="grid-column: span 2;">
+                <div class="card-header">
+                    <h3 class="card-title">Evolução do Saldo (6 meses)</h3>
+                    <i class="fas fa-chart-area card-icon"></i>
+                </div>
+                <canvas id="saldoChart" height="80"></canvas>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Despesas por Categoria</h3>
+                    <i class="fas fa-chart-pie card-icon"></i>
+                </div>
+                <canvas id="despesasPieChart" height="120"></canvas>
+            </div>
+            <!-- Tabela de Lançamentos Recentes -->
+            <div class="card table-container" style="grid-column: span 2;">
+                <button class="export-btn" id="exportBtn"><i class="fas fa-file-export"></i> Exportar CSV</button>
+                <div class="card-header" style="margin-bottom: 0.5rem;">
+                    <h3 class="card-title">Lançamentos Recentes</h3>
+                    <i class="fas fa-table card-icon"></i>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table class="data-table" id="lancamentosTable">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Descrição</th>
+                                <th>Valor</th>
+                                <th>Categoria</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15/06/2025</td>
+                                <td>Pagamento fornecedor</td>
+                                <td>R$ 2.000,00</td>
+                                <td>Fornecedores</td>
+                                <td><span class="status-badge status-pago">Pago</span></td>
+                            </tr>
+                            <tr>
+                                <td>14/06/2025</td>
+                                <td>Recebimento cliente</td>
+                                <td>R$ 1.500,00</td>
+                                <td>Receitas</td>
+                                <td><span class="status-badge status-recebido">Recebido</span></td>
+                            </tr>
+                            <tr>
+                                <td>13/06/2025</td>
+                                <td>Salário funcionário</td>
+                                <td>R$ 3.200,00</td>
+                                <td>Salários</td>
+                                <td><span class="status-badge status-pendente">Pendente</span></td>
+                            </tr>
+                            <tr>
+                                <td>12/06/2025</td>
+                                <td>Imposto mensal</td>
+                                <td>R$ 1.000,00</td>
+                                <td>Impostos</td>
+                                <td><span class="status-badge status-pago">Pago</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/common.js"></script>
+    <script src="../js/financas.js"></script>
+</body>
+</html>
+

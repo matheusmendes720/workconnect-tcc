@@ -13,6 +13,7 @@ export default defineConfig({
         landing: resolve(__dirname, '../app/landing/pages/index.html'),
         dashboard: resolve(__dirname, '../app/modules/dashboard/pages/DashboardPage.html'),
         estoque: resolve(__dirname, '../app/modules/estoque/pages/EstoquePage.html'),
+        estoqueCompleto: resolve(__dirname, '../app/modules/estoque/pages/EstoqueCompletoPage.html'),
         vendas: resolve(__dirname, '../app/modules/vendas/pages/VendasPage.html'),
         financas: resolve(__dirname, '../app/modules/financas/pages/FinancasPage.html'),
         relatorios: resolve(__dirname, '../app/modules/relatorios/pages/RelatoriosPage.html'),

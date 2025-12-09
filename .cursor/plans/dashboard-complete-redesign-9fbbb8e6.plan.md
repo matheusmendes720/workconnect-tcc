@@ -1,4 +1,57 @@
-<!-- 9fbbb8e6-d246-4b59-8a13-5eb9429c5700 b2d7510b-65d8-4845-9f9c-4a37d73a6c0b -->
+---
+name: Comprehensive Executive Dashboard Implementation Plan
+overview: ""
+todos:
+  - id: 2aa99cc5-976d-4a6c-884a-5c95545ceea6
+    content: Consolidate all CSS files into common.css - merge best parts, remove conflicts, reduce !important usage
+    status: completed
+  - id: 2aadefd2-07bf-404c-ba1a-af118fbcc798
+    content: Add top header HTML structure with logo, user avatar, name, and logout button
+    status: completed
+  - id: e7b8b00d-46a5-428d-928c-1cefd991a531
+    content: Improve grid layout system with better responsive breakpoints and card sizing
+    status: completed
+  - id: c230015e-7284-4584-a517-d4478c18d7fe
+    content: Refine card, metric, table, and button components with modern glassmorphism
+    status: completed
+  - id: 72b71443-3368-4df5-89d9-f0d17c2be451
+    content: Ensure Chart.js renders properly with theme-consistent styling
+    status: completed
+  - id: ca7a89e1-3b9f-4488-9fa7-ee6954dc8f8b
+    content: Optimize animations using transforms, reduce complexity, add performance hints
+    status: completed
+  - id: f3288a82-aef5-40de-9b10-5157895d974e
+    content: Enhance mobile and tablet layouts with proper breakpoints and touch-friendly controls
+    status: completed
+  - id: c1239090-37b1-4973-9220-f56fce06b293
+    content: Implement user menu functionality in common.js for logout and profile actions
+    status: completed
+  - id: d3bc8e0b-02c9-4891-8d4b-674e2c3e63d0
+    content: Consolidate all CSS files into common.css - merge best parts, remove conflicts, reduce !important usage
+    status: pending
+  - id: b4480227-203c-4844-8afa-4afae66d28ba
+    content: Add top header HTML structure with logo, user avatar, name, and logout button
+    status: pending
+  - id: f6fc1c84-b60d-43ef-8b6d-d11195c64728
+    content: Improve grid layout system with better responsive breakpoints and card sizing
+    status: pending
+  - id: a5af4ddc-d8b7-4eab-bf0c-9b506aadedcf
+    content: Refine card, metric, table, and button components with modern glassmorphism
+    status: pending
+  - id: cc2f92c3-ec76-4c0d-9685-0b7252b8dac9
+    content: Ensure Chart.js renders properly with theme-consistent styling
+    status: pending
+  - id: 5b4445fb-24f2-4fde-bc0b-23c7b7db342a
+    content: Optimize animations using transforms, reduce complexity, add performance hints
+    status: pending
+  - id: 27e613b4-2260-41cf-bbde-031554e0c59c
+    content: Enhance mobile and tablet layouts with proper breakpoints and touch-friendly controls
+    status: pending
+  - id: 4c0afe01-dcca-459f-abe5-6235d4bbe1c6
+    content: Implement user menu functionality in common.js for logout and profile actions
+    status: pending
+---
+
 # Comprehensive Executive Dashboard Implementation Plan
 
 ## Overview
@@ -160,22 +213,3 @@ Build a true executive dashboard that combines Financial/CFO metrics, Operationa
 - Card border radius: 8px
 - Subtle borders: 1px solid rgba(255,255,255,0.08)
 - Minimal shadows for depth
-
-### To-dos
-
-- [x] Consolidate all CSS files into common.css - merge best parts, remove conflicts, reduce !important usage
-- [x] Add top header HTML structure with logo, user avatar, name, and logout button
-- [x] Improve grid layout system with better responsive breakpoints and card sizing
-- [x] Refine card, metric, table, and button components with modern glassmorphism
-- [x] Ensure Chart.js renders properly with theme-consistent styling
-- [x] Optimize animations using transforms, reduce complexity, add performance hints
-- [x] Enhance mobile and tablet layouts with proper breakpoints and touch-friendly controls
-- [x] Implement user menu functionality in common.js for logout and profile actions
-- [ ] Consolidate all CSS files into common.css - merge best parts, remove conflicts, reduce !important usage
-- [ ] Add top header HTML structure with logo, user avatar, name, and logout button
-- [ ] Improve grid layout system with better responsive breakpoints and card sizing
-- [ ] Refine card, metric, table, and button components with modern glassmorphism
-- [ ] Ensure Chart.js renders properly with theme-consistent styling
-- [ ] Optimize animations using transforms, reduce complexity, add performance hints
-- [ ] Enhance mobile and tablet layouts with proper breakpoints and touch-friendly controls
-- [ ] Implement user menu functionality in common.js for logout and profile actions

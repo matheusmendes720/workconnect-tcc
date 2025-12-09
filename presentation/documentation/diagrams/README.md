@@ -240,3 +240,8 @@ Os diagramas usam cores consistentes para identificar módulos:
 
 **Autor:** WorkConnect Development Team
 
+
+
+
+
+

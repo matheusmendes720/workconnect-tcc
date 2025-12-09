@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Estoque - WorkConnect</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- CSS - Load in correct order -->
+    <link rel="stylesheet" href="../css/theme-unified.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/ux-enhancements.css">
+    
+    <style>
+        /* Page-specific styles */
+        body {
+            background: var(--color-base-black);
+            color: var(--color-text-primary);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .page-container {
+            min-height: 100vh;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(255, 213, 79, 0.3);
+        }
+        
+        .page-header p {
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 16px 16px 0 0;
+        }
+        
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            font-family: var(--font-body);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 12px 12px 0 0;
+            position: relative;
+        }
+        
+        .tab-button i {
+            font-size: 1.1rem;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tab-button:hover {
+            color: var(--color-text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .tab-button.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+            background: rgba(255, 213, 79, 0.15);
+            box-shadow: 0 -2px 10px rgba(255, 213, 79, 0.2);
+        }
+        
+        .tab-button.active i {
+            filter: drop-shadow(0 0 10px rgba(255, 213, 79, 0.6));
+            transform: scale(1.15);
+        }
+        
+        /* Tab Panels */
+        .tab-panel {
+            display: none;
+            animation: fadeInSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tab-panel.active {
+            display: block;
+        }
+        
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 213, 79, 0.1);
+            border-color: rgba(255, 213, 79, 0.3);
+        }
+        
+        .metric-card:hover::before {
+            opacity: 1;
+        }
+        
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .metric-title {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .metric-icon {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            opacity: 0.7;
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-shadow: 0 0 20px rgba(255, 213, 79, 0.3);
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+        
+        /* Charts Container */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+        }
+        
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .chart-title i {
+            color: var(--color-primary);
+        }
+        
+        /* Table Container */
+        .table-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            overflow-x: auto;
+        }
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .data-table th:hover {
+            color: var(--color-primary);
+        }
+        
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-text-primary);
+        }
+        
+        .data-table tbody tr {
+            transition: background 0.2s ease;
+        }
+        
+        .data-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Search and Filters */
+        .filters-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: var(--color-text-primary);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(255, 213, 79, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-text-secondary);
+        }
+        
+        .btn-icon:hover {
+            background: rgba(255, 213, 79, 0.2);
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+        
+        .btn-icon.danger:hover {
+            background: rgba(255, 82, 82, 0.2);
+            color: var(--color-error);
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            padding: 0.35rem 0.85rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            backdrop-filter: blur(8px);
+            border: 1px solid transparent;
+        }
+        
+        .status-badge.status-ok {
+            background: rgba(0, 230, 118, 0.2);
+            color: var(--color-success);
+            border-color: rgba(0, 230, 118, 0.3);
+        }
+        
+        .status-badge.status-baixo {
+            background: rgba(255, 213, 79, 0.2);
+            color: var(--color-warning);
+            border-color: rgba(255, 213, 79, 0.3);
+        }
+        
+        .status-badge.status-critico {
+            background: rgba(255, 82, 82, 0.2);
+            color: var(--color-error);
+            border-color: rgba(255, 82, 82, 0.3);
+        }
+        
+        /* Alert Cards */
+        .alerts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .alert-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 4px solid var(--color-error);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            transition: all 0.3s ease;
+        }
+        
+        .alert-card.priority-urgente {
+            border-left-color: var(--color-error);
+        }
+        
+        .alert-card.priority-alta {
+            border-left-color: #FF9800;
+        }
+        
+        .alert-card.priority-media {
+            border-left-color: var(--color-warning);
+        }
+        
+        .alert-card.priority-baixa {
+            border-left-color: var(--color-info);
+        }
+        
+        .alert-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .empty-state-icon {
+            font-size: 4rem;
+            color: var(--color-primary);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 1rem;
+            }
+            
+            .tab-nav {
+                gap: 0.25rem;
+            }
+            
+            .tab-button {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.85rem;
+            }
+            
+            .tab-button span {
+                display: none;
+            }
+            
+            .metrics-grid,
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-container {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="fas fa-boxes-stacked"></i> Gestão de Estoque</h1>
+            <p>Sistema completo de controle e administração de estoque</p>
+        </div>
+        
+        <!-- Tab Navigation -->
+        <div class="tab-nav" id="tabNav">
+            <button class="tab-button active" data-tab="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </button>
+            <button class="tab-button" data-tab="produtos">
+                <i class="fas fa-box"></i>
+                <span>Produtos</span>
+            </button>
+            <button class="tab-button" data-tab="categorias">
+                <i class="fas fa-folder-tree"></i>
+                <span>Categorias</span>
+            </button>
+            <button class="tab-button" data-tab="fornecedores">
+                <i class="fas fa-truck"></i>
+                <span>Fornecedores</span>
+            </button>
+            <button class="tab-button" data-tab="movimentacoes">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Movimentações</span>
+            </button>
+            <button class="tab-button" data-tab="alertas">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Alertas</span>
+            </button>
+            <button class="tab-button" data-tab="relatorios">
+                <i class="fas fa-file-alt"></i>
+                <span>Relatórios</span>
+            </button>
+        </div>
+        
+        <!-- Dashboard Tab -->
+        <div class="tab-panel active" id="dashboard-tab">
+            <div class="metrics-grid" id="dashboardMetrics">
+                <!-- Metrics will be populated by JS -->
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-pie"></i>
+                        Distribuição de Status
+                    </div>
+                    <canvas id="statusChart"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-line"></i>
+                        Movimentações Recentes
+                    </div>
+                    <canvas id="movementsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Atividades Recentes</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Data/Hora</th>
+                            <th>Produto</th>
+                            <th>Tipo</th>
+                            <th>Quantidade</th>
+                            <th>Usuário</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentActivities">
+                        <!-- Will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Produtos Tab -->
+        <div class="tab-panel" id="produtos-tab">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Lista de Produtos</h3>
+                    <button class="btn-gold" onclick="openProductModal()">
+                        <i class="fas fa-plus"></i>
+                        Adicionar Produto
+                    </button>
+                </div>
+                
+                <div class="filters-bar">
+                    <input type="text" class="search-input" id="productSearch" placeholder="Buscar por código ou nome..." onkeyup="filterProducts()">
+                    <select class="form-select" id="categoryFilter" onchange="filterProducts()">
+                        <option value="">Todas as categorias</option>
+                    </select>
+                    <select class="form-select" id="statusFilter" onchange="filterProducts()">
+                        <option value="">Todos os status</option>
+                        <option value="OK">OK</option>
+                        <option value="BAIXO">BAIXO</option>
+                        <option value="CRITICO">CRÍTICO</option>
+                    </select>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Categoria</th>
+                            <th>Estoque Atual</th>
+                            <th>Estoque Mín.</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <!-- Will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Categorias Tab -->
+        <div class="tab-panel" id="categorias-tab">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Categorias</h3>
+                    <button class="btn-gold" onclick="openCategoryModal()">
+                        <i class="fas fa-plus"></i>
+                        Adicionar Categoria
+                    </button>
+                </div>
+                
+                <div id="categoriesTree">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Fornecedores Tab -->
+        <div class="tab-panel" id="fornecedores-tab">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Fornecedores</h3>
+                    <button class="btn-gold" onclick="openSupplierModal()">
+                        <i class="fas fa-plus"></i>
+                        Adicionar Fornecedor
+                    </button>
+                </div>
+                
+                <div class="filters-bar">
+                    <input type="text" class="search-input" id="supplierSearch" placeholder="Buscar fornecedor..." onkeyup="filterSuppliers()">
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Razão Social</th>
+                            <th>CNPJ</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Produtos</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="suppliersTableBody">
+                        <!-- Will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Movimentações Tab -->
+        <div class="tab-panel" id="movimentacoes-tab">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Histórico de Movimentações</h3>
+                    <button class="btn-gold" onclick="openMovementModal()">
+                        <i class="fas fa-plus"></i>
+                        Nova Movimentação
+                    </button>
+                </div>
+                
+                <div class="filters-bar">
+                    <select class="form-select" id="movementTypeFilter" onchange="filterMovements()">
+                        <option value="">Todos os tipos</option>
+                        <option value="ENTRADA_COMPRA">Entrada - Compra</option>
+                        <option value="ENTRADA_DEVOLUCAO">Entrada - Devolução</option>
+                        <option value="SAIDA_VENDA">Saída - Venda</option>
+                        <option value="SAIDA_PERDA">Saída - Perda</option>
+                        <option value="TRANSFERENCIA">Transferência</option>
+                        <option value="AJUSTE_INVENTARIO">Ajuste de Inventário</option>
+                    </select>
+                    <input type="date" class="form-input" id="movementDateFrom" onchange="filterMovements()">
+                    <input type="date" class="form-input" id="movementDateTo" onchange="filterMovements()">
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Data/Hora</th>
+                            <th>Produto</th>
+                            <th>Tipo</th>
+                            <th>Quantidade</th>
+                            <th>Preço Unit.</th>
+                            <th>Valor Total</th>
+                            <th>Usuário</th>
+                            <th>Documento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="movementsTableBody">
+                        <!-- Will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Alertas Tab -->
+        <div class="tab-panel" id="alertas-tab">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Alertas de Reposição</h3>
+                </div>
+                
+                <div class="filters-bar">
+                    <select class="form-select" id="alertPriorityFilter" onchange="filterAlerts()">
+                        <option value="">Todas as prioridades</option>
+                        <option value="URGENTE">Urgente</option>
+                        <option value="ALTA">Alta</option>
+                        <option value="MEDIA">Média</option>
+                        <option value="BAIXA">Baixa</option>
+                    </select>
+                    <select class="form-select" id="alertViewedFilter" onchange="filterAlerts()">
+                        <option value="">Todos</option>
+                        <option value="false">Não Visualizados</option>
+                        <option value="true">Visualizados</option>
+                    </select>
+                </div>
+                
+                <div class="alerts-grid" id="alertsGrid">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Relatórios Tab -->
+        <div class="tab-panel" id="relatorios-tab">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Relatórios</h3>
+                </div>
+                
+                <div class="filters-bar">
+                    <select class="form-select" id="reportType">
+                        <option value="estoque_geral">Visão Geral de Estoque</option>
+                        <option value="movimentacoes">Histórico de Movimentações</option>
+                        <option value="produtos_criticos">Produtos Críticos</option>
+                        <option value="fornecedores">Análise de Fornecedores</option>
+                    </select>
+                    <input type="date" class="form-input" id="reportDateFrom">
+                    <input type="date" class="form-input" id="reportDateTo">
+                    <button class="btn-gold" onclick="generateReport()">
+                        <i class="fas fa-file-export"></i>
+                        Gerar Relatório
+                    </button>
+                </div>
+                
+                <div id="reportContent">
+                    <!-- Report content will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modals will be added dynamically by JS -->
+    <div id="modalContainer"></div>
+    
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <!-- Scripts -->
+    <script src="../js/ux-enhancements.js"></script>
+    <script src="../js/mock-data-estoque.js"></script>
+    <script src="../js/estoque-completo.js"></script>
+</body>
+</html>
+

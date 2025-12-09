@@ -544,3 +544,8 @@ Todas as foreign keys são automaticamente indexadas pelo InnoDB.
 - [Modelo Lógico Completo](../models/MODELO_LOGICO_COMPLETO.md)
 - [Schema MySQL](../../../database/schema-mysql.sql)
 
+
+
+
+
+

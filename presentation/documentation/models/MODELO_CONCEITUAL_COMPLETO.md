@@ -1145,3 +1145,8 @@ O modelo conceitual serve como base para:
 **Data:** 2025-01-12  
 **Autor:** WorkConnect Development Team
 
+
+
+
+
+

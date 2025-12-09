@@ -737,3 +737,8 @@ O modelo lógico serve como base para:
 - [Especificação de Constraints](../erd/logical/constraints-specification.md)
 - [Schema MySQL](../../../database/schema-mysql.sql)
 
+
+
+
+
+

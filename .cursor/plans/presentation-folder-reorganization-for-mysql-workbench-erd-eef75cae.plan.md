@@ -1,4 +1,24 @@
-<!-- eef75cae-9da3-4a04-ac7f-c4733521b288 bcef640c-1cf3-498a-b3e2-2cf023cfb07b -->
+---
+name: Documentação Completa de Modelagem de Dados - WorkConnect
+overview: ""
+todos:
+  - id: d509ab66-882b-4e74-bc0c-6c9ffa119645
+    content: Schema MySQL corrigido - compatível com MySQL 9.5+
+    status: completed
+  - id: 88ab3c90-7092-4c01-ab92-bd3d138120cd
+    content: Constraints problemáticas removidas (chk_nao_circular)
+    status: completed
+  - id: 8da79cdc-9171-4a91-a497-60f73565ed1b
+    content: TINYINT(1) trocado por BOOLEAN
+    status: completed
+  - id: 0fbd8e87-ca7f-42ff-9f04-59c1fc69c147
+    content: DROP TABLE IF EXISTS adicionado para limpeza
+    status: completed
+  - id: 67f1d502-457e-4e81-a2ba-58df50fa6f7f
+    content: Todas as constraints duplicadas renomeadas para nomes únicos
+    status: completed
+---
+
 # Documentação Completa de Modelagem de Dados - WorkConnect
 
 ## Objetivo
@@ -385,11 +405,3 @@ style USUARIO fill:#3b82f6,color:#fff
 - `presentation/erd/logical/relationships-specification.md` - Especificação de FKs
 - `presentation/erd/logical/constraints-specification.md` - Especificação de constraints
 - `docs/diagrams/use-cases/diagrama-casos-de-uso-estoque.md` - Casos de uso existentes
-
-### To-dos
-
-- [x] Schema MySQL corrigido - compatível com MySQL 9.5+
-- [x] Constraints problemáticas removidas (chk_nao_circular)
-- [x] TINYINT(1) trocado por BOOLEAN
-- [x] DROP TABLE IF EXISTS adicionado para limpeza
-- [x] Todas as constraints duplicadas renomeadas para nomes únicos

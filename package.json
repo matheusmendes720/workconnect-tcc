@@ -29,6 +29,8 @@
   "devDependencies": {
     "vite": "^5.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "chart.js": "^4.4.0"
+  }
 }
 

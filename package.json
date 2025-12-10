@@ -4,9 +4,10 @@
   "description": "WorkConnect - Sistema de Gestão de Estoque Inteligente para PMEs",
   "type": "module",
   "scripts": {
-    "dev": "vite --config src/frontend/config/vite.config.js",
-    "build": "vite build --config src/frontend/config/vite.config.js",
-    "preview": "vite preview --config src/frontend/config/vite.config.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "serve": "node scripts/server/server.js 3001",
     "setup": "powershell -ExecutionPolicy Bypass -File scripts/setup/create-structure.ps1",
     "migrate": "powershell -ExecutionPolicy Bypass -File scripts/setup/migrate-files.ps1",
@@ -30,7 +31,17 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "chart.js": "^4.4.0"
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.1",
+    "@types/node": "^24.10.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "chart.js": "^4.4.0",
+    "date-fns": "^4.1.0",
+    "next": "^16.0.8",
+    "react": "^19.2.1",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
   }
 }
-

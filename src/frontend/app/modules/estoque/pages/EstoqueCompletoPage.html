@@ -16,19 +16,22 @@
     <!-- Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- CSS - Using relative paths for Vite -->
-    <link rel="stylesheet" href="../../../../assets/styles/base/variables.css">
-    <link rel="stylesheet" href="../../../../assets/styles/themes/theme.css">
-    <link rel="stylesheet" href="../../../../assets/styles/components/enhancements.css">
-    <link rel="stylesheet" href="../../../../assets/styles/utilities/ux-enhancements.css">
-    <link rel="stylesheet" href="../styles/estoque-completo.css">
+    <!-- CSS - Using absolute paths from Vite root -->
+    <link rel="stylesheet" href="/assets/styles/base/variables.css">
+    <link rel="stylesheet" href="/assets/styles/themes/theme.css">
+    <link rel="stylesheet" href="/assets/styles/components/enhancements.css">
+    <link rel="stylesheet" href="/assets/styles/utilities/ux-enhancements.css">
+    <link rel="stylesheet" href="/app/modules/estoque/styles/estoque-completo.css">
     
     <style>
         /* Page-specific styles */
         body {
-            background: var(--color-base-black);
-            color: var(--color-text-primary);
-            font-family: var(--font-body);
+            background: #1a1a1a;
+            background: var(--color-base-black, #1a1a1a);
+            color: #E0E0E0;
+            color: var(--color-text-primary, #E0E0E0);
+            font-family: 'Inter', 'Poppins', sans-serif;
+            font-family: var(--font-body, 'Inter', 'Poppins', sans-serif);
             margin: 0;
             padding: 0;
         }
@@ -234,12 +237,97 @@
             margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 0.4rem;
         }
         
         .chart-title i {
             color: var(--color-primary);
             font-size: 0.95rem;
+        }
+        
+        .chart-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-left: auto;
+        }
+        
+        .chart-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--color-text-secondary);
+            padding: 0.35rem 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+        }
+        
+        .chart-btn:hover {
+            background: rgba(255, 213, 79, 0.2);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        
+        .chart-btn.active {
+            background: rgba(255, 213, 79, 0.2);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        
+        .chart-date-input,
+        .chart-week-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--color-text-primary);
+            padding: 0.35rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .chart-date-input:hover,
+        .chart-week-input:hover {
+            border-color: var(--color-primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .chart-date-input:focus,
+        .chart-week-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(255, 213, 79, 0.2);
+        }
+        
+        .chart-select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--color-text-primary);
+            padding: 0.35rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .chart-select:hover {
+            border-color: var(--color-primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .chart-select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(255, 213, 79, 0.2);
         }
         
         .chart-card {
@@ -400,10 +488,14 @@
             flex-wrap: wrap;
         }
         
+        .search-wrapper {
+            position: relative;
+        }
+        
         .search-input {
             flex: 1;
             min-width: 200px;
-            padding: 0.5rem 0.75rem;
+            padding: 0.5rem 2.5rem 0.5rem 0.75rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 8px;
@@ -411,6 +503,7 @@
             font-family: var(--font-body);
             font-size: 0.875rem;
             transition: all 0.25s ease;
+            width: 100%;
         }
         
         .search-input:focus {
@@ -418,6 +511,628 @@
             border-color: var(--color-primary);
             box-shadow: 0 0 0 3px rgba(255, 213, 79, 0.2);
             background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .search-actions {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 0.25rem;
+            z-index: 10;
+        }
+        
+        .search-action-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-text-secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .search-action-btn:hover {
+            background: rgba(255, 213, 79, 0.2);
+            color: var(--color-primary);
+        }
+        
+        /* Search Suggestions */
+        .search-suggestions,
+        .search-history,
+        .saved-searches {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            margin-top: 0.25rem;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.2s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .suggestion-item,
+        .history-item,
+        .saved-search-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .suggestion-item:hover,
+        .history-item:hover,
+        .saved-search-item:hover {
+            background: rgba(255, 213, 79, 0.1);
+        }
+        
+        .suggestion-item:last-child,
+        .history-item:last-child,
+        .saved-search-item:last-child {
+            border-bottom: none;
+        }
+        
+        .suggestion-item .suggestion-info {
+            flex: 1;
+        }
+        
+        .suggestion-item .suggestion-name {
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-size: 0.9rem;
+        }
+        
+        .suggestion-item .suggestion-meta {
+            font-size: 0.75rem;
+            color: var(--color-text-secondary);
+            margin-top: 0.25rem;
+        }
+        
+        .suggestion-item .suggestion-code {
+            font-family: monospace;
+            color: var(--color-primary);
+            font-size: 0.8rem;
+        }
+        
+        .history-item,
+        .saved-search-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .history-item .history-text,
+        .saved-search-item .saved-search-text {
+            flex: 1;
+            color: var(--color-text-primary);
+            font-size: 0.875rem;
+        }
+        
+        .history-item .history-actions,
+        .saved-search-item .saved-search-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .history-item .history-action-btn,
+        .saved-search-item .saved-search-action-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-text-secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.75rem;
+        }
+        
+        .history-item .history-action-btn:hover,
+        .saved-search-item .saved-search-action-btn:hover {
+            background: rgba(255, 213, 79, 0.2);
+            color: var(--color-primary);
+        }
+        
+        .saved-searches-header,
+        .search-history-header {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 213, 79, 0.05);
+        }
+        
+        .saved-searches-header h4,
+        .search-history-header h4 {
+            margin: 0;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        
+        .saved-searches-header button,
+        .search-history-header button {
+            background: transparent;
+            border: none;
+            color: var(--color-text-secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
+        }
+        
+        .saved-searches-header button:hover,
+        .search-history-header button:hover {
+            background: rgba(255, 82, 82, 0.2);
+            color: var(--color-error);
+        }
+        
+        .empty-suggestions {
+            padding: 1rem;
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        /* Reports Styles */
+        .report-sidebar {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem;
+            height: fit-content;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+        
+        .report-sidebar-header {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .report-sidebar-header h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .report-types-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .report-type-item {
+            padding: 0.875rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .report-type-item:hover {
+            background: rgba(255, 213, 79, 0.1);
+            border-color: var(--color-primary);
+            transform: translateX(4px);
+        }
+        
+        .report-type-item.active {
+            background: rgba(255, 213, 79, 0.15);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(255, 213, 79, 0.2);
+        }
+        
+        .report-type-item i {
+            color: var(--color-primary);
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .report-type-name {
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .report-type-desc {
+            font-size: 0.75rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .report-main {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .report-builder {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .report-builder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .report-builder-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+        
+        .report-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .report-filters {
+            margin-bottom: 1.5rem;
+        }
+        
+        .report-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+        
+        .checkbox-label:hover {
+            background: rgba(255, 213, 79, 0.1);
+            border-color: var(--color-primary);
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            cursor: pointer;
+        }
+        
+        .checkbox-label input[type="checkbox"]:checked + span {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+        
+        .report-content {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .report-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .report-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        
+        .report-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .report-export-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        
+        /* Notification System */
+        .notification-button {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            color: var(--color-text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+            margin-left: auto;
+        }
+        
+        .notification-button:hover {
+            background: rgba(255, 213, 79, 0.2);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--color-error);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border: 2px solid var(--bg-primary);
+        }
+        
+        .notification-center {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 400px;
+            max-height: 600px;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            z-index: 10001;
+            display: flex;
+            flex-direction: column;
+            animation: slideInRight 0.3s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .notification-center-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 213, 79, 0.05);
+        }
+        
+        .notification-center-header h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .notification-center-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .notification-action-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-text-secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+        
+        .notification-action-btn:hover {
+            background: rgba(255, 213, 79, 0.2);
+            color: var(--color-primary);
+        }
+        
+        .notification-center-content {
+            overflow-y: auto;
+            max-height: 500px;
+        }
+        
+        .empty-notifications {
+            padding: 2rem;
+            text-align: center;
+            color: var(--color-text-secondary);
+        }
+        
+        .empty-notifications i {
+            font-size: 2rem;
+            opacity: 0.3;
+            margin-bottom: 0.5rem;
+        }
+        
+        .notification-item {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            gap: 0.75rem;
+            position: relative;
+        }
+        
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .notification-item.read {
+            opacity: 0.6;
+        }
+        
+        .notification-item.read .notification-icon {
+            opacity: 0.5;
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+        
+        .notification-icon.info {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+        }
+        
+        .notification-icon.success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        
+        .notification-icon.warning {
+            background: rgba(255, 152, 0, 0.2);
+            color: #FF9800;
+        }
+        
+        .notification-icon.error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+        }
+        
+        .notification-icon.alert {
+            background: rgba(255, 82, 82, 0.2);
+            color: #FF5252;
+        }
+        
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .notification-message {
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+            line-height: 1.4;
+        }
+        
+        .notification-time {
+            color: var(--color-text-muted);
+            font-size: 0.75rem;
+        }
+        
+        .notification-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .notification-mark-read,
+        .notification-delete {
+            background: transparent;
+            border: none;
+            color: var(--color-text-secondary);
+            padding: 0.25rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.75rem;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .notification-mark-read:hover {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        
+        .notification-delete:hover {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+        }
+        
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
         /* Action Buttons */
@@ -543,6 +1258,214 @@
             margin-bottom: 0.5rem;
         }
         
+        /* Quick Actions Panel */
+        .quick-actions-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            z-index: 10000;
+            overflow: hidden;
+            animation: slideInScale 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes slideInScale {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        .quick-actions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(255, 213, 79, 0.05);
+        }
+        
+        .quick-actions-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quick-actions-close {
+            background: transparent;
+            border: none;
+            color: var(--color-text-secondary);
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quick-actions-close:hover {
+            background: rgba(255, 82, 82, 0.2);
+            color: var(--color-error);
+        }
+        
+        .quick-actions-content {
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: calc(80vh - 80px);
+        }
+        
+        .quick-action-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .quick-action-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .quick-action-group h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .quick-action-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--color-text-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 0.5rem;
+            text-align: left;
+        }
+        
+        .quick-action-btn:hover {
+            background: rgba(255, 213, 79, 0.15);
+            border-color: var(--color-primary);
+            transform: translateX(4px);
+        }
+        
+        .quick-action-btn i {
+            color: var(--color-primary);
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .quick-action-btn span {
+            flex: 1;
+        }
+        
+        .quick-action-btn kbd {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-family: monospace;
+            color: var(--color-text-primary);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .shortcut-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        .shortcut-hint kbd {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-family: monospace;
+            color: var(--color-text-primary);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            min-width: 24px;
+            text-align: center;
+        }
+        
+        /* Quick Actions Floating Button */
+        .quick-actions-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), #FFC107);
+            border: none;
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(255, 213, 79, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quick-actions-fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 6px 24px rgba(255, 213, 79, 0.6);
+        }
+        
+        .quick-actions-fab:active {
+            transform: scale(0.95);
+        }
+        
+        /* Overlay for quick actions panel */
+        .quick-actions-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 9998;
+            animation: fadeIn 0.2s ease;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .page-container {
@@ -570,6 +1493,19 @@
             .table-container {
                 overflow-x: auto;
             }
+            
+            .quick-actions-panel {
+                width: 95%;
+                max-height: 90vh;
+            }
+            
+            .quick-actions-fab {
+                bottom: 1rem;
+                right: 1rem;
+                width: 48px;
+                height: 48px;
+                font-size: 1.25rem;
+            }
         }
     </style>
 </head>
@@ -580,6 +1516,93 @@
             <h1><i class="fas fa-boxes-stacked"></i> Gestão de Estoque</h1>
             <p>Sistema completo de controle e administração de estoque</p>
         </div>
+        
+        <!-- Loading indicator -->
+        <div id="appLoading" style="text-align: center; padding: 2rem; color: #FFD54F;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+            <p>Carregando sistema de gestão de estoque...</p>
+        </div>
+        
+        <!-- Quick Actions Panel -->
+        <div id="quickActionsPanel" class="quick-actions-panel" style="display: none;">
+            <div class="quick-actions-header">
+                <h3><i class="fas fa-bolt"></i> Ações Rápidas</h3>
+                <button class="quick-actions-close" onclick="toggleQuickActions()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="quick-actions-content">
+                <div class="quick-action-group">
+                    <h4>Produtos</h4>
+                    <button class="quick-action-btn" onclick="openProductModal(); toggleQuickActions();" data-shortcut="N">
+                        <i class="fas fa-plus"></i>
+                        <span>Novo Produto</span>
+                        <kbd>N</kbd>
+                    </button>
+                    <button class="quick-action-btn" onclick="loadTabContent('produtos'); toggleQuickActions();" data-shortcut="P">
+                        <i class="fas fa-box"></i>
+                        <span>Ver Produtos</span>
+                        <kbd>P</kbd>
+                    </button>
+                    <button class="quick-action-btn" onclick="loadTabContent('produtos'); document.getElementById('productSearch')?.focus(); toggleQuickActions();" data-shortcut="F">
+                        <i class="fas fa-search"></i>
+                        <span>Buscar Produto</span>
+                        <kbd>F</kbd>
+                    </button>
+                </div>
+                
+                <div class="quick-action-group">
+                    <h4>Movimentações</h4>
+                    <button class="quick-action-btn" onclick="openMovementModal(); toggleQuickActions();" data-shortcut="M">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Nova Movimentação</span>
+                        <kbd>M</kbd>
+                    </button>
+                    <button class="quick-action-btn" onclick="loadTabContent('movimentacoes'); toggleQuickActions();" data-shortcut="V">
+                        <i class="fas fa-list"></i>
+                        <span>Ver Movimentações</span>
+                        <kbd>V</kbd>
+                    </button>
+                </div>
+                
+                <div class="quick-action-group">
+                    <h4>Navegação</h4>
+                    <button class="quick-action-btn" onclick="loadTabContent('dashboard'); toggleQuickActions();" data-shortcut="D">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                        <kbd>D</kbd>
+                    </button>
+                    <button class="quick-action-btn" onclick="loadTabContent('alertas'); toggleQuickActions();" data-shortcut="A">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alertas</span>
+                        <kbd>A</kbd>
+                    </button>
+                    <button class="quick-action-btn" onclick="loadTabContent('relatorios'); toggleQuickActions();" data-shortcut="R">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Relatórios</span>
+                        <kbd>R</kbd>
+                    </button>
+                </div>
+                
+                <div class="quick-action-group">
+                    <h4>Atalhos de Teclado</h4>
+                    <div class="shortcut-hint">
+                        <kbd>?</kbd> <span>Abrir/Fechar este painel</span>
+                    </div>
+                    <div class="shortcut-hint">
+                        <kbd>Esc</kbd> <span>Fechar modais</span>
+                    </div>
+                    <div class="shortcut-hint">
+                        <kbd>Ctrl</kbd> + <kbd>K</kbd> <span>Busca rápida</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions Floating Button -->
+        <button id="quickActionsBtn" class="quick-actions-fab" onclick="toggleQuickActions()" title="Ações Rápidas (?)">
+            <i class="fas fa-bolt"></i>
+        </button>
         
         <!-- Tab Navigation -->
         <div class="tab-nav" id="tabNav">
@@ -607,6 +1630,14 @@
                 <i class="fas fa-exclamation-triangle"></i>
                 <span>Alertas</span>
             </button>
+            <button class="tab-button" data-tab="armazens">
+                <i class="fas fa-warehouse"></i>
+                <span>Armazéns</span>
+            </button>
+            <button class="tab-button" data-tab="vencimentos">
+                <i class="fas fa-calendar-times"></i>
+                <span>Vencimentos</span>
+            </button>
             <button class="tab-button" data-tab="relatorios">
                 <i class="fas fa-file-alt"></i>
                 <span>Relatórios</span>
@@ -629,6 +1660,11 @@
                     <div class="chart-title">
                         <i class="fas fa-chart-pie"></i>
                         Distribuição de Status
+                        <div class="chart-controls">
+                            <button class="chart-btn" onclick="exportChart('statusChart')" title="Exportar">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
                     </div>
                     <canvas id="statusChart"></canvas>
                 </div>
@@ -637,6 +1673,13 @@
                     <div class="chart-title">
                         <i class="fas fa-chart-line"></i>
                         Movimentações Recentes
+                        <div class="chart-controls">
+                            <input type="date" class="chart-date-input" id="movementsDateFrom" onchange="updateMovementsChart()" title="Data inicial">
+                            <input type="date" class="chart-date-input" id="movementsDateTo" onchange="updateMovementsChart()" title="Data final">
+                            <button class="chart-btn" onclick="exportChart('movementsChart')" title="Exportar">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
                     </div>
                     <canvas id="movementsChart"></canvas>
                 </div>
@@ -649,6 +1692,11 @@
                         <i class="fas fa-star"></i>
                         Análise ABC (Pareto)
                         <span class="chart-subtitle">Classificação por valor</span>
+                        <div class="chart-controls">
+                            <button class="chart-btn" onclick="exportChart('abcChart')" title="Exportar">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
                     </div>
                     <canvas id="abcChart"></canvas>
                 </div>
@@ -658,6 +1706,11 @@
                         <i class="fas fa-folder-open"></i>
                         Valor por Categoria
                         <span class="chart-subtitle">Distribuição de investimento</span>
+                        <div class="chart-controls">
+                            <button class="chart-btn" onclick="exportChart('categoryValueChart')" title="Exportar">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
                     </div>
                     <canvas id="categoryValueChart"></canvas>
                 </div>
@@ -669,6 +1722,16 @@
                         <i class="fas fa-sync-alt"></i>
                         Rotatividade de Produtos
                         <span class="chart-subtitle">Top 10 mais vendidos (30 dias)</span>
+                        <div class="chart-controls">
+                            <select class="chart-select" id="turnoverDays" onchange="updateTurnoverChart()" title="Período">
+                                <option value="7">7 dias</option>
+                                <option value="30" selected>30 dias</option>
+                                <option value="90">90 dias</option>
+                            </select>
+                            <button class="chart-btn" onclick="exportChart('turnoverChart')" title="Exportar">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
                     </div>
                     <canvas id="turnoverChart"></canvas>
                 </div>
@@ -678,6 +1741,12 @@
                         <i class="fas fa-calendar-week"></i>
                         Atividade Semanal
                         <span class="chart-subtitle">Heatmap de movimentações</span>
+                        <div class="chart-controls">
+                            <input type="week" class="chart-week-input" id="weeklyHeatmapWeek" onchange="updateWeeklyHeatmapChart()" title="Semana">
+                            <button class="chart-btn" onclick="exportChart('weeklyHeatmapChart')" title="Exportar">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
                     </div>
                     <canvas id="weeklyHeatmapChart"></canvas>
                 </div>
@@ -689,6 +1758,19 @@
                         <i class="fas fa-truck"></i>
                         Performance de Fornecedores
                         <span class="chart-subtitle">Volume de compras (90 dias)</span>
+                        <div class="chart-controls">
+                            <select class="chart-select" id="supplierDays" onchange="updateSupplierChart()" title="Período">
+                                <option value="30">30 dias</option>
+                                <option value="90" selected>90 dias</option>
+                                <option value="180">180 dias</option>
+                            </select>
+                            <button class="chart-btn" onclick="toggleComparisonMode('supplierChart')" title="Modo Comparação">
+                                <i class="fas fa-balance-scale"></i>
+                            </button>
+                            <button class="chart-btn" onclick="exportChart('supplierChart')" title="Exportar">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
                     </div>
                     <canvas id="supplierChart"></canvas>
                 </div>
@@ -698,8 +1780,93 @@
                         <i class="fas fa-project-diagram"></i>
                         Projeção de Estoque
                         <span class="chart-subtitle">Previsão 30 dias (produtos críticos)</span>
+                        <div class="chart-controls">
+                            <select class="chart-select" id="projectionDays" onchange="updateProjectionChart()" title="Dias de projeção">
+                                <option value="15">15 dias</option>
+                                <option value="30" selected>30 dias</option>
+                                <option value="60">60 dias</option>
+                            </select>
+                            <button class="chart-btn" onclick="exportChart('projectionChart')" title="Exportar">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
                     </div>
                     <canvas id="projectionChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Cost Analysis Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-title">
+                        <i class="fas fa-dollar-sign"></i>
+                        Análise de Margem
+                        <span class="chart-subtitle">Margem de lucro por categoria</span>
+                        <div class="chart-controls">
+                            <button class="chart-btn" onclick="exportChart('marginChart')" title="Exportar">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <canvas id="marginChart"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-area"></i>
+                        Evolução de Custos
+                        <span class="chart-subtitle">Tendência de custos (últimos 90 dias)</span>
+                        <div class="chart-controls">
+                            <input type="date" class="chart-date-input" id="costEvolutionDateFrom" onchange="updateCostEvolutionChart()" title="Data inicial">
+                            <input type="date" class="chart-date-input" id="costEvolutionDateTo" onchange="updateCostEvolutionChart()" title="Data final">
+                            <button class="chart-btn" onclick="exportChart('costEvolutionChart')" title="Exportar">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <canvas id="costEvolutionChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Warehouse & Location Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-title">
+                        <i class="fas fa-warehouse"></i>
+                        Utilização de Armazéns
+                        <span class="chart-subtitle">Capacidade utilizada por armazém</span>
+                    </div>
+                    <canvas id="warehouseUtilizationChart"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">
+                        <i class="fas fa-map-marked-alt"></i>
+                        Mapa de Localizações
+                        <span class="chart-subtitle">Distribuição de produtos por localização</span>
+                    </div>
+                    <canvas id="locationHeatmapChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Additional Analytics -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-title">
+                        <i class="fas fa-hourglass-half"></i>
+                        Envelhecimento de Estoque
+                        <span class="chart-subtitle">Tempo médio em estoque por produto</span>
+                    </div>
+                    <canvas id="stockAgingChart"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Timeline de Vencimentos
+                        <span class="chart-subtitle">Produtos vencendo nos próximos 90 dias</span>
+                    </div>
+                    <canvas id="expirationTimelineChart"></canvas>
                 </div>
             </div>
             
@@ -736,7 +1903,28 @@
                 </div>
                 
                 <div class="filters-bar">
-                    <input type="text" class="search-input" id="productSearch" placeholder="Buscar por código ou nome..." onkeyup="filterProducts()">
+                    <div class="search-wrapper" style="position: relative; flex: 1; min-width: 200px;">
+                        <input type="text" class="search-input" id="productSearch" 
+                               placeholder="Buscar por código, nome, descrição..." 
+                               onkeyup="handleProductSearch(event)"
+                               onfocus="showSearchSuggestions()"
+                               onblur="hideSearchSuggestions()"
+                               autocomplete="off">
+                        <div class="search-actions" style="position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%); display: flex; gap: 0.25rem;">
+                            <button class="search-action-btn" onclick="clearProductSearch()" id="clearSearchBtn" style="display: none;" title="Limpar busca">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <button class="search-action-btn" onclick="toggleSavedSearches()" title="Buscas salvas">
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                            <button class="search-action-btn" onclick="toggleSearchHistory()" title="Histórico de buscas">
+                                <i class="fas fa-history"></i>
+                            </button>
+                        </div>
+                        <div id="searchSuggestions" class="search-suggestions" style="display: none;"></div>
+                        <div id="searchHistory" class="search-history" style="display: none;"></div>
+                        <div id="savedSearches" class="saved-searches" style="display: none;"></div>
+                    </div>
                     <select class="form-select" id="categoryFilter" onchange="filterProducts()">
                         <option value="">Todas as categorias</option>
                     </select>
@@ -746,11 +1934,67 @@
                         <option value="BAIXO">BAIXO</option>
                         <option value="CRITICO">CRÍTICO</option>
                     </select>
+                    <select class="form-select" id="warehouseFilter" onchange="filterProducts()">
+                        <option value="">Todos os armazéns</option>
+                    </select>
+                    <input type="text" class="form-input" id="locationFilter" placeholder="Localização..." onkeyup="filterProducts()" style="max-width: 150px;">
+                    <button class="btn-secondary" onclick="toggleAdvancedFilters()" title="Filtros Avançados">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                </div>
+                
+                <div id="bulkActionsBar" style="display: none; margin-top: 0.75rem; padding: 0.75rem; background: rgba(255, 213, 79, 0.1); border-radius: 8px; border: 1px solid rgba(255, 213, 79, 0.3);">
+                    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                        <span id="bulkSelectionCount" style="color: var(--color-primary); font-weight: 600; font-size: 0.875rem;">
+                            <i class="fas fa-check-square"></i> <span id="selectedCount">0</span> produto(s) selecionado(s)
+                        </span>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button class="btn-secondary" onclick="bulkUpdateStatus()" style="font-size: 0.8rem;">
+                                <i class="fas fa-tag"></i> Alterar Status
+                            </button>
+                            <button class="btn-secondary" onclick="bulkTransfer()" style="font-size: 0.8rem;">
+                                <i class="fas fa-exchange-alt"></i> Transferir
+                            </button>
+                            <button class="btn-secondary" onclick="bulkAssignCategory()" style="font-size: 0.8rem;">
+                                <i class="fas fa-folder"></i> Atribuir Categoria
+                            </button>
+                            <button class="btn-secondary" onclick="bulkExport()" style="font-size: 0.8rem;">
+                                <i class="fas fa-download"></i> Exportar
+                            </button>
+                            <button class="btn-secondary" onclick="clearBulkSelection()" style="font-size: 0.8rem;">
+                                <i class="fas fa-times"></i> Limpar Seleção
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="advancedFilters" style="display: none; margin-top: 0.75rem; padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px; border: 1px solid var(--glass-border);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label">Custo Mínimo</label>
+                            <input type="number" class="form-input" id="minCostFilter" step="0.01" min="0" onchange="filterProducts()">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label">Custo Máximo</label>
+                            <input type="number" class="form-input" id="maxCostFilter" step="0.01" min="0" onchange="filterProducts()">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label">Prazo de Validade</label>
+                            <select class="form-select" id="expirationFilter" onchange="filterProducts()">
+                                <option value="">Todos</option>
+                                <option value="with">Com validade</option>
+                                <option value="without">Sem validade</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 
                 <table class="data-table">
                     <thead>
                         <tr>
+                            <th style="width: 40px;">
+                                <input type="checkbox" id="selectAllProducts" onchange="toggleSelectAllProducts()" title="Selecionar todos">
+                            </th>
                             <th>Código</th>
                             <th>Nome</th>
                             <th>Categoria</th>
@@ -806,7 +2050,9 @@
                             <th>CNPJ</th>
                             <th>Telefone</th>
                             <th>Email</th>
-                            <th>Produtos</th>
+                            <th>Avaliação</th>
+                            <th>Performance</th>
+                            <th>Produtos / Prazo</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -890,30 +2136,216 @@
             </div>
         </div>
         
-        <!-- Relatórios Tab -->
-        <div class="tab-panel" id="relatorios-tab">
+        <!-- Armazéns Tab -->
+        <div class="tab-panel" id="armazens-tab">
             <div class="table-container">
                 <div class="table-header">
-                    <h3 class="table-title">Relatórios</h3>
-                </div>
-                
-                <div class="filters-bar">
-                    <select class="form-select" id="reportType">
-                        <option value="estoque_geral">Visão Geral de Estoque</option>
-                        <option value="movimentacoes">Histórico de Movimentações</option>
-                        <option value="produtos_criticos">Produtos Críticos</option>
-                        <option value="fornecedores">Análise de Fornecedores</option>
-                    </select>
-                    <input type="date" class="form-input" id="reportDateFrom">
-                    <input type="date" class="form-input" id="reportDateTo">
-                    <button class="btn-gold" onclick="generateReport()">
-                        <i class="fas fa-file-export"></i>
-                        Gerar Relatório
+                    <h3 class="table-title">Gerenciamento de Armazéns</h3>
+                    <button class="btn-gold" onclick="openWarehouseModal()">
+                        <i class="fas fa-plus"></i>
+                        Adicionar Armazém
                     </button>
                 </div>
                 
-                <div id="reportContent">
-                    <!-- Report content will be displayed here -->
+                <div id="warehousesGrid" class="warehouses-grid">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Vencimentos Tab -->
+        <div class="tab-panel" id="vencimentos-tab">
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Controle de Vencimentos</h3>
+                    <div class="filters-bar">
+                        <select class="form-select" id="expirationFilter" onchange="filterExpirations()">
+                            <option value="all">Todos</option>
+                            <option value="30">Próximos 30 dias</option>
+                            <option value="60">Próximos 60 dias</option>
+                            <option value="90">Próximos 90 dias</option>
+                            <option value="expired">Vencidos</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="expirationTimeline" class="expiration-timeline">
+                    <!-- Will be populated by JS -->
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Data Vencimento</th>
+                            <th>Dias Restantes</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expirationTableBody">
+                        <!-- Will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Relatórios Tab -->
+        <div class="tab-panel" id="relatorios-tab">
+            <div style="display: grid; grid-template-columns: 300px 1fr; gap: 1rem;">
+                <!-- Report Types Sidebar -->
+                <div class="report-sidebar">
+                    <div class="report-sidebar-header">
+                        <h3><i class="fas fa-file-alt"></i> Tipos de Relatórios</h3>
+                        <button class="btn-secondary" onclick="openCustomReportBuilder()" style="width: 100%; margin-top: 0.5rem;">
+                            <i class="fas fa-plus-circle"></i> Criar Relatório Customizado
+                        </button>
+                    </div>
+                    
+                    <div class="report-types-list">
+                        <div class="report-type-item active" data-report-type="estoque_geral" onclick="selectReportType('estoque_geral')">
+                            <i class="fas fa-boxes"></i>
+                            <div>
+                                <div class="report-type-name">Visão Geral de Estoque</div>
+                                <div class="report-type-desc">Resumo completo do estoque</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-type-item" data-report-type="movimentacoes" onclick="selectReportType('movimentacoes')">
+                            <i class="fas fa-exchange-alt"></i>
+                            <div>
+                                <div class="report-type-name">Histórico de Movimentações</div>
+                                <div class="report-type-desc">Todas as movimentações de estoque</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-type-item" data-report-type="produtos_criticos" onclick="selectReportType('produtos_criticos')">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <div class="report-type-name">Produtos Críticos</div>
+                                <div class="report-type-desc">Produtos com estoque baixo</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-type-item" data-report-type="fornecedores" onclick="selectReportType('fornecedores')">
+                            <i class="fas fa-truck"></i>
+                            <div>
+                                <div class="report-type-name">Análise de Fornecedores</div>
+                                <div class="report-type-desc">Performance e estatísticas</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-type-item" data-report-type="armazens" onclick="selectReportType('armazens')">
+                            <i class="fas fa-warehouse"></i>
+                            <div>
+                                <div class="report-type-name">Utilização de Armazéns</div>
+                                <div class="report-type-desc">Capacidade e distribuição</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-type-item" data-report-type="vencimentos" onclick="selectReportType('vencimentos')">
+                            <i class="fas fa-calendar-times"></i>
+                            <div>
+                                <div class="report-type-name">Relatório de Vencimentos</div>
+                                <div class="report-type-desc">Produtos próximos ao vencimento</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-type-item" data-report-type="custos" onclick="selectReportType('custos')">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div>
+                                <div class="report-type-name">Análise de Custos</div>
+                                <div class="report-type-desc">Custos e margens de lucro</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-type-item" data-report-type="rotatividade" onclick="selectReportType('rotatividade')">
+                            <i class="fas fa-sync-alt"></i>
+                            <div>
+                                <div class="report-type-name">Rotatividade de Produtos</div>
+                                <div class="report-type-desc">Produtos mais vendidos</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-type-item" data-report-type="abc" onclick="selectReportType('abc')">
+                            <i class="fas fa-star"></i>
+                            <div>
+                                <div class="report-type-name">Análise ABC</div>
+                                <div class="report-type-desc">Classificação por valor</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Report Builder and Viewer -->
+                <div class="report-main">
+                    <div class="report-builder">
+                        <div class="report-builder-header">
+                            <h3 id="reportBuilderTitle">Configurar Relatório</h3>
+                            <div class="report-actions">
+                                <button class="btn-secondary" onclick="previewReport()">
+                                    <i class="fas fa-eye"></i> Visualizar
+                                </button>
+                                <button class="btn-gold" onclick="generateReport()">
+                                    <i class="fas fa-file-export"></i> Gerar Relatório
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="report-builder-content">
+                            <div class="form-group">
+                                <label class="form-label">Período</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                                    <div>
+                                        <label style="font-size: 0.75rem; color: var(--color-text-secondary); margin-bottom: 0.25rem; display: block;">Data Inicial</label>
+                                        <input type="date" class="form-input" id="reportDateFrom">
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 0.75rem; color: var(--color-text-secondary); margin-bottom: 0.25rem; display: block;">Data Final</label>
+                                        <input type="date" class="form-input" id="reportDateTo">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="reportFilters" class="report-filters">
+                                <!-- Dynamic filters based on report type -->
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Colunas do Relatório</label>
+                                <div id="reportColumns" class="report-columns">
+                                    <!-- Dynamic columns based on report type -->
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Formato de Exportação</label>
+                                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="exportPDF" checked>
+                                        <span>PDF</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="exportCSV">
+                                        <span>CSV</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="exportExcel">
+                                        <span>Excel</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="exportJSON">
+                                        <span>JSON</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="reportContent" class="report-content" style="display: none;">
+                        <!-- Report content will be displayed here -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -925,8 +2357,9 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
     
-    <!-- Scripts - Using Vite path aliases -->
+    <!-- Scripts -->
     <script type="module">
+        // Import modules
         import '../../../shared/utils/ux-enhancements.js';
         import '../services/mock-data-estoque.js';
         import '../services/estoque-completo.js';

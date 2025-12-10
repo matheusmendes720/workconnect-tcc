@@ -195,3 +195,4 @@ O modelo lógico descreve **COMO** os dados serão armazenados:
 
 
 
+

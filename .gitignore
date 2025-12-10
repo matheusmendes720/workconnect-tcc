@@ -10,6 +10,10 @@ yarn.lock
 dist/
 build/
 *.local
+.next/
+out/
+app.old.vite/
+tsconfig.tsbuildinfo
 
 # Environment variables
 .env

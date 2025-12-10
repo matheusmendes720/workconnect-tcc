@@ -159,23 +159,42 @@ export class ChartsAnalytics {
             m => new Date(m.data_hora) >= last90Days && m.tipo.includes('ENTRADA')
         );
         
+        // Get produto_fornecedor associations
+        const produtoFornecedor = MockDataEstoque.produto_fornecedor || [];
+        
         return fornecedores
             .filter(f => f.ativo)
             .map(fornecedor => {
+                // Find products supplied by this supplier
+                const produtosFornecedor = produtoFornecedor
+                    .filter(pf => pf.fornecedor_id === fornecedor.id)
+                    .map(pf => pf.produto_id);
+                
+                // Find movements for these products
                 const movimentacoesFornecedor = movimentacoesRecentes.filter(
-                    m => m.fornecedor_id === fornecedor.id
+                    m => produtosFornecedor.includes(m.produto_id)
                 );
                 
                 const totalCompras = movimentacoesFornecedor.length;
                 const valorTotal = movimentacoesFornecedor.reduce(
-                    (sum, m) => sum + (m.quantidade * (m.valor_unitario || 0)), 0
+                    (sum, m) => sum + (m.quantidade * (m.preco_unitario || 0)), 0
                 );
+                
+                // Calculate average delivery time
+                const prazos = produtoFornecedor
+                    .filter(pf => pf.fornecedor_id === fornecedor.id)
+                    .map(pf => pf.prazo_entrega_dias);
+                const prazoMedio = prazos.length > 0 
+                    ? prazos.reduce((sum, p) => sum + p, 0) / prazos.length 
+                    : fornecedor.tempo_medio_entrega_dias || 7;
                 
                 return {
                     ...fornecedor,
                     totalCompras,
                     valorTotal,
                     mediaCompras: totalCompras > 0 ? valorTotal / totalCompras : 0,
+                    prazoMedioEntrega: prazoMedio,
+                    produtosFornecidos: produtosFornecedor.length,
                     performance: totalCompras > 10 ? 'EXCELENTE' : totalCompras > 5 ? 'BOM' : 'REGULAR'
                 };
             })
@@ -409,4 +428,5 @@ export class ChartsAnalytics {
         return texts;
     }
 }
+
 

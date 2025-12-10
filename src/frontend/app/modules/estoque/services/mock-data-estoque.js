@@ -43,6 +43,54 @@ export const MockDataEstoque = {
     ],
 
     // ============================================
+    // ARMAZENS (Warehouses)
+    // ============================================
+    armazens: [
+        {
+            id: 1,
+            nome: "Armazém Central",
+            descricao: "Armazém principal da empresa",
+            endereco: "Rua Principal, 100 - São Paulo, SP",
+            cidade: "São Paulo",
+            estado: "SP",
+            cep: "01234-567",
+            capacidade: 10000,
+            capacidade_atual: 7250,
+            responsavel_id: 1,
+            ativo: true,
+            data_criacao: "2024-01-01T00:00:00Z"
+        },
+        {
+            id: 2,
+            nome: "Armazém Norte",
+            descricao: "Armazém regional - Zona Norte",
+            endereco: "Av. Norte, 500 - Guarulhos, SP",
+            cidade: "Guarulhos",
+            estado: "SP",
+            cep: "07000-000",
+            capacidade: 5000,
+            capacidade_atual: 3200,
+            responsavel_id: 2,
+            ativo: true,
+            data_criacao: "2024-01-02T00:00:00Z"
+        },
+        {
+            id: 3,
+            nome: "Armazém Sul",
+            descricao: "Armazém regional - Zona Sul",
+            endereco: "Rua Sul, 200 - Osasco, SP",
+            cidade: "Osasco",
+            estado: "SP",
+            cep: "06000-000",
+            capacidade: 3000,
+            capacidade_atual: 1800,
+            responsavel_id: 3,
+            ativo: true,
+            data_criacao: "2024-01-03T00:00:00Z"
+        }
+    ],
+
+    // ============================================
     // FORNECEDORES
     // ============================================
     fornecedores: [
@@ -56,6 +104,7 @@ export const MockDataEstoque = {
             endereco: "Rua das Ferragens, 123 - São Paulo, SP",
             tempo_medio_entrega_dias: 7,
             condicoes_pagamento: "30/60 dias",
+            avaliacao: 4.5,
             ativo: true,
             data_cadastro: "2024-01-01T00:00:00Z"
         },
@@ -69,6 +118,7 @@ export const MockDataEstoque = {
             endereco: "Av. Eletrônica, 456 - Campinas, SP",
             tempo_medio_entrega_dias: 5,
             condicoes_pagamento: "À vista ou 30 dias",
+            avaliacao: 4.8,
             ativo: true,
             data_cadastro: "2024-01-02T00:00:00Z"
         },
@@ -82,6 +132,7 @@ export const MockDataEstoque = {
             endereco: "Rua do Papel, 789 - São Paulo, SP",
             tempo_medio_entrega_dias: 3,
             condicoes_pagamento: "À vista",
+            avaliacao: 4.2,
             ativo: true,
             data_cadastro: "2024-01-03T00:00:00Z"
         },
@@ -95,6 +146,7 @@ export const MockDataEstoque = {
             endereco: "Av. Limpeza, 321 - Guarulhos, SP",
             tempo_medio_entrega_dias: 4,
             condicoes_pagamento: "15/30 dias",
+            avaliacao: 3.9,
             ativo: true,
             data_cadastro: "2024-01-04T00:00:00Z"
         },
@@ -108,6 +160,7 @@ export const MockDataEstoque = {
             endereco: "Rua da Segurança, 654 - Osasco, SP",
             tempo_medio_entrega_dias: 10,
             condicoes_pagamento: "30/60/90 dias",
+            avaliacao: 4.0,
             ativo: true,
             data_cadastro: "2024-01-05T00:00:00Z"
         },
@@ -121,6 +174,7 @@ export const MockDataEstoque = {
             endereco: "Av. Premium, 987 - São Paulo, SP",
             tempo_medio_entrega_dias: 6,
             condicoes_pagamento: "À vista com desconto ou 30 dias",
+            avaliacao: 4.7,
             ativo: true,
             data_cadastro: "2024-01-06T00:00:00Z"
         }
@@ -141,9 +195,11 @@ export const MockDataEstoque = {
             quantidade_minima: 50,
             quantidade_maxima: 500,
             preco_aquisicao: 0.50,
+            preco_venda: 0.75,
             custo_medio_ponderado: 0.48,
             unidade_medida: "UN",
             localizacao_fisica: "Prateleira A-01",
+            armazem_id: 1,
             prazo_validade: null,
             status: "OK",
             ativo: true,
@@ -160,9 +216,11 @@ export const MockDataEstoque = {
             quantidade_minima: 50,
             quantidade_maxima: 500,
             preco_aquisicao: 0.75,
+            preco_venda: 1.10,
             custo_medio_ponderado: 0.72,
             unidade_medida: "UN",
             localizacao_fisica: "Prateleira A-02",
+            armazem_id: 1,
             prazo_validade: null,
             status: "CRITICO",
             ativo: true,
@@ -179,9 +237,11 @@ export const MockDataEstoque = {
             quantidade_minima: 30,
             quantidade_maxima: 300,
             preco_aquisicao: 1.20,
+            preco_venda: 1.75,
             custo_medio_ponderado: 1.15,
             unidade_medida: "UN",
             localizacao_fisica: "Prateleira A-03",
+            armazem_id: 1,
             prazo_validade: null,
             status: "BAIXO",
             ativo: true,
@@ -198,9 +258,11 @@ export const MockDataEstoque = {
             quantidade_minima: 40,
             quantidade_maxima: 400,
             preco_aquisicao: 1.80,
+            preco_venda: 2.50,
             custo_medio_ponderado: 1.75,
             unidade_medida: "UN",
             localizacao_fisica: "Prateleira A-04",
+            armazem_id: 1,
             prazo_validade: null,
             status: "OK",
             ativo: true,
@@ -219,9 +281,11 @@ export const MockDataEstoque = {
             quantidade_minima: 100,
             quantidade_maxima: 1000,
             preco_aquisicao: 0.10,
+            preco_venda: 0.15,
             custo_medio_ponderado: 0.09,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta E-01",
+            armazem_id: 2,
             prazo_validade: null,
             status: "CRITICO",
             ativo: true,
@@ -238,9 +302,11 @@ export const MockDataEstoque = {
             quantidade_minima: 100,
             quantidade_maxima: 1000,
             preco_aquisicao: 0.10,
+            preco_venda: 0.15,
             custo_medio_ponderado: 0.09,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta E-02",
+            armazem_id: 2,
             prazo_validade: null,
             status: "OK",
             ativo: true,
@@ -257,9 +323,11 @@ export const MockDataEstoque = {
             quantidade_minima: 100,
             quantidade_maxima: 1000,
             preco_aquisicao: 0.10,
+            preco_venda: 0.15,
             custo_medio_ponderado: 0.09,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta E-03",
+            armazem_id: 2,
             prazo_validade: null,
             status: "CRITICO",
             ativo: true,
@@ -278,9 +346,11 @@ export const MockDataEstoque = {
             quantidade_minima: 50,
             quantidade_maxima: 500,
             preco_aquisicao: 0.35,
+            preco_venda: 0.50,
             custo_medio_ponderado: 0.32,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta E-04",
+            armazem_id: 2,
             prazo_validade: null,
             status: "OK",
             ativo: true,
@@ -297,9 +367,11 @@ export const MockDataEstoque = {
             quantidade_minima: 30,
             quantidade_maxima: 300,
             preco_aquisicao: 0.55,
+            preco_venda: 0.80,
             custo_medio_ponderado: 0.52,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta E-05",
+            armazem_id: 2,
             prazo_validade: null,
             status: "BAIXO",
             ativo: true,
@@ -318,9 +390,11 @@ export const MockDataEstoque = {
             quantidade_minima: 200,
             quantidade_maxima: 2000,
             preco_aquisicao: 0.15,
+            preco_venda: 0.22,
             custo_medio_ponderado: 0.14,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta E-06",
+            armazem_id: 2,
             prazo_validade: null,
             status: "OK",
             ativo: true,
@@ -337,9 +411,11 @@ export const MockDataEstoque = {
             quantidade_minima: 200,
             quantidade_maxima: 2000,
             preco_aquisicao: 0.15,
+            preco_venda: 0.22,
             custo_medio_ponderado: 0.14,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta E-07",
+            armazem_id: 2,
             prazo_validade: null,
             status: "BAIXO",
             ativo: true,
@@ -356,9 +432,11 @@ export const MockDataEstoque = {
             quantidade_minima: 200,
             quantidade_maxima: 2000,
             preco_aquisicao: 0.20,
+            preco_venda: 0.28,
             custo_medio_ponderado: 0.18,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta E-08",
+            armazem_id: 2,
             prazo_validade: null,
             status: "CRITICO",
             ativo: true,
@@ -377,9 +455,11 @@ export const MockDataEstoque = {
             quantidade_minima: 10,
             quantidade_maxima: 50,
             preco_aquisicao: 8.50,
+            preco_venda: 12.00,
             custo_medio_ponderado: 8.00,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta F-01",
+            armazem_id: 1,
             prazo_validade: null,
             status: "BAIXO",
             ativo: true,
@@ -396,9 +476,11 @@ export const MockDataEstoque = {
             quantidade_minima: 10,
             quantidade_maxima: 50,
             preco_aquisicao: 9.00,
+            preco_venda: 13.00,
             custo_medio_ponderado: 8.50,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta F-02",
+            armazem_id: 1,
             prazo_validade: null,
             status: "CRITICO",
             ativo: true,
@@ -417,9 +499,11 @@ export const MockDataEstoque = {
             quantidade_minima: 5,
             quantidade_maxima: 30,
             preco_aquisicao: 25.00,
+            preco_venda: 35.00,
             custo_medio_ponderado: 23.50,
             unidade_medida: "UN",
             localizacao_fisica: "Prateleira B-01",
+            armazem_id: 1,
             prazo_validade: null,
             status: "OK",
             ativo: true,
@@ -438,9 +522,11 @@ export const MockDataEstoque = {
             quantidade_minima: 20,
             quantidade_maxima: 200,
             preco_aquisicao: 18.50,
+            preco_venda: 25.00,
             custo_medio_ponderado: 17.00,
             unidade_medida: "RESMA",
             localizacao_fisica: "Prateleira C-01",
+            armazem_id: 3,
             prazo_validade: null,
             status: "OK",
             ativo: true,
@@ -457,9 +543,11 @@ export const MockDataEstoque = {
             quantidade_minima: 100,
             quantidade_maxima: 1000,
             preco_aquisicao: 1.20,
+            preco_venda: 1.80,
             custo_medio_ponderado: 1.10,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta D-01",
+            armazem_id: 3,
             prazo_validade: null,
             status: "OK",
             ativo: true,
@@ -476,9 +564,11 @@ export const MockDataEstoque = {
             quantidade_minima: 100,
             quantidade_maxima: 1000,
             preco_aquisicao: 1.20,
+            preco_venda: 1.80,
             custo_medio_ponderado: 1.10,
             unidade_medida: "UN",
             localizacao_fisica: "Gaveta D-02",
+            armazem_id: 3,
             prazo_validade: null,
             status: "CRITICO",
             ativo: true,
@@ -497,9 +587,11 @@ export const MockDataEstoque = {
             quantidade_minima: 20,
             quantidade_maxima: 100,
             preco_aquisicao: 3.50,
+            preco_venda: 5.00,
             custo_medio_ponderado: 3.20,
             unidade_medida: "UN",
             localizacao_fisica: "Prateleira L-01",
+            armazem_id: 3,
             prazo_validade: "2025-12-31",
             status: "BAIXO",
             ativo: true,
@@ -516,9 +608,11 @@ export const MockDataEstoque = {
             quantidade_minima: 15,
             quantidade_maxima: 80,
             preco_aquisicao: 12.00,
+            preco_venda: 18.00,
             custo_medio_ponderado: 11.50,
             unidade_medida: "L",
             localizacao_fisica: "Prateleira L-02",
+            armazem_id: 3,
             prazo_validade: "2026-06-30",
             status: "CRITICO",
             ativo: true,
@@ -537,9 +631,11 @@ export const MockDataEstoque = {
             quantidade_minima: 5,
             quantidade_maxima: 20,
             preco_aquisicao: 180.00,
+            preco_venda: 250.00,
             custo_medio_ponderado: 175.00,
             unidade_medida: "UN",
             localizacao_fisica: "Prateleira S-01",
+            armazem_id: 1,
             prazo_validade: "2025-12-31",
             status: "OK",
             ativo: true,
@@ -556,9 +652,11 @@ export const MockDataEstoque = {
             quantidade_minima: 5,
             quantidade_maxima: 30,
             preco_aquisicao: 45.00,
+            preco_venda: 60.00,
             custo_medio_ponderado: 42.00,
             unidade_medida: "CAIXA",
             localizacao_fisica: "Gaveta S-01",
+            armazem_id: 1,
             prazo_validade: null,
             status: "CRITICO",
             ativo: true,
@@ -612,16 +710,16 @@ export const MockDataEstoque = {
         { id: 10, produto_id: 21, usuario_id: 1, tipo: "ENTRADA_COMPRA", quantidade: 10, preco_unitario: 175.00, documento_fiscal: "NF-12354", observacao: "Compra de segurança", local_origem: null, local_destino: null, data_hora: "2024-01-23T16:00:00Z" },
         
         // Saídas
-        { id: 11, produto_id: 1, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 50, preco_unitario: null, documento_fiscal: null, observacao: "Venda para cliente", local_origem: null, local_destino: null, data_hora: "2024-01-21T10:30:00Z" },
-        { id: 12, produto_id: 2, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 45, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, data_hora: "2024-01-21T11:00:00Z" },
-        { id: 13, produto_id: 5, usuario_id: 4, tipo: "SAIDA_VENDA", quantidade: 170, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, data_hora: "2024-01-22T13:00:00Z" },
-        { id: 14, produto_id: 6, usuario_id: 4, tipo: "SAIDA_VENDA", quantidade: 50, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, data_hora: "2024-01-22T13:30:00Z" },
-        { id: 15, produto_id: 10, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 320, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, data_hora: "2024-01-23T10:00:00Z" },
-        { id: 16, produto_id: 11, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 20, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, data_hora: "2024-01-23T10:30:00Z" },
-        { id: 17, produto_id: 13, usuario_id: 4, tipo: "SAIDA_VENDA", quantidade: 5, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, data_hora: "2024-01-23T15:00:00Z" },
-        { id: 18, produto_id: 17, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 20, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, data_hora: "2024-01-24T09:00:00Z" },
-        { id: 19, produto_id: 18, usuario_id: 4, tipo: "SAIDA_VENDA", quantidade: 25, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, data_hora: "2024-01-24T09:30:00Z" },
-        { id: 20, produto_id: 19, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 6, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, data_hora: "2024-01-24T11:00:00Z" },
+        { id: 11, produto_id: 1, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 50, preco_unitario: null, documento_fiscal: null, observacao: "Venda para cliente", local_origem: null, local_destino: null, venda_id: 1, data_hora: "2024-01-21T10:30:00Z" },
+        { id: 12, produto_id: 2, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 45, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, venda_id: 1, data_hora: "2024-01-21T11:00:00Z" },
+        { id: 13, produto_id: 5, usuario_id: 4, tipo: "SAIDA_VENDA", quantidade: 170, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, venda_id: 2, data_hora: "2024-01-22T13:00:00Z" },
+        { id: 14, produto_id: 6, usuario_id: 4, tipo: "SAIDA_VENDA", quantidade: 50, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, venda_id: 2, data_hora: "2024-01-22T13:30:00Z" },
+        { id: 15, produto_id: 10, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 320, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, venda_id: 3, data_hora: "2024-01-23T10:00:00Z" },
+        { id: 16, produto_id: 11, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 20, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, venda_id: 3, data_hora: "2024-01-23T10:30:00Z" },
+        { id: 17, produto_id: 13, usuario_id: 4, tipo: "SAIDA_VENDA", quantidade: 5, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, venda_id: 4, data_hora: "2024-01-23T15:00:00Z" },
+        { id: 18, produto_id: 17, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 20, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, venda_id: 5, data_hora: "2024-01-24T09:00:00Z" },
+        { id: 19, produto_id: 18, usuario_id: 4, tipo: "SAIDA_VENDA", quantidade: 25, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, venda_id: 5, data_hora: "2024-01-24T09:30:00Z" },
+        { id: 20, produto_id: 19, usuario_id: 3, tipo: "SAIDA_VENDA", quantidade: 6, preco_unitario: null, documento_fiscal: null, observacao: null, local_origem: null, local_destino: null, venda_id: 6, data_hora: "2024-01-24T11:00:00Z" },
         
         // Perdas
         { id: 21, produto_id: 3, usuario_id: 1, tipo: "SAIDA_PERDA", quantidade: 5, preco_unitario: null, documento_fiscal: null, observacao: "Produto danificado", local_origem: null, local_destino: null, data_hora: "2024-01-22T11:00:00Z" },
@@ -913,6 +1011,84 @@ export const MockDataEstoque = {
             valorTotalEstoque,
             categoriasAtivas,
             alertasPendentes
+        };
+    },
+
+    /**
+     * Get warehouse by ID
+     */
+    getArmazemById(id) {
+        return this.armazens.find(a => a.id === id);
+    },
+
+    /**
+     * Get products by warehouse
+     */
+    getProdutosByArmazemId(armazemId) {
+        return this.produtos.filter(p => p.armazem_id === armazemId && p.ativo);
+    },
+
+    /**
+     * Get warehouse utilization
+     */
+    getArmazemUtilization(armazemId) {
+        const armazem = this.getArmazemById(armazemId);
+        if (!armazem) return null;
+        
+        const produtos = this.getProdutosByArmazemId(armazemId);
+        const quantidadeTotal = produtos.reduce((sum, p) => sum + p.quantidade_atual, 0);
+        const valorTotal = produtos.reduce((sum, p) => sum + (p.quantidade_atual * p.custo_medio_ponderado), 0);
+        
+        return {
+            armazem,
+            quantidadeTotal,
+            valorTotal,
+            capacidadeUtilizada: armazem.capacidade_atual,
+            capacidadeDisponivel: armazem.capacidade - armazem.capacidade_atual,
+            percentualUtilizado: (armazem.capacidade_atual / armazem.capacidade) * 100
+        };
+    },
+
+    /**
+     * Get products expiring soon
+     */
+    getProdutosExpirando(dias = 30) {
+        const hoje = new Date();
+        const dataLimite = new Date();
+        dataLimite.setDate(hoje.getDate() + dias);
+        
+        return this.produtos.filter(p => {
+            if (!p.prazo_validade) return false;
+            const dataValidade = new Date(p.prazo_validade);
+            return dataValidade >= hoje && dataValidade <= dataLimite;
+        }).sort((a, b) => new Date(a.prazo_validade) - new Date(b.prazo_validade));
+    },
+
+    /**
+     * Get supplier performance metrics
+     */
+    getSupplierPerformance(fornecedorId) {
+        const fornecedor = this.getFornecedorById(fornecedorId);
+        if (!fornecedor) return null;
+        
+        const associacoes = this.produto_fornecedor.filter(pf => pf.fornecedor_id === fornecedorId);
+        const movimentacoes = this.movimentacoes.filter(m => {
+            const produto = this.getProdutoById(m.produto_id);
+            if (!produto) return false;
+            return associacoes.some(a => a.produto_id === produto.id && m.tipo === "ENTRADA_COMPRA");
+        });
+        
+        const totalCompras = movimentacoes.length;
+        const valorTotal = movimentacoes.reduce((sum, m) => sum + (m.quantidade * (m.preco_unitario || 0)), 0);
+        const prazoMedio = associacoes.reduce((sum, a) => sum + a.prazo_entrega_dias, 0) / associacoes.length;
+        
+        return {
+            fornecedor,
+            totalCompras,
+            valorTotal,
+            prazoMedioEntrega: prazoMedio,
+            avaliacao: fornecedor.avaliacao,
+            produtosFornecidos: associacoes.length
         };
     }
 };

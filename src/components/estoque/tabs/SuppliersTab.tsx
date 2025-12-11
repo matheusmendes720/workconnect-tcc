@@ -15,7 +15,6 @@ import { useSuppliers } from '../../../lib/estoque/hooks/useSuppliers';
 
 export interface SuppliersTabProps {
   suppliers: Supplier[];
-  onEdit: (supplier: Supplier) => void;
   onDelete: (id: number) => void;
   onSave: (data: SupplierFormData, supplierId?: number) => void;
   className?: string;
@@ -23,7 +22,6 @@ export interface SuppliersTabProps {
 
 export function SuppliersTab({
   suppliers,
-  onEdit,
   onDelete,
   onSave,
   className = '',

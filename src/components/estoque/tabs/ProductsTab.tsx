@@ -23,10 +23,8 @@ export interface ProductsTabProps {
   selectedProducts: number[];
   onSelect: (id: number) => void;
   onSelectAll: () => void;
-  onEdit: (product: Product) => void;
   onDelete: (id: number) => void;
   onView: (product: Product) => void;
-  onAdd: () => void;
   onSave?: (formData: ProductFormData, productId?: number) => void;
   getCategoryPath: (id: number) => string;
   className?: string;
@@ -39,10 +37,8 @@ export function ProductsTab({
   selectedProducts,
   onSelect,
   onSelectAll,
-  onEdit,
   onDelete,
   onView,
-  onAdd,
   onSave,
   getCategoryPath,
   className = '',
@@ -170,7 +166,6 @@ export function ProductsTab({
         product={editingProduct}
         categories={categories}
         warehouses={warehouses}
-        getCategoryPath={getCategoryPath}
         onClose={handleCloseModal}
         onSave={handleSave}
       />

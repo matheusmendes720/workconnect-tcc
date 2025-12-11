@@ -3,7 +3,7 @@
  * Central state management for stock management system
  */
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { MockDataEstoque } from '../mock-data';
 import type {
   StockData,
@@ -37,16 +37,38 @@ export interface UseStockDataReturn {
 }
 
 export function useStockData(): UseStockDataReturn {
-  const [data, setData] = useState<StockData>(() => ({
-    produtos: [...MockDataEstoque.produtos],
-    categorias: [...MockDataEstoque.categorias],
-    fornecedores: [...MockDataEstoque.fornecedores],
-    movimentacoes: [...MockDataEstoque.movimentacoes],
-    alertas: [...MockDataEstoque.alertas],
-    produto_fornecedor: [...MockDataEstoque.produto_fornecedor],
-    armazens: [...MockDataEstoque.armazens],
-    usuarios: [...MockDataEstoque.usuarios],
-  }));
+  const [data, setData] = useState<StockData>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const storedData = localStorage.getItem('workconnect_stock_data');
+        if (storedData) {
+          return JSON.parse(storedData);
+        }
+      } catch (error) {
+        console.error('Error reading from localStorage:', error);
+      }
+    }
+    return {
+      produtos: [...MockDataEstoque.produtos],
+      categorias: [...MockDataEstoque.categorias],
+      fornecedores: [...MockDataEstoque.fornecedores],
+      movimentacoes: [...MockDataEstoque.movimentacoes],
+      alertas: [...MockDataEstoque.alertas],
+      produto_fornecedor: [...MockDataEstoque.produto_fornecedor],
+      armazens: [...MockDataEstoque.armazens],
+      usuarios: [...MockDataEstoque.usuarios],
+    };
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('workconnect_stock_data', JSON.stringify(data));
+      } catch (error) {
+        console.error('Error writing to localStorage:', error);
+      }
+    }
+  }, [data]);
 
   const updateProduct = useCallback((id: number, updates: Partial<Product>) => {
     setData((prev) => ({
@@ -160,7 +182,7 @@ export function useStockData(): UseStockDataReturn {
   }, []);
 
   const refresh = useCallback(() => {
-    setData({
+    const mockData = {
       produtos: [...MockDataEstoque.produtos],
       categorias: [...MockDataEstoque.categorias],
       fornecedores: [...MockDataEstoque.fornecedores],
@@ -169,7 +191,15 @@ export function useStockData(): UseStockDataReturn {
       produto_fornecedor: [...MockDataEstoque.produto_fornecedor],
       armazens: [...MockDataEstoque.armazens],
       usuarios: [...MockDataEstoque.usuarios],
-    });
+    };
+    setData(mockData);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('workconnect_stock_data', JSON.stringify(mockData));
+      } catch (error) {
+        console.error('Error writing to localStorage:', error);
+      }
+    }
   }, []);
 
   return {

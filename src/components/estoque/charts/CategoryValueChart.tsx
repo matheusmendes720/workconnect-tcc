@@ -14,21 +14,29 @@ import {
   Legend,
   ChartOptions,
 } from 'chart.js';
-import type { CategoryDistribution } from '../../../types/estoque';
+import type { Product, Category } from '../../../types/estoque';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export interface CategoryValueChartProps {
-  categoryDistribution: CategoryDistribution[];
+  products: Product[];
+  categories: Category[];
   className?: string;
 }
 
 export function CategoryValueChart({
-  categoryDistribution,
+  products,
+  categories,
   className = '',
 }: CategoryValueChartProps) {
   const chartData = useMemo(() => {
-    // Get top 8 categories
+    const categoryDistribution = categories.map(category => {
+      const value = products
+        .filter(p => p.categoria_id === category.id)
+        .reduce((sum, p) => sum + (p.preco_venda * p.quantidade_atual), 0);
+      return { categoria: category, valorTotal: value };
+    }).sort((a, b) => b.valorTotal - a.valorTotal);
+
     const topCategories = categoryDistribution.slice(0, 8);
 
     const colors = [
@@ -54,7 +62,7 @@ export function CategoryValueChart({
         },
       ],
     };
-  }, [categoryDistribution]);
+  }, [products, categories]);
 
   const options: ChartOptions<'pie'> = {
     responsive: true,
@@ -89,7 +97,7 @@ export function CategoryValueChart({
     },
   };
 
-  if (categoryDistribution.length === 0) {
+  if (products.length === 0) {
     return (
       <div className={`chart-container ${className}`}>
         <div className="chart-empty">
@@ -107,4 +115,3 @@ export function CategoryValueChart({
     </div>
   );
 }
-

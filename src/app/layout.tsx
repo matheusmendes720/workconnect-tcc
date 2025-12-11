@@ -8,6 +8,10 @@ import { Inter, Poppins } from 'next/font/google';
 import '../styles/globals.css';
 import '../styles/estoque.css';
 import '../styles/estoque-tabs-extended.css';
+import '../styles/components/Modal.css';
+import '../styles/components/Forms.css';
+import '../styles/components/Animations.css';
+import '../styles/components/Loading.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' });
 const poppins = Poppins({

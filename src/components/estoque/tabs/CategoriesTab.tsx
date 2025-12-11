@@ -15,7 +15,6 @@ import { useCategories } from '../../../lib/estoque/hooks/useCategories';
 
 export interface CategoriesTabProps {
   categories: Category[];
-  onEdit: (category: Category) => void;
   onDelete: (id: number) => void;
   onSave: (data: CategoryFormData, categoryId?: number) => void;
   className?: string;
@@ -23,7 +22,6 @@ export interface CategoriesTabProps {
 
 export function CategoriesTab({
   categories,
-  onEdit,
   onDelete,
   onSave,
   className = '',

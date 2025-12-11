@@ -47,6 +47,8 @@ import { MockDataEstoque } from '@lib/estoque/mock-data';
 
 function EstoquePageContent() {
   const [activeTab, setActiveTab] = useState<TabId>('dashboard');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
   const [notifications, setNotifications] = useState<any[]>([]);
 
@@ -268,7 +270,8 @@ function EstoquePageContent() {
       label: 'Adicionar Produto',
       icon: 'fa-box',
       onClick: () => {
-        // Open product modal
+        setEditingProduct(null);
+        setIsModalOpen(true);
       },
       shortcut: 'N',
     },
@@ -309,17 +312,13 @@ function EstoquePageContent() {
             selectedProducts={selectedProducts}
             onSelect={toggleSelection}
             onSelectAll={toggleSelectAll}
-            onEdit={(product: Product) => {
-              // Handle edit
-            }}
             onDelete={handleProductDelete}
             onView={(product: Product) => {
               // Handle view
             }}
-            onAdd={() => {
-              // Handle add
+            onSave={(formData, productId) => {
+              handleProductSave(formData, productId);
             }}
-            onSave={handleProductSave}
             getCategoryPath={getCategoryPath}
           />
         );
@@ -327,9 +326,6 @@ function EstoquePageContent() {
         return (
           <CategoriesTab
             categories={stockData.data.categorias}
-            onEdit={(category: Category) => {
-              // Handle edit
-            }}
             onDelete={handleCategoryDelete}
             onSave={handleCategorySave}
           />
@@ -338,9 +334,6 @@ function EstoquePageContent() {
         return (
           <SuppliersTab
             suppliers={stockData.data.fornecedores}
-            onEdit={(supplier: Supplier) => {
-              // Handle edit
-            }}
             onDelete={handleSupplierDelete}
             onSave={handleSupplierSave}
           />

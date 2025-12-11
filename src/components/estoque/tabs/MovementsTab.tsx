@@ -220,11 +220,9 @@ export function MovementsTab({
       {/* Movement Modal */}
       <MovementModal
         isOpen={isModalOpen}
-        movement={null}
         products={products}
-        users={users}
         onClose={handleCloseModal}
-        onSave={handleSave}
+        onSave={(data) => handleSave({ ...data, usuario_id: 1 })}
       />
     </div>
   );

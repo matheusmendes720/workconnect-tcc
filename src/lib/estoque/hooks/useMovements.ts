@@ -1,43 +1,72 @@
 /**
  * Movements Management Hook
- * Handles stock movement operations and filtering
+ * Handles movement filtering, searching, and operations
  */
 
 import { useState, useMemo, useCallback } from 'react';
-import type { Movement, MovementType } from '../../../types/estoque';
+import type { Movement, MovementType, Product, User } from '../../../types/estoque';
 import { MovementType as MovementTypeEnum } from '../../../types/estoque';
+
+export interface MovementFilters {
+  tipo?: MovementType;
+  produto_id?: number;
+  usuario_id?: number;
+  data_inicio?: string;
+  data_fim?: string;
+  search?: string;
+}
 
 export interface UseMovementsReturn {
   movements: Movement[];
   filteredMovements: Movement[];
-  filters: {
-    tipo?: MovementType;
-    produto_id?: number;
-    data_inicio?: string;
-    data_fim?: string;
-  };
-  setFilters: (filters: {
-    tipo?: MovementType;
-    produto_id?: number;
-    data_inicio?: string;
-    data_fim?: string;
-  }) => void;
+  filters: MovementFilters;
+  setFilters: (filters: MovementFilters) => void;
   clearFilters: () => void;
-  getMovementsByProduct: (productId: number) => Movement[];
-  getMovementsByType: (type: MovementType) => Movement[];
-  getMovementsByDateRange: (start: Date, end: Date) => Movement[];
+  search: string;
+  setSearch: (search: string) => void;
+  dateRange: { start: string; end: string };
+  setDateRange: (range: { start: string; end: string }) => void;
+  getMovementStats: () => {
+    total: number;
+    entradas: number;
+    saidas: number;
+    transferencias: number;
+    valorTotal: number;
+  };
 }
 
-export function useMovements(movements: Movement[]): UseMovementsReturn {
-  const [filters, setFilters] = useState<{
-    tipo?: MovementType;
-    produto_id?: number;
-    data_inicio?: string;
-    data_fim?: string;
-  }>({});
+export function useMovements(
+  movements: Movement[],
+  products?: Product[],
+  users?: User[]
+): UseMovementsReturn {
+  const [filters, setFilters] = useState<MovementFilters>({});
+  const [search, setSearch] = useState('');
+  const [dateRange, setDateRange] = useState<{ start: string; end: string }>(() => {
+    const today = new Date();
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    return {
+      start: firstDay.toISOString().split('T')[0],
+      end: today.toISOString().split('T')[0],
+    };
+  });
 
   const filteredMovements = useMemo(() => {
     let filtered = [...movements];
+
+    // Date range filter
+    if (dateRange.start) {
+      filtered = filtered.filter((m) => {
+        const movementDate = new Date(m.data_hora).toISOString().split('T')[0];
+        return movementDate >= dateRange.start;
+      });
+    }
+    if (dateRange.end) {
+      filtered = filtered.filter((m) => {
+        const movementDate = new Date(m.data_hora).toISOString().split('T')[0];
+        return movementDate <= dateRange.end;
+      });
+    }
 
     // Type filter
     if (filters.tipo) {
@@ -49,52 +78,71 @@ export function useMovements(movements: Movement[]): UseMovementsReturn {
       filtered = filtered.filter((m) => m.produto_id === filters.produto_id);
     }
 
-    // Date range filter
-    if (filters.data_inicio) {
-      const startDate = new Date(filters.data_inicio);
-      filtered = filtered.filter((m) => new Date(m.data_hora) >= startDate);
+    // User filter
+    if (filters.usuario_id) {
+      filtered = filtered.filter((m) => m.usuario_id === filters.usuario_id);
     }
 
-    if (filters.data_fim) {
-      const endDate = new Date(filters.data_fim);
-      endDate.setHours(23, 59, 59, 999); // End of day
-      filtered = filtered.filter((m) => new Date(m.data_hora) <= endDate);
-    }
-
-    // Sort by date (newest first)
-    filtered.sort((a, b) => new Date(b.data_hora).getTime() - new Date(a.data_hora).getTime());
-
-    return filtered;
-  }, [movements, filters]);
-
-  const getMovementsByProduct = useCallback(
-    (productId: number): Movement[] => {
-      return movements
-        .filter((m) => m.produto_id === productId)
-        .sort((a, b) => new Date(b.data_hora).getTime() - new Date(a.data_hora).getTime());
-    },
-    [movements]
-  );
-
-  const getMovementsByType = useCallback(
-    (type: MovementType): Movement[] => {
-      return movements.filter((m) => m.tipo === type);
-    },
-    [movements]
-  );
-
-  const getMovementsByDateRange = useCallback(
-    (start: Date, end: Date): Movement[] => {
-      return movements.filter((m) => {
-        const movementDate = new Date(m.data_hora);
-        return movementDate >= start && movementDate <= end;
+    // Search filter
+    if (search) {
+      const searchLower = search.toLowerCase();
+      filtered = filtered.filter((m) => {
+        const product = products?.find((p) => p.id === m.produto_id);
+        const user = users?.find((u) => u.id === m.usuario_id);
+        return (
+          product?.nome.toLowerCase().includes(searchLower) ||
+          product?.codigo.toLowerCase().includes(searchLower) ||
+          user?.nome.toLowerCase().includes(searchLower) ||
+          m.documento_fiscal?.toLowerCase().includes(searchLower) ||
+          m.observacao?.toLowerCase().includes(searchLower)
+        );
       });
-    },
-    [movements]
-  );
+    }
+
+    return filtered.sort((a, b) => new Date(b.data_hora).getTime() - new Date(a.data_hora).getTime());
+  }, [movements, filters, search, dateRange, products, users]);
+
+  const getMovementStats = useCallback(() => {
+    const stats = {
+      total: filteredMovements.length,
+      entradas: 0,
+      saidas: 0,
+      transferencias: 0,
+      valorTotal: 0,
+    };
+
+    filteredMovements.forEach((m) => {
+      const value = (m.preco_unitario || 0) * m.quantidade;
+      stats.valorTotal += value;
+
+      if (
+        m.tipo === MovementTypeEnum.ENTRADA_COMPRA ||
+        m.tipo === MovementTypeEnum.ENTRADA_DEVOLUCAO ||
+        m.tipo === MovementTypeEnum.AJUSTE_INVENTARIO
+      ) {
+        stats.entradas += m.quantidade;
+      } else if (
+        m.tipo === MovementTypeEnum.SAIDA_VENDA ||
+        m.tipo === MovementTypeEnum.SAIDA_PERDA
+      ) {
+        stats.saidas += m.quantidade;
+      } else if (m.tipo === MovementTypeEnum.TRANSFERENCIA) {
+        stats.transferencias += m.quantidade;
+      }
+    });
+
+    return stats;
+  }, [filteredMovements]);
 
   const clearFilters = useCallback(() => {
     setFilters({});
+    setSearch('');
+    const today = new Date();
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    setDateRange({
+      start: firstDay.toISOString().split('T')[0],
+      end: today.toISOString().split('T')[0],
+    });
   }, []);
 
   return {
@@ -103,9 +151,10 @@ export function useMovements(movements: Movement[]): UseMovementsReturn {
     filters,
     setFilters,
     clearFilters,
-    getMovementsByProduct,
-    getMovementsByType,
-    getMovementsByDateRange,
+    search,
+    setSearch,
+    dateRange,
+    setDateRange,
+    getMovementStats,
   };
 }
-

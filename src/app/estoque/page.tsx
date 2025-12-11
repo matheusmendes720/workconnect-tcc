@@ -6,29 +6,42 @@
 'use client';
 
 import React, { useState, useMemo, useCallback } from 'react';
-import '@styles/estoque.css';
+// Styles are imported in layout.tsx
 import { TabNavigation, type TabId } from '@components/estoque/ui/TabNavigation';
 import { PageHeader } from '@components/estoque/ui/PageHeader';
 import { QuickActions, type QuickAction } from '@components/estoque/ui/QuickActions';
 import { NotificationCenter } from '@components/estoque/ui/NotificationCenter';
+import { RealTimeBadge } from '@components/estoque/ui/RealTimeBadge';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSync } from '@fortawesome/free-solid-svg-icons';
 import { DashboardTab } from '@components/estoque/tabs/DashboardTab';
 import { ProductsTab } from '@components/estoque/tabs/ProductsTab';
 import { CategoriesTab } from '@components/estoque/tabs/CategoriesTab';
 import { SuppliersTab } from '@components/estoque/tabs/SuppliersTab';
+import { MovementsTab } from '@components/estoque/tabs/MovementsTab';
+import { AlertsTab } from '@components/estoque/tabs/AlertsTab';
+import { WarehousesTab } from '@components/estoque/tabs/WarehousesTab';
+import { ExpirationsTab } from '@components/estoque/tabs/ExpirationsTab';
+import { ReportsTab } from '@components/estoque/tabs/ReportsTab';
 import { StockDataProvider, useStockDataContext } from '@lib/estoque/context/StockDataContext';
 import { useCharts } from '@lib/estoque/hooks/useCharts';
 import { useProducts } from '@lib/estoque/hooks/useProducts';
 import { useCategories } from '@lib/estoque/hooks/useCategories';
 import { useSuppliers } from '@lib/estoque/hooks/useSuppliers';
+import { useRealTimeUpdates } from '@lib/estoque/hooks/useRealTimeUpdates';
+import { useDatabaseIntegration } from '@lib/estoque/hooks/useDatabaseIntegration';
 import { useToast } from '@lib/utils/toast';
 import { useLoading } from '@lib/utils/loading';
 import type {
   Product,
   Category,
   Supplier,
+  Warehouse,
   ProductFormData,
   CategoryFormData,
   SupplierFormData,
+  MovementFormData,
+  WarehouseFormData,
 } from '../../types/estoque';
 import { MockDataEstoque } from '@lib/estoque/mock-data';
 
@@ -41,6 +54,19 @@ function EstoquePageContent() {
   const { insights } = useCharts(stockData.data);
   const toast = useToast();
   const loading = useLoading();
+
+  // Real-time updates
+  const realTimeUpdates = useRealTimeUpdates({
+    enabled: true,
+    interval: 30000, // 30 seconds
+    onUpdate: () => {
+      // Refresh data periodically
+      stockData.refresh();
+    },
+  });
+
+  // Database integration
+  const databaseIntegration = useDatabaseIntegration();
 
   const metrics = useMemo(() => {
     return MockDataEstoque.getDashboardMetrics();
@@ -87,6 +113,131 @@ function EstoquePageContent() {
     } else {
       stockData.addSupplier(formData as Omit<Supplier, 'id'>);
       toast.success('Fornecedor adicionado com sucesso!');
+    }
+  }, [stockData, toast]);
+
+  const handleMovementSave = useCallback(async (formData: MovementFormData & { usuario_id: number }) => {
+    const newMovement = {
+      produto_id: formData.produto_id,
+      usuario_id: formData.usuario_id,
+      tipo: formData.tipo,
+      quantidade: formData.quantidade,
+      preco_unitario: formData.preco_unitario || null,
+      documento_fiscal: formData.documento_fiscal || null,
+      observacao: formData.observacao || null,
+      local_origem: formData.local_origem || null,
+      local_destino: formData.local_destino || null,
+      data_hora: new Date().toISOString(),
+    };
+    
+    stockData.addMovement(newMovement);
+    
+    // Sync with database
+    try {
+      await databaseIntegration.syncMovements([newMovement as any]);
+    } catch (error) {
+      console.error('Error syncing movement:', error);
+    }
+    
+    toast.success('Movimentação registrada com sucesso!');
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleAlertMarkAsRead = useCallback(async (id: number) => {
+    stockData.updateAlert(id, {
+      visualizado: true,
+      data_visualizacao: new Date().toISOString(),
+    });
+    
+    // Sync with database
+    try {
+      const alert = stockData.data.alertas.find((a) => a.id === id);
+      if (alert) {
+        await databaseIntegration.syncAlerts([alert]);
+      }
+    } catch (error) {
+      console.error('Error syncing alert:', error);
+    }
+    
+    toast.success('Alerta marcado como visualizado!');
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleAlertResolve = useCallback(async (id: number) => {
+    stockData.updateAlert(id, {
+      data_resolucao: new Date().toISOString(),
+    });
+    
+    // Sync with database
+    try {
+      const alert = stockData.data.alertas.find((a) => a.id === id);
+      if (alert) {
+        await databaseIntegration.syncAlerts([alert]);
+      }
+    } catch (error) {
+      console.error('Error syncing alert:', error);
+    }
+    
+    toast.success('Alerta resolvido!');
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleBulkMarkAsRead = useCallback(async (ids: number[]) => {
+    ids.forEach((id) => {
+      stockData.updateAlert(id, {
+        visualizado: true,
+        data_visualizacao: new Date().toISOString(),
+      });
+    });
+    
+    // Sync with database
+    try {
+      const alerts = stockData.data.alertas.filter((a) => ids.includes(a.id));
+      await databaseIntegration.syncAlerts(alerts);
+    } catch (error) {
+      console.error('Error syncing alerts:', error);
+    }
+    
+    toast.success(`${ids.length} alerta(s) marcado(s) como visualizado(s)!`);
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleBulkResolve = useCallback(async (ids: number[]) => {
+    ids.forEach((id) => {
+      stockData.updateAlert(id, {
+        data_resolucao: new Date().toISOString(),
+      });
+    });
+    
+    // Sync with database
+    try {
+      const alerts = stockData.data.alertas.filter((a) => ids.includes(a.id));
+      await databaseIntegration.syncAlerts(alerts);
+    } catch (error) {
+      console.error('Error syncing alerts:', error);
+    }
+    
+    toast.success(`${ids.length} alerta(s) resolvido(s)!`);
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleWarehouseSave = useCallback(async (formData: WarehouseFormData, warehouseId?: number) => {
+    if (warehouseId) {
+      stockData.updateWarehouse(warehouseId, formData as Partial<Warehouse>);
+      toast.success('Armazém atualizado com sucesso!');
+    } else {
+      stockData.addWarehouse(formData as Omit<Warehouse, 'id'>);
+      toast.success('Armazém adicionado com sucesso!');
+    }
+    
+    // Sync with database
+    try {
+      const warehouses = stockData.data.armazens;
+      await databaseIntegration.syncWarehouses(warehouses);
+    } catch (error) {
+      console.error('Error syncing warehouses:', error);
+    }
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleWarehouseDelete = useCallback((id: number) => {
+    if (confirm('Tem certeza que deseja excluir este armazém?')) {
+      stockData.deleteWarehouse(id);
+      toast.success('Armazém excluído com sucesso!');
     }
   }, [stockData, toast]);
 
@@ -194,6 +345,48 @@ function EstoquePageContent() {
             onSave={handleSupplierSave}
           />
         );
+      case 'movimentacoes':
+        return (
+          <MovementsTab
+            movements={stockData.data.movimentacoes}
+            products={stockData.data.produtos}
+            users={stockData.data.usuarios}
+            onAddMovement={handleMovementSave}
+          />
+        );
+      case 'alertas':
+        return (
+          <AlertsTab
+            alerts={stockData.data.alertas}
+            products={stockData.data.produtos}
+            onMarkAsRead={handleAlertMarkAsRead}
+            onResolve={handleAlertResolve}
+            onBulkMarkAsRead={handleBulkMarkAsRead}
+            onBulkResolve={handleBulkResolve}
+          />
+        );
+      case 'armazens':
+        return (
+          <WarehousesTab
+            warehouses={stockData.data.armazens}
+            products={stockData.data.produtos}
+            users={stockData.data.usuarios}
+            onSave={handleWarehouseSave}
+            onDelete={handleWarehouseDelete}
+          />
+        );
+      case 'vencimentos':
+        return (
+          <ExpirationsTab
+            products={stockData.data.produtos}
+          />
+        );
+      case 'relatorios':
+        return (
+          <ReportsTab
+            data={stockData.data}
+          />
+        );
       default:
         return <div>Tab não implementada ainda</div>;
     }
@@ -206,6 +399,31 @@ function EstoquePageContent() {
         subtitle="Sistema completo de gerenciamento de estoque"
         notificationCount={notifications.filter((n) => !n.read).length}
         onNotificationClick={() => setIsNotificationCenterOpen(true)}
+        actions={
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            {realTimeUpdates.isConnected && (
+              <RealTimeBadge isActive={realTimeUpdates.isConnected} />
+            )}
+            {databaseIntegration.isLoading && (
+              <span style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem' }}>
+                Sincronizando...
+              </span>
+            )}
+            {databaseIntegration.error && (
+              <span style={{ color: 'var(--color-error)', fontSize: '0.85rem' }}>
+                {databaseIntegration.error}
+              </span>
+            )}
+            <button
+              className="btn-secondary btn-sm"
+              onClick={() => databaseIntegration.refreshFromDatabase()}
+              disabled={databaseIntegration.isLoading}
+            >
+              <FontAwesomeIcon icon={faSync} />
+              Atualizar
+            </button>
+          </div>
+        }
       />
 
       <TabNavigation activeTab={activeTab} onTabChange={handleTabChange} />

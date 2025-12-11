@@ -1,95 +1,107 @@
 /**
  * Warehouses Management Hook
- * Handles warehouse operations and capacity management
+ * Handles warehouse filtering, searching, and operations
  */
 
 import { useState, useMemo, useCallback } from 'react';
 import type { Warehouse, Product } from '../../../types/estoque';
 
-export interface WarehouseUtilization {
-  warehouse: Warehouse;
-  totalProducts: number;
-  totalQuantity: number;
-  totalValue: number;
-  utilizationPercent: number;
-  availableCapacity: number;
+export interface WarehouseFilters {
+  ativo?: boolean;
+  cidade?: string;
+  estado?: string;
+  search?: string;
 }
 
 export interface UseWarehousesReturn {
   warehouses: Warehouse[];
-  activeWarehouses: Warehouse[];
-  getWarehouseUtilization: (warehouseId: number, products: Product[]) => WarehouseUtilization | null;
-  getAllUtilizations: (products: Product[]) => WarehouseUtilization[];
+  filteredWarehouses: Warehouse[];
+  filters: WarehouseFilters;
+  setFilters: (filters: WarehouseFilters) => void;
+  clearFilters: () => void;
   search: string;
   setSearch: (search: string) => void;
-  filteredWarehouses: Warehouse[];
+  getWarehouseUtilization: (warehouseId: number, products: Product[]) => {
+    used: number;
+    available: number;
+    percentage: number;
+  };
 }
 
-export function useWarehouses(warehouses: Warehouse[]): UseWarehousesReturn {
+export function useWarehouses(
+  warehouses: Warehouse[],
+  products?: Product[]
+): UseWarehousesReturn {
+  const [filters, setFilters] = useState<WarehouseFilters>({});
   const [search, setSearch] = useState('');
 
-  const activeWarehouses = useMemo(() => {
-    return warehouses.filter((w) => w.ativo);
-  }, [warehouses]);
+  const filteredWarehouses = useMemo(() => {
+    let filtered = [...warehouses];
+
+    // Active filter
+    if (filters.ativo !== undefined) {
+      filtered = filtered.filter((w) => w.ativo === filters.ativo);
+    }
+
+    // City filter
+    if (filters.cidade) {
+      filtered = filtered.filter((w) =>
+        w.cidade.toLowerCase().includes(filters.cidade!.toLowerCase())
+      );
+    }
+
+    // State filter
+    if (filters.estado) {
+      filtered = filtered.filter((w) =>
+        w.estado.toLowerCase().includes(filters.estado!.toLowerCase())
+      );
+    }
+
+    // Search filter
+    if (search) {
+      const searchLower = search.toLowerCase();
+      filtered = filtered.filter(
+        (w) =>
+          w.nome.toLowerCase().includes(searchLower) ||
+          w.endereco.toLowerCase().includes(searchLower) ||
+          w.cidade.toLowerCase().includes(searchLower) ||
+          w.estado.toLowerCase().includes(searchLower)
+      );
+    }
+
+    return filtered;
+  }, [warehouses, filters, search]);
 
   const getWarehouseUtilization = useCallback(
-    (warehouseId: number, products: Product[]): WarehouseUtilization | null => {
+    (warehouseId: number, products: Product[]) => {
       const warehouse = warehouses.find((w) => w.id === warehouseId);
-      if (!warehouse) return null;
+      if (!warehouse) {
+        return { used: 0, available: 0, percentage: 0 };
+      }
 
-      const warehouseProducts = products.filter((p) => p.armazem_id === warehouseId && p.ativo);
+      const warehouseProducts = products.filter((p) => p.armazem_id === warehouseId);
+      const used = warehouseProducts.reduce((sum, p) => sum + p.quantidade_atual, 0);
+      const available = warehouse.capacidade - used;
+      const percentage = warehouse.capacidade > 0 ? (used / warehouse.capacidade) * 100 : 0;
 
-      const totalProducts = warehouseProducts.length;
-      const totalQuantity = warehouseProducts.reduce((sum, p) => sum + p.quantidade_atual, 0);
-      const totalValue = warehouseProducts.reduce(
-        (sum, p) => sum + p.quantidade_atual * p.custo_medio_ponderado,
-        0
-      );
-      const utilizationPercent = (warehouse.capacidade_atual / warehouse.capacidade) * 100;
-      const availableCapacity = warehouse.capacidade - warehouse.capacidade_atual;
-
-      return {
-        warehouse,
-        totalProducts,
-        totalQuantity,
-        totalValue,
-        utilizationPercent,
-        availableCapacity,
-      };
+      return { used, available, percentage };
     },
     [warehouses]
   );
 
-  const getAllUtilizations = useCallback(
-    (products: Product[]): WarehouseUtilization[] => {
-      return activeWarehouses
-        .map((w) => getWarehouseUtilization(w.id, products))
-        .filter((u): u is WarehouseUtilization => u !== null);
-    },
-    [activeWarehouses, getWarehouseUtilization]
-  );
-
-  const filteredWarehouses = useMemo(() => {
-    if (!search) return warehouses;
-
-    const searchLower = search.toLowerCase();
-    return warehouses.filter(
-      (w) =>
-        w.nome.toLowerCase().includes(searchLower) ||
-        w.descricao?.toLowerCase().includes(searchLower) ||
-        w.cidade.toLowerCase().includes(searchLower) ||
-        w.endereco.toLowerCase().includes(searchLower)
-    );
-  }, [warehouses, search]);
+  const clearFilters = useCallback(() => {
+    setFilters({});
+    setSearch('');
+  }, []);
 
   return {
     warehouses,
-    activeWarehouses,
-    getWarehouseUtilization,
-    getAllUtilizations,
+    filteredWarehouses,
+    filters,
+    setFilters,
+    clearFilters,
     search,
     setSearch,
-    filteredWarehouses,
+    getWarehouseUtilization,
   };
 }
-

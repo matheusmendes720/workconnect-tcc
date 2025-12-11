@@ -5,7 +5,6 @@
  * TypeScript version with full type safety
  */
 
-import { MockDataEstoque } from './mock-data';
 import type {
   Product,
   Movement,
@@ -20,6 +19,8 @@ import type {
   StockProjection,
   WeeklyActivityData,
   Alert,
+  Category,
+  ProductSupplier,
 } from '../../types/estoque';
 import { AlertPriority } from '../../types/estoque';
 import { MovementType } from '../../types/estoque';
@@ -27,20 +28,24 @@ import { MovementType } from '../../types/estoque';
 export class ChartsAnalytics {
     private charts: Record<string, any>;
     private insights: Partial<BusinessInsights>;
+    private data: StockData;
 
-    constructor() {
+    constructor(data: StockData) {
         this.charts = {};
         this.insights = {};
+        this.data = data;
     }
 
     /**
      * Calculate business insights from data
      */
-    calculateInsights(data: StockData): BusinessInsights {
-        const produtos = data.produtos || [];
-        const movimentacoes = data.movimentacoes || [];
-        const fornecedores = data.fornecedores || [];
-        
+    calculateInsights(): BusinessInsights {
+        const produtos = this.data.produtos || [];
+        const movimentacoes = this.data.movimentacoes || [];
+        const fornecedores = this.data.fornecedores || [];
+        const categorias = this.data.categorias || [];
+        const produto_fornecedor = this.data.produto_fornecedor || [];
+
         // ABC Analysis (Pareto Principle)
         const abcAnalysis = this.calculateABCAnalysis(produtos);
         
@@ -48,10 +53,10 @@ export class ChartsAnalytics {
         const turnoverRates = this.calculateTurnoverRates(produtos, movimentacoes);
         
         // Supplier Performance
-        const supplierPerformance = this.calculateSupplierPerformance(fornecedores, movimentacoes);
+        const supplierPerformance = this.calculateSupplierPerformance(fornecedores, movimentacoes, produto_fornecedor);
         
         // Category Value Distribution
-        const categoryDistribution = this.calculateCategoryDistribution(produtos);
+        const categoryDistribution = this.calculateCategoryDistribution(produtos, categorias);
         
         // Time-based Trends
         const trends = this.calculateTrends(movimentacoes);
@@ -194,16 +199,13 @@ export class ChartsAnalytics {
     /**
      * Calculate supplier performance metrics
      */
-    calculateSupplierPerformance(fornecedores: Supplier[], movimentacoes: Movement[]): SupplierPerformanceData[] {
+    calculateSupplierPerformance(fornecedores: Supplier[], movimentacoes: Movement[], produtoFornecedor: ProductSupplier[]): SupplierPerformanceData[] {
         const last90Days = new Date();
         last90Days.setDate(last90Days.getDate() - 90);
         
         const movimentacoesRecentes = movimentacoes.filter(
             m => new Date(m.data_hora).getTime() >= last90Days.getTime() && m.tipo === MovementType.ENTRADA_COMPRA
         );
-        
-        // Get produto_fornecedor associations
-        const produtoFornecedor = MockDataEstoque.produto_fornecedor || [];
         
         return fornecedores
             .filter(f => f.ativo)
@@ -245,9 +247,7 @@ export class ChartsAnalytics {
     /**
      * Calculate category value distribution
      */
-    calculateCategoryDistribution(produtos: Product[]): CategoryDistribution[] {
-        const categorias = MockDataEstoque.categorias;
-        
+    calculateCategoryDistribution(produtos: Product[], categorias: Category[]): CategoryDistribution[] {
         return categorias
             .filter(c => c.ativo)
             .map(categoria => {
@@ -489,5 +489,3 @@ export class ChartsAnalytics {
         return texts;
     }
 }
-
-

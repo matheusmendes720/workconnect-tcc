@@ -127,4 +127,3 @@ export const DashboardTab = React.memo(function DashboardTab({ data, metrics, in
     </div>
   );
 });
-

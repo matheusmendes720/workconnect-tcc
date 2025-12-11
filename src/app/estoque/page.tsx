@@ -393,7 +393,7 @@ function EstoquePageContent() {
   };
 
   return (
-    <div className="estoque-page">
+    <main className="estoque-page">
       <PageHeader
         title="Gestão de Estoque"
         subtitle="Sistema completo de gerenciamento de estoque"
@@ -453,7 +453,7 @@ function EstoquePageContent() {
           setNotifications([]);
         }}
       />
-    </div>
+    </main>
   );
 }
 
@@ -464,4 +464,3 @@ export default function EstoquePage() {
     </StockDataProvider>
   );
 }
-

@@ -185,8 +185,3 @@ export function WarehousesTab({
     </div>
   );
 }
-
-
-
-
-

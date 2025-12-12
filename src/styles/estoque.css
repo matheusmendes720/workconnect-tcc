@@ -13,13 +13,13 @@
 }
 
 .tab-button {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.25rem;
     background: transparent;
     border: none;
     color: var(--color-text-secondary);
     cursor: pointer;
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 1rem;
     border-radius: 8px 8px 0 0;
     transition: all 0.3s ease;
     white-space: nowrap;
@@ -62,7 +62,7 @@
     -webkit-backdrop-filter: var(--glass-blur);
     border: 1px solid var(--glass-border);
     border-radius: 12px;
-    padding: 0.875rem 1rem;
+    padding: 1.25rem;
     transition: all 0.3s ease;
 }
 
@@ -91,7 +91,7 @@
 }
 
 .metric-value {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-primary);
     margin-bottom: 0.25rem;

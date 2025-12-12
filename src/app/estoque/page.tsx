@@ -43,6 +43,7 @@ import type {
   MovementFormData,
   WarehouseFormData,
 } from '../../types/estoque';
+import { MovementType } from '../../types/estoque';
 import { MockDataEstoque } from '@lib/estoque/mock-data';
 
 function EstoquePageContent() {
@@ -262,6 +263,32 @@ function EstoquePageContent() {
     }
   };
 
+  const handleGenerateOrder = useCallback((productId: number, quantity: number) => {
+    const product = stockData.data.produtos.find(p => p.id === productId);
+    if (!product) {
+      toast.error('Produto não encontrado!');
+      return;
+    }
+
+    // TODO: Replace with the actual authenticated user's ID
+    const currentUser = stockData.data.usuarios[0];
+    if (!currentUser) {
+      toast.error('Nenhum usuário encontrado para registrar a ordem.');
+      return;
+    }
+
+    handleMovementSave({
+      produto_id: productId,
+      tipo: MovementType.ENTRADA_COMPRA,
+      quantidade: quantity,
+      preco_unitario: product.preco_aquisicao,
+      usuario_id: currentUser.id,
+      documento_fiscal: `OC-${Date.now()}`,
+    });
+
+    toast.success(`Ordem de compra para ${quantity}x ${product.nome} gerada!`);
+  }, [stockData.data.produtos, stockData.data.usuarios, toast, handleMovementSave]);
+
   const quickActions: QuickAction[] = [
     {
       id: 'add-product',
@@ -338,11 +365,16 @@ function EstoquePageContent() {
         return (
           <SuppliersTab
             suppliers={stockData.data.fornecedores}
+            products={stockData.data.produtos}
+            movements={stockData.data.movimentacoes}
+            users={stockData.data.usuarios}
+            productSuppliers={stockData.data.produto_fornecedor}
             onEdit={(supplier: Supplier) => {
               // Handle edit
             }}
             onDelete={handleSupplierDelete}
             onSave={handleSupplierSave}
+            onGenerateOrder={handleGenerateOrder}
           />
         );
       case 'movimentacoes':

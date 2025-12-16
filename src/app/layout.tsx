@@ -8,6 +8,7 @@ import { Inter, Poppins } from 'next/font/google';
 import '../styles/globals.css';
 import '../styles/estoque.css';
 import '../styles/estoque-tabs-extended.css';
+import { AuthProvider } from '../contexts/AuthContext';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' });
 const poppins = Poppins({
@@ -35,7 +36,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${poppins.variable}`}>
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

@@ -14,6 +14,9 @@ import { NotificationCenter } from '@components/estoque/ui/NotificationCenter';
 import { RealTimeBadge } from '@components/estoque/ui/RealTimeBadge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
+import { AuthProvider } from '../../contexts/AuthContext';
+import { AuthWrapper } from '../../components/estoque/auth/AuthWrapper';
+import { AppHeaderEnhanced } from '../../components/estoque/auth/AppHeaderEnhanced';
 import { DashboardTab } from '@components/estoque/tabs/DashboardTab';
 import { ProductsTab } from '@components/estoque/tabs/ProductsTab';
 import { CategoriesTab } from '@components/estoque/tabs/CategoriesTab';
@@ -395,43 +398,84 @@ function EstoquePageContent() {
   };
 
   return (
-    <div className="estoque-page">
-      <PageHeader
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <AppHeaderEnhanced
         title="Gestão de Estoque"
         subtitle="Sistema completo de gerenciamento de estoque"
         notificationCount={notifications.filter((n) => !n.read).length}
         onNotificationClick={() => setIsNotificationCenterOpen(true)}
-        actions={
-          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-            {realTimeUpdates.isConnected && (
-              <RealTimeBadge isActive={realTimeUpdates.isConnected} />
-            )}
-            {databaseIntegration.isLoading && (
-              <span style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem' }}>
-                Sincronizando...
-              </span>
-            )}
-            {databaseIntegration.error && (
-              <span style={{ color: 'var(--color-error)', fontSize: '0.85rem' }}>
-                {databaseIntegration.error}
-              </span>
-            )}
-            <button
-              className="btn-secondary btn-sm"
-              onClick={() => databaseIntegration.refreshFromDatabase()}
-              disabled={databaseIntegration.isLoading}
-            >
-              <FontAwesomeIcon icon={faSync} />
-              Atualizar
-            </button>
-          </div>
-        }
       />
 
-      <TabNavigation activeTab={activeTab} onTabChange={handleTabChange} />
+      <div className="flex">
+        {/* Sidebar Navigation */}
+        <div className="w-64 bg-gray-800/50 backdrop-blur-sm border-r border-gray-700 min-h-screen">
+          <div className="p-4">
+            <h2 className="text-lg font-semibold text-white mb-4">Navegação</h2>
+            <TabNavigation activeTab={activeTab} onTabChange={handleTabChange} />
+          </div>
+        </div>
 
-      <div className="tab-content">
-        {renderTabContent()}
+        {/* Main Content */}
+        <div className="flex-1">
+          <div className="p-6">
+            {/* Action Bar */}
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-white">
+                  {activeTab === 'dashboard' && 'Dashboard'}
+                  {activeTab === 'produtos' && 'Produtos'}
+                  {activeTab === 'categorias' && 'Categorias'}
+                  {activeTab === 'fornecedores' && 'Fornecedores'}
+                  {activeTab === 'movimentacoes' && 'Movimentações'}
+                  {activeTab === 'alertas' && 'Alertas'}
+                  {activeTab === 'armazens' && 'Armazéns'}
+                  {activeTab === 'vencimentos' && 'Vencimentos'}
+                  {activeTab === 'relatorios' && 'Relatórios'}
+                </h1>
+                <p className="text-gray-400">
+                  {activeTab === 'dashboard' && 'Visão geral do sistema'}
+                  {activeTab === 'produtos' && 'Gerencie seus produtos'}
+                  {activeTab === 'categorias' && 'Organize suas categorias'}
+                  {activeTab === 'fornecedores' && 'Gerencie fornecedores'}
+                  {activeTab === 'movimentacoes' && 'Histórico de movimentações'}
+                  {activeTab === 'alertas' && 'Alertas e notificações'}
+                  {activeTab === 'armazens' && 'Gerencie armazéns'}
+                  {activeTab === 'vencimentos' && 'Produtos próximos ao vencimento'}
+                  {activeTab === 'relatorios' && 'Relatórios e análises'}
+                </p>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                {realTimeUpdates.isConnected && (
+                  <RealTimeBadge isActive={realTimeUpdates.isConnected} />
+                )}
+                {databaseIntegration.isLoading && (
+                  <span className="text-gray-400 text-sm">
+                    Sincronizando...
+                  </span>
+                )}
+                {databaseIntegration.error && (
+                  <span className="text-red-400 text-sm">
+                    {databaseIntegration.error}
+                  </span>
+                )}
+                <button
+                  className="px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white hover:bg-gray-700 transition-colors"
+                  onClick={() => databaseIntegration.refreshFromDatabase()}
+                  disabled={databaseIntegration.isLoading}
+                >
+                  <FontAwesomeIcon icon={faSync} className="mr-2" />
+                  Atualizar
+                </button>
+              </div>
+            </div>
+
+            {/* Tab Content */}
+            <div className="tab-content">
+              {renderTabContent()}
+            </div>
+          </div>
+        </div>
       </div>
 
       <QuickActions actions={quickActions} />
@@ -461,9 +505,13 @@ function EstoquePageContent() {
 
 export default function EstoquePage() {
   return (
-    <StockDataProvider>
-      <EstoquePageContent />
-    </StockDataProvider>
+    <AuthProvider>
+      <AuthWrapper>
+        <StockDataProvider>
+          <EstoquePageContent />
+        </StockDataProvider>
+      </AuthWrapper>
+    </AuthProvider>
   );
 }
 

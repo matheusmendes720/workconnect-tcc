@@ -44,6 +44,15 @@ export interface User {
   id: number;
   nome: string;
   email: string;
+  hashSenha: string;
+  telefone?: string;
+  fotoPerfil?: string;
+  dataCriacao: string;
+  ultimoAcesso: string;
+  ativo: boolean;
+  consentimentoLGPD: boolean;
+  dataConsentimento: string;
+  dataExclusaoSolicitada: string | null;
   perfil: UserProfile;
 }
 
@@ -468,6 +477,100 @@ export interface ReportConfig {
     fim: string;
   };
   format?: 'CSV' | 'JSON' | 'EXCEL' | 'PDF';
+}
+
+// ============================================
+// AUTHENTICATION & SECURITY
+// ============================================
+
+export interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  token: string | null;
+}
+
+export interface LoginCredentials {
+  email: string;
+  senha: string;
+}
+
+export interface RegisterData {
+  nome: string;
+  email: string;
+  senha: string;
+  telefone: string;
+  perfil: UserProfile;
+  consentimentoLGPD: boolean;
+}
+
+export interface PasswordChangeData {
+  senhaAtual: string;
+  senhaNova: string;
+  confirmacaoSenhaNova: string;
+}
+
+export interface UserUpdateData {
+  nome?: string;
+  email?: string;
+  telefone?: string;
+  fotoPerfil?: string;
+}
+
+// ============================================
+// LGPD COMPLIANCE
+// ============================================
+
+export interface LGPDAction {
+  id: number;
+  usuario_id: number;
+  acao: LGPDActionType;
+  dataHora: string;
+  ipOrigem: string;
+  dadosAcessados: string;
+  justificativa: string;
+}
+
+export enum LGPDActionType {
+  ACESSO_DADOS = 'ACESSO_DADOS',
+  EXPORTACAO_DADOS = 'EXPORTACAO_DADOS',
+  EXCLUSAO_DADOS = 'EXCLUSAO_DADOS',
+  ANONIMIZACAO = 'ANONIMIZACAO',
+  CONSENTIMENTO = 'CONSENTIMENTO',
+  ALTERACAO_DADOS = 'ALTERACAO_DADOS',
+}
+
+export interface LGPDConsent {
+  id: number;
+  usuario_id: number;
+  tipo_consentimento: string;
+  data_consentimento: string;
+  ip_origem: string;
+  ativo: boolean;
+}
+
+export interface UserExport {
+  usuario: Omit<User, 'hashSenha'>;
+  historico_acesso: LGPDAction[];
+  consentimentos: LGPDConsent[];
+  data_exportacao: string;
+}
+
+// ============================================
+// PROFILE & PERMISSIONS
+// ============================================
+
+export interface Profile {
+  id: number;
+  nome: string;
+  descricao: string;
+  permissoes: string[];
+  dataCriacao: string;
+}
+
+export interface Permission {
+  modulo: string;
+  acoes: string[];
 }
 
 // ============================================

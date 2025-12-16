@@ -65,8 +65,8 @@ export const DashboardTab = React.memo(function DashboardTab({
       {/* Metrics Cards */}
       <div className="metrics-grid">
         <div className="metric-card">
-          <div className="metric-icon" style={{ background: 'rgba(0, 230, 118, 0.2)' }}>
-            <i className="fas fa-box"></i>
+          <div className="metric-icon">
+            <i className="fas fa-cubes"></i>
           </div>
           <div className="metric-content">
             <div className="metric-label">Total de Produtos</div>
@@ -76,8 +76,8 @@ export const DashboardTab = React.memo(function DashboardTab({
         </div>
 
         <div className="metric-card">
-          <div className="metric-icon" style={{ background: 'rgba(255, 82, 82, 0.2)' }}>
-            <i className="fas fa-exclamation-triangle"></i>
+          <div className="metric-icon">
+            <i className="fas fa-triangle-exclamation"></i>
           </div>
           <div className="metric-content">
             <div className="metric-label">Produtos Críticos</div>
@@ -87,8 +87,8 @@ export const DashboardTab = React.memo(function DashboardTab({
         </div>
 
         <div className="metric-card">
-          <div className="metric-icon" style={{ background: 'rgba(255, 213, 79, 0.2)' }}>
-            <i className="fas fa-dollar-sign"></i>
+          <div className="metric-icon">
+            <i className="fas fa-sack-dollar"></i>
           </div>
           <div className="metric-content">
             <div className="metric-label">Valor Total Estoque</div>
@@ -98,8 +98,8 @@ export const DashboardTab = React.memo(function DashboardTab({
         </div>
 
         <div className="metric-card">
-          <div className="metric-icon" style={{ background: 'rgba(66, 165, 245, 0.2)' }}>
-            <i className="fas fa-bell"></i>
+          <div className="metric-icon">
+            <i className="fas fa-bell-slash"></i>
           </div>
           <div className="metric-content">
             <div className="metric-label">Alertas Pendentes</div>

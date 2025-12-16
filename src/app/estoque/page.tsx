@@ -266,7 +266,7 @@ function EstoquePageContent() {
     {
       id: 'add-product',
       label: 'Adicionar Produto',
-      icon: 'fa-box',
+      icon: 'fa-box-open',
       onClick: () => {
         // Open product modal
       },
@@ -275,7 +275,7 @@ function EstoquePageContent() {
     {
       id: 'add-category',
       label: 'Adicionar Categoria',
-      icon: 'fa-folder-plus',
+      icon: 'fa-folder-tree',
       onClick: () => {
         // Open category modal
       },
@@ -283,7 +283,7 @@ function EstoquePageContent() {
     {
       id: 'add-supplier',
       label: 'Adicionar Fornecedor',
-      icon: 'fa-truck',
+      icon: 'fa-dolly',
       onClick: () => {
         // Open supplier modal
       },
@@ -422,7 +422,7 @@ function EstoquePageContent() {
               onClick={() => databaseIntegration.refreshFromDatabase()}
               disabled={databaseIntegration.isLoading}
             >
-              <FontAwesomeIcon icon={faSync} />
+              <FontAwesomeIcon icon={faSync} spin />
               Atualizar
             </button>
           </div>

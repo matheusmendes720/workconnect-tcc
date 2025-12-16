@@ -56,22 +56,6 @@
     margin-bottom: 1rem;
 }
 
-.metric-card {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 1.25rem;
-    transition: all 0.3s ease;
-}
-
-.metric-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-gold);
-    border-color: var(--color-primary);
-}
-
 .metric-header {
     display: flex;
     justify-content: space-between;
@@ -83,19 +67,6 @@
     font-size: 0.75rem;
     color: var(--color-text-secondary);
     font-weight: 500;
-}
-
-.metric-icon {
-    color: var(--color-primary);
-    font-size: 1.1rem;
-}
-
-.metric-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    margin-bottom: 0.25rem;
-    line-height: 1.2;
 }
 
 .metric-label {
@@ -118,6 +89,33 @@
     border: 1px solid var(--glass-border);
     border-radius: 12px;
     padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+@keyframes glowing-border {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 213, 79, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 213, 79, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 213, 79, 0.2);
+    }
+}
+
+.info-card,
+.metric-card,
+.chart-card {
+    animation: glowing-border 5s ease-in-out infinite;
+}
+
+.info-card:hover,
+.metric-card:hover,
+.chart-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold-hover);
+    border-color: var(--color-primary);
 }
 
 .chart-card h3 {
@@ -639,7 +637,7 @@
 /* Info Sections */
 .info-sections {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -856,7 +854,8 @@
     align-items: center;
     justify-content: center;
     font-size: 1.25rem;
-    color: var(--color-primary);
+    background: var(--gradient-gold);
+    color: #0D0D0D;
 }
 
 .metric-content {
@@ -888,6 +887,13 @@
     border: 1px solid var(--glass-border);
     border-radius: 12px;
     padding: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold);
+    border-color: var(--color-primary);
 }
 
 .chart-header {

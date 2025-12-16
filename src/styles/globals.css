@@ -29,7 +29,7 @@
     /* Glassmorphic Effects */
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.15);
-    --glass-blur: blur(16px);
+    --glass-blur: blur(24px);
     --glass-saturate: saturate(180%);
     --glass-brightness: brightness(1.1);
     

@@ -4,260 +4,274 @@
  */
 
 /* ============================================
-   MOVEMENTS TAB
+   Enhanced Extended Tabs - Premium Design
+   Beautiful Visual Effects & Improved Hierarchy
    ============================================ */
 
+/* MOVEMENTS TAB - Enhanced Design */
 .movements-tab {
-  padding: 1.5rem;
+    padding: 2rem;
+    background: radial-gradient(circle at 30% 40%, rgba(255, 213, 79, 0.02) 0%, transparent 50%);
 }
 
 .movements-tab .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .movements-tab .stat-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: center;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 1.75rem;
+    transition: all var(--transition-bounce);
+    position: relative;
+    overflow: hidden;
 }
 
-.movements-tab .stat-value.entrada {
-  color: var(--color-success);
+.movements-tab .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-surface);
+    border-radius: inherit;
+    z-index: -1;
 }
 
-.movements-tab .stat-value.saida {
-  color: var(--color-error);
+.movements-tab .stat-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-gold-hover);
+    border-color: var(--color-primary);
 }
 
-.movement-type-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.movements-tab .stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
-.movement-icon {
-  font-size: 1.2rem;
+.movements-tab .stat-title {
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    font-weight: 700;
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.movement-icon.entrada {
-  color: var(--color-success);
+.movements-tab .stat-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
 }
 
-.movement-icon.saida {
-  color: var(--color-error);
+.movements-tab .stat-label {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    margin-top: 0.5rem;
 }
 
-.movement-icon.transferencia {
-  color: var(--color-warning);
-}
-
-/* ============================================
-   ALERTS TAB
-   ============================================ */
-
+/* ALERTS TAB - Enhanced Design */
 .alerts-tab {
-  padding: 1.5rem;
+    padding: 2rem;
+    background: radial-gradient(circle at 70% 30%, rgba(255, 82, 82, 0.02) 0%, transparent 50%);
 }
 
 .alerts-tab .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.alerts-tab .stat-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 1.75rem;
+    transition: all var(--transition-bounce);
+    position: relative;
+    overflow: hidden;
+}
+
+.alerts-tab .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-surface);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.alerts-tab .stat-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-lg);
 }
 
 .alerts-tab .stat-card.priority-urgente {
-  border-color: var(--color-error);
+    border-color: var(--color-error);
+    box-shadow: 0 0 20px rgba(255, 82, 82, 0.2);
+}
+
+.alerts-tab .stat-card.priority-urgente:hover {
+    box-shadow: var(--shadow-gold-hover), 0 0 30px rgba(255, 82, 82, 0.4);
 }
 
 .alerts-tab .stat-card.priority-alta {
-  border-color: var(--color-warning);
+    border-color: var(--color-warning);
+    box-shadow: 0 0 20px rgba(255, 213, 79, 0.2);
+}
+
+.alerts-tab .stat-card.priority-alta:hover {
+    box-shadow: var(--shadow-gold-hover), 0 0 30px rgba(255, 213, 79, 0.4);
 }
 
 .alerts-tab .stat-card.priority-media {
-  border-color: var(--color-info);
+    border-color: var(--color-info);
+    box-shadow: 0 0 20px rgba(66, 165, 245, 0.2);
+}
+
+.alerts-tab .stat-card.priority-media:hover {
+    box-shadow: var(--shadow-gold-hover), 0 0 30px rgba(66, 165, 245, 0.4);
 }
 
 .alerts-tab .stat-card.priority-baixa {
-  border-color: var(--color-success);
+    border-color: var(--color-success);
 }
 
-.alerts-feed {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.alert-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.alert-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(255, 215, 79, 0.2);
-}
-
-.alert-card.visualizado {
-  opacity: 0.7;
-}
-
-.alert-card.priority-urgente {
-  border-left: 4px solid var(--color-error);
-}
-
-.alert-card.priority-alta {
-  border-left: 4px solid var(--color-warning);
-}
-
-.alert-card.priority-media {
-  border-left: 4px solid var(--color-info);
-}
-
-.alert-card.priority-baixa {
-  border-left: 4px solid var(--color-success);
-}
-
-.alert-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.alert-priority {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.alert-icon {
-  font-size: 1.2rem;
-}
-
-.alert-icon.urgente {
-  color: var(--color-error);
-}
-
-.alert-icon.alta {
-  color: var(--color-warning);
-}
-
-.alert-icon.media {
-  color: var(--color-info);
-}
-
-.alert-icon.baixa {
-  color: var(--color-success);
-}
-
-.alert-card-body {
-  margin-bottom: 1rem;
-}
-
-.alert-product {
-  margin-bottom: 0.5rem;
-}
-
-.product-code {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-left: 0.5rem;
-}
-
-.alert-details {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.alert-card-actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.alert-resolved {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--glass-border);
-  color: var(--color-success);
-  font-size: 0.9rem;
-}
-
-/* ============================================
-   WAREHOUSES TAB
-   ============================================ */
-
+/* WAREHOUSES TAB - Enhanced Design */
 .warehouses-tab {
-  padding: 1.5rem;
+    padding: 2rem;
+    background: radial-gradient(circle at 50% 60%, rgba(0, 230, 118, 0.02) 0%, transparent 50%);
 }
 
 .warehouses-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 2rem;
+    margin-top: 2.5rem;
 }
 
 .warehouse-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    transition: all var(--transition-bounce);
+    position: relative;
+    overflow: hidden;
+}
+
+.warehouse-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-surface);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.warehouse-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity var(--transition-slow);
+    z-index: -1;
 }
 
 .warehouse-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(255, 215, 79, 0.2);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-gold-hover);
+    border-color: var(--color-success);
 }
 
-.warehouse-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+.warehouse-card:hover::after {
+    opacity: 1;
 }
 
-.warehouse-card-header h3 {
-  margin: 0;
-  color: var(--color-primary);
+.warehouse-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--glass-border);
 }
 
-.warehouse-location {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
+.warehouse-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.warehouse-capacity {
-  margin: 1.5rem 0;
+.warehouse-status {
+    padding: 0.375rem 0.875rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.warehouse-status.active {
+    background: rgba(0, 230, 118, 0.2);
+    color: var(--color-success);
+    text-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+}
+
+.warehouse-status.inactive {
+    background: rgba(255, 82, 82, 0.2);
+    color: var(--color-error);
+    text-shadow: 0 0 10px rgba(255, 82, 82, 0.5);
 }
 
 .warehouse-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-  margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .warehouse-stats .stat-item {
-  display: flex;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
   justify-content: space-between;
   padding: 0.5rem;
   background: rgba(255, 255, 255, 0.05);
@@ -280,10 +294,11 @@
   align-items: center;
 }
 
+/* Gauge Chart - Consistent sizing */
 .gauge-chart {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   margin: 0 auto;
 }
 
@@ -391,9 +406,10 @@
   padding: 1.5rem;
 }
 
+/* Reports Container - Better responsive layout */
 .reports-container {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 280px 1fr;
   gap: 2rem;
   height: calc(100vh - 200px);
 }
@@ -724,7 +740,27 @@
    RESPONSIVE
    ============================================ */
 
+/* Responsive - Better breakpoints */
+@media (max-width: 1024px) {
+  .warehouses-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+  
+  .reports-container {
+    grid-template-columns: 260px 1fr;
+  }
+}
+
 @media (max-width: 768px) {
+  .movements-tab .stats-grid,
+  .alerts-tab .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .warehouses-grid {
+    grid-template-columns: 1fr;
+  }
+
   .reports-container {
     grid-template-columns: 1fr;
   }
@@ -733,16 +769,24 @@
     position: static;
   }
 
-  .warehouses-grid {
-    grid-template-columns: 1fr;
-  }
-
   .date-range-inputs {
     flex-direction: column;
   }
 
   .alerts-feed {
     gap: 0.75rem;
+  }
+  
+  .gauge-chart {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gauge-chart {
+    width: 160px;
+    height: 160px;
   }
 }
 

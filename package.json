@@ -13,7 +13,9 @@
     "migrate": "powershell -ExecutionPolicy Bypass -File scripts/setup/migrate-files.ps1",
     "organize": "powershell -ExecutionPolicy Bypass -File scripts/setup/organize-remaining-files.ps1",
     "finalize": "powershell -ExecutionPolicy Bypass -File scripts/setup/finalize-organization.ps1",
-    "cleanup": "powershell -ExecutionPolicy Bypass -File scripts/setup/cleanup-root-files.ps1"
+    "cleanup": "powershell -ExecutionPolicy Bypass -File scripts/setup/cleanup-root-files.ps1",
+    "screenshots": "playwright test screenshots.spec.cjs --headed",
+    "screenshots-headless": "playwright test screenshots.spec.cjs"
   },
   "keywords": [
     "dashboard",
@@ -28,6 +30,7 @@
   "author": "WorkConnect Team",
   "license": "MIT",
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "vite": "^5.0.0"
   },
   "dependencies": {

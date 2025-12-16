@@ -60,8 +60,10 @@ function EstoquePageContent() {
     enabled: true,
     interval: 30000, // 30 seconds
     onUpdate: () => {
-      // Refresh data periodically
-      stockData.refresh();
+      // Refresh data periodically - debounced to prevent excessive calls
+      if (!databaseIntegration.isLoading) {
+        stockData.refresh();
+      }
     },
   });
 
@@ -70,7 +72,7 @@ function EstoquePageContent() {
 
   const metrics = useMemo(() => {
     return MockDataEstoque.getDashboardMetrics();
-  }, [stockData.data]);
+  }, []);
 
   const {
     filteredProducts,

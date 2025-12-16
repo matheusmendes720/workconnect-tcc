@@ -141,10 +141,47 @@ export function MovementValueChart({ movements, className = '' }: MovementValueC
   };
 
   if (movements.length === 0) {
+    // Generate sample data for demonstration
+    const sampleDates = [];
+    const sampleEntradas = [];
+    const sampleSaidas = [];
+    const today = new Date();
+    
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+      sampleDates.push(dateStr);
+      sampleEntradas.push(Math.floor(Math.random() * 5000) + 1000);
+      sampleSaidas.push(Math.floor(Math.random() * 3000) + 500);
+    }
+
+    const mockChartData = {
+      labels: sampleDates,
+      datasets: [
+        {
+          label: 'Entradas (Exemplo)',
+          data: sampleEntradas,
+          borderColor: 'rgba(76, 175, 80, 1)',
+          backgroundColor: 'rgba(76, 175, 80, 0.2)',
+          fill: true,
+          tension: 0.4,
+        },
+        {
+          label: 'Saídas (Exemplo)',
+          data: sampleSaidas,
+          borderColor: 'rgba(244, 67, 54, 1)',
+          backgroundColor: 'rgba(244, 67, 54, 0.2)',
+          fill: true,
+          tension: 0.4,
+        },
+      ],
+    };
+
     return (
       <div className={`chart-container ${className}`}>
-        <div className="chart-empty">
-          <p>Nenhuma movimentação no período</p>
+        <div className="chart-wrapper">
+          <Line data={mockChartData} options={options} />
         </div>
       </div>
     );

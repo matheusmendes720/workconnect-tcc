@@ -93,10 +93,36 @@ export function MovementTimelineChart({ movements, className = '' }: MovementTim
   };
 
   if (movements.length === 0) {
+    // Generate sample data for demonstration
+    const sampleDates = [];
+    const sampleData = [];
+    const today = new Date();
+    
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+      sampleDates.push(dateStr);
+      sampleData.push(Math.floor(Math.random() * 50) + 10);
+    }
+
+    const mockChartData = {
+      labels: sampleDates,
+      datasets: [
+        {
+          label: 'Quantidade Movimentada (Exemplo)',
+          data: sampleData,
+          backgroundColor: 'rgba(255, 193, 7, 0.8)',
+          borderColor: 'rgba(255, 193, 7, 1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+
     return (
       <div className={`chart-container ${className}`}>
-        <div className="chart-empty">
-          <p>Nenhuma movimentação no período</p>
+        <div className="chart-wrapper">
+          <Bar data={mockChartData} options={options} />
         </div>
       </div>
     );

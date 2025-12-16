@@ -45,7 +45,7 @@ export function useRealTimeUpdates(
         setLastUpdate(new Date());
       }
     }, interval);
-  }, [interval, onUpdate]);
+  }, [interval]);
 
   const stop = useCallback(() => {
     if (intervalRef.current) {

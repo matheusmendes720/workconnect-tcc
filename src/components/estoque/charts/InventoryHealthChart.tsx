@@ -7,7 +7,26 @@
 'use client';
 
 import React from 'react';
-import { Doughnut, PolarArea } from 'react-chartjs-2';
+import dynamic from 'next/dynamic';
+
+const Doughnut = dynamic(() => import('react-chartjs-2').then(mod => ({ default: mod.Doughnut })), {
+  ssr: false,
+  loading: () => (
+    <div className="loading-chart">
+      <div>Carregando gráfico...</div>
+    </div>
+  )
+});
+
+const PolarArea = dynamic(() => import('react-chartjs-2').then(mod => ({ default: mod.PolarArea })), {
+  ssr: false,
+  loading: () => (
+    <div className="loading-chart">
+      <div>Carregando gráfico...</div>
+    </div>
+  )
+});
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -26,7 +45,7 @@ import type { Product, Movement } from '../../../types/estoque';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
-import { AlertCircle, Heart, Activity, TrendingUp, AlertTriangle } from 'lucide-react';
+import { AlertCircle, Heart, Activity, TrendingUp, AlertTriangle, Package, Clock } from 'lucide-react';
 
 ChartJS.register(
   CategoryScale,
@@ -65,6 +84,8 @@ export function InventoryHealthChart({
         stockLevels: { optimal: 45, low: 30, critical: 15, overstock: 10 },
         turnoverEfficiency: 68,
         storageUtilization: 82,
+        expiringSoon: 8,
+        criticalStock: 15,
         riskFactors: {
           expiring: 8,
           obsolete: 3,
@@ -104,6 +125,8 @@ export function InventoryHealthChart({
       stockLevels: { optimal, low, critical, overstock },
       turnoverEfficiency: Math.round(turnoverScore),
       storageUtilization: Math.round(utilizationScore),
+      expiringSoon: Math.round(totalProducts * 0.08),
+      criticalStock: critical,
       riskFactors: {
         expiring: Math.round(totalProducts * 0.08),
         obsolete: Math.round(totalProducts * 0.03),
@@ -256,126 +279,91 @@ export function InventoryHealthChart({
 
   if (isLoading) {
     return (
-      <Card className={className}>
-        <CardHeader>
-          <Skeleton className="h-6 w-48" />
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-64 w-full" />
-        </CardContent>
-      </Card>
-    );
-  }
-
-  if (error) {
-    return (
-      <Card className={className}>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Heart className="h-5 w-5" />
-            Saúde do Inventário
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Alert variant="destructive">
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Erro ao carregar dados</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        </CardContent>
-      </Card>
+      <div className={`loading-chart ${className}`}>
+        <div>Carregando gráfico...</div>
+      </div>
     );
   }
 
   return (
-    <Card className={className}>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Heart className="h-5 w-5 text-red-500" />
-          Painel de Saúde do Inventário
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Overall Health Score Gauge */}
-          <div className="flex flex-col items-center">
-            <div className="relative w-32 h-32">
-              <Doughnut data={gaugeData} options={gaugeOptions} />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className={`text-2xl font-bold ${
-                    healthMetrics.overallScore >= 80 ? 'text-green-500' :
-                    healthMetrics.overallScore >= 60 ? 'text-yellow-500' :
-                    'text-red-500'
-                  }`}>
-                    {healthMetrics.overallScore}%
-                  </div>
-                  <div className="text-xs text-muted-foreground">Saúde Geral</div>
-                </div>
+    <div className={className}>
+      {/* Main Health Score - Enhanced Center Focus */}
+      <div className="flex flex-col items-center mb-6">
+        <div className="relative w-40 h-40">
+          <Doughnut data={gaugeData} options={gaugeOptions} />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              <div className={`text-3xl font-bold bg-gradient-to-r ${
+                healthMetrics.overallScore >= 80 ? 'from-green-400 to-green-600' :
+                healthMetrics.overallScore >= 60 ? 'from-yellow-400 to-yellow-600' :
+                'from-red-400 to-red-600'
+              } bg-clip-text text-transparent`}>
+                {healthMetrics.overallScore}%
+              </div>
+              <div className="text-sm font-medium text-gray-300 mt-1">Saúde Geral</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Enhanced Health Metrics - Better Visual Grid */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-green-500/10 to-green-600/5 border border-green-500/20 hover:border-green-500/40 transition-all">
+          <div className="flex items-center">
+            <div className="p-2 rounded-lg bg-green-500/20 mr-3">
+              <TrendingUp className="h-5 w-5 text-green-400" />
+            </div>
+            <div>
+              <div className="text-xs font-medium text-gray-400">Eficiência</div>
+              <div className="text-lg font-bold text-green-400">
+                {healthMetrics.turnoverEfficiency}%
               </div>
             </div>
           </div>
-
-          {/* Stock Levels Distribution */}
-          <div className="flex flex-col items-center">
-            <div className="w-32 h-32">
-              <PolarArea data={stockLevelsData} options={polarOptions} />
-            </div>
-            <div className="text-xs text-muted-foreground mt-2">Distribuição de Níveis</div>
-          </div>
-
-          {/* Risk Factors */}
-          <div className="flex flex-col items-center">
-            <div className="w-32 h-32">
-              <PolarArea data={riskFactorsData} options={polarOptions} />
-            </div>
-            <div className="text-xs text-muted-foreground mt-2">Fatores de Risco</div>
-          </div>
         </div>
-
-        {/* Additional Metrics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-          <div className="text-center p-3 bg-glass rounded-lg">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <Activity className="h-4 w-4 text-green-500" />
-              <span className="text-sm font-medium text-green-500">
-                {healthMetrics.turnoverEfficiency}%
-              </span>
+        
+        <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-blue-600/5 border border-blue-500/20 hover:border-blue-500/40 transition-all">
+          <div className="flex items-center">
+            <div className="p-2 rounded-lg bg-blue-500/20 mr-3">
+              <Package className="h-5 w-5 text-blue-400" />
             </div>
-            <div className="text-xs text-muted-foreground">Eficiência de Rotação</div>
-          </div>
-          
-          <div className="text-center p-3 bg-glass rounded-lg">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <TrendingUp className="h-4 w-4 text-blue-500" />
-              <span className="text-sm font-medium text-blue-500">
+            <div>
+              <div className="text-xs font-medium text-gray-400">Armazenamento</div>
+              <div className="text-lg font-bold text-blue-400">
                 {healthMetrics.storageUtilization}%
-              </span>
+              </div>
             </div>
-            <div className="text-xs text-muted-foreground">Utilização do Armazenamento</div>
-          </div>
-          
-          <div className="text-center p-3 bg-glass rounded-lg">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <AlertTriangle className="h-4 w-4 text-yellow-500" />
-              <span className="text-sm font-medium text-yellow-500">
-                {healthMetrics.riskFactors.expiring}
-              </span>
-            </div>
-            <div className="text-xs text-muted-foreground">Próximos do Vencimento</div>
-          </div>
-          
-          <div className="text-center p-3 bg-glass rounded-lg">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <AlertTriangle className="h-4 w-4 text-red-500" />
-              <span className="text-sm font-medium text-red-500">
-                {healthMetrics.stockLevels.critical}
-              </span>
-            </div>
-            <div className="text-xs text-muted-foreground">Estoque Crítico</div>
           </div>
         </div>
-      </CardContent>
-    </Card>
+        
+        <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-orange-500/10 to-orange-600/5 border border-orange-500/20 hover:border-orange-500/40 transition-all">
+          <div className="flex items-center">
+            <div className="p-2 rounded-lg bg-orange-500/20 mr-3">
+              <Clock className="h-5 w-5 text-orange-400" />
+            </div>
+            <div>
+              <div className="text-xs font-medium text-gray-400">Vencendo</div>
+              <div className="text-lg font-bold text-orange-400">
+                {healthMetrics.expiringSoon}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-red-500/10 to-red-600/5 border border-red-500/20 hover:border-red-500/40 transition-all">
+          <div className="flex items-center">
+            <div className="p-2 rounded-lg bg-red-500/20 mr-3">
+              <AlertTriangle className="h-5 w-5 text-red-400" />
+            </div>
+            <div>
+              <div className="text-xs font-medium text-gray-400">Crítico</div>
+              <div className="text-lg font-bold text-red-400">
+                {healthMetrics.criticalStock}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -6,7 +6,17 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Line } from 'react-chartjs-2';
+import dynamic from 'next/dynamic';
+
+const Line = dynamic(() => import('react-chartjs-2').then(mod => ({ default: mod.Line })), {
+  ssr: false,
+  loading: () => (
+    <div className="loading-chart">
+      <div>Carregando gráfico...</div>
+    </div>
+  )
+});
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -54,6 +64,7 @@ export function RealTimeChart({
   const [labels, setLabels] = useState<string[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [isClient, setIsClient] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const chartRef = useRef<any>(null);
@@ -120,6 +131,7 @@ export function RealTimeChart({
   }, [stopRealTime]);
 
   useEffect(() => {
+    setIsClient(true);
     // Initialize with some data
     addDataPoint();
     
@@ -230,93 +242,10 @@ export function RealTimeChart({
     : 'neutral';
 
   return (
-    <Card className={className}>
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg flex items-center gap-2">
-            <Activity className="h-5 w-5 text-green-500" />
-            {title}
-            <div className="flex items-center gap-1">
-              <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
-              <span className="text-xs text-muted-foreground">
-                {isConnected ? 'Online' : 'Offline'}
-              </span>
-            </div>
-          </CardTitle>
-          
-          <div className="flex items-center gap-2">
-            <Badge variant={trend === 'up' ? 'default' : trend === 'down' ? 'destructive' : 'secondary'}>
-              Média: {currentAverage}
-            </Badge>
-            
-            <div className="flex items-center gap-1">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={isPlaying ? stopRealTime : startRealTime}
-                disabled={!isConnected && !isPlaying}
-              >
-                {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-              </Button>
-              
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={resetData}
-              >
-                <RotateCcw className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-        
-        {lastUpdate && (
-          <div className="text-xs text-muted-foreground">
-            Última atualização: {lastUpdate.toLocaleTimeString('pt-BR')}
-          </div>
-        )}
-      </CardHeader>
-      
-      <CardContent>
-        <div className="h-64">
-          <Line ref={chartRef} data={chartData} options={options} />
-        </div>
-        
-        <div className="mt-4 grid grid-cols-3 gap-4 text-xs">
-          <div className="text-center p-2 bg-glass rounded-lg">
-            <div className="flex items-center justify-center gap-1 mb-1">
-              <Zap className="h-3 w-3 text-yellow-500" />
-              <span className="font-medium text-yellow-500">
-                {data.length > 0 ? Math.max(...data).toFixed(1) : '0.0'}
-              </span>
-            </div>
-            <div className="text-muted-foreground">Máximo</div>
-          </div>
-          
-          <div className="text-center p-2 bg-glass rounded-lg">
-            <div className="flex items-center justify-center gap-1 mb-1">
-              <Activity className="h-3 w-3 text-green-500" />
-              <span className="font-medium text-green-500">
-                {currentAverage}
-              </span>
-            </div>
-            <div className="text-muted-foreground">Média</div>
-          </div>
-          
-          <div className="text-center p-2 bg-glass rounded-lg">
-            <div className="flex items-center justify-center gap-1 mb-1">
-              <div className={`w-3 h-3 rounded-full ${
-                trend === 'up' ? 'bg-green-500' : 
-                trend === 'down' ? 'bg-red-500' : 'bg-gray-500'
-              }`} />
-              <span className="font-medium">
-                {trend === 'up' ? '↑' : trend === 'down' ? '↓' : '→'}
-              </span>
-            </div>
-            <div className="text-muted-foreground">Tendência</div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+    <div className={className}>
+      <div className="h-64">
+        <Line ref={chartRef} data={chartData} options={options} />
+      </div>
+    </div>
   );
 }

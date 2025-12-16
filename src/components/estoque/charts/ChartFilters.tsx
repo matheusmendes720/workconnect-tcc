@@ -79,32 +79,30 @@ export function ChartFilters({
                           filters.searchTerm !== '';
 
   return (
-    <Card className={className}>
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg flex items-center gap-2">
-            <Filter className="h-5 w-5" />
-            Filtros dos Gráficos
-          </CardTitle>
-          <div className="flex items-center gap-2">
-            {hasActiveFilters && (
-              <Button variant="outline" size="sm" onClick={clearFilters}>
-                <X className="h-4 w-4 mr-1" />
-                Limpar
-              </Button>
-            )}
-            <Button variant="outline" size="sm" onClick={() => setShowAdvanced(!showAdvanced)}>
-              <Filter className="h-4 w-4 mr-1" />
-              {showAdvanced ? 'Simples' : 'Avançado'}
-            </Button>
-          </div>
+    <div className={`filters-section ${className}`}>
+      <div className="filters-header">
+        <h3 className="filters-title">
+          <Filter className="h-5 w-5" />
+          Filtros dos Gráficos
+        </h3>
+        <div className="filters-actions">
+          {hasActiveFilters && (
+            <button className="filter-btn" onClick={clearFilters}>
+              <X className="h-4 w-4" />
+              Limpar
+            </button>
+          )}
+          <button className="filter-btn" onClick={() => setShowAdvanced(!showAdvanced)}>
+            <Filter className="h-4 w-4" />
+            {showAdvanced ? 'Simples' : 'Avançado'}
+          </button>
         </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
+      </div>
+      <div>
         {/* Basic Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Período</label>
+        <div className="filters-grid">
+          <div className="filter-group">
+            <label className="filter-label">Período</label>
             <Select 
               value="30days" 
               onValueChange={(value) => {
@@ -140,8 +138,8 @@ export function ChartFilters({
             </Select>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Categoria</label>
+          <div className="filter-group">
+            <label className="filter-label">Categoria</label>
             <Select 
               value={filters.category} 
               onValueChange={(value) => handleFilterChange('category', value)}
@@ -160,8 +158,8 @@ export function ChartFilters({
             </Select>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Status</label>
+          <div className="filter-group">
+            <label className="filter-label">Status</label>
             <Select 
               value={filters.status} 
               onValueChange={(value) => handleFilterChange('status', value)}
@@ -181,9 +179,10 @@ export function ChartFilters({
 
         {/* Advanced Filters */}
         {showAdvanced && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Fornecedor</label>
+          <div className="advanced-filters">
+            <div className="filters-grid">
+              <div className="filter-group">
+                <label className="filter-label">Fornecedor</label>
               <Select 
                 value={filters.supplier} 
                 onValueChange={(value) => handleFilterChange('supplier', value)}
@@ -202,81 +201,83 @@ export function ChartFilters({
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Buscar Produto</label>
-              <Input
-                placeholder="Digite o nome do produto..."
-                value={filters.searchTerm}
-                onChange={(e) => handleFilterChange('searchTerm', e.target.value)}
-                className="w-full"
-              />
+            <div className="filter-group">
+                <label className="filter-label">Buscar Produto</label>
+                <input
+                  type="text"
+                  className="filter-input"
+                  placeholder="Digite o nome do produto..."
+                  value={filters.searchTerm}
+                  onChange={(e) => handleFilterChange('searchTerm', e.target.value)}
+                />
+              </div>
             </div>
           </div>
         )}
 
         {/* Active Filters Display */}
         {hasActiveFilters && (
-          <div className="flex flex-wrap gap-2 pt-2">
+          <div className="active-filters">
             {filters.category !== 'all' && (
-              <Badge variant="secondary" className="flex items-center gap-1">
+              <div className="filter-badge">
                 Categoria: {filters.category}
                 <X 
-                  className="h-3 w-3 cursor-pointer" 
+                  className="h-3 w-3 filter-badge-remove" 
                   onClick={() => handleFilterChange('category', 'all')}
                 />
-              </Badge>
+              </div>
             )}
             {filters.status !== 'all' && (
-              <Badge variant="secondary" className="flex items-center gap-1">
+              <div className="filter-badge">
                 Status: {filters.status}
                 <X 
-                  className="h-3 w-3 cursor-pointer" 
+                  className="h-3 w-3 filter-badge-remove" 
                   onClick={() => handleFilterChange('status', 'all')}
                 />
-              </Badge>
+              </div>
             )}
             {filters.supplier !== 'all' && (
-              <Badge variant="secondary" className="flex items-center gap-1">
+              <div className="filter-badge">
                 Fornecedor: {filters.supplier}
                 <X 
-                  className="h-3 w-3 cursor-pointer" 
+                  className="h-3 w-3 filter-badge-remove" 
                   onClick={() => handleFilterChange('supplier', 'all')}
                 />
-              </Badge>
+              </div>
             )}
             {filters.searchTerm && (
-              <Badge variant="secondary" className="flex items-center gap-1">
+              <div className="filter-badge">
                 Busca: {filters.searchTerm}
                 <X 
-                  className="h-3 w-3 cursor-pointer" 
+                  className="h-3 w-3 filter-badge-remove" 
                   onClick={() => handleFilterChange('searchTerm', '')}
                 />
-              </Badge>
+              </div>
             )}
           </div>
         )}
 
         {/* Action Buttons */}
-        <div className="flex items-center justify-between pt-4 border-t">
-          <div className="text-sm text-muted-foreground">
+        <div className="filters-footer">
+          <div className="filters-status">
             {hasActiveFilters 
               ? `${[filters.category, filters.status, filters.supplier, filters.searchTerm].filter(f => f && f !== 'all').length} filtros ativos`
               : 'Nenhum filtro ativo'
             }
           </div>
           
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={onRefresh} disabled={isLoading}>
-              <RefreshCw className={`h-4 w-4 mr-1 ${isLoading ? 'animate-spin' : ''}`} />
-              Atualizar
-            </Button>
-            <Button variant="outline" size="sm" onClick={onExport}>
-              <Download className="h-4 w-4 mr-1" />
+          <div className="filters-actions">
+            <button className="filter-btn" onClick={onRefresh} disabled={isLoading}>
+              <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+              {isLoading ? 'Atualizando...' : 'Atualizar'}
+            </button>
+            <button className="filter-btn primary" onClick={onExport}>
+              <Download className="h-4 w-4" />
               Exportar
-            </Button>
+            </button>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

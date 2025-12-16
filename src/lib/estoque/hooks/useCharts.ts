@@ -3,7 +3,7 @@
  * Handles chart data preparation and updates
  */
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { ChartsAnalytics } from '../charts-analytics';
 import type { StockData, BusinessInsights } from '../../../types/estoque';
 
@@ -31,22 +31,28 @@ export function useCharts(data: StockData): UseChartsReturn {
 
   const insights = useMemo(() => {
     try {
-      setIsLoading(true);
-      setError(null);
       return analytics.calculateInsights(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao calcular insights');
       return null;
-    } finally {
-      setIsLoading(false);
     }
   }, [data, analytics]);
 
+  useEffect(() => {
+    setIsLoading(true);
+    setError(null);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [data]);
+
   const refresh = useCallback(() => {
-    // Force recalculation by updating date range slightly
+    // Force recalculation by updating a timestamp
     setDateRange((prev) => ({
-      start: new Date(prev.start.getTime() + 1),
-      end: new Date(prev.end.getTime() + 1),
+      ...prev,
+      start: new Date(prev.start),
+      end: new Date(prev.end),
     }));
   }, []);
 

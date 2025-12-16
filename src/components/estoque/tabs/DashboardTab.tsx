@@ -25,7 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Skeleton } from '../ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
-import { AlertCircle, RefreshCw, Box, AlertTriangle, DollarSign, Bell } from 'lucide-react';
+import { Package, AlertTriangle, DollarSign, Bell, RefreshCw, Calendar, Filter, Download, TrendingUp, TrendingDown, BarChart3, PieChart, Activity, Users, ShoppingCart, Box, AlertCircle } from 'lucide-react';
 import '../../../styles/dashboard.css';
 
 export interface DashboardTabProps {
@@ -57,6 +57,11 @@ export const DashboardTab = React.memo(function DashboardTab({
   });
 
   const [showExport, setShowExport] = React.useState(false);
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
   const [selectedChart, setSelectedChart] = React.useState<any>(null);
 
   const handleFiltersChange = (newFilters: ChartFiltersState) => {
@@ -138,89 +143,72 @@ export const DashboardTab = React.memo(function DashboardTab({
 
   return (
     <div className={`dashboard-tab ${className}`}>
-      {/* Metrics Cards */}
+      {/* Enhanced Metrics Cards */}
       <div className="metrics-grid">
-        <div className="metric-card fade-in" style={{ animationDelay: '0.1s' }}>
-          <div className="metric-icon">
-            <Box className="h-6 w-6" />
+        <div className="metric-card enhanced-metric-card fade-in" style={{ animationDelay: '0.1s' }}>
+          <div className="enhanced-metric-icon primary-icon">
+            <Package className="h-7 w-7" />
           </div>
-          <div>
-            <p className="metric-label">Total de Produtos</p>
-            <p className="metric-value">{metrics.totalProdutos}</p>
-          </div>
-        </div>
-
-        <div className="metric-card fade-in" style={{ animationDelay: '0.2s' }}>
-          <div className="metric-icon" style={{ background: 'rgba(245, 158, 11, 0.1)', color: 'var(--color-warning)' }}>
-            <AlertTriangle className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="metric-label">Produtos Críticos</p>
-            <p className="metric-value" style={{ color: 'var(--color-warning)' }}>{metrics.produtosCriticos}</p>
+          <div className="enhanced-metric-content">
+            <div className="enhanced-metric-label">Total de Produtos</div>
+            <div className="enhanced-metric-value primary-value">{metrics.totalProdutos}</div>
+            <div className="enhanced-metric-trend positive-trend">
+              <TrendingUp className="h-3 w-3" />
+              <span>+12% este mês</span>
+            </div>
           </div>
         </div>
 
-        <div className="metric-card fade-in" style={{ animationDelay: '0.3s' }}>
-          <div className="metric-icon" style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--color-info)' }}>
-            <DollarSign className="h-5 w-5" />
+        <div className="metric-card enhanced-metric-card fade-in" style={{ animationDelay: '0.2s' }}>
+          <div className="enhanced-metric-icon warning-icon">
+            <AlertTriangle className="h-7 w-7" />
           </div>
-          <div>
-            <p className="metric-label">Valor Total Estoque</p>
-            <p className="metric-value">{formatCurrency(metrics.valorTotalEstoque)}</p>
+          <div className="enhanced-metric-content">
+            <div className="enhanced-metric-label">Produtos Críticos</div>
+            <div className="enhanced-metric-value warning-value">{metrics.produtosCriticos}</div>
+            <div className="enhanced-metric-trend negative-trend">
+              <TrendingDown className="h-3 w-3" />
+              <span>+3 novos</span>
+            </div>
           </div>
         </div>
 
-        <div className="metric-card fade-in" style={{ animationDelay: '0.4s' }}>
-          <div className="metric-icon" style={{ background: 'rgba(239, 68, 68, 0.1)', color: 'var(--color-error)' }}>
-            <Bell className="h-5 w-5" />
+        <div className="metric-card enhanced-metric-card fade-in" style={{ animationDelay: '0.3s' }}>
+          <div className="enhanced-metric-icon success-icon">
+            <DollarSign className="h-7 w-7" />
           </div>
-          <div>
-            <p className="metric-label">Alertas Pendentes</p>
-            <p className="metric-value" style={{ color: 'var(--color-error)' }}>{metrics.alertasPendentes}</p>
+          <div className="enhanced-metric-content">
+            <div className="enhanced-metric-label">Valor Total Estoque</div>
+            <div className="enhanced-metric-value success-value">{formatCurrency(metrics.valorTotalEstoque)}</div>
+            <div className="enhanced-metric-trend positive-trend">
+              <TrendingUp className="h-3 w-3" />
+              <span>+8% este mês</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="metric-card enhanced-metric-card fade-in" style={{ animationDelay: '0.4s' }}>
+          <div className="enhanced-metric-icon danger-icon">
+            <Bell className="h-7 w-7" />
+          </div>
+          <div className="enhanced-metric-content">
+            <div className="enhanced-metric-label">Alertas Pendentes</div>
+            <div className="enhanced-metric-value danger-value">{metrics.alertasPendentes}</div>
+            <div className="enhanced-metric-trend negative-trend">
+              <TrendingUp className="h-3 w-3" />
+              <span>+2 urgentes</span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Chart Filters */}
-      <div className="filters-section slide-in">
-        <div className="filters-header">
-          <h3 className="filters-title">
-            <svg className="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-            </svg>
-            Filtros dos Gráficos
-          </h3>
-          <div className="filters-actions">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleRefresh}
-              disabled={isLoading}
-              className="flex items-center gap-2"
-            >
-              <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
-              {isLoading ? 'Atualizando...' : 'Atualizar'}
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleExport}
-              className="flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              Exportar
-            </Button>
-          </div>
-        </div>
-        <ChartFilters
+      <ChartFilters
           onFiltersChange={handleFiltersChange}
           onExport={handleExport}
           onRefresh={handleRefresh}
           isLoading={isLoading}
         />
-      </div>
 
       {/* Charts Grid */}
       <div className="charts-grid">
@@ -272,72 +260,68 @@ export const DashboardTab = React.memo(function DashboardTab({
           </div>
         </div>
 
-{insights?.turnoverRates && insights.turnoverRates.length > 0 && (
-          <div className="chart-container fade-in" style={{ gridColumn: '1 / -1', animationDelay: '0.6s' }}>
-            <div className="chart-header">
-              <h3 className="chart-title">Rotatividade de Produtos</h3>
-            </div>
-            <div className="chart-wrapper" style={{ minHeight: '400px' }}>
-              <TurnoverChart turnoverRates={insights.turnoverRates} />
-            </div>
-            <p className="text-sm text-muted-foreground mt-2">
-              Mostrando os 10 produtos com maior rotatividade
-            </p>
+        <div className="chart-container fade-in" style={{ animationDelay: '0.6s' }}>
+          <div className="chart-header">
+            <h3 className="chart-title">Rotatividade de Produtos</h3>
           </div>
-        )}
-
-        {insights?.supplierPerformance && insights.supplierPerformance.length > 0 && (
-          <div className="chart-container fade-in" style={{ animationDelay: '0.7s' }}>
-            <div className="chart-header">
-              <h3 className="chart-title">Distribuição por Fornecedor</h3>
-            </div>
-            <div className="chart-wrapper">
-              <SupplierChart 
-                supplierPerformance={insights.supplierPerformance}
-              />
-            </div>
+          <div className="chart-wrapper">
+            <TurnoverChart turnoverRates={insights.turnoverRates || []} isLoading={isLoading} error={error} />
           </div>
-        )}
+        </div>
 
-        <div className="chart-container fade-in" style={{ gridColumn: '1 / -1', animationDelay: '0.8s' }}>
+        <div className="chart-container fade-in" style={{ animationDelay: '0.7s' }}>
+          <div className="chart-header">
+            <h3 className="chart-title">Distribuição por Fornecedor</h3>
+          </div>
+          <div className="chart-wrapper">
+            <SupplierChart 
+              supplierPerformance={insights.supplierPerformance || []}
+            />
+          </div>
+        </div>
+
+        <div className="chart-container fade-in" style={{ animationDelay: '0.8s' }}>
           <div className="chart-header">
             <h3 className="chart-title">Análise de Tendências Sazonais</h3>
           </div>
-          <div className="chart-wrapper" style={{ minHeight: '400px' }}>
+          <div className="chart-wrapper">
             <SeasonalTrendsChart 
-              products={data.produtos}
-              movements={data.movimentacoes}
+              products={data.produtos || []}
+              movements={data.movimentacoes || []}
               isLoading={isLoading}
               error={error}
             />
           </div>
         </div>
+        
         <div className="chart-container fade-in" data-chart="inventory-health" style={{ animationDelay: '0.9s' }}>
           <div className="chart-header">
             <h3 className="chart-title">Painel de Saúde do Inventário</h3>
           </div>
-          <div className="chart-wrapper" style={{ minHeight: '300px' }}>
+          <div className="chart-wrapper">
             <InventoryHealthChart 
-              products={data.produtos}
-              movements={data.movimentacoes}
+              products={data.produtos || []}
+              movements={data.movimentacoes || []}
               isLoading={isLoading}
               error={error}
             />
           </div>
         </div>
 
-        <div className="chart-container fade-in" style={{ gridColumn: '1 / -1', animationDelay: '1.0s' }}>
+        <div className="chart-container fade-in" style={{ animationDelay: '1.0s' }}>
           <div className="chart-header">
             <h3 className="chart-title">Projeção de Estoque</h3>
           </div>
-          <div className="chart-wrapper" style={{ minHeight: '400px' }}>
+          <div className="chart-wrapper">
             <ProjectionChart 
-              projections={insights.projection}
+              projections={insights.projection || []}
+              isLoading={isLoading}
+              error={error}
             />
           </div>
         </div>
 
-        <div className="chart-container fade-in" style={{ gridColumn: '1 / -1', animationDelay: '1.1s' }}>
+        <div className="chart-container fade-in" style={{ animationDelay: '1.1s' }}>
           <div className="chart-header">
             <h3 className="chart-title">Movimentações em Tempo Real</h3>
             <div className="flex items-center text-sm text-muted-foreground">
@@ -353,33 +337,17 @@ export const DashboardTab = React.memo(function DashboardTab({
                 >
                   <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
                 </button>
-                <span className="text-xs">Última atualização: {new Date().toLocaleTimeString()}</span>
+                {isClient && (
+  <span className="text-xs">Última atualização: {new Date().toLocaleTimeString()}</span>
+)}
               </div>
             </div>
           </div>
-          <div className="chart-wrapper" style={{ minHeight: '300px' }}>
+          <div className="chart-wrapper">
             <RealTimeChart 
               dataSource={mockRealTimeDataSource}
               title="Movimentações em Tempo Real"
             />
-          </div>
-          <div className="grid grid-cols-4 gap-4 mt-4 text-sm">
-            <div className="text-center">
-              <div className="text-2xl font-semibold">50.0</div>
-              <div className="text-muted-foreground">Atual</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-semibold">50.0</div>
-              <div className="text-muted-foreground">Máximo</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-semibold">50.0</div>
-              <div className="text-muted-foreground">Média</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-semibold">-</div>
-              <div className="text-muted-foreground">Tendência</div>
-            </div>
           </div>
         </div>
       </div>

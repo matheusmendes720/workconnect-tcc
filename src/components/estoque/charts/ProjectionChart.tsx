@@ -6,7 +6,16 @@
 'use client';
 
 import React from 'react';
-import { Line } from 'react-chartjs-2';
+import dynamic from 'next/dynamic';
+
+const Line = dynamic(() => import('react-chartjs-2').then(mod => ({ default: mod.Line })), {
+  ssr: false,
+  loading: () => (
+    <div className="loading-chart">
+      <div>Carregando gráfico...</div>
+    </div>
+  )
+});
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -53,98 +62,7 @@ export function ProjectionChart({
   error = null,
   daysToProject = 30
 }: ProjectionChartProps) {
-  const chartData = React.useMemo(() => {
-    if (!projections || projections.length === 0) {
-      // Generate fallback sample data to prevent empty chart
-      const labels = Array.from({ length: 30 }, (_, i) => {
-        const date = new Date();
-        date.setDate(date.getDate() + i);
-        return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
-      });
-
-      const sampleProducts = [
-        { nome: 'Produto Crítico A', currentQty: 45, projectedQty: 5 },
-        { nome: 'Produto Crítico B', currentQty: 120, projectedQty: 20 },
-        { nome: 'Produto Crítico C', currentQty: 80, projectedQty: 15 },
-        { nome: 'Produto Crítico D', currentQty: 200, projectedQty: 40 },
-        { nome: 'Produto Crítico E', currentQty: 95, projectedQty: 25 }
-      ];
-
-      const colors = [
-        'rgba(255, 82, 82, 1)',
-        'rgba(255, 152, 0, 1)',
-        'rgba(255, 213, 79, 1)',
-        'rgba(156, 39, 176, 1)',
-        'rgba(244, 67, 54, 1)',
-      ];
-
-      const datasets = sampleProducts.map((product, index) => {
-        const currentQty = product.currentQty;
-        const projectedQty = product.projectedQty;
-        const dailyDecrease = (currentQty - projectedQty) / 30;
-
-        const data = labels.map((_, dayIndex) => {
-          return Math.max(0, currentQty - dailyDecrease * dayIndex);
-        });
-
-        return {
-          label: product.nome,
-          data,
-          borderColor: colors[index % colors.length],
-          backgroundColor: colors[index % colors.length].replace('1)', '0.1)'),
-          fill: false,
-          tension: 0.4,
-        };
-      });
-
-      return { labels, datasets };
-    }
-
-    // Get top 5 products with critical projections
-    const criticalProjections = projections
-      .filter((p) => p.tendencia === 'DECRESCENTE')
-      .slice(0, 5);
-
-    const labels = Array.from({ length: 30 }, (_, i) => {
-      const date = new Date();
-      date.setDate(date.getDate() + i);
-      return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
-    });
-
-    const datasets = criticalProjections.map((projection, index) => {
-      const colors = [
-        'rgba(255, 82, 82, 1)',
-        'rgba(255, 152, 0, 1)',
-        'rgba(255, 213, 79, 1)',
-        'rgba(156, 39, 176, 1)',
-        'rgba(244, 67, 54, 1)',
-      ];
-
-      // Calculate projected values for 30 days
-      const currentQty = projection.produto.quantidade_atual;
-      const projectedQty = projection.quantidadeProjetada;
-      const dailyDecrease = (currentQty - projectedQty) / 30;
-
-      const data = labels.map((_, dayIndex) => {
-        return Math.max(0, currentQty - dailyDecrease * dayIndex);
-      });
-
-      return {
-        label: projection.produto.nome,
-        data,
-        borderColor: colors[index % colors.length],
-        backgroundColor: colors[index % colors.length].replace('1)', '0.1)'),
-        fill: false,
-        tension: 0.4,
-      };
-    });
-
-    return {
-      labels,
-      datasets,
-    };
-  }, [projections]);
-
+  
   const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
@@ -199,18 +117,83 @@ export function ProjectionChart({
     },
   };
 
+  // Generate mock data for visual storytelling when no data is available
+  const chartData = React.useMemo(() => {
+    if (projections && projections.length > 0) {
+      // Process real StockProjection data
+      const labels = projections.map(p => {
+        const date = new Date(p.data);
+        return date.toLocaleDateString('pt-BR', { month: 'short' });
+      });
+      
+      return {
+        labels,
+        datasets: [
+          {
+            label: 'Estoque Projetado',
+            data: projections.map(p => p.quantidadeProjetada),
+            borderColor: 'rgba(255, 213, 79, 1)',
+            backgroundColor: 'rgba(255, 213, 79, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+          },
+        ],
+      };
+    }
+
+    // Generate mock data for visual storytelling
+    const mockData = [
+      { month: 'Jan', projectedStock: 1500, actualStock: 1450, demand: 280 },
+      { month: 'Fev', projectedStock: 1350, actualStock: 1380, demand: 320 },
+      { month: 'Mar', projectedStock: 1200, actualStock: 1180, demand: 350 },
+      { month: 'Abr', projectedStock: 1100, actualStock: 1120, demand: 290 },
+      { month: 'Mai', projectedStock: 950, actualStock: 920, demand: 410 },
+      { month: 'Jun', projectedStock: 850, actualStock: 880, demand: 380 },
+      { month: 'Jul', projectedStock: 900, actualStock: null, demand: 340 },
+      { month: 'Ago', projectedStock: 980, actualStock: null, demand: 310 },
+    ];
+
+    return {
+      labels: mockData.map(item => item.month),
+      datasets: [
+        {
+          label: 'Estoque Projetado',
+          data: mockData.map(item => item.projectedStock),
+          borderColor: 'rgba(255, 213, 79, 1)',
+          backgroundColor: 'rgba(255, 213, 79, 0.1)',
+          borderWidth: 3,
+          fill: true,
+          tension: 0.4,
+        },
+        {
+          label: 'Estoque Real',
+          data: mockData.map(item => item.actualStock === null ? null : item.actualStock),
+          borderColor: 'rgba(76, 175, 80, 1)',
+          backgroundColor: 'rgba(76, 175, 80, 0.1)',
+          borderWidth: 3,
+          fill: true,
+          tension: 0.4,
+        },
+        {
+          label: 'Demanda',
+          data: mockData.map(item => item.demand),
+          borderColor: 'rgba(244, 67, 54, 1)',
+          backgroundColor: 'rgba(244, 67, 54, 0.1)',
+          borderWidth: 2,
+          fill: false,
+          tension: 0.4,
+          borderDash: [5, 5],
+        },
+      ],
+    };
+  }, [projections]);
+
   if (isLoading) {
     return (
-      <Card className={className}>
-        <CardHeader>
-          <Skeleton className="h-6 w-48" />
-        </CardHeader>
-        <CardContent>
-          <div className="h-64 flex items-center justify-center">
-            <Skeleton className="h-full w-full" />
-          </div>
-        </CardContent>
-      </Card>
+      <div className={`loading-chart ${className}`}>
+        <div>Carregando gráfico...</div>
+      </div>
     );
   }
 
@@ -230,30 +213,16 @@ export function ProjectionChart({
 
   if (!projections || projections.length === 0) {
     return (
-      <Card className={className}>
-        <CardHeader>
-          <CardTitle>Projeção de Estoque</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="h-64 flex items-center justify-center text-muted-foreground">
-            <p>Nenhum dado disponível</p>
-          </div>
-        </CardContent>
-      </Card>
+      <div className={`h-64 flex items-center justify-center text-muted-foreground ${className}`}>
+        <p>Nenhum dado disponível</p>
+      </div>
     );
   }
 
   return (
-    <Card className={className}>
-      <CardHeader>
-        <CardTitle>Projeção de Estoque</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="h-64">
-          <Line data={chartData} options={options} />
-        </div>
-      </CardContent>
-    </Card>
+    <div className={`h-64 ${className}`}>
+      <Line data={chartData} options={options} />
+    </div>
   );
 }
 

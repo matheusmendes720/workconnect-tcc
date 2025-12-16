@@ -98,10 +98,35 @@ export function MovementTypeChart({ movements, className = '' }: MovementTypeCha
   const total = chartData.datasets[0].data.reduce((a, b) => a + b, 0);
 
   if (total === 0) {
+    // Generate sample data for demonstration
+    const mockChartData = {
+      labels: ['Entrada - Compra', 'Saída - Venda', 'Transferência', 'Entrada - Devolução', 'Ajuste'],
+      datasets: [
+        {
+          data: [35, 25, 20, 12, 8],
+          backgroundColor: [
+            'rgba(76, 175, 80, 0.8)', // Green - Entradas
+            'rgba(244, 67, 54, 0.8)', // Red - Saídas
+            'rgba(255, 152, 0, 0.8)', // Orange - Transferências
+            'rgba(33, 150, 243, 0.8)', // Blue - Ajustes
+            'rgba(156, 39, 176, 0.8)', // Purple - Devoluções
+          ],
+          borderColor: [
+            'rgba(76, 175, 80, 1)',
+            'rgba(244, 67, 54, 1)',
+            'rgba(255, 152, 0, 1)',
+            'rgba(33, 150, 243, 1)',
+            'rgba(156, 39, 176, 1)',
+          ],
+          borderWidth: 2,
+        },
+      ],
+    };
+
     return (
       <div className={`chart-container ${className}`}>
-        <div className="chart-empty">
-          <p>Nenhuma movimentação no período</p>
+        <div className="chart-wrapper">
+          <Doughnut data={mockChartData} options={options} />
         </div>
       </div>
     );

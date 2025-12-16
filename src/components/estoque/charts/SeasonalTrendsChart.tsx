@@ -7,7 +7,16 @@
 'use client';
 
 import React from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import dynamic from 'next/dynamic';
+
+const Bar = dynamic(() => import('react-chartjs-2').then(mod => ({ default: mod.Bar })), {
+  ssr: false,
+  loading: () => (
+    <div className="loading-chart">
+      <div>Carregando gráfico...</div>
+    </div>
+  )
+});
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -209,16 +218,11 @@ export function SeasonalTrendsChart({
     },
   };
 
-  if (isLoading) {
+  if (!products || products.length === 0) {
     return (
-      <Card className={className}>
-        <CardHeader>
-          <Skeleton className="h-6 w-48" />
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-64 w-full" />
-        </CardContent>
-      </Card>
+      <div className={`loading-chart ${className}`}>
+        <div>Carregando gráfico...</div>
+      </div>
     );
   }
 
@@ -243,32 +247,24 @@ export function SeasonalTrendsChart({
   }
 
   return (
-    <Card className={className}>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <TrendingUp className="h-5 w-5 text-yellow-500" />
-          Análise de Tendências Sazonais
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="h-64">
-          <Bar data={chartData} options={options} />
+    <div className={className}>
+      <div className="h-64">
+        <Bar data={chartData} options={options} />
+      </div>
+      <div className="mt-4 grid grid-cols-3 gap-4 text-xs">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+          <span className="text-muted-foreground">Volume de Vendas</span>
         </div>
-        <div className="mt-4 grid grid-cols-3 gap-4 text-xs">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-            <span className="text-muted-foreground">Volume de Vendas</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <span className="text-muted-foreground">Novos Produtos</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-            <span className="text-muted-foreground">Promoções</span>
-          </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+          <span className="text-muted-foreground">Novos Produtos</span>
         </div>
-      </CardContent>
-    </Card>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+          <span className="text-muted-foreground">Promoções</span>
+        </div>
+      </div>
+    </div>
   );
 }

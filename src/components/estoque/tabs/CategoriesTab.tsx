@@ -55,27 +55,31 @@ export function CategoriesTab({
   };
 
   return (
-    <div className={`categories-tab ${className}`}>
-      <div className="tab-toolbar">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Buscar categorias..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button className="btn-gold" onClick={handleAdd}>
-          <FontAwesomeIcon icon={faPlus} />
-          Adicionar Categoria
-        </button>
+    <div className={`categories-tab card ${className}`}>
+      <div className="card-header">
+        <div className="tab-toolbar">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Buscar categorias..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button className="btn-gold" onClick={handleAdd}>
+            <FontAwesomeIcon icon={faPlus} />
+            Adicionar Categoria
+          </button>
+        </div>
       </div>
 
-      <CategoriesTable
-        categories={filteredCategories}
-        onEdit={handleEdit}
-        onDelete={onDelete}
-        getCategoryPath={getCategoryPath}
-      />
+      <div className="card-body">
+        <CategoriesTable
+          categories={filteredCategories}
+          onEdit={handleEdit}
+          onDelete={onDelete}
+          getCategoryPath={getCategoryPath}
+        />
+      </div>
 
       <CategoryModal
         isOpen={isModalOpen}

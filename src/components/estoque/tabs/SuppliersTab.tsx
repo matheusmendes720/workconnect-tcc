@@ -55,26 +55,30 @@ export function SuppliersTab({
   };
 
   return (
-    <div className={`suppliers-tab ${className}`}>
-      <div className="tab-toolbar">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Buscar fornecedores..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button className="btn-gold" onClick={handleAdd}>
-          <FontAwesomeIcon icon={faPlus} />
-          Adicionar Fornecedor
-        </button>
+    <div className={`suppliers-tab card ${className}`}>
+      <div className="card-header">
+        <div className="tab-toolbar">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Buscar fornecedores..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button className="btn-gold" onClick={handleAdd}>
+            <FontAwesomeIcon icon={faPlus} />
+            Adicionar Fornecedor
+          </button>
+        </div>
       </div>
 
-      <SuppliersTable
-        suppliers={filteredSuppliers}
-        onEdit={handleEdit}
-        onDelete={onDelete}
-      />
+      <div className="card-body">
+        <SuppliersTable
+          suppliers={filteredSuppliers}
+          onEdit={handleEdit}
+          onDelete={onDelete}
+        />
+      </div>
 
       <SupplierModal
         isOpen={isModalOpen}

@@ -105,117 +105,124 @@ export function MovementsTab({
   };
 
   return (
-    <div className={`movements-tab ${className}`}>
-      {/* Statistics Cards */}
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-label">Total de Movimentações</div>
-          <div className="stat-value">{stats.total}</div>
+    <div className={`movements-tab card ${className}`}>
+      <div className="card-body">
+        {/* Statistics Cards */}
+        <div className="stats-grid">
+          <div className="stat-card">
+            <div className="stat-label">Total de Movimentações</div>
+            <div className="stat-value">{stats.total}</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-label">Entradas</div>
+            <div className="stat-value entrada">{stats.entradas}</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-label">Saídas</div>
+            <div className="stat-value saida">{stats.saidas}</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-label">Transferências</div>
+            <div className="stat-value">{stats.transferencias}</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-label">Valor Total</div>
+            <div className="stat-value">{formatCurrency(stats.valorTotal)}</div>
+          </div>
         </div>
-        <div className="stat-card">
-          <div className="stat-label">Entradas</div>
-          <div className="stat-value entrada">{stats.entradas}</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-label">Saídas</div>
-          <div className="stat-value saida">{stats.saidas}</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-label">Transferências</div>
-          <div className="stat-value">{stats.transferencias}</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-label">Valor Total</div>
-          <div className="stat-value">{formatCurrency(stats.valorTotal)}</div>
+
+        {/* Charts Section */}
+        <div className="charts-grid">
+          <div className="chart-card">
+            <div className="chart-header">
+              <h3>Volume de Movimentações</h3>
+            </div>
+            <MovementTimelineChart movements={filteredMovements} />
+          </div>
+
+          <div className="chart-card">
+            <div className="chart-header">
+              <h3>Distribuição por Tipo</h3>
+            </div>
+            <MovementTypeChart movements={filteredMovements} />
+          </div>
+
+          <div className="chart-card">
+            <div className="chart-header">
+              <h3>Valores de Movimentação</h3>
+            </div>
+            <MovementValueChart movements={filteredMovements} />
+          </div>
         </div>
       </div>
 
-      {/* Charts Section */}
-      <div className="charts-grid">
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3>Volume de Movimentações</h3>
+      <div className="card-header">
+        {/* Toolbar */}
+        <div className="tab-toolbar">
+          <div className="search-wrapper">
+            <FontAwesomeIcon icon={faSearch} className="search-icon" />
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Buscar movimentações..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
-          <MovementTimelineChart movements={filteredMovements} />
-        </div>
 
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3>Distribuição por Tipo</h3>
-          </div>
-          <MovementTypeChart movements={filteredMovements} />
-        </div>
+          <div className="toolbar-actions">
+            <DateRangePicker
+              startDate={dateRange.start}
+              endDate={dateRange.end}
+              onDateChange={(start, end) => setDateRange({ start, end })}
+            />
 
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3>Valores de Movimentação</h3>
-          </div>
-          <MovementValueChart movements={filteredMovements} />
-        </div>
-      </div>
+            <div className="type-filter">
+              <select
+                className="form-select"
+                value={selectedType}
+                onChange={(e) => handleTypeFilter(e.target.value as MovementType | '')}
+              >
+                <option value="">Todos os tipos</option>
+                <option value={MovementTypeEnum.ENTRADA_COMPRA}>Entrada - Compra</option>
+                <option value={MovementTypeEnum.ENTRADA_DEVOLUCAO}>Entrada - Devolução</option>
+                <option value={MovementTypeEnum.SAIDA_VENDA}>Saída - Venda</option>
+                <option value={MovementTypeEnum.SAIDA_PERDA}>Saída - Perda</option>
+                <option value={MovementTypeEnum.TRANSFERENCIA}>Transferência</option>
+                <option value={MovementTypeEnum.AJUSTE_INVENTARIO}>Ajuste</option>
+              </select>
+            </div>
 
-      {/* Toolbar */}
-      <div className="tab-toolbar">
-        <div className="search-wrapper">
-          <FontAwesomeIcon icon={faSearch} className="search-icon" />
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Buscar movimentações..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-
-        <div className="toolbar-actions">
-          <DateRangePicker
-            startDate={dateRange.start}
-            endDate={dateRange.end}
-            onDateChange={(start, end) => setDateRange({ start, end })}
-          />
-
-          <div className="type-filter">
-            <select
-              className="form-select"
-              value={selectedType}
-              onChange={(e) => handleTypeFilter(e.target.value as MovementType | '')}
+            <button
+              className="btn-secondary"
+              onClick={() => setShowFilters(!showFilters)}
             >
-              <option value="">Todos os tipos</option>
-              <option value={MovementTypeEnum.ENTRADA_COMPRA}>Entrada - Compra</option>
-              <option value={MovementTypeEnum.ENTRADA_DEVOLUCAO}>Entrada - Devolução</option>
-              <option value={MovementTypeEnum.SAIDA_VENDA}>Saída - Venda</option>
-              <option value={MovementTypeEnum.SAIDA_PERDA}>Saída - Perda</option>
-              <option value={MovementTypeEnum.TRANSFERENCIA}>Transferência</option>
-              <option value={MovementTypeEnum.AJUSTE_INVENTARIO}>Ajuste</option>
-            </select>
+              <FontAwesomeIcon icon={faFilter} />
+              Filtros
+            </button>
+
+            <button className="btn-secondary" onClick={handleExport}>
+              <FontAwesomeIcon icon={faDownload} />
+              Exportar
+            </button>
+
+            <button className="btn-gold" onClick={handleAdd}>
+              <FontAwesomeIcon icon={faPlus} />
+              Nova Movimentação
+            </button>
           </div>
-
-          <button
-            className="btn-secondary"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <FontAwesomeIcon icon={faFilter} />
-            Filtros
-          </button>
-
-          <button className="btn-secondary" onClick={handleExport}>
-            <FontAwesomeIcon icon={faDownload} />
-            Exportar
-          </button>
-
-          <button className="btn-gold" onClick={handleAdd}>
-            <FontAwesomeIcon icon={faPlus} />
-            Nova Movimentação
-          </button>
         </div>
       </div>
 
-      {/* Movements Table */}
-      <MovementsTable
-        movements={filteredMovements}
-        products={products}
-        users={users}
-      />
+      <div className="card-body">
+        {/* Movements Table */}
+        <MovementsTable
+          movements={filteredMovements}
+          products={products}
+          users={users}
+        />
+      </div>
+
 
       {/* Movement Modal */}
       <MovementModal

@@ -431,7 +431,7 @@ function EstoquePageContent() {
 
       <TabNavigation activeTab={activeTab} onTabChange={handleTabChange} />
 
-      <div className="tab-content">
+      <div className="tab-content p-4">
         {renderTabContent()}
       </div>
 

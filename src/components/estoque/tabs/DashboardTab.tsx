@@ -1,6 +1,7 @@
 /**
  * Dashboard Tab Component
  * Main dashboard with metrics and charts
+ * Enhanced with loading states and error handling
  */
 
 'use client';
@@ -15,114 +16,205 @@ import { SupplierChart } from '../charts/SupplierChart';
 import { ProjectionChart } from '../charts/ProjectionChart';
 import type { StockData, BusinessInsights, DashboardMetrics } from '../../../types/estoque';
 import { formatCurrency } from '../../../lib/utils/formatters';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Skeleton } from '../ui/skeleton';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+import { AlertCircle } from 'lucide-react';
 
 export interface DashboardTabProps {
   data: StockData;
   metrics: DashboardMetrics;
   insights: BusinessInsights | null;
   className?: string;
+  isLoading?: boolean;
+  error?: string | null;
 }
 
-export const DashboardTab = React.memo(function DashboardTab({ data, metrics, insights, className = '' }: DashboardTabProps) {
+export const DashboardTab = React.memo(function DashboardTab({ 
+  data, 
+  metrics, 
+  insights, 
+  className = '',
+  isLoading = false,
+  error = null
+}: DashboardTabProps) {
+  if (isLoading) {
+    return (
+      <div className={`dashboard-tab ${className}`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="bg-card rounded-lg p-4">
+              <Skeleton className="h-6 w-3/4 mb-2" />
+              <Skeleton className="h-8 w-1/2" />
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="bg-card rounded-lg p-4 h-80">
+              <Skeleton className="h-6 w-1/2 mb-4" />
+              <Skeleton className="h-full w-full" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`dashboard-tab ${className}`}>
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Erro ao carregar o dashboard</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      </div>
+    );
+  }
+
+  if (!insights) {
+    return (
+      <div className={`dashboard-tab ${className} flex items-center justify-center h-64`}>
+        <p className="text-muted-foreground">Nenhum dado disponível</p>
+      </div>
+    );
+  }
+
   return (
     <div className={`dashboard-tab ${className}`}>
       {/* Metrics Cards */}
-      <div className="metrics-grid">
-        <div className="metric-card">
-          <div className="metric-icon" style={{ background: 'rgba(0, 230, 118, 0.2)' }}>
-            <i className="fas fa-box"></i>
-          </div>
-          <div className="metric-content">
-            <div className="metric-label">Total de Produtos</div>
-            <div className="metric-value">{metrics.totalProdutos}</div>
-          </div>
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <Card>
+            <CardContent className="p-4">
+              <div className="flex items-center">
+                <div className="p-2 rounded-full bg-green-500/10 mr-3">
+                  <i className="fas fa-box text-green-500"></i>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Total de Produtos</p>
+                  <p className="text-2xl font-semibold">{metrics.totalProdutos}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-        <div className="metric-card">
-          <div className="metric-icon" style={{ background: 'rgba(255, 82, 82, 0.2)' }}>
-            <i className="fas fa-exclamation-triangle"></i>
-          </div>
-          <div className="metric-content">
-            <div className="metric-label">Produtos Críticos</div>
-            <div className="metric-value">{metrics.produtosCriticos}</div>
-          </div>
-        </div>
+          <Card>
+            <CardContent className="p-4">
+              <div className="flex items-center">
+                <div className="p-2 rounded-full bg-yellow-500/10 mr-3">
+                  <i className="fas fa-exclamation-triangle text-yellow-500"></i>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Produtos Críticos</p>
+                  <p className="text-2xl font-semibold text-yellow-500">{metrics.produtosCriticos}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-        <div className="metric-card">
-          <div className="metric-icon" style={{ background: 'rgba(255, 213, 79, 0.2)' }}>
-            <i className="fas fa-dollar-sign"></i>
-          </div>
-          <div className="metric-content">
-            <div className="metric-label">Valor Total Estoque</div>
-            <div className="metric-value">{formatCurrency(metrics.valorTotalEstoque)}</div>
-          </div>
-        </div>
+          <Card>
+            <CardContent className="p-4">
+              <div className="flex items-center">
+                <div className="p-2 rounded-full bg-blue-500/10 mr-3">
+                  <i className="fas fa-dollar-sign text-blue-500"></i>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Valor Total Estoque</p>
+                  <p className="text-2xl font-semibold">{formatCurrency(metrics.valorTotalEstoque)}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-        <div className="metric-card">
-          <div className="metric-icon" style={{ background: 'rgba(66, 165, 245, 0.2)' }}>
-            <i className="fas fa-bell"></i>
-          </div>
-          <div className="metric-content">
-            <div className="metric-label">Alertas Pendentes</div>
-            <div className="metric-value">{metrics.alertasPendentes}</div>
-          </div>
+          <Card>
+            <CardContent className="p-4">
+              <div className="flex items-center">
+                <div className="p-2 rounded-full bg-red-500/10 mr-3">
+                  <i className="fas fa-bell text-red-500"></i>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Alertas Pendentes</p>
+                  <p className="text-2xl font-semibold text-red-500">{metrics.alertasPendentes}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-      </div>
 
       {/* Charts Grid */}
-      <div className="charts-grid">
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3>Distribuição de Status</h3>
-          </div>
-          <StatusChart products={data.produtos} />
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Distribuição de Status</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
+              <StatusChart products={data.produtos} />
+            </div>
+          </CardContent>
+        </Card>
 
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3>Movimentações</h3>
-          </div>
-          <MovementsChart movements={data.movimentacoes} />
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Movimentações</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
+              <MovementsChart movements={data.movimentacoes} />
+            </div>
+          </CardContent>
+        </Card>
 
-        {insights && (
-          <>
-            <div className="chart-card">
-              <div className="chart-header">
-                <h3>Análise ABC</h3>
-              </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Análise ABC</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
               <ABCChart abcAnalysis={insights.abcAnalysis} />
             </div>
+          </CardContent>
+        </Card>
 
-            <div className="chart-card">
-              <div className="chart-header">
-                <h3>Valor por Categoria</h3>
-              </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Valor por Categoria</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
               <CategoryValueChart categoryDistribution={insights.categoryDistribution} />
             </div>
+          </CardContent>
+        </Card>
 
-            <div className="chart-card">
-              <div className="chart-header">
-                <h3>Rotatividade de Produtos</h3>
-              </div>
-              <TurnoverChart turnoverRates={insights.turnoverRates} />
-            </div>
+        <div className="col-span-1">
+          <TurnoverChart 
+            turnoverRates={insights.turnoverRates}
+            isLoading={isLoading}
+            error={error}
+          />
+        </div>
 
-            <div className="chart-card">
-              <div className="chart-header">
-                <h3>Performance de Fornecedores</h3>
-              </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Performance de Fornecedores</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
               <SupplierChart supplierPerformance={insights.supplierPerformance} />
             </div>
+          </CardContent>
+        </Card>
 
-            <div className="chart-card">
-              <div className="chart-header">
-                <h3>Projeção de Estoque</h3>
-              </div>
-              <ProjectionChart projections={insights.projection} />
-            </div>
-          </>
-        )}
+        <div className="col-span-1 lg:col-span-2">
+          <ProjectionChart 
+            projections={insights.projection}
+            isLoading={isLoading}
+            error={error}
+            daysToProject={30}
+          />
+        </div>
       </div>
     </div>
   );

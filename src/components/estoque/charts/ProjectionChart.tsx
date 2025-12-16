@@ -1,11 +1,11 @@
 /**
  * Stock Projection Chart Component
- * Shows projected stock levels over time
+ * Shows projected stock levels over time with enhanced error handling and loading states
  */
 
 'use client';
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -20,6 +20,12 @@ import {
   ChartOptions,
 } from 'chart.js';
 import type { StockProjection } from '../../../types/estoque';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Skeleton } from '../ui/skeleton';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+import { AlertCircle } from 'lucide-react';
+import { format, addDays } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 ChartJS.register(
   CategoryScale,
@@ -35,10 +41,26 @@ ChartJS.register(
 export interface ProjectionChartProps {
   projections: StockProjection[];
   className?: string;
+  isLoading?: boolean;
+  error?: string | null;
+  daysToProject?: number;
 }
 
-export function ProjectionChart({ projections, className = '' }: ProjectionChartProps) {
-  const chartData = useMemo(() => {
+export function ProjectionChart({
+  projections = [],
+  className = '',
+  isLoading = false,
+  error = null,
+  daysToProject = 30
+}: ProjectionChartProps) {
+  const chartData = React.useMemo(() => {
+    if (!projections || projections.length === 0) {
+      return {
+        labels: [],
+        datasets: [],
+      };
+    }
+
     // Get top 5 products with critical projections
     const criticalProjections = projections
       .filter((p) => p.tendencia === 'DECRESCENTE')
@@ -138,22 +160,61 @@ export function ProjectionChart({ projections, className = '' }: ProjectionChart
     },
   };
 
-  if (projections.length === 0) {
+  if (isLoading) {
     return (
-      <div className={`chart-container ${className}`}>
-        <div className="chart-empty">
-          <p>Nenhum dado disponível</p>
-        </div>
-      </div>
+      <Card className={className}>
+        <CardHeader>
+          <Skeleton className="h-6 w-48" />
+        </CardHeader>
+        <CardContent>
+          <div className="h-64 flex items-center justify-center">
+            <Skeleton className="h-full w-full" />
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card className={className}>
+        <CardContent className="pt-6">
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Erro</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!projections || projections.length === 0) {
+    return (
+      <Card className={className}>
+        <CardHeader>
+          <CardTitle>Projeção de Estoque</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="h-64 flex items-center justify-center text-muted-foreground">
+            <p>Nenhum dado disponível</p>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <div className={`chart-container ${className}`}>
-      <div className="chart-wrapper">
-        <Line data={chartData} options={options} />
-      </div>
-    </div>
+    <Card className={className}>
+      <CardHeader>
+        <CardTitle>Projeção de Estoque</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="h-64">
+          <Line data={chartData} options={options} />
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 

@@ -298,6 +298,9 @@ function EstoquePageContent() {
             data={stockData.data}
             metrics={metrics}
             insights={insights || null}
+            highTurnoverProducts={MockDataEstoque.getHighTurnoverProducts()}
+            imminentProjections={MockDataEstoque.getImminentProjections()}
+            recommendations={MockDataEstoque.getRecommendations()}
           />
         );
       case 'produtos':

@@ -1129,6 +1129,26 @@ export const MockDataEstoque: IMockDataEstoque = {
             avaliacao: fornecedor.avaliacao,
             produtosFornecidos: associacoes.length
         };
+    },
+
+    getHighTurnoverProducts() {
+        return [
+            { name: 'Parafuso M6 x 30mm Aço Inox', value: '900%' },
+            { name: 'Resistor 10k Ohm 1/4W', value: '566.67%' },
+            { name: 'Luva de Nitrila Tamanho M', value: '150%' },
+        ];
+    },
+
+    getImminentProjections() {
+        return [
+            { name: 'Parafuso M6 x 30mm Aço Inox', date: '14/12/2025', status: 'DECRESCENTE' },
+            { name: 'Resistor 10k Ohm 1/4W', date: '16/12/2025', status: 'DECRESCENTE' },
+            { name: 'Luva de Nitrila Tamanho M', date: '31/12/2025', status: 'ESTAVEL' },
+        ];
+    },
+
+    getRecommendations() {
+        return 'Foque em reposição e controle de qualidade dos produtos classe A.';
     }
 };
 

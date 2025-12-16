@@ -20,12 +20,48 @@ export interface DashboardTabProps {
   data: StockData;
   metrics: DashboardMetrics;
   insights: BusinessInsights | null;
+  highTurnoverProducts: { name: string; value: string }[];
+  imminentProjections: { name: string; date: string; status: string }[];
+  recommendations: string;
   className?: string;
 }
 
-export const DashboardTab = React.memo(function DashboardTab({ data, metrics, insights, className = '' }: DashboardTabProps) {
+export const DashboardTab = React.memo(function DashboardTab({
+  data,
+  metrics,
+  insights,
+  highTurnoverProducts,
+  imminentProjections,
+  recommendations,
+  className = '',
+}: DashboardTabProps) {
+
   return (
     <div className={`dashboard-tab ${className}`}>
+      {/* Informational Sections */}
+      <div className="info-sections">
+        <div className="info-card">
+          <h3>Produtos com maior rotatividade (30d)</h3>
+          <ul>
+            {highTurnoverProducts.map((p) => (
+              <li key={p.name}>{p.name} — {p.value}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="info-card">
+          <h3>Projeções iminentes</h3>
+          <ul>
+            {imminentProjections.map((p) => (
+              <li key={p.name}>{p.name} — {p.date} ({p.status})</li>
+            ))}
+          </ul>
+        </div>
+        <div className="info-card">
+          <h3>Recomendações</h3>
+          <p>{recommendations}</p>
+        </div>
+      </div>
+
       {/* Metrics Cards */}
       <div className="metrics-grid">
         <div className="metric-card">
@@ -35,6 +71,7 @@ export const DashboardTab = React.memo(function DashboardTab({ data, metrics, in
           <div className="metric-content">
             <div className="metric-label">Total de Produtos</div>
             <div className="metric-value">{metrics.totalProdutos}</div>
+            <div className="metric-sublabel">Produtos cadastrados</div>
           </div>
         </div>
 
@@ -45,6 +82,7 @@ export const DashboardTab = React.memo(function DashboardTab({ data, metrics, in
           <div className="metric-content">
             <div className="metric-label">Produtos Críticos</div>
             <div className="metric-value">{metrics.produtosCriticos}</div>
+            <div className="metric-sublabel">Necessitam reposição</div>
           </div>
         </div>
 
@@ -55,6 +93,7 @@ export const DashboardTab = React.memo(function DashboardTab({ data, metrics, in
           <div className="metric-content">
             <div className="metric-label">Valor Total Estoque</div>
             <div className="metric-value">{formatCurrency(metrics.valorTotalEstoque)}</div>
+            <div className="metric-sublabel">Valor contabilizado em estoque</div>
           </div>
         </div>
 
@@ -65,6 +104,7 @@ export const DashboardTab = React.memo(function DashboardTab({ data, metrics, in
           <div className="metric-content">
             <div className="metric-label">Alertas Pendentes</div>
             <div className="metric-value">{metrics.alertasPendentes}</div>
+            <div className="metric-sublabel">Itens sinalizados para atenção</div>
           </div>
         </div>
       </div>

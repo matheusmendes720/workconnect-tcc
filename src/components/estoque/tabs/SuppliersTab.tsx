@@ -10,22 +10,33 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { SuppliersTable } from '../tables/SuppliersTable';
 import { SupplierModal } from '../modals/SupplierModal';
-import type { Supplier, SupplierFormData } from '../../../types/estoque';
+import { Logistics } from '../sections/Logistics';
+import type { Product, Movement, User, Supplier, SupplierFormData, ProductSupplier } from '../../../types/estoque';
 import { useSuppliers } from '../../../lib/estoque/hooks/useSuppliers';
 
 export interface SuppliersTabProps {
   suppliers: Supplier[];
+  products: Product[];
+  movements: Movement[];
+  users: User[];
+  productSuppliers: ProductSupplier[];
   onEdit: (supplier: Supplier) => void;
   onDelete: (id: number) => void;
   onSave: (data: SupplierFormData, supplierId?: number) => void;
+  onGenerateOrder?: (productId: number, quantity: number) => void;
   className?: string;
 }
 
 export function SuppliersTab({
   suppliers,
+  products,
+  movements,
+  users,
+  productSuppliers,
   onEdit,
   onDelete,
   onSave,
+  onGenerateOrder,
   className = '',
 }: SuppliersTabProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -81,6 +92,15 @@ export function SuppliersTab({
         supplier={editingSupplier}
         onClose={handleCloseModal}
         onSave={handleSave}
+      />
+
+      <Logistics
+        suppliers={suppliers}
+        products={products}
+        movements={movements}
+        users={users}
+        productSuppliers={productSuppliers}
+        onGenerateOrder={onGenerateOrder}
       />
     </div>
   );

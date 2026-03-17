@@ -52,7 +52,10 @@ export function SupplierChart({
       .slice(0, 7);
 
     return {
-      labels: sortedData.map(d => d.nome_fantasia.length > 15 ? d.nome_fantasia.substring(0, 15) + '...' : d.nome_fantasia),
+      labels: sortedData.map(d => {
+        const nome = d.nome_fantasia || 'Sem Nome';
+        return nome.length > 15 ? nome.substring(0, 15) + '...' : nome;
+      }),
       datasets: [
         {
           type: 'line' as const,

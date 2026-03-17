@@ -45,7 +45,7 @@ export const ABCChart = React.memo(function ABCChart({ abcAnalysis, className = 
     return {
       labels: items.map((item) => {
         // Truncate long names
-        const name = item.produto.nome || item.nome; // handle fallback
+        const name = item.produto?.nome || item.nome || 'Sem Nome'; // handle fallback with null check
         return name.length > 20 ? name.substring(0, 20) + '...' : name;
       }),
       datasets: [

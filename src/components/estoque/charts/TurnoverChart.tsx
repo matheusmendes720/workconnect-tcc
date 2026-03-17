@@ -67,7 +67,10 @@ export function TurnoverChart({
     const sortedData = [...processData].sort((a, b) => b.giro_estoque - a.giro_estoque).slice(0, 8);
 
     return {
-      labels: sortedData.map(item => item.nome.length > 20 ? item.nome.substring(0, 20) + '...' : item.nome),
+      labels: sortedData.map(item => {
+        const nome = item.nome || 'Sem Nome';
+        return nome.length > 20 ? nome.substring(0, 20) + '...' : nome;
+      }),
       datasets: [
         {
           label: 'Giro de Estoque',

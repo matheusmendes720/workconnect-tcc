@@ -1,11 +1,11 @@
 /**
  * Product Turnover Chart Component
- * Shows product turnover rates with enhanced visual storytelling
+ * Premium horizontal bar showing turnover performance with gradients
  */
 
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 
 const Bar = dynamic(() => import('react-chartjs-2').then(mod => ({ default: mod.Bar })), {
@@ -40,55 +40,67 @@ export interface TurnoverChartProps {
   error?: string | null;
 }
 
-export function TurnoverChart({ 
-  turnoverRates = [], 
+export function TurnoverChart({
+  turnoverRates,
   className = '',
   isLoading = false,
-  error = null
+  error = null,
 }: TurnoverChartProps) {
-  // Generate mock data for visual storytelling when no data is available
-  const chartData = React.useMemo(() => {
-    // Use real data if available, otherwise generate mock data
-    const data = turnoverRates && turnoverRates.length > 0 ? turnoverRates : [
-      { produto: { nome: 'Produto A' }, taxaRotatividade: 12.5, diasRotatividade: 29 },
-      { produto: { nome: 'Produto B' }, taxaRotatividade: 8.3, diasRotatividade: 44 },
-      { produto: { nome: 'Produto C' }, taxaRotatividade: 15.7, diasRotatividade: 23 },
-      { produto: { nome: 'Produto D' }, taxaRotatividade: 6.2, diasRotatividade: 58 },
-      { produto: { nome: 'Produto E' }, taxaRotatividade: 10.8, diasRotatividade: 34 },
-      { produto: { nome: 'Produto F' }, taxaRotatividade: 9.4, diasRotatividade: 39 },
-      { produto: { nome: 'Produto G' }, taxaRotatividade: 13.1, diasRotatividade: 28 },
-      { produto: { nome: 'Produto H' }, taxaRotatividade: 7.6, diasRotatividade: 48 },
-    ];
+  const chartData = useMemo(() => {
+    let processData = turnoverRates;
 
-    // Sort by turnover rate (highest first) for better visual storytelling
-    const sortedData = [...data].sort((a, b) => b.taxaRotatividade - a.taxaRotatividade);
+    if (!processData || processData.length === 0) {
+      // Mock data for display
+      processData = [
+        { produto_id: 1, nome: 'Produto A Alto Giro', giro_estoque: 12.5, dias_estoque: 29.2, performance: 'Excelente' },
+        { produto_id: 2, nome: 'Produto B Alto Giro', giro_estoque: 10.2, dias_estoque: 35.7, performance: 'Excelente' },
+        { produto_id: 3, nome: 'Produto C Médio Giro', giro_estoque: 8.5, dias_estoque: 42.9, performance: 'Bom' },
+        { produto_id: 4, nome: 'Produto D Médio Giro', giro_estoque: 6.8, dias_estoque: 53.6, performance: 'Bom' },
+        { produto_id: 5, nome: 'Produto E Normal', giro_estoque: 4.5, dias_estoque: 81.1, performance: 'Regular' },
+        { produto_id: 6, nome: 'Produto F Normal', giro_estoque: 3.2, dias_estoque: 114.0, performance: 'Regular' },
+        { produto_id: 7, nome: 'Produto G Baixo', giro_estoque: 1.5, dias_estoque: 243.3, performance: 'Ruim' },
+        { produto_id: 8, nome: 'Produto H Crítico', giro_estoque: 0.8, dias_estoque: 456.2, performance: 'Ruim' },
+      ];
+    }
+
+    // Sort by turnover rate descending and take top 8
+    const sortedData = [...processData].sort((a, b) => b.giro_estoque - a.giro_estoque).slice(0, 8);
 
     return {
-      labels: sortedData.map(item => item.produto?.nome || 'Produto'),
+      labels: sortedData.map(item => item.nome.length > 20 ? item.nome.substring(0, 20) + '...' : item.nome),
       datasets: [
         {
-          label: 'Taxa de Rotatividade (%)',
-          data: sortedData.map(item => item.taxaRotatividade),
-          backgroundColor: sortedData.map((_, index) => {
-            // Color gradient based on performance
-            const rate = sortedData[index].taxaRotatividade;
-            if (rate >= 12) return 'rgba(76, 175, 80, 0.8)'; // Green - Excellent
-            if (rate >= 9) return 'rgba(255, 213, 79, 0.8)'; // Yellow - Good
-            if (rate >= 6) return 'rgba(255, 152, 0, 0.8)'; // Orange - Average
-            return 'rgba(244, 67, 54, 0.8)'; // Red - Poor
-          }),
-          borderColor: sortedData.map((_, index) => {
-            const rate = sortedData[index].taxaRotatividade;
-            if (rate >= 12) return 'rgba(76, 175, 80, 1)';
-            if (rate >= 9) return 'rgba(255, 213, 79, 1)';
-            if (rate >= 6) return 'rgba(255, 152, 0, 1)';
-            return 'rgba(244, 67, 54, 1)';
-          }),
-          borderWidth: 2,
+          label: 'Giro de Estoque',
+          data: sortedData.map(item => item.giro_estoque),
+          backgroundColor: (context: any) => {
+            const chart = context.chart;
+            const { ctx, chartArea } = chart;
+            if (!chartArea) return 'rgba(66, 165, 245, 0.8)';
+            
+            const gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
+            const performance = sortedData[context.dataIndex]?.performance;
+            
+            if (performance === 'Excelente') {
+              gradient.addColorStop(0, 'rgba(0, 230, 118, 0.4)');
+              gradient.addColorStop(1, 'rgba(0, 230, 118, 1)');
+            } else if (performance === 'Bom') {
+              gradient.addColorStop(0, 'rgba(66, 165, 245, 0.4)');
+              gradient.addColorStop(1, 'rgba(66, 165, 245, 1)');
+            } else if (performance === 'Regular') {
+              gradient.addColorStop(0, 'rgba(255, 213, 79, 0.4)');
+              gradient.addColorStop(1, 'rgba(255, 213, 79, 1)');
+            } else { // Ruim
+              gradient.addColorStop(0, 'rgba(255, 82, 82, 0.4)');
+              gradient.addColorStop(1, 'rgba(255, 82, 82, 1)');
+            }
+            return gradient;
+          },
           borderRadius: 6,
-          borderSkipped: false,
+          barPercentage: 0.7,
+          categoryPercentage: 0.8,
         },
       ],
+      originalData: sortedData,
     };
   }, [turnoverRates]);
 
@@ -96,102 +108,94 @@ export function TurnoverChart({
     indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
+    animation: {
+      duration: 1200,
+      easing: 'easeOutQuart',
+    },
     plugins: {
       legend: {
         display: false,
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.9)',
-        titleColor: '#FFD54F',
-        bodyColor: '#FFFFFF',
-        borderColor: '#FFD54F',
+        backgroundColor: 'rgba(10, 10, 20, 0.95)',
+        titleColor: '#FFFFFF',
+        bodyColor: 'rgba(255, 255, 255, 0.8)',
+        borderColor: 'rgba(255, 255, 255, 0.1)',
         borderWidth: 1,
-        padding: 12,
+        padding: 14,
+        cornerRadius: 10,
+        titleFont: { size: 13, weight: 600 as any },
+        bodyFont: { size: 12 },
         callbacks: {
+          title: (context) => {
+            const idx = context[0].dataIndex;
+            return chartData.originalData[idx].nome;
+          },
           label: (context) => {
-            const value = context.parsed.x;
-            const dataIndex = context.dataIndex;
-            const data = turnoverRates && turnoverRates.length > 0 ? turnoverRates : [
-              { produto: { nome: 'Produto A' }, taxaRotatividade: 12.5, diasRotatividade: 29 },
-              { produto: { nome: 'Produto B' }, taxaRotatividade: 8.3, diasRotatividade: 44 },
-              { produto: { nome: 'Produto C' }, taxaRotatividade: 15.7, diasRotatividade: 23 },
-              { produto: { nome: 'Produto D' }, taxaRotatividade: 6.2, diasRotatividade: 58 },
-              { produto: { nome: 'Produto E' }, taxaRotatividade: 10.8, diasRotatividade: 34 },
-              { produto: { nome: 'Produto F' }, taxaRotatividade: 9.4, diasRotatividade: 39 },
-              { produto: { nome: 'Produto G' }, taxaRotatividade: 13.1, diasRotatividade: 28 },
-              { produto: { nome: 'Produto H' }, taxaRotatividade: 7.6, diasRotatividade: 48 },
+            return `🔄 Giro: ${context.parsed.x.toFixed(2)}x ao ano`;
+          },
+          afterLabel: (context) => {
+            const data = chartData.originalData[context.dataIndex];
+            const perfEmoji = data.performance === 'Excelente' ? '⭐' : data.performance === 'Bom' ? '👍' : data.performance === 'Regular' ? '⚠️' : '🚨';
+            return [
+              `⏱️ Tempo médio: ${data.dias_estoque.toFixed(0)} dias no estoque`,
+              `${perfEmoji} Performance: ${data.performance}`
             ];
-            
-            const item = data[dataIndex];
-            if (item) {
-              const performance = item.taxaRotatividade >= 12 ? 'Excelente' : 
-                                item.taxaRotatividade >= 9 ? 'Bom' : 
-                                item.taxaRotatividade >= 6 ? 'Médio' : 'Baixo';
-              return [
-                `Taxa: ${value.toFixed(1)}%`,
-                `Dias em Estoque: ${item.diasRotatividade}`,
-                `Performance: ${performance}`,
-              ];
-            }
-            
-            return `Taxa: ${value.toFixed(1)}%`;
           },
         },
       },
     },
     scales: {
       x: {
-        beginAtZero: true,
-        ticks: {
-          color: '#B0B0B0',
-          callback: (value) => `${Number(value).toFixed(1)}%`,
-          font: {
-            size: 11,
-          },
-        },
         grid: {
-          color: 'rgba(255, 255, 255, 0.1)',
+          color: 'rgba(255, 255, 255, 0.04)',
         },
-        title: {
-          display: true,
-          text: 'Taxa de Rotatividade (%)',
-          color: '#FFFFFF',
-          font: {
-            size: 12,
-            weight: 'bold'
-          }
-        }
+        border: { display: false },
+        ticks: {
+          color: 'rgba(255, 255, 255, 0.4)',
+          font: { size: 10 },
+        },
       },
       y: {
+        grid: { display: false },
+        border: { display: false },
         ticks: {
-          color: '#B0B0B0',
-          font: {
-            size: 11,
-          },
-        },
-        grid: {
-          color: 'rgba(255, 255, 255, 0.05)',
+          color: 'rgba(255, 255, 255, 0.7)',
+          font: { size: 11, weight: 500 as any },
+          padding: 8,
         },
       },
     },
   };
 
-  // Don't show loading state - always render the chart with mock data if needed
-
   if (error) {
     return (
-      <div className={className}>
+      <div className={`chart-container ${className}`}>
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Erro ao carregar dados</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
+          <AlertTitle>Erro</AlertTitle>
+          <AlertDescription>
+            {error || 'Não foi possível carregar os dados de giro de estoque'}
+          </AlertDescription>
         </Alert>
       </div>
     );
   }
 
+  if (isLoading) {
+    return (
+      <div className={`chart-container ${className}`}>
+        <div className="chart-wrapper">
+          <div className="loading-chart">
+            <div>Calculando índices...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={`chart-wrapper ${className}`}>
+    <div className={`${className}`} style={{ width: '100%', height: '100%' }}>
       <Bar data={chartData} options={options} />
     </div>
   );

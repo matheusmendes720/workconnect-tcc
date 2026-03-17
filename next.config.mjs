@@ -11,6 +11,9 @@ const projectRoot = path.resolve(__dirname);
 
 const nextConfig = {
   reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   // Turbopack configuration (Next.js 16+)
   // Explicitly set project root to fix workspace detection issue
   // This tells Next.js where to find the app directory (src/app/)

@@ -37,10 +37,10 @@ export function AppHeader({
   const [searchQuery, setSearchQuery] = useState('')
 
   const navigationItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home, href: '/estoque' },
-    { id: 'products', label: 'Produtos', icon: Package, href: '/estoque?tab=produtos' },
-    { id: 'analytics', label: 'Análises', icon: BarChart3, href: '/estoque?tab=relatorios' },
-    { id: 'users', label: 'Usuários', icon: Users, href: '/usuarios' },
+    { id: 'dashboard', label: 'Dashboard', icon: Home, href: '/dashboard' },
+    { id: 'products', label: 'Produtos', icon: Package, href: '/dashboard?tab=produtos' },
+    { id: 'analytics', label: 'Análises', icon: BarChart3, href: '/dashboard?tab=relatorios' },
+    { id: 'lp', label: 'Página Inicial', icon: Globe, href: '/lp' },
     { id: 'settings', label: 'Configurações', icon: Settings, href: '/configuracoes' },
   ]
 

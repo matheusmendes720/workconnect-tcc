@@ -2,20 +2,16 @@
 
 import { useState } from 'react'
 import { Button } from '../ui/button'
-import { Badge } from '../ui/badge'
 import { 
   Bell, 
-  Menu, 
   Search,
   Package,
   BarChart3,
-  Users,
   Settings,
   Home,
-  Sparkles,
   Zap,
-  Shield,
-  Globe
+  Globe,
+  ChevronDown
 } from 'lucide-react'
 import { UserMenu } from './UserMenu'
 import { NotificationCenter } from '../ui/NotificationCenter'
@@ -30,8 +26,8 @@ interface AppHeaderEnhancedProps {
 }
 
 export function AppHeaderEnhanced({ 
-  title = "Work Connect", 
-  subtitle = "Gestão de Estoque Inteligente",
+  title = "Gestão de Estoque", 
+  subtitle = "Sistema completo de gerenciamento de estoque",
   onMenuToggle,
   notificationCount = 0,
   onNotificationClick
@@ -42,199 +38,147 @@ export function AppHeaderEnhanced({
   const [isSearchFocused, setIsSearchFocused] = useState(false)
 
   const navigationItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: Home, href: '/estoque', color: 'from-blue-400 to-blue-600' },
-    { id: 'products', label: 'Produtos', icon: Package, href: '/estoque?tab=produtos', color: 'from-green-400 to-green-600' },
-    { id: 'analytics', label: 'Análises', icon: BarChart3, href: '/estoque?tab=relatorios', color: 'from-purple-400 to-purple-600' },
-    { id: 'users', label: 'Usuários', icon: Users, href: '/usuarios', color: 'from-orange-400 to-orange-600' },
-    { id: 'settings', label: 'Configurações', icon: Settings, href: '/configuracoes', color: 'from-pink-400 to-pink-600' },
+    { id: 'dashboard', label: 'Dashboard', icon: Home, href: '/dashboard' },
+    { id: 'products', label: 'Produtos', icon: Package, href: '/dashboard?tab=produtos' },
+    { id: 'analytics', label: 'Análises', icon: BarChart3, href: '/dashboard?tab=relatorios' },
+    { id: 'lp', label: 'Página Inicial', icon: Globe, href: '/lp' },
+    { id: 'settings', label: 'Configurações', icon: Settings, href: '/configuracoes' },
   ]
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query)
-    // Implement search functionality
-    console.log('Searching for:', query)
+  // Detect active nav item from URL
+  const currentPath = typeof window !== 'undefined' ? window.location.href : ''
+  const getActiveId = () => {
+    if (currentPath.includes('/configuracoes')) return 'settings'
+    if (currentPath.includes('/lp')) return 'lp'
+    if (currentPath.includes('tab=relatorios')) return 'analytics'
+    if (currentPath.includes('tab=produtos')) return 'products'
+    return 'dashboard'
   }
 
   return (
-    <header className="bg-gray-900/80 backdrop-blur-xl border-b border-gray-800/50 sticky top-0 z-40 shadow-2xl">
-      {/* Animated Gradient Border */}
-      <div className="h-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 animate-pulse"></div>
+    <header className="sticky top-0 z-40 w-full">
+      {/* Top accent line */}
+      <div className="h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
       
-      <div className="px-4 sm:px-6 lg:px-8">
-        {/* Main Header */}
-        <div className="flex items-center justify-between h-16">
-          {/* Left side - Logo and Brand */}
-          <div className="flex items-center space-x-4">
-            {onMenuToggle && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={onMenuToggle}
-                className="lg:hidden text-gray-400 hover:text-white hover:bg-gray-800/50 transition-all duration-200"
-              >
-                <Menu className="w-5 h-5" />
-              </Button>
-            )}
-
-            <div className="flex items-center space-x-3">
+      <div className="bg-gray-900/90 backdrop-blur-xl border-b border-white/[0.06] shadow-2xl">
+        <div className="px-4 sm:px-6">
+          {/* Main header row */}
+          <div className="flex items-center h-14 gap-4">
+            
+            {/* Logo + Brand */}
+            <div className="flex items-center gap-3 flex-shrink-0">
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg transform hover:scale-105 transition-transform duration-200">
-                  <Package className="w-5 h-5 text-black" />
+                <div className="w-9 h-9 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-yellow-500/25 transition-transform duration-200 hover:scale-105">
+                  <Package className="w-4 h-4 text-black" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-gray-900 animate-pulse" />
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-lg font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                <div className="text-sm font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent leading-none">
                   {title}
-                </h1>
-                <p className="text-xs text-gray-400">{subtitle}</p>
+                </div>
+                <div className="text-[10px] text-gray-500 mt-0.5 leading-none">{subtitle}</div>
               </div>
             </div>
-          </div>
 
-          {/* Center - Search Bar */}
-          <div className="hidden md:flex flex-1 max-w-lg mx-8">
-            <div className="relative w-full group">
-              <div className={`absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-xl blur-sm transition-all duration-300 ${
-                isSearchFocused ? 'opacity-100' : 'opacity-0'
-              }`}></div>
-              <Search className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 transition-colors duration-200 ${
-                isSearchFocused ? 'text-yellow-400' : 'text-gray-500'
-              }`} />
-              <input
-                type="text"
-                placeholder="Buscar produtos, categorias, fornecedores..."
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-                className={`w-full pl-12 pr-4 py-2.5 bg-gray-800/50 border rounded-xl text-white placeholder-gray-500 transition-all duration-300 ${
-                  isSearchFocused 
-                    ? 'border-yellow-500/50 shadow-lg shadow-yellow-500/20' 
-                    : 'border-gray-700/50 hover:border-gray-600/50'
-                }`}
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
-                >
-                  ×
-                </button>
-              )}
+            {/* Search bar */}
+            <div className="flex-1 max-w-md hidden md:block">
+              <div className="relative group">
+                {isSearchFocused && (
+                  <div className="absolute inset-0 bg-yellow-400/10 rounded-lg blur-sm pointer-events-none" />
+                )}
+                <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 transition-colors duration-200 ${
+                  isSearchFocused ? 'text-yellow-400' : 'text-gray-600'
+                }`} />
+                <input
+                  type="text"
+                  placeholder="Buscar produtos, categorias, fornecedores..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
+                  onBlur={() => setIsSearchFocused(false)}
+                  className={`w-full pl-9 pr-4 py-2 text-sm bg-white/[0.04] border rounded-lg text-white placeholder-gray-600 transition-all duration-200 outline-none ${
+                    isSearchFocused 
+                      ? 'border-yellow-500/40 bg-white/[0.06] shadow-lg shadow-yellow-500/10' 
+                      : 'border-white/[0.06] hover:border-white/10'
+                  }`}
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Right side - Actions and User */}
-          <div className="flex items-center space-x-3">
-            {/* Quick Actions */}
-            <div className="hidden lg:flex items-center space-x-2">
+            {/* Right actions */}
+            <div className="flex items-center gap-2 ml-auto">
+              {/* Quick Actions button */}
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-gray-400 hover:text-white hover:bg-gray-800/50 transition-all duration-200"
+                className="hidden lg:flex items-center gap-1.5 text-gray-400 hover:text-yellow-400 hover:bg-yellow-400/10 transition-all duration-200 text-xs font-medium px-3 h-8"
               >
-                <Zap className="w-4 h-4 mr-2" />
+                <Zap className="w-3.5 h-3.5" />
                 Ações Rápidas
               </Button>
-            </div>
 
-            {/* Notifications */}
-            <div className="relative">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsNotificationCenterOpen(true)}
-                className={`relative text-gray-400 hover:text-white hover:bg-gray-800/50 transition-all duration-200 ${
-                  notificationCount > 0 ? 'animate-pulse' : ''
-                }`}
-              >
-                <Bell className="w-5 h-5" />
-                {notificationCount > 0 && (
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg">
-                    {notificationCount > 99 ? '99+' : notificationCount}
-                  </div>
-                )}
-              </Button>
-            </div>
-
-            {/* User Menu */}
-            <UserMenu />
-          </div>
-        </div>
-
-        {/* Secondary Navigation */}
-        <div className="border-t border-gray-800/50">
-          <div className="flex items-center justify-between py-2">
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1">
-              {navigationItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => window.location.href = item.href}
-                  className="group relative px-4 py-2 rounded-lg transition-all duration-200 hover:bg-gray-800/50"
+              {/* Notifications */}
+              <div className="relative">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsNotificationCenterOpen(true)}
+                  className="relative text-gray-400 hover:text-white hover:bg-white/[0.06] transition-all duration-200 h-8 w-8 p-0"
                 >
-                  <div className="flex items-center space-x-2">
-                    <div className={`w-8 h-8 bg-gradient-to-br ${item.color} rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-200`}>
-                      <item.icon className="w-4 h-4 text-white" />
+                  <Bell className="w-4 h-4" />
+                  {notificationCount > 0 && (
+                    <div className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white text-[9px] font-bold shadow-lg">
+                      {notificationCount > 9 ? '9+' : notificationCount}
                     </div>
-                    <span className="text-gray-300 group-hover:text-white font-medium">{item.label}</span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-yellow-400 to-orange-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></div>
-                </button>
-              ))}
-            </nav>
+                  )}
+                </Button>
+              </div>
 
-            {/* Status Indicators */}
-            <div className="flex items-center space-x-4">
-              <div className="hidden sm:flex items-center space-x-2 text-gray-400 text-sm">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span>Sistema Online</span>
-              </div>
-              <div className="hidden sm:flex items-center space-x-2 text-gray-400 text-sm">
-                <Globe className="w-4 h-4" />
-                <span>Português</span>
-              </div>
+              {/* User Menu */}
+              <UserMenu />
             </div>
           </div>
-        </div>
 
-        {/* Mobile Search Bar */}
-        <div className="md:hidden py-3 border-t border-gray-800/50">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Buscar..."
-              value={searchQuery}
-              onChange={(e) => handleSearch(e.target.value)}
-              onFocus={() => setIsSearchFocused(true)}
-              onBlur={() => setIsSearchFocused(false)}
-              className={`w-full pl-10 pr-4 py-2.5 bg-gray-800/50 border rounded-xl text-white placeholder-gray-500 transition-all duration-300 ${
-                isSearchFocused 
-                  ? 'border-yellow-500/50 shadow-lg shadow-yellow-500/20' 
-                  : 'border-gray-700/50'
-              }`}
-            />
-          </div>
-        </div>
+          {/* Secondary navigation */}
+          <div className="border-t border-white/[0.04] py-1">
+            <div className="flex items-center justify-between">
+              {/* Nav tabs */}
+              <nav className="hidden lg:flex items-center gap-0.5">
+                {navigationItems.map((item) => {
+                  const Icon = item.icon
+                  const isActive = getActiveId() === item.id
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => window.location.href = item.href}
+                      className={`relative flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 group ${
+                        isActive
+                          ? 'text-yellow-400 bg-yellow-400/10'
+                          : 'text-gray-500 hover:text-gray-300 hover:bg-white/[0.04]'
+                      }`}
+                    >
+                      <Icon className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span>{item.label}</span>
+                      {isActive && (
+                        <div className="absolute bottom-0 left-2 right-2 h-[2px] bg-gradient-to-r from-yellow-400/50 via-yellow-400 to-yellow-400/50 rounded-full" />
+                      )}
+                    </button>
+                  )
+                })}
+              </nav>
 
-        {/* Mobile Navigation */}
-        <div className="md:hidden border-t border-gray-800/50">
-          <div className="px-4 py-3">
-            <div className="grid grid-cols-3 gap-2">
-              {navigationItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => window.location.href = item.href}
-                  className="flex flex-col items-center space-y-2 p-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-all duration-200"
-                >
-                  <div className={`w-8 h-8 bg-gradient-to-br ${item.color} rounded-lg flex items-center justify-center`}>
-                    <item.icon className="w-4 h-4 text-white" />
-                  </div>
-                  <span className="text-xs font-medium">{item.label}</span>
-                </button>
-              ))}
+              {/* Status indicators */}
+              <div className="flex items-center gap-3">
+                <div className="hidden sm:flex items-center gap-1.5 text-xs text-gray-600">
+                  <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                  <span>Sistema Online</span>
+                </div>
+                <div className="hidden sm:flex items-center gap-1 text-xs text-gray-600">
+                  <Globe className="w-3 h-3" />
+                  <span>Português</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

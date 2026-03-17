@@ -1,33 +1,20 @@
-/**
- * Home Page
- * Redirects to stock management page
- */
-
 'use client';
 
+import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { AuthProvider } from '../contexts/AuthContext';
-import { AuthWrapper } from '../components/estoque/auth/AuthWrapper';
 
-export default function Home() {
-  const router = useRouter();
-  
+/**
+ * Root Page
+ * Redirects to dashboard by default for debug purposes
+ */
+export default function RootPage() {
   useEffect(() => {
-    router.push('/estoque');
-  }, [router]);
+    redirect('/dashboard?debug=true');
+  }, []);
 
   return (
-    <AuthProvider>
-      <AuthWrapper>
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-white mb-4">Work Connect</h1>
-            <p className="text-gray-400">Redirecionando para o sistema...</p>
-          </div>
-        </div>
-      </AuthWrapper>
-    </AuthProvider>
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500"></div>
+    </div>
   );
 }
-

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
@@ -35,11 +35,18 @@ import {
 import { useAuth } from '../../../contexts/AuthContext'
 import { User, UserProfile, PasswordChangeData, UserUpdateData } from '../../../types/estoque'
 
-export function UserConfigEnhanced() {
+export function UserConfigEnhanced({ activeSection: initialSection }: { activeSection?: 'profile' | 'security' | 'lgpd' | 'notifications' }) {
   const { user, updateProfile, changePassword, exportUserData, requestDeletion } = useAuth()
   const [isEditing, setIsEditing] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [activeSection, setActiveSection] = useState<'profile' | 'security' | 'lgpd' | 'notifications'>('profile')
+  const [activeSection, setActiveSection] = useState<'profile' | 'security' | 'lgpd' | 'notifications'>(initialSection || 'profile')
+
+  // Sync with prop if it changes
+  useEffect(() => {
+    if (initialSection) {
+      setActiveSection(initialSection)
+    }
+  }, [initialSection])
   const [errors, setErrors] = useState<string[]>([])
   const [success, setSuccess] = useState<string>('')
   const [focusedField, setFocusedField] = useState<string | null>(null)

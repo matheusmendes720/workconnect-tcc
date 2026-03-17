@@ -1,0 +1,514 @@
+'use client';
+
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { TabNavigation, type TabId } from './ui/TabNavigation';
+import { QuickActions, type QuickAction } from './ui/QuickActions';
+import { NotificationCenter } from './ui/NotificationCenter';
+import { RealTimeBadge } from './ui/RealTimeBadge';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSync } from '@fortawesome/free-solid-svg-icons';
+import { AppHeaderEnhanced } from './auth/AppHeaderEnhanced';
+import { DashboardTab } from './tabs/DashboardTab';
+import { ProductsTab } from './tabs/ProductsTab';
+import { CategoriesTab } from './tabs/CategoriesTab';
+import { SuppliersTab } from './tabs/SuppliersTab';
+import { MovementsTab } from './tabs/MovementsTab';
+import { AlertsTab } from './tabs/AlertsTab';
+import { WarehousesTab } from './tabs/WarehousesTab';
+import { ExpirationsTab } from './tabs/ExpirationsTab';
+import { ReportsTab } from './tabs/ReportsTab';
+import { useStockDataContext } from '@lib/estoque/context/StockDataContext';
+import { useCharts } from '@lib/estoque/hooks/useCharts';
+import { useProducts } from '@lib/estoque/hooks/useProducts';
+import { useCategories } from '@lib/estoque/hooks/useCategories';
+import { useRealTimeUpdates } from '@lib/estoque/hooks/useRealTimeUpdates';
+import { useDatabaseIntegration } from '@lib/estoque/hooks/useDatabaseIntegration';
+import { useToast } from '@lib/utils/toast';
+import { useLoading } from '@lib/utils/loading';
+import { MockDataEstoque } from '@lib/estoque/mock-data';
+import type {
+  Product,
+  Category,
+  Supplier,
+  Warehouse,
+  ProductFormData,
+  CategoryFormData,
+  SupplierFormData,
+  MovementFormData,
+  WarehouseFormData,
+} from '../../types/estoque';
+
+export function Dashboard() {
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] = useState<TabId>((searchParams.get('tab') as TabId) || 'dashboard');
+
+  // Sync state with URL parameter (for back button or header links)
+  useEffect(() => {
+    const tabFromUrl = searchParams.get('tab') as TabId;
+    if (tabFromUrl && tabFromUrl !== activeTab) {
+      setActiveTab(tabFromUrl);
+    }
+  }, [searchParams, activeTab]);
+  const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
+  const [notifications, setNotifications] = useState<any[]>([]);
+
+  const stockData = useStockDataContext();
+  const { insights } = useCharts(stockData.data);
+  const toast = useToast();
+  const loading = useLoading();
+
+  // Database integration
+  const databaseIntegration = useDatabaseIntegration();
+
+  // Real-time updates
+  const realTimeUpdates = useRealTimeUpdates({
+    enabled: true,
+    interval: 30000, // 30 seconds
+    onUpdate: () => {
+      // Refresh data periodically - debounced to prevent excessive calls
+      if (!databaseIntegration.isLoading) {
+        stockData.refresh();
+      }
+    },
+  });
+
+  const metrics = useMemo(() => {
+    return MockDataEstoque.getDashboardMetrics();
+  }, []);
+
+  const {
+    filteredProducts,
+    selectedProducts,
+    toggleSelection,
+    toggleSelectAll,
+    clearSelection,
+  } = useProducts(stockData.data.produtos, stockData.updateProduct);
+
+  const { getCategoryPath } = useCategories(stockData.data.categorias);
+
+  const handleTabChange = (tab: TabId) => {
+    setActiveTab(tab);
+    const params = new URLSearchParams(window.location.search);
+    params.set('tab', tab);
+    window.history.pushState(null, '', `?${params.toString()}`);
+  };
+
+  const handleProductSave = useCallback((formData: ProductFormData, productId?: number) => {
+    if (productId) {
+      stockData.updateProduct(productId, formData as Partial<Product>);
+      toast.success('Produto atualizado com sucesso!');
+    } else {
+      stockData.addProduct(formData as Omit<Product, 'id'>);
+      toast.success('Produto adicionado com sucesso!');
+    }
+  }, [stockData, toast]);
+
+  const handleCategorySave = useCallback((formData: CategoryFormData, categoryId?: number) => {
+    if (categoryId) {
+      stockData.updateCategory(categoryId, formData as Partial<Category>);
+      toast.success('Categoria atualizada com sucesso!');
+    } else {
+      stockData.addCategory(formData as Omit<Category, 'id'>);
+      toast.success('Categoria adicionada com sucesso!');
+    }
+  }, [stockData, toast]);
+
+  const handleSupplierSave = useCallback((formData: SupplierFormData, supplierId?: number) => {
+    if (supplierId) {
+      stockData.updateSupplier(supplierId, formData as Partial<Supplier>);
+      toast.success('Fornecedor atualizado com sucesso!');
+    } else {
+      stockData.addSupplier(formData as Omit<Supplier, 'id'>);
+      toast.success('Fornecedor adicionado com sucesso!');
+    }
+  }, [stockData, toast]);
+
+  const handleMovementSave = useCallback(async (formData: MovementFormData & { usuario_id: number }) => {      
+    const newMovement = {
+      produto_id: formData.produto_id,
+      usuario_id: formData.usuario_id,
+      tipo: formData.tipo,
+      quantidade: formData.quantidade,
+      preco_unitario: formData.preco_unitario || null,
+      documento_fiscal: formData.documento_fiscal || null,
+      observacao: formData.observacao || null,
+      local_origem: formData.local_origem || null,
+      local_destino: formData.local_destino || null,
+      data_hora: new Date().toISOString(),
+    };
+
+    stockData.addMovement(newMovement);
+
+    // Sync with database
+    try {
+      await databaseIntegration.syncMovements([newMovement as any]);
+    } catch (error) {
+      console.error('Error syncing movement:', error);
+    }
+
+    toast.success('Movimentação registrada com sucesso!');
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleAlertMarkAsRead = useCallback(async (id: number) => {
+    stockData.updateAlert(id, {
+      visualizado: true,
+      data_visualizacao: new Date().toISOString(),
+    });
+
+    // Sync with database
+    try {
+      const alert = stockData.data.alertas.find((a) => a.id === id);
+      if (alert) {
+        await databaseIntegration.syncAlerts([alert]);
+      }
+    } catch (error) {
+      console.error('Error syncing alert:', error);
+    }
+
+    toast.success('Alerta marcado como visualizado!');
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleAlertResolve = useCallback(async (id: number) => {
+    stockData.updateAlert(id, {
+      data_resolucao: new Date().toISOString(),
+    });
+
+    // Sync with database
+    try {
+      const alert = stockData.data.alertas.find((a) => a.id === id);
+      if (alert) {
+        await databaseIntegration.syncAlerts([alert]);
+      }
+    } catch (error) {
+      console.error('Error syncing alert:', error);
+    }
+
+    toast.success('Alerta resolvido!');
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleBulkMarkAsRead = useCallback(async (ids: number[]) => {
+    ids.forEach((id) => {
+      stockData.updateAlert(id, {
+        visualizado: true,
+        data_visualizacao: new Date().toISOString(),
+      });
+    });
+
+    // Sync with database
+    try {
+      const alerts = stockData.data.alertas.filter((a) => ids.includes(a.id));
+      await databaseIntegration.syncAlerts(alerts);
+    } catch (error) {
+      console.error('Error syncing alerts:', error);
+    }
+
+    toast.success(`${ids.length} alerta(s) marcado(s) como visualizado(s)!`);
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleBulkResolve = useCallback(async (ids: number[]) => {
+    ids.forEach((id) => {
+      stockData.updateAlert(id, {
+        data_resolucao: new Date().toISOString(),
+      });
+    });
+
+    // Sync with database
+    try {
+      const alerts = stockData.data.alertas.filter((a) => ids.includes(a.id));
+      await databaseIntegration.syncAlerts(alerts);
+    } catch (error) {
+      console.error('Error syncing alerts:', error);
+    }
+
+    toast.success(`${ids.length} alerta(s) resolvido(s)!`);
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleWarehouseSave = useCallback(async (formData: WarehouseFormData, warehouseId?: number) => {       
+    if (warehouseId) {
+      stockData.updateWarehouse(warehouseId, formData as Partial<Warehouse>);
+      toast.success('Armazém atualizado com sucesso!');
+    } else {
+      stockData.addWarehouse(formData as Omit<Warehouse, 'id'>);
+      toast.success('Armazém adicionado com sucesso!');
+    }
+
+    // Sync with database
+    try {
+      const warehouses = stockData.data.armazens;
+      await databaseIntegration.syncWarehouses(warehouses);
+    } catch (error) {
+      console.error('Error syncing warehouses:', error);
+    }
+  }, [stockData, toast, databaseIntegration]);
+
+  const handleWarehouseDelete = useCallback((id: number) => {
+    if (confirm('Tem certeza que deseja excluir este armazém?')) {
+      stockData.deleteWarehouse(id);
+      toast.success('Armazém excluído com sucesso!');
+    }
+  }, [stockData, toast]);
+
+  const handleProductDelete = (id: number) => {
+    if (confirm('Tem certeza que deseja excluir este produto?')) {
+      stockData.deleteProduct(id);
+      toast.success('Produto excluído com sucesso!');
+    }
+  };
+
+  const handleCategoryDelete = (id: number) => {
+    if (confirm('Tem certeza que deseja excluir esta categoria?')) {
+      stockData.deleteCategory(id);
+      toast.success('Categoria excluída com sucesso!');
+    }
+  };
+
+  const handleSupplierDelete = (id: number) => {
+    if (confirm('Tem certeza que deseja excluir este fornecedor?')) {
+      stockData.deleteSupplier(id);
+      toast.success('Fornecedor excluído com sucesso!');
+    }
+  };
+
+  const quickActions: QuickAction[] = [
+    {
+      id: 'add-product',
+      label: 'Adicionar Produto',
+      icon: 'fa-box',
+      onClick: () => {
+        // Open product modal
+      },
+      shortcut: 'N',
+    },
+    {
+      id: 'add-category',
+      label: 'Adicionar Categoria',
+      icon: 'fa-folder-plus',
+      onClick: () => {
+        // Open category modal
+      },
+    },
+    {
+      id: 'add-supplier',
+      label: 'Adicionar Fornecedor',
+      icon: 'fa-truck',
+      onClick: () => {
+        // Open supplier modal
+      },
+    },
+  ];
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'dashboard':
+        return (
+          <DashboardTab
+            data={stockData.data}
+            metrics={metrics}
+            insights={insights || null}
+            isLoading={databaseIntegration.isLoading}
+            error={databaseIntegration.error}
+          />
+        );
+      case 'produtos':
+        return (
+          <ProductsTab
+            products={filteredProducts}
+            categories={stockData.data.categorias}
+            warehouses={stockData.data.armazens}
+            selectedProducts={selectedProducts}
+            onSelect={toggleSelection}
+            onSelectAll={toggleSelectAll}
+            onEdit={(product: Product) => {
+              // Handle edit
+            }}
+            onDelete={handleProductDelete}
+            onView={(product: Product) => {
+              // Handle view
+            }}
+            onAdd={() => {
+              // Handle add
+            }}
+            onSave={handleProductSave}
+            getCategoryPath={getCategoryPath}
+          />
+        );
+      case 'categorias':
+        return (
+          <CategoriesTab
+            categories={stockData.data.categorias}
+            onEdit={(category: Category) => {
+              // Handle edit
+            }}
+            onDelete={handleCategoryDelete}
+            onSave={handleCategorySave}
+          />
+        );
+      case 'fornecedores':
+        return (
+          <SuppliersTab
+            suppliers={stockData.data.fornecedores}
+            onEdit={(supplier: Supplier) => {
+              // Handle edit
+            }}
+            onDelete={handleSupplierDelete}
+            onSave={handleSupplierSave}
+          />
+        );
+      case 'movimentacoes':
+        return (
+          <MovementsTab
+            movements={stockData.data.movimentacoes}
+            products={stockData.data.produtos}
+            users={stockData.data.usuarios}
+            onAddMovement={handleMovementSave}
+          />
+        );
+      case 'alertas':
+        return (
+          <AlertsTab
+            alerts={stockData.data.alertas}
+            products={stockData.data.produtos}
+            onMarkAsRead={handleAlertMarkAsRead}
+            onResolve={handleAlertResolve}
+            onBulkMarkAsRead={handleBulkMarkAsRead}
+            onBulkResolve={handleBulkResolve}
+          />
+        );
+      case 'armazens':
+        return (
+          <WarehousesTab
+            warehouses={stockData.data.armazens}
+            products={stockData.data.produtos}
+            users={stockData.data.usuarios}
+            onSave={handleWarehouseSave}
+            onDelete={handleWarehouseDelete}
+          />
+        );
+      case 'vencimentos':
+        return (
+          <ExpirationsTab
+            products={stockData.data.produtos}
+          />
+        );
+      case 'relatorios':
+        return (
+          <ReportsTab
+            data={stockData.data}
+          />
+        );
+      default:
+        return <div>Tab não implementada ainda</div>;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <AppHeaderEnhanced
+        title="Gestão de Estoque"
+        subtitle="Sistema completo de gerenciamento de estoque"
+        notificationCount={notifications.filter((n) => !n.read).length}
+        onNotificationClick={() => setIsNotificationCenterOpen(true)}
+      />
+
+      <div className="flex">
+        {/* Sidebar Navigation */}
+        <div className="w-60 flex-shrink-0 bg-gray-900/70 backdrop-blur-sm border-r border-white/[0.06] min-h-screen relative">
+          {/* Sidebar accent gradient */}
+          <div className="absolute top-0 bottom-0 right-0 w-[1px] bg-gradient-to-b from-transparent via-yellow-400/20 to-transparent pointer-events-none" />
+          <div className="p-3 pt-4">
+            <div className="flex items-center gap-2 px-2 mb-4">
+              <div className="w-1 h-4 bg-gradient-to-b from-yellow-400 to-orange-500 rounded-full" />
+              <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">Menu</span>
+            </div>
+            <TabNavigation activeTab={activeTab} onTabChange={handleTabChange} variant="sidebar" />
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1">
+          <div className="p-6">
+            {/* Action Bar */}
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-white">
+                  {activeTab === 'dashboard' && 'Dashboard'}
+                  {activeTab === 'produtos' && 'Produtos'}
+                  {activeTab === 'categorias' && 'Categorias'}
+                  {activeTab === 'fornecedores' && 'Fornecedores'}
+                  {activeTab === 'movimentacoes' && 'Movimentações'}
+                  {activeTab === 'alertas' && 'Alertas'}
+                  {activeTab === 'armazens' && 'Armazéns'}
+                  {activeTab === 'vencimentos' && 'Vencimentos'}
+                  {activeTab === 'relatorios' && 'Relatórios'}
+                </h1>
+                <p className="text-gray-400">
+                  {activeTab === 'dashboard' && 'Visão geral do sistema'}
+                  {activeTab === 'produtos' && 'Gerencie seus produtos'}
+                  {activeTab === 'categorias' && 'Organize suas categorias'}
+                  {activeTab === 'fornecedores' && 'Gerencie fornecedores'}
+                  {activeTab === 'movimentacoes' && 'Histórico de movimentações'}
+                  {activeTab === 'alertas' && 'Alertas e notificações'}
+                  {activeTab === 'armazens' && 'Gerencie armazéns'}
+                  {activeTab === 'vencimentos' && 'Produtos próximos ao vencimento'}
+                  {activeTab === 'relatorios' && 'Relatórios e análises'}
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-3">
+                {realTimeUpdates.isConnected && (
+                  <RealTimeBadge isActive={realTimeUpdates.isConnected} />
+                )}
+                {databaseIntegration.isLoading && (
+                  <span className="text-gray-400 text-sm">
+                    Sincronizando...
+                  </span>
+                )}
+                {databaseIntegration.error && (
+                  <span className="text-red-400 text-sm">
+                    {databaseIntegration.error}
+                  </span>
+                )}
+                <button
+                  className="px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white hover:bg-gray-700 transition-colors"
+                  onClick={() => databaseIntegration.refreshFromDatabase()}
+                  disabled={databaseIntegration.isLoading}
+                >
+                  <FontAwesomeIcon icon={faSync} className="mr-2" />
+                  Atualizar
+                </button>
+              </div>
+            </div>
+
+            {/* Tab Content */}
+            <div className="tab-content">
+              {renderTabContent()}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <QuickActions actions={quickActions} />
+
+      <NotificationCenter
+        notifications={notifications}
+        isOpen={isNotificationCenterOpen}
+        onClose={() => setIsNotificationCenterOpen(false)}
+        onMarkAsRead={(id: number | string) => {
+          setNotifications((prev) =>
+            prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+          );
+        }}
+        onMarkAllAsRead={() => {
+          setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+        }}
+        onClear={(id: number | string) => {
+          setNotifications((prev) => prev.filter((n) => n.id !== id));
+        }}
+        onClearAll={() => {
+          setNotifications([]);
+        }}
+      />
+    </div>
+  );
+}

@@ -599,10 +599,52 @@ export const MockDataEstoque: IMockDataEstoque = {
             data_cadastro: "2024-01-21T14:00:00Z",
             data_atualizacao: "2024-01-24T12:00:00Z"
         },
+        {
+            id: 19,
+            codigo: "LIXA-MADEIRA-001",
+            nome: "Lixa para Madeira G120",
+            descricao: "Lixa de papel para acabamento em madeira, grão 120",
+            categoria_id: 8,
+            quantidade_atual: 50,
+            quantidade_minima: 20,
+            quantidade_maxima: 200,
+            preco_aquisicao: 1.50,
+            preco_venda: 2.50,
+            custo_medio_ponderado: 1.45,
+            unidade_medida: "UN",
+            localizacao_fisica: "Prateleira B-05",
+            armazem_id: 1,
+            prazo_validade: null,
+            status: ProductStatus.OK,
+            ativo: true,
+            data_cadastro: "2024-02-01T09:00:00Z",
+            data_atualizacao: "2024-02-05T11:00:00Z"
+        },
+        {
+            id: 20,
+            codigo: "COLA-MADEIRA-001",
+            nome: "Cola para Madeira 500g",
+            descricao: "Cola PVA extra forte para madeira, secagem rápida",
+            categoria_id: 8,
+            quantidade_atual: 8,
+            quantidade_minima: 10,
+            quantidade_maxima: 30,
+            preco_aquisicao: 15.00,
+            preco_venda: 22.00,
+            custo_medio_ponderado: 14.80,
+            unidade_medida: "UN",
+            localizacao_fisica: "Prateleira B-06",
+            armazem_id: 1,
+            prazo_validade: "2025-12-31T23:59:59Z",
+            status: ProductStatus.BAIXO,
+            ativo: true,
+            data_cadastro: "2024-02-01T10:00:00Z",
+            data_atualizacao: "2024-02-10T14:00:00Z"
+        },
         
         // Limpeza
         {
-            id: 19,
+            id: 21,
             codigo: "DETERGENTE-500ML-001",
             nome: "Detergente Líquido 500ml",
             descricao: "Detergente líquido para louças, 500ml",
@@ -773,7 +815,26 @@ export const MockDataEstoque: IMockDataEstoque = {
         { id: 39, produto_id: 12, usuario_id: 2, tipo: MovementType.ENTRADA_COMPRA, quantidade: 300, preco_unitario: 0.18, documento_fiscal: "NF-12361", observacao: null, local_origem: null, local_destino: null, data_hora: "2025-12-15T12:00:00Z" },
         { id: 40, produto_id: 18, usuario_id: 3, tipo: MovementType.ENTRADA_COMPRA, quantidade: 150, preco_unitario: 1.10, documento_fiscal: "NF-12362", observacao: null, local_origem: null, local_destino: null, data_hora: "2025-12-15T13:00:00Z" },
         { id: 41, produto_id: 20, usuario_id: 4, tipo: MovementType.ENTRADA_COMPRA, quantidade: 20, preco_unitario: 11.50, documento_fiscal: "NF-12363", observacao: null, local_origem: null, local_destino: null, data_hora: "2025-12-15T14:00:00Z" },
-        { id: 42, produto_id: 22, usuario_id: 1, tipo: MovementType.ENTRADA_COMPRA, quantidade: 10, preco_unitario: 42.00, documento_fiscal: "NF-12364", observacao: null, local_origem: null, local_destino: null, data_hora: "2025-12-15T15:00:00Z" }
+        { id: 42, produto_id: 22, usuario_id: 1, tipo: MovementType.ENTRADA_COMPRA, quantidade: 10, preco_unitario: 42.00, documento_fiscal: "NF-12364", observacao: null, local_origem: null, local_destino: null, data_hora: "2025-12-15T15:00:00Z" },
+        
+        // --- FLUFFY DATA INJECTION (15+ Entries) ---
+        { id: 43, produto_id: 23, usuario_id: 2, tipo: MovementType.ENTRADA_COMPRA, quantidade: 50, preco_unitario: 1.45, documento_fiscal: "NF-FLUFFY-01", observacao: "Lote inicial de lixas", data_hora: "2026-03-01T10:00:00Z", local_origem: null, local_destino: null },
+        { id: 44, produto_id: 24, usuario_id: 2, tipo: MovementType.ENTRADA_COMPRA, quantidade: 30, preco_unitario: 14.20, documento_fiscal: "NF-FLUFFY-02", observacao: "Estoque inicial de cola", data_hora: "2026-03-02T11:00:00Z", local_origem: null, local_destino: null },
+        { id: 45, produto_id: 1, usuario_id: 3, tipo: MovementType.SAIDA_VENDA, quantidade: 12, data_hora: "2026-03-03T14:30:00Z", documento_fiscal: "NF-V-001", observacao: "Pedido Web #882", local_origem: null, local_destino: null, preco_unitario: null },
+        { id: 46, produto_id: 5, usuario_id: 3, tipo: MovementType.SAIDA_VENDA, quantidade: 45, data_hora: "2026-03-04T16:00:00Z", documento_fiscal: "NF-V-002", observacao: "Manutenção preventiva site B", local_origem: null, local_destino: null, preco_unitario: null },
+        { id: 47, produto_id: 10, usuario_id: 1, tipo: MovementType.ENTRADA_COMPRA, quantidade: 200, preco_unitario: 0.15, documento_fiscal: "NF-99881", observacao: "Reposição mensal", data_hora: "2026-03-05T09:00:00Z", local_origem: null, local_destino: null },
+        { id: 48, produto_id: 23, usuario_id: 3, tipo: MovementType.SAIDA_VENDA, quantidade: 10, data_hora: "2026-03-06T13:15:00Z", documento_fiscal: "NF-V-003", observacao: "Venda avulsa balcão", local_origem: null, local_destino: null, preco_unitario: null },
+        { id: 49, produto_id: 12, usuario_id: 2, tipo: MovementType.ENTRADA_COMPRA, quantidade: 100, preco_unitario: 0.19, documento_fiscal: "NF-99882", observacao: "Incremento de estoque segurança", data_hora: "2026-03-07T10:30:00Z", local_origem: null, local_destino: null },
+        { id: 50, produto_id: 15, usuario_id: 1, tipo: MovementType.SAIDA_PERDA, quantidade: 3, data_hora: "2026-03-08T11:00:00Z", observacao: "Item danificado no mostruário", local_origem: null, local_destino: null, preco_unitario: null, documento_fiscal: null },
+        { id: 51, produto_id: 24, usuario_id: 3, tipo: MovementType.SAIDA_VENDA, quantidade: 5, data_hora: "2026-03-09T15:45:00Z", documento_fiscal: "NF-V-004", local_origem: null, local_destino: null, preco_unitario: null, observacao: null },
+        { id: 52, produto_id: 7, usuario_id: 2, tipo: MovementType.ENTRADA_COMPRA, quantidade: 150, preco_unitario: 0.68, documento_fiscal: "NF-99883", data_hora: "2026-03-10T08:00:00Z", local_origem: null, local_destino: null, observacao: null },
+        { id: 53, produto_id: 3, usuario_id: 1, tipo: MovementType.AJUSTE_INVENTARIO, quantidade: 5, data_hora: "2026-03-11T12:00:00Z", observacao: "Ajuste de sobra física", local_origem: null, local_destino: null, preco_unitario: null, documento_fiscal: null },
+        { id: 54, produto_id: 19, usuario_id: 3, tipo: MovementType.SAIDA_VENDA, quantidade: 8, data_hora: "2026-03-12T10:00:00Z", documento_fiscal: "NF-V-005", local_origem: null, local_destino: null, preco_unitario: null, observacao: null },
+        { id: 55, produto_id: 11, usuario_id: 3, tipo: MovementType.SAIDA_VENDA, quantidade: 14, data_hora: "2026-03-13T14:45:00Z", documento_fiscal: "NF-V-006", local_origem: null, local_destino: null, preco_unitario: null, observacao: null },
+        { id: 56, produto_id: 2, usuario_id: 1, tipo: MovementType.ENTRADA_COMPRA, quantidade: 60, preco_unitario: 0.75, documento_fiscal: "NF-99884", data_hora: "2026-03-14T11:20:00Z", local_origem: null, local_destino: null, observacao: null },
+        { id: 57, produto_id: 18, usuario_id: 4, tipo: MovementType.TRANSFERENCIA, quantidade: 20, data_hora: "2026-03-15T13:00:00Z", local_origem: "A-12", local_destino: "Setor Logística", preco_unitario: null, documento_fiscal: null, observacao: "Transferência interna" },
+        { id: 58, produto_id: 24, usuario_id: 3, tipo: MovementType.SAIDA_VENDA, quantidade: 2, data_hora: "2026-03-16T09:30:00Z", documento_fiscal: "NF-V-007", local_origem: null, local_destino: null, preco_unitario: null, observacao: null },
+        { id: 59, produto_id: 14, usuario_id: 2, tipo: MovementType.ENTRADA_COMPRA, quantidade: 10, preco_unitario: 8.90, documento_fiscal: "NF-99885", data_hora: "2026-03-17T08:15:00Z", local_origem: null, local_destino: null, observacao: null }
     ],
 
     // ============================================
@@ -929,6 +990,16 @@ export const MockDataEstoque: IMockDataEstoque = {
     // HELPER FUNCTIONS
     // ============================================
     
+    /**
+     * Get the latest date from movements to use as a relative reference
+     * (Fixes issues when actual system date is far in the future/past compared to mock data)
+     */
+    getReferenceDate(): Date {
+        if (this.movimentacoes.length === 0) return new Date();
+        const dates = this.movimentacoes.map(m => new Date(m.data_hora).getTime());
+        return new Date(Math.max(...dates));
+    },
+
     /**
      * Get product by ID
      */

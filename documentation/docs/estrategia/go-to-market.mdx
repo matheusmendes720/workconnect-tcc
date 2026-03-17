@@ -1,0 +1,275 @@
+---
+sidebar_position: 7
+title: Go-to-Market (GTM)
+description: Estratégia Go-to-Market do WorkConnect
+---
+
+# Go-to-Market (GTM)
+
+## Visão Geral
+
+Esta seção apresenta a estratégia completa de Go-to-Market do WorkConnect, definindo como我们将进入市场并获取客户。
+
+---
+
+## Estratégia de Entrada no Mercado
+
+### Abordagem em Fases
+
+```mermaid
+flowchart TB
+    F1["Fase 1<br/>Validação"] --> F2["Fase 2<br/>Aquisição"]
+    F2 --> F3["Fase 3<br/>Escala"]
+    
+    F1 -->|"Meses 1-3"| V1[MVP]
+    F1 -->|"Meses 3-6"| B1[10 Beta]
+    
+    F2 -->|"Meses 6-12"| C1[100 Clientes]
+    F2 -->|"Meses 6-12"| M1[Marketing]
+    
+    F3 -->|"Anos 2-5"| S1[1000+ Clientes]
+    F3 -->|"Anos 2-5"| P1[Parcerias]
+```
+
+---
+
+## Fase 1: Validação (Meses 1-6)
+
+### Objetivos
+
+| Meta | Target | Métrica |
+|------|--------|---------|
+| Validar produto | 10 beta testers | Feedback |
+| Calibrar precificação | 3 planos | Conversão |
+| Ajustar features | Priorização | Uso |
+
+### Canais de Validação
+
+```mermaid
+flowchart LR
+    C1["Indicações<br/>Pessoais"] -->|"60%"| V1[10 Beta]
+    C2["LinkedIn<br/>Ads"] -->|"30%"| V1
+    C3["Parceria<br/>SENAI"] -->|"10%"| V1
+```
+
+### Táticas
+
+| Tática | Descrição | Investimento |
+|--------|-----------|--------------|
+| Beta gratuito | 10 empresas selecionadas | Tempo |
+| Pesquisa contínua | Entrevistas quinzenais | Tempo |
+| Ajuste de preço | Testes A/B | Zero |
+
+---
+
+## Fase 2: Aquisição (Meses 6-12)
+
+### Objetivos
+
+| Meta | Target | Métrica |
+|------|--------|---------|
+| Clientes pagos | 100 | MRR |
+| CAC | R$ 200 | Custo aquisição |
+| Conversão trial | > 25% | Taxa |
+
+### Canais de Aquisição
+
+```mermaid
+mindmap
+  root((Canais))
+    Marketing Digital
+      Google Ads
+      LinkedIn Ads
+      Content Marketing
+      SEO
+    Parcerias
+      SENAI
+      Contadores
+      Consultores
+    Vendas
+      Site
+      Chat
+      Email
+```
+
+### Investimento em Marketing
+
+| Canal | % Budget | Valor Mensal |
+|-------|----------|--------------|
+| Google Ads | 40% | R$ 4.000 |
+| LinkedIn | 25% | R$ 2.500 |
+| Content | 20% | R$ 2.000 |
+| SEO | 15% | R$ 1.500 |
+| **Total** | 100% | **R$ 10.000** |
+
+---
+
+## Fase 3: Escala (Anos 2-5)
+
+### Objetivos
+
+| Meta | Ano 2 | Ano 3 | Ano 5 |
+|------|-------|-------|-------|
+| Clientes | 2.500 | 8.000 | 75.000 |
+| MRR | R$ 750K | R$ 2.4M | R$ 22M |
+| CAC | R$ 150 | R$ 120 | R$ 100 |
+
+### Estratégia de Escala
+
+```mermaid
+flowchart LR
+    E1[Volume] --> E2[Eficiência]
+    E2 --> E3[Parcerias]
+    E3 --> E4[Expansão]
+    
+    E1 -->|"Escala<br/>marketing"| E2
+    E2 -->|"Ganha<br/>escala"| E3
+    E3 -->|"Novos<br/>segmentos"| E4
+```
+
+---
+
+## Precificação
+
+### Estratégia de Preços
+
+```mermaid
+pie title "Estratégia de Preços"
+    "Penetração (Baixo)" : 40
+    "Valor (Médio)" : 40
+    "Premium (Alto)" : 20
+```
+
+### Planos
+
+| Plano | Preço | Usuários | Ideal para |
+|-------|-------|----------|------------|
+| **Básico** | R$ 149/mês | até 3 | Micro empresas |
+| **Profissional** | R$ 299/mês | até 10 | Pequenas |
+| **Enterprise** | R$ 599/mês | ilimitados | Médias |
+
+### Evolução de Preços
+
+| Ano | Ajuste | Justificativa |
+|-----|--------|---------------|
+| 1 | Base | Validar mercado |
+| 2 | +10% | Demanda aumenta |
+| 3 | +15% | Valor comprovado |
+| 5 | +20% | Líder mercado |
+
+---
+
+## Funil de Vendas
+
+### Funil Detalhado
+
+```mermaid
+flowchart TB
+    subgraph TOFU["Topo de Funil"]
+        TF1[Visitantes] -->|"30%"| TF2[Leads]
+    end
+    
+    subgraph MOFU["Meio de Funil"]
+        TF2 -->|"20%"| TF3[Trials]
+    end
+    
+    subgraph BOFU["Fundo de Funil"]
+        TF3 -->|"30%"| TF4[Pagantes]
+        TF4 -->|"15%"| TF5[Retidos]
+    end
+    
+    style TF1 fill:#2563eb,color:#fff
+    style TF2 fill:#3b82f6,color:#fff
+    style TF3 fill:#7c3aed,color:#fff
+    style TF4 fill:#10b981,color:#fff
+    style TF5 fill:#059669,color:#fff
+```
+
+### Conversão
+
+| Etapa | Conversão | Tempo |
+|-------|-----------|-------|
+| Visitante → Lead | 30% | Instantâneo |
+| Lead → Trial | 20% | 7 dias |
+| Trial → Pago | 30% | 14 dias |
+| Retido | 85% | Mensal |
+
+---
+
+## Operações
+
+### Estrutura de Time
+
+| Função | Fase 1 | Fase 2 | Fase 3 |
+|--------|--------|--------|--------|
+| Desenvolvedor | 2 | 3 | 5 |
+| Marketing | 0 | 1 | 3 |
+| Vendas | 0 | 1 | 2 |
+| Suporte | 0 | 1 | 2 |
+
+### Ferramentas
+
+| Função | Ferramenta |
+|--------|------------|
+| CRM | HubSpot Free |
+| Email | Mailchimp |
+| Analytics | GA4 |
+| Ads | Google/LinkedIn |
+| Suporte | Chat |
+
+---
+
+## Métricas e KPIs
+
+### KPIs Principais
+
+| KPI | Fórmula | Target Ano 1 |
+|-----|---------|--------------|
+| **CAC** | Marketing + Vendas / Clientes | R$ 200 |
+| **LTV** | Ticket × 1/Churn | R$ 3.000 |
+| **LTV/CAC** | LTV / CAC | 15x |
+| **MRR** | Clientes × Ticket | R$ 150K |
+| **Churn** | Cancelados / Total | < 8% |
+| **NPS** | Pesquisa | > 40 |
+
+---
+
+## Cronograma de Execução
+
+```mermaid
+gantt
+    title Go-to-Market - 5 Anos
+    dateFormat  YYYY-MM
+    
+    section Fase 1
+    MVP                     :2025-01, 90d
+    Beta Testers           :2025-03, 90d
+    Validação              :2025-06, 90d
+    
+    section Fase 2
+    Lançamento Público     :2025-07, 30d
+    Aquisição Inicial      :2025-08, 180d
+    100 Clientes           :2026-01, 60d
+    
+    section Fase 3
+    Escala Marketing       :2026-07, 180d
+    1000 Clientes          :2027-06, 365d
+    10000 Clientes         :2029-06, 730d
+```
+
+---
+
+## Próximos Passos
+
+- [BM Canvas](./bmc-canvas) - Modelo de negócio
+- [Análise de Mercado](./analise-mercado) - TAM/SAM/SOM
+- [Personas](./personas) - Perfis detalhados
+
+---
+
+## Referências
+
+- **SaaS Metrics** - David Skok
+- **Traction** - Gabriel Weinberg
+- **Play Bigger** - Al Ramadan
+- **WorkConnect** - Estratégia interna

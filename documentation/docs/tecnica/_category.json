@@ -1,0 +1,13 @@
+{
+  "label": "Técnica & Implementação",
+  "position": 2,
+  "collapsed": false,
+  "collapsible": false,
+  "className": "sidebar-tecnica",
+  "link": {
+    "type": "generated-index",
+    "title": "Técnica & Implementação",
+    "description": "Documentação técnica sobre arquitetura, tecnologias e implementação do sistema.",
+    "slug": "/tecnica"
+  }
+}

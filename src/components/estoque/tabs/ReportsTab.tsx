@@ -110,29 +110,56 @@ export function ReportsTab({ data, className = '' }: ReportsTabProps) {
                 <p>Selecione um tipo de relatório para gerar</p>
               </div>
             ) : (
-              <div className="reports-table-container">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      {Object.keys(reportData[0] || {}).map((header) => (
-                        <th key={header}>{header}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {reportData.map((row, idx) => (
-                      <tr key={idx}>
-                        {Object.values(row).map((cell, cellIdx) => (
-                          <td key={cellIdx}>{String(cell)}</td>
+                  <div className="reports-table-container">
+                    <table className="data-table report-results-table">
+                      <thead>
+                        <tr>
+                          {Object.keys(reportData[0] || {}).map((header) => {
+                            const isNumeric = typeof Object.values(reportData[0] || {}).find((v, i) => Object.keys(reportData[0]).indexOf(header) === i) === 'number' || 
+                                              header.toLowerCase().includes('valor') || 
+                                              header.toLowerCase().includes('preço') || 
+                                              header.toLowerCase().includes('quantidade') || 
+                                              header.toLowerCase().includes('qtd');
+                            return (
+                              <th key={header} className={isNumeric ? 'text-right' : 'text-left'}>
+                                {header}
+                              </th>
+                            );
+                          })}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {reportData.map((row, idx) => (
+                          <tr key={idx} className="report-row">
+                            {Object.entries(row).map(([key, value], cellIdx) => {
+                              const isNumeric = typeof value === 'number' || 
+                                                key.toLowerCase().includes('valor') || 
+                                                key.toLowerCase().includes('preço') || 
+                                                key.toLowerCase().includes('quantidade') || 
+                                                key.toLowerCase().includes('qtd');
+                              
+                              let displayValue = String(value);
+                              if (typeof value === 'number' && (key.toLowerCase().includes('valor') || key.toLowerCase().includes('preço'))) {
+                                displayValue = formatCurrency(value);
+                              }
+                              
+                              return (
+                                <td key={cellIdx} className={isNumeric ? 'text-right font-mono' : 'text-left'}>
+                                  {displayValue}
+                                </td>
+                              );
+                            })}
+                          </tr>
                         ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div className="reports-summary">
-                  <p>Total de registros: {reportData.length}</p>
-                </div>
-              </div>
+                      </tbody>
+                    </table>
+                    <div className="reports-summary">
+                      <div className="summary-badge">
+                        <span className="summary-label">Registros encontrados:</span>
+                        <span className="summary-value">{reportData.length}</span>
+                      </div>
+                    </div>
+                  </div>
             )}
           </div>
         </div>

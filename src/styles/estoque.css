@@ -7,19 +7,43 @@
    Advanced Visual Effects & Micro-interactions
    ============================================ */
 
-/* Tab Navigation - Enhanced Design */
+/* Tab Navigation - Hyper-Premium (Phase 9) */
 .tab-navigation {
     display: flex;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-xl);
-    padding: 0.5rem;
+    padding: 0.625rem;
     overflow-x: auto;
     position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.tab-navigation::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background-image: var(--glass-sheen);
+    box-shadow: var(--inner-glow);
+    pointer-events: none;
+    opacity: 0.7;
+    z-index: -1;
+}
+
+.tab-navigation::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--glass-sheen);
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 .tab-navigation::before {
@@ -68,15 +92,16 @@
 .tab-button:hover {
     color: var(--color-text-primary);
     background: var(--glass-bg-hover);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .tab-button.active {
     color: var(--color-base-black);
     background: var(--gradient-gold);
-    box-shadow: var(--shadow-gold);
-    transform: translateY(-1px);
+    box-shadow: var(--neon-glow-primary);
+    transform: translateY(-2px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .tab-button.active::before {
@@ -140,8 +165,23 @@
 }
 
 .sidebar-tab-btn.active {
-    color: #FFD54F;
-    background: rgba(255, 213, 79, 0.08);
+    color: var(--neon-primary);
+    background: rgba(255, 204, 0, 0.15);
+    box-shadow: inset 0 0 15px rgba(255, 204, 0, 0.1);
+    border-left: 3px solid var(--neon-primary);
+    text-shadow: 0 0 12px var(--neon-primary-glow);
+    font-weight: 700;
+}
+
+.sidebar-tab-btn.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30%;
+    height: 1px;
+    background: var(--neon-primary);
+    box-shadow: 0 0 10px var(--neon-primary);
 }
 
 .sidebar-tab-btn.active:hover {
@@ -214,21 +254,33 @@
 }
 
 
-/* Dashboard Metrics - Premium Design */
+/* Dashboard Metrics - Hyper-Premium (Phase 9) */
 .dashboard-metrics {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-xl);
     padding: 1.5rem;
-    transition: all var(--transition-bounce);
+    transition: all 0.5s ease;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-xl);
+}
+
+.dashboard-metrics::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background-image: var(--glass-sheen);
+    box-shadow: var(--inner-glow);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .metric-card::before {
@@ -398,16 +450,65 @@
 .data-table th {
     padding: 1rem 1.25rem;
     text-align: left;
-    color: var(--color-primary);
+    font-size: 0.8125rem;
     font-weight: 700;
-    font-size: 0.875rem;
+    color: var(--color-text-primary);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid var(--color-primary);
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+/* Report Table Alignment Utilities */
+.text-right { text-align: right !important; }
+.text-left { text-align: left !important; }
+.text-center { text-align: center !important; }
+.font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-variant-numeric: tabular-nums; }
+
+.report-results-table {
+    margin-top: 1rem;
+    border: 1px solid var(--glass-border);
+    animation: slideUp 0.4s ease-out;
+}
+
+.report-row {
+    transition: background-color 0.2s ease;
+}
+
+.report-row:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.reports-summary {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.summary-badge {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.summary-label {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    font-weight: 600;
+}
+
+.summary-value {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-primary);
     background: var(--gradient-gold);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .data-table td {

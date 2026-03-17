@@ -16,7 +16,11 @@
     "finalize": "powershell -ExecutionPolicy Bypass -File scripts/setup/finalize-organization.ps1",
     "cleanup": "powershell -ExecutionPolicy Bypass -File scripts/setup/cleanup-root-files.ps1",
     "screenshots": "playwright test screenshots.spec.cjs --headed",
-    "screenshots-headless": "playwright test screenshots.spec.cjs"
+    "screenshots-headless": "playwright test screenshots.spec.cjs",
+    "docs:dev": "cd documentation && npm run start",
+    "docs:build": "cd documentation && npm run build",
+    "docs:serve": "cd documentation && npm run serve",
+    "docs:clear": "cd documentation && npm run clear"
   },
   "keywords": [
     "dashboard",

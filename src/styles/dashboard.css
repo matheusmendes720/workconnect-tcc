@@ -52,6 +52,76 @@
   transition: all var(--transition-base);
 }
 
+/* Acrylic and Neon Enhancements */
+/* --- Hyper-Premium Dashboard Cards (Phase 9) --- */
+.dashboard-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+/* Glowing Border Frame Animation */
+.dashboard-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 150deg,
+    var(--neon-primary) 180deg,
+    transparent 210deg,
+    transparent 360deg
+  );
+  animation: borderRotate 6s linear infinite;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.dashboard-card:hover::before {
+  opacity: 0.4;
+}
+
+/* Inner Glass Content */
+.dashboard-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Inner Glow & Sheen */
+.dashboard-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px; /* Just inside the border */
+  background: var(--glass-bg);
+  border-radius: 1.15rem;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--glass-sheen);
+  box-shadow: var(--inner-glow);
+  opacity: 0.8;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: var(--glass-bg-hover);
+  border-color: rgba(255, 204, 0, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 204, 0, 0.1);
+}
+
 /* Cards */
 .card {
   background: var(--card-bg);
@@ -828,6 +898,55 @@
   font-size: 0.95rem;
   opacity: 0.9;
   line-height: 1.5;
+}
+
+/* Hero Metric KPI Refinement (Phase 9) */
+.kpi-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  margin-bottom: 1.5rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.kpi-icon-container::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 1.1rem;
+  background: conic-gradient(from var(--angle), transparent, var(--neon-primary), transparent);
+  animation: borderRotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+.dashboard-card:hover .kpi-icon-container {
+  transform: scale(1.1) rotate(5deg);
+  border-color: var(--neon-primary);
+  box-shadow: 0 0 25px var(--neon-primary-glow);
+}
+
+.dashboard-card:hover .kpi-icon-container::after {
+  opacity: 0.6;
+}
+
+.kpi-icon-container .status-icon {
+  position: relative;
+  z-index: 2;
+  animation: breathingGlow 3s infinite ease-in-out;
+}
+
+@keyframes breathingGlow {
+  0%, 100% { filter: drop-shadow(0 0 2px var(--neon-primary-glow)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 10px var(--neon-primary-glow)); transform: scale(1.1); }
 }
 
 .error-icon {

@@ -45,6 +45,14 @@ ChartJS.register(
   Filler
 );
 
+// Helper for canvas gradients
+const createGradient = (ctx: CanvasRenderingContext2D, colorStart: string, colorEnd: string) => {
+  const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+  gradient.addColorStop(0, colorStart);
+  gradient.addColorStop(1, colorEnd);
+  return gradient;
+};
+
 export interface RealTimeChartProps {
   title: string;
   dataSource: () => Promise<number[]>;
@@ -148,14 +156,17 @@ export function RealTimeChart({
       {
         label: title,
         data,
-        borderColor: 'rgba(0, 230, 118, 1)',
-        backgroundColor: 'rgba(0, 230, 118, 0.1)',
+        borderColor: '#FFD54F', // Changed to Gold
+        backgroundColor: (context: any) => {
+          const ctx = context.chart.ctx;
+          return createGradient(ctx, 'rgba(255, 213, 79, 0.4)', 'rgba(255, 213, 79, 0.0)');
+        },
         fill: true,
         tension: 0.4,
         pointRadius: 3,
-        pointHoverRadius: 5,
-        pointBackgroundColor: 'rgba(0, 230, 118, 1)',
-        pointBorderColor: '#fff',
+        pointHoverRadius: 6,
+        pointBackgroundColor: '#FFD54F',
+        pointBorderColor: '#1A202C',
         pointBorderWidth: 2,
       },
       {
@@ -191,18 +202,23 @@ export function RealTimeChart({
         labels: {
           color: '#FFFFFF',
           padding: 15,
-          font: {
-            size: 11,
-          },
+          font: { size: 11, family: "'Inter', sans-serif" },
+          usePointStyle: true,
+          boxWidth: 8,
         },
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.9)',
-        titleColor: '#FFD54F',
-        bodyColor: '#FFFFFF',
-        borderColor: '#FFD54F',
+        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+        titleColor: '#FFFFFF',
+        titleFont: { size: 13, weight: 'bold', family: "'Inter', sans-serif" },
+        bodyColor: '#A0AEC0',
+        bodyFont: { size: 12, family: "'Inter', sans-serif" },
+        borderColor: 'rgba(255,255,255,0.1)',
         borderWidth: 1,
         padding: 12,
+        cornerRadius: 8,
+        displayColors: true,
+        boxPadding: 6,
       },
     },
     scales: {

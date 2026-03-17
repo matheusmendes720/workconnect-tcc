@@ -1,0 +1,86 @@
+---
+sidebar_position: 1
+title: Introdução Técnica
+description: Visão geral técnica do sistema WorkConnect
+---
+
+# Introdução Técnica
+
+## Visão Geral
+
+Esta seção apresenta a documentação técnica do **WorkConnect**, incluindo arquitetura, tecnologias utilizadas e detalhes de implementação.
+
+## Objetivos desta Documentação
+
+1. **Facilitar a contribuição** de novos desenvolvedores
+2. **Documentar decisões técnicas** (ADRs)
+3. **Guiar a implementação** de novas funcionalidades
+4. **Manter a consistência** do código
+
+## Estrutura Técnica
+
+```mermaid
+flowchart TB
+    subgraph CLIENT["Camada de Apresentação"]
+        WEB["Web (Next.js)"]
+        MOBILE["Mobile PWA"]
+    end
+    
+    subgraph API["Camada de API"]
+        NEXT["Next.js API Routes"]
+        AUTH["Autenticação"]
+        MID["Middleware"]
+    end
+    
+    subgraph BUSINESS["Camada de Negócio"]
+        SRV["Serviços"]
+        VAL["Validação"]
+        LOG["Lógica"]
+    end
+    
+    subgraph DATA["Camada de Dados"]
+        ORM["Prisma / PostgreSQL"]
+        CACHE["Cache"]
+    end
+    
+    WEB --> API
+    MOBILE --> API
+    API --> BUSINESS
+    BUSINESS --> DATA
+```
+
+## Stack Tecnológico
+
+| Componente | Tecnologia | Versão |
+|------------|------------|--------|
+| Frontend | Next.js | 14+ |
+| Backend | Next.js API | 14+ |
+| Database | PostgreSQL | 15+ |
+| ORM | Prisma | 5.x |
+| Styling | Tailwind CSS | 3.x |
+| Auth | NextAuth.js | 5.x |
+| Deploy | Vercel/Netlify | - |
+
+## Quick Links
+
+- [Arquitetura do Sistema](./arquitetura)
+- [Tecnologias Utilizadas](./tecnologias)
+- [BM Canvas](../estrategia/bmc-canvas)
+- [PM Canvas](../estrategia/pm-canvas)
+
+## Requisitos para Desenvolvimento
+
+```bash
+# Node.js
+node --version  # >= 18.x
+
+# Package Manager
+npm --version   # >= 9.x
+
+# Banco de Dados
+postgresql      # >= 15.x
+```
+
+## Próximos Passos
+
+Explore a [Arquitetura do Sistema](./arquitetura) para entender como os componentes se comunicam.

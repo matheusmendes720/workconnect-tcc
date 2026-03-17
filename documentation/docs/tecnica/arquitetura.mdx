@@ -1,0 +1,242 @@
+---
+sidebar_position: 2
+title: Arquitetura do Sistema
+description: Arquitetura técnica e design system do WorkConnect
+---
+
+# Arquitetura do Sistema
+
+## Visão Geral da Arquitetura
+
+O WorkConnect segue uma arquitetura moderna baseada em **Next.js** com separação clara de responsabilidades.
+
+## Arquitetura de Alto Nível
+
+```mermaid
+flowchart TB
+    subgraph CLIENT["Usuários"]
+        USR1["Admin"]
+        USR2["Gerente"]
+        USR3["Operador"]
+    end
+    
+    subgraph FRONTEND["Next.js Frontend"]
+        PG["Páginas"]
+        COMP["Componentes"]
+        ST["State / Context"]
+    end
+    
+    subgraph BACKEND["Next.js API"]
+        API["API Routes"]
+        MID["Middleware"]
+        AUTH["Auth"]
+    end
+    
+    subgraph SERVICES["Serviços"]
+        BIZ["Business Logic"]
+        VAL["Validação"]
+    end
+    
+    subgraph DATA["Camada de Dados"]
+        ORM["Prisma ORM"]
+        DB["PostgreSQL"]
+    end
+    
+    subgraph EXTERNAL["Serviços Externos"]
+        SMTP["Email"]
+        CLOUD["Cloud Storage"]
+    end
+    
+    USR1 --> FRONTEND
+    USR2 --> FRONTEND
+    USR3 --> FRONTEND
+    
+    FRONTEND --> BACKEND
+    BACKEND --> SERVICES
+    SERVICES --> DATA
+    SERVICES --> EXTERNAL
+```
+
+## Padrão de Camadas
+
+```mermaid
+flowchart TD
+    A["Presentation Layer<br/>Pages & Components"] --> B["API Layer<br/>API Routes"]
+    B --> C["Service Layer<br/>Business Logic"]
+    C --> D["Data Layer<br/>Prisma ORM"]
+    D --> E["PostgreSQL"]
+    
+    style A fill:#e0f2fe
+    style B fill:#dbeafe
+    style C fill:#c7d2fe
+    style D fill:#e0e7ff
+    style E fill:#ede9fe
+```
+
+### Descrição das Camadas
+
+| Camada | Responsabilidade | Exemplos |
+|--------|------------------|----------|
+| **Presentation** | UI, renderização, interação | Pages, Components, Hooks |
+| **API** | HTTP, autenticação, rate limiting | API Routes, Middleware |
+| **Service** | Lógica de negócio, validação | Services, Validators |
+| **Data** | Acesso ao banco, queries | Prisma, Repositories |
+
+## Estrutura de Diretórios
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (auth)/           # Rotas de autenticação
+│   ├── (dashboard)/      # Rotas protegidas
+│   ├── api/              # API Routes
+│   └── layout.tsx        # Layout root
+├── components/            # Componentes React
+│   ├── ui/              # Componentes base
+│   ├── forms/           # Formulários
+│   └── charts/          # Gráficos
+├── lib/                  # Utilitários
+│   ├── db.ts            # Conexão Prisma
+│   ├── auth.ts         # Config Auth
+│   └── utils.ts        # Funções helpers
+├── services/             # Lógica de negócio
+├── types/               # TypeScript types
+└── styles/              # Estilos globais
+```
+
+## Fluxo de Dados
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Page
+    participant API
+    participant Service
+    participant DB
+    
+    User->>Page: Interage com UI
+    Page->>API: Chama API Route
+    API->>Service: Valida e processa
+    Service->>DB: Query/Mutation
+    DB-->>Service: Resultado
+    Service-->>API: Resposta
+    API-->>Page: JSON Response
+    Page-->>User: Atualiza UI
+```
+
+## Design Patterns Utilizados
+
+### 1. Repository Pattern
+
+```typescript
+// Exemplo simplificado
+interface ProductRepository {
+  findAll(): Promise<Product[]>;
+  findById(id: string): Promise<Product | null>;
+  create(data: CreateProductDTO): Promise<Product>;
+  update(id: string, data: UpdateProductDTO): Promise<Product>;
+  delete(id: string): Promise<void>;
+}
+```
+
+### 2. Service Layer
+
+```typescript
+// Exemplo simplificado
+class ProductService {
+  constructor(private repository: ProductRepository) {}
+  
+  async createProduct(data: CreateProductDTO) {
+    const validated = this.validate(data);
+    return this.repository.create(validated);
+  }
+}
+```
+
+### 3. Factory Pattern
+
+```typescript
+// Exemplo simplificado
+class AlertFactory {
+  static createAlert(type: AlertType, data: AlertData): Alert {
+    switch (type) {
+      case 'VALIDITY':
+        return new ValidityAlert(data);
+      case 'STOCK':
+        return new StockAlert(data);
+      // ...
+    }
+  }
+}
+```
+
+## Database Schema (Simplificado)
+
+```mermaid
+erDiagram
+    Company ||--o{ User : has
+    Company ||--o{ Product : owns
+    Company ||--o{ Category : owns
+    Company ||--o{ Movement : has
+    Product }o--|| Category : belongs
+    Product ||--o{ Movement : has
+    Product ||--o{ Alert : generates
+    
+    Company {
+        uuid id PK
+        string name
+        string plan
+        datetime created_at
+    }
+    
+    User {
+        uuid id PK
+        uuid company_id FK
+        string name
+        string email
+        string role
+    }
+    
+    Product {
+        uuid id PK
+        uuid company_id FK
+        uuid category_id FK
+        string name
+        string sku
+        int quantity
+        date validity
+    }
+```
+
+## Infraestrutura
+
+```mermaid
+flowchart TB
+    subgraph CLOUD["Cloud Provider"]
+        CDN["CDN / Vercel"]
+        SERVER["Serverless Functions"]
+        DB["PostgreSQL<br/>Supabase"]
+        OBJ["Object Storage"]
+    end
+    
+    CDN --> SERVER
+    SERVER --> DB
+    SERVER --> OBJ
+```
+
+## Segurança
+
+```mermaid
+flowchart LR
+    REQ["Request"] --> MID["Middleware"]
+    MID -->|"Verifica"| AUTH["Auth Check"]
+    AUTH -->|"Valida"| PERM["Permissions"]
+    PERM -->|"OK"| LOGIC["Business Logic"]
+    PERM -->|"Negado"| 401["401 Unauthorized"]
+    LOGIC --> RESP["Response"]
+```
+
+## Próximos Passos
+
+- [Tecnologias Utilizadas](./tecnologias) - Detalhes da stack
+- [BM Canvas](../estrategia/bmc-canvas) - Modelo de negócio

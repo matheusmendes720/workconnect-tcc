@@ -50,49 +50,81 @@ export function TurnoverChart({
     let processData = turnoverRates;
 
     if (!processData || processData.length === 0) {
-      // Mock data for display
+      // Mock data for display using the correct TurnoverRate interface
       processData = [
-        { produto_id: 1, nome: 'Produto A Alto Giro', giro_estoque: 12.5, dias_estoque: 29.2, performance: 'Excelente' },
-        { produto_id: 2, nome: 'Produto B Alto Giro', giro_estoque: 10.2, dias_estoque: 35.7, performance: 'Excelente' },
-        { produto_id: 3, nome: 'Produto C Médio Giro', giro_estoque: 8.5, dias_estoque: 42.9, performance: 'Bom' },
-        { produto_id: 4, nome: 'Produto D Médio Giro', giro_estoque: 6.8, dias_estoque: 53.6, performance: 'Bom' },
-        { produto_id: 5, nome: 'Produto E Normal', giro_estoque: 4.5, dias_estoque: 81.1, performance: 'Regular' },
-        { produto_id: 6, nome: 'Produto F Normal', giro_estoque: 3.2, dias_estoque: 114.0, performance: 'Regular' },
-        { produto_id: 7, nome: 'Produto G Baixo', giro_estoque: 1.5, dias_estoque: 243.3, performance: 'Ruim' },
-        { produto_id: 8, nome: 'Produto H Crítico', giro_estoque: 0.8, dias_estoque: 456.2, performance: 'Ruim' },
+        { 
+          produto: { id: 1, nome: 'Premium Smartphone X', preco_venda: 4500 } as any, 
+          taxaRotatividade: 12.5, 
+          diasRotatividade: 29.2 
+        },
+        { 
+          produto: { id: 2, nome: 'Wireless Earbuds Pro', preco_venda: 800 } as any, 
+          taxaRotatividade: 10.2, 
+          diasRotatividade: 35.7 
+        },
+        { 
+          produto: { id: 3, nome: 'Mechanical Keyboard', preco_venda: 1200 } as any, 
+          taxaRotatividade: 8.5, 
+          diasRotatividade: 42.9 
+        },
+        { 
+          produto: { id: 4, nome: '4K Gaming Monitor', preco_venda: 3200 } as any, 
+          taxaRotatividade: 6.8, 
+          diasRotatividade: 53.6 
+        },
+        { 
+          produto: { id: 5, nome: 'USB-C Docking Station', preco_venda: 450 } as any, 
+          taxaRotatividade: 4.5, 
+          diasRotatividade: 81.1 
+        },
+        { 
+          produto: { id: 6, nome: 'Office Chair Ergo', preco_venda: 1800 } as any, 
+          taxaRotatividade: 3.2, 
+          diasRotatividade: 114.0 
+        },
+        { 
+          produto: { id: 7, nome: 'Desk Lamp LED', preco_venda: 150 } as any, 
+          taxaRotatividade: 1.5, 
+          diasRotatividade: 243.3 
+        },
+        { 
+          produto: { id: 8, nome: 'Old Stock Cables', preco_venda: 25 } as any, 
+          taxaRotatividade: 0.8, 
+          diasRotatividade: 456.2 
+        },
       ];
     }
 
     // Sort by turnover rate descending and take top 8
-    const sortedData = [...processData].sort((a, b) => b.giro_estoque - a.giro_estoque).slice(0, 8);
+    const sortedData = [...processData].sort((a, b) => b.taxaRotatividade - a.taxaRotatividade).slice(0, 8);
 
     return {
       labels: sortedData.map(item => {
-        const nome = item.nome || 'Sem Nome';
+        const nome = item.produto.nome || 'Sem Nome';
         return nome.length > 20 ? nome.substring(0, 20) + '...' : nome;
       }),
       datasets: [
         {
           label: 'Giro de Estoque',
-          data: sortedData.map(item => item.giro_estoque),
+          data: sortedData.map(item => item.taxaRotatividade),
           backgroundColor: (context: any) => {
             const chart = context.chart;
             const { ctx, chartArea } = chart;
             if (!chartArea) return 'rgba(66, 165, 245, 0.8)';
             
             const gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
-            const performance = sortedData[context.dataIndex]?.performance;
+            const rate = sortedData[context.dataIndex]?.taxaRotatividade;
             
-            if (performance === 'Excelente') {
+            if (rate >= 10) { // Excelente
               gradient.addColorStop(0, 'rgba(0, 230, 118, 0.4)');
               gradient.addColorStop(1, 'rgba(0, 230, 118, 1)');
-            } else if (performance === 'Bom') {
+            } else if (rate >= 6) { // Bom
               gradient.addColorStop(0, 'rgba(66, 165, 245, 0.4)');
               gradient.addColorStop(1, 'rgba(66, 165, 245, 1)');
-            } else if (performance === 'Regular') {
+            } else if (rate >= 3) { // Regular
               gradient.addColorStop(0, 'rgba(255, 213, 79, 0.4)');
               gradient.addColorStop(1, 'rgba(255, 213, 79, 1)');
-            } else { // Ruim
+            } else { // Baixo
               gradient.addColorStop(0, 'rgba(255, 82, 82, 0.4)');
               gradient.addColorStop(1, 'rgba(255, 82, 82, 1)');
             }
@@ -132,17 +164,20 @@ export function TurnoverChart({
         callbacks: {
           title: (context) => {
             const idx = context[0].dataIndex;
-            return chartData.originalData[idx].nome;
+            return chartData.originalData[idx].produto.nome;
           },
           label: (context) => {
-            return `🔄 Giro: ${context.parsed.x.toFixed(2)}x ao ano`;
+            const xVal = context.parsed.x;
+            return `🔄 Giro: ${xVal !== null ? xVal.toFixed(2) : '0.00'}x ao ano`;
           },
           afterLabel: (context) => {
             const data = chartData.originalData[context.dataIndex];
-            const perfEmoji = data.performance === 'Excelente' ? '⭐' : data.performance === 'Bom' ? '👍' : data.performance === 'Regular' ? '⚠️' : '🚨';
+            const rate = data.taxaRotatividade;
+            const perfEmoji = rate >= 10 ? '⭐' : rate >= 6 ? '👍' : rate >= 3 ? '⚠️' : '🚨';
+            const performanceText = rate >= 10 ? 'Excelente' : rate >= 6 ? 'Bom' : rate >= 3 ? 'Regular' : 'Baixo';
             return [
-              `⏱️ Tempo médio: ${data.dias_estoque.toFixed(0)} dias no estoque`,
-              `${perfEmoji} Performance: ${data.performance}`
+              `⏱️ Tempo médio: ${data.diasRotatividade.toFixed(0)} dias no estoque`,
+              `${perfEmoji} Performance: ${performanceText}`
             ];
           },
         },

@@ -38,27 +38,39 @@
     --color-info: #42A5F5;
     --color-info-light: #90CAF9;
     
-    /* Enhanced Glassmorphic Effects */
-    --glass-bg: rgba(255, 255, 255, 0.08);
-    --glass-bg-hover: rgba(255, 255, 255, 0.12);
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-border-hover: rgba(255, 213, 79, 0.3);
-    --glass-blur: blur(20px);
-    --glass-blur-light: blur(12px);
-    --glass-saturate: saturate(180%);
-    --glass-brightness: brightness(1.1);
+    /* --- Hyper-Premium Acrylic & Translucency --- */
+  --glass-bg: rgba(13, 17, 23, 0.45); /* More translucent for Phase 9 */
+  --glass-bg-hover: rgba(13, 17, 23, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08); /* Finer border */
+  --glass-blur: 40px; /* Deeper blur for better translucency separation */
+  --glass-blur-light: 20px;
+  --glass-sheen: radial-gradient(
+    circle at 0% 0%,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
+  --inner-glow: inset 0 0 20px rgba(199, 165, 0, 0.05);
+
+  /* --- Neon Hyper-Pass --- */
+  --neon-primary: #ffcc00;
+  --neon-primary-glow: rgba(255, 204, 0, 0.5);
+  --neon-accent: #ffd700;
+  --neon-accent-glow: rgba(255, 215, 0, 0.3);
+  --neon-border-anim: linear-gradient(90deg, transparent, var(--neon-primary), transparent);
+    --neon-glow-error: 0 0 15px rgba(255, 82, 82, 0.5), 0 0 30px rgba(255, 82, 82, 0.2);
     
     /* Enhanced Gradients */
     --gradient-gold: linear-gradient(135deg, #FFD54F 0%, #FFC107 50%, #FFB300 100%);
     --gradient-gold-reverse: linear-gradient(135deg, #FFB300 0%, #FFC107 50%, #FFD54F 100%);
-    --gradient-dark: linear-gradient(145deg, #0D0D0D 0%, #1E1E1E 50%, #2A2A2A 100%);
-    --gradient-gold-radial: radial-gradient(circle at 30% 50%, rgba(255, 213, 79, 0.2), #0D0D0D 90%);
-    --gradient-surface: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-    
+    --gradient-dark: linear-gradient(145deg, #090909 0%, #151515 50%, #1a1a1a 100%);
+    --gradient-gold-radial: radial-gradient(circle at 30% 50%, rgba(255, 213, 79, 0.15), rgba(13, 13, 13, 0) 70%);
+    --gradient-surface: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+    --gradient-glass-edge: linear-gradient(to bottom right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.05) 100%);
+
     /* Enhanced Typography */
     --font-display: var(--font-display);
     --font-body: var(--font-body);
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
     
     /* Enhanced Font Sizes */
     --font-size-xs: 0.75rem;
@@ -90,14 +102,14 @@
     --radius-full: 9999px;
     
     /* Enhanced Shadows */
-    --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-    --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.7);
+    --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
+    --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.8);
     --shadow-gold: 0 4px 24px rgba(255, 213, 79, 0.4);
     --shadow-gold-hover: 0 8px 40px rgba(255, 213, 79, 0.6);
-    --shadow-glow: 0 0 20px rgba(255, 213, 79, 0.3);
-    --shadow-inset: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-glow: var(--neon-glow-primary);
+    --shadow-inset: inset 0 2px 8px rgba(0, 0, 0, 0.4);
     
     /* Enhanced Transitions */
     --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -132,17 +144,128 @@ html {
 
 body {
     font-family: var(--font-body);
-    background: var(--color-base-black);
+    background: #050505;
     background-image: 
-        radial-gradient(circle at 20% 50%, rgba(255, 213, 79, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.02) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(255, 152, 0, 0.02) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(255, 213, 79, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 213, 79, 0.02) 0%, transparent 80%);
     color: var(--color-text-primary);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    min-height: 100vh;
-    overflow-x: hidden;
+    background-attachment: fixed;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* --- Atmospheric Background Overhaul (Phase 9) --- */
+body::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 75% 25%, rgba(199, 165, 0, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 25% 75%, rgba(55, 65, 81, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(13, 17, 23, 0.1) 0%, transparent 60%);
+  animation: nebulaFloat 30s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0.035; /* Subtle noise */
+  pointer-events: none;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+@keyframes nebulaFloat {
+  0% { transform: scale(1) translate(0, 0) rotate(0deg); }
+  100% { transform: scale(1.1) translate(-2%, -2%) rotate(2deg); }
+}
+
+@keyframes borderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes innerGlowPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* Button Shimmer Effect */
+@keyframes shimmer {
+    0% { transform: translateX(-100%) skewX(-15deg); }
+    100% { transform: translateX(200%) skewX(-15deg); }
+}
+
+.shimmer-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 3s infinite;
+}
+
+/* Button Hyper-Shimmer */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 45%,
+    rgba(255, 255, 255, 0.2) 48%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.2) 52%,
+    transparent 55%
+  );
+  transform: rotate(-45deg) translate(-100%, -100%);
+  animation: shimmerMove 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmerMove {
+  0% { transform: rotate(-45deg) translate(-100%, -100%); }
+  20%, 100% { transform: rotate(-45deg) translate(100%, 100%); }
+}
+
+/* Inner Glow Utility */
+.inner-glow-container {
+  position: relative;
+  box-shadow: var(--inner-glow);
+}
+
+.inner-glow-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(199, 165, 0, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  animation: innerGlowPulse 4s infinite ease-in-out;
 }
 
 /* --- Enhanced Typography --- */

@@ -1,0 +1,344 @@
+---
+sidebar_position: 5
+title: Proposta de Valor
+description: Value Proposition Canvas do WorkConnect - Proposta de Valor detalhada
+---
+
+# Proposta de Valor
+
+## Visão Geral
+
+A **Proposta de Valor** é o elemento central do Business Model Canvas que descreve como criamos valor para nossos clientes. Esta seção detalha o **Value Proposition Canvas** completo do WorkConnect.
+
+:::info Framework
+Baseado no Value Proposition Canvas de Alexander Osterwalder.
+:::
+
+---
+
+## Value Proposition Canvas
+
+### Visão Geral
+
+```mermaid
+flowchart TB
+    subgraph CUSTOMER["Perfil do Cliente"]
+        subgraph TASKS["Tarefas"]
+            T["Tarefas do Cliente"]
+        end
+        subgraph PAINS["Dores"]
+            P["Dores"]
+        end
+        subgraph GAINS["Ganhos"]
+            G["Ganhos"]
+        end
+    end
+    
+    subgraph VALUE["Proposta de Valor"]
+        subgraph PRODUCTS["Produtos/Serviços"]
+            PS["Produtos e Serviços"]
+        end
+        subgraph PAINRELIEVERS["Alívios de Dores"]
+            PR["Alívios de Dores"]
+        end
+        subgraph GAINCREATORS["Criadores de Ganhos"]
+            GC["Criadores de Ganhos"]
+        end
+    end
+    
+    T --> PS
+    P --> PR
+    G --> GC
+```
+
+---
+
+## 1. Perfil do Cliente
+
+### Tarefas do Cliente (Jobs to Be Done)
+
+#### Tarefas Funcionais
+
+| Tarefa | Descrição | Frequência |
+|--------|-----------|------------|
+| **Controle de estoque** | Saber quantidade atual de cada produto | Diária |
+| **Registrar vendas** | Baixa de estoque após venda | Diária |
+| **Controlar compras** | Registrar entradas de mercadorias | Semanal |
+| **Fazer inventário** | Conferir estoque físico | Mensal |
+| **Gerar relatórios** | Extrair dados para decisões | Semanal |
+| **Alertas de reposição** | Saber quando comprar mais | Contínua |
+
+#### Tarefas Sociais
+
+| Tarefa | Descrição |
+|--------|-----------|
+| **Appearing professional** | Passar imagem de empresa organizada |
+| **Being respected** | Ser reconhecido como empresário competente |
+| **Being efficient** | Mostrar eficiência para equipe |
+
+#### Tarefas Emocionais
+
+| Tarefa | Descrição |
+|--------|-----------|
+| **Peace of mind** | Dormir tranquilo sobre o estoque |
+| **Reduce stress** | Menos preocupações no dia a dia |
+| **Confidence** | Confiança nas decisões |
+
+---
+
+## 2. Dores do Cliente
+
+### Dores Intensivas
+
+```mermaid
+flowchart LR
+    D1["Fragmentação<br/>68% das PMEs"] -->|"Causa"| D2["Tempo perdido<br/>2-4h/semana"]
+    D2 -->|"Resulta em"| D3["Decisões ruins<br/>25-30%"]
+    D3 -->|"Impacto"| D4["Perdas R$ 469-828K/ano"]
+    
+    style D1 fill:#ef4444,color:#fff
+    style D4 fill:#dc2626,color:#fff
+```
+
+### Tabela de Dores
+
+| # | Dor | Intensidade | Frequência | Impacto |
+|---|-----|-------------|-----------|---------|
+| 1 | Perder vendas por falta | 🔴 Crítica | 42% | R$ 360-600K/ano |
+| 2 | Divergência inventário | 🔴 Alta | 55% | 20-30% |
+| 3 | Tempo manual | 🔴 Alta | 72% | 15-20% tempo |
+| 4 | Produtos obsoletos | 🟠 Média | 38% | R$ 40-70K |
+| 5 | Planilhas quebram | 🟠 Média | 68% | Erros diários |
+| 6 | Não confiar nos dados | 🟡 Baixa | 55% | Decisões ruins |
+
+### Dores por Categoria
+
+#### Dores Funcionais
+
+- ❌ Perder 15-25% da receita por falta de estoque
+- ❌ Ter 20-30% de divergência no inventário
+- ❌ Gastar 15-20% do tempo em processos manuais
+- ❌ Não confiar nos números das planilhas
+- ❌ Fazer inventários físicos caros e demorados
+
+#### Dores Emocionais
+
+- ❌ Estresse constante com problemas de estoque
+- ❌ Frustração com sistemas caros e complexos
+- ❌ Sensação de estar sempre "atrás"
+- ❌ Medo de tomar decisões erradas
+
+#### Dores Sociais
+
+- ❌ Parecer desorganizado para funcionários
+- ❌ Ser superado por concorrentes
+- ❌ Não parecer "profissional"
+
+---
+
+## 3. Ganhos do Cliente
+
+### Ganhos Esperados
+
+```mermaid
+mindmap
+  root((Ganhos))
+    Funcionais
+      99% precisão estoque
+      Redução 40% perdas
+      Tempo real dashboard
+      Alertas automáticos
+      Relatórios 1-click
+    Emocionais
+      "Dormir tranquilo"
+      Confiança decisões
+      Menos estresse
+      Orgulho profissional
+    Sociais
+      "Empresário modelo"
+      Equipe mais eficiente
+      Reconhecimento mercado
+```
+
+### Tabela de Ganhos
+
+| # | Ganho | Importância | Medição |
+|---|-------|-------------|---------|
+| 1 | Redução 40% perdas | 🔴 Crítica | R$ economizado |
+| 2 | 15h/semana recuperadas | 🔴 Alta | Tempo livre |
+| 3 | 99% precisão | 🔴 Alta | Inventário |
+| 4 | Dashboard tempo real | 🟡 Média | Tempo decisão |
+| 5 | Alertas proativos | 🟡 Média | Problemas evitados |
+| 6 | Relatórios automáticos | 🟢 Baixa | Tempo geração |
+
+---
+
+## 4. Produtos e Serviços
+
+### Oferta WorkConnect
+
+```mermaid
+graph TD
+    A[WorkConnect] --> B[Produto Core]
+    A --> C[Serviços]
+    A --> D[Experience]
+    
+    B --> B1[Cadastro Produtos]
+    B --> B2[Movimentações]
+    B --> B3[Alertas]
+    B --> B4[Relatórios]
+    B --> B5[Dashboard]
+    B --> B6[API]
+    
+    C --> C1[Onboarding]
+    C --> C2[Suporte]
+    C --> C3[Treinamento]
+    C --> C4[Documentação]
+    
+    D --> D1[Interface Intuitiva]
+    D --> D2[Mobile First]
+    D --> D3[Dark Mode]
+```
+
+### Detalhamento
+
+| Categoria | Item | Descrição |
+|-----------|------|-----------|
+| **Core** | Gestão de produtos | Cadastro completo com SKU, código barras |
+| **Core** | Movimentações | Entrada/saída com controle de lote |
+| **Core** | Categorias | Organização hierárquica |
+| **Core** | Fornecedores | Cadastro e histórico |
+| **Core** | Alertas | Reposição, validade, mínimo |
+| **Core** | Relatórios | Dashboard, inventário, custos |
+| **Serviços** | Onboarding | Setup assistido primeiro uso |
+| **Serviços** | Suporte | Chat/email 24/7 |
+| **Serviços** | Treinamento | Vídeos e documentação |
+
+---
+
+## 5. Alívios de Dores
+
+### Como WorkConnect Alivia as Dores
+
+```mermaid
+flowchart LR
+    D1[Fragmentação<br/>Dados] -->|"✅ Solução"| A1[Centralização<br/>Total]
+    D2[Erros<br/>Contagem] -->|"✅ Solução"| A2[Automação<br/>Tempo Real]
+    D3[Falta<br/>Estoque] -->|"✅ Solução"| A3[Alertas<br/>Proativos]
+    D4[Produtos<br/>Obsoletos] -->|"✅ Solução"| A4[Controle<br/>Validade]
+    D5[Tempo<br/>Manual] -->|"✅ Solução"| A5[Automação<br/>Processos]
+    
+    style D1 fill:#ef4444,color:#fff
+    style D2 fill:#ef4444,color:#fff
+    style D3 fill:#ef4444,color:#fff
+    style D4 fill:#ef4444,color:#fff
+    style D5 fill:#ef4444,color:#fff
+    style A1 fill:#10b981,color:#fff
+    style A2 fill:#10b981,color:#fff
+    style A3 fill:#10b981,color:#fff
+    style A4 fill:#10b981,color:#fff
+    style A5 fill:#10b981,color:#fff
+```
+
+### Mapeamento Dores → Soluções
+
+| Dor | Solução WorkConnect | Como Alivia |
+|-----|---------------------|-------------|
+| Fragmentação dados | Sistema centralizado | Tudo em um lugar |
+| Erros contagem | Automação entradas/saídas | Elimina erro humano |
+| Falta estoque | Alertas proativos | Antecipa problema |
+| Produtos obsoletos | Controle de validade | Alerta antecipado |
+| Tempo manual | Automação processos | 15h/semana liberadas |
+| Planilhas quebram | Sistema robusto | Funciona sempre |
+
+---
+
+## 6. Criadores de Ganhos
+
+### Como WorkConnect Cria Ganhos
+
+| Ganho | Criador | Evidência |
+|-------|--------|-----------|
+| 99% precisão | Controle automatizado | Benchmark do mercado |
+| 40% menos perdas | Alertas + dashboards | Caso cliente |
+| 15h/semana | Automação | Cálculo interno |
+| Decisões assertivas | Dashboard tempo real | Feedback clientes |
+| ROI 150% | Cálculo baseado em dados | Projeção Financeira |
+
+### Matriz de Valor
+
+```mermaid
+flowchart TB
+    subgraph VALOR["Proposta de Valor WorkConnect"]
+        F1[Funcional] --> F2[Gestão completa]
+        F2 --> F3[Automação]
+        F3 --> F4[Inteligência]
+        
+        E1[Emocional] --> E2[Confiança]
+        E2 --> E3[Tranquilidade]
+        E3 --> E4[Orgulho]
+        
+        S1[Social] --> S2[Eficiência]
+        S2 --> S3[Profissionalismo]
+    end
+```
+
+---
+
+## 7. Fit entre Proposta e Cliente
+
+### Validação
+
+```mermaid
+flowchart LR
+    T[Tarefas] --> F1[Produtos]
+    P[Dores] --> F2[Alívios]
+    G[Ganhos] --> F3[Criadores]
+    
+    F1 -->|"✅ Match"| M[Product-Market Fit]
+    F2 -->|"✅ Match"| M
+    F3 -->|"✅ Match"| M
+    
+    style M fill:#10b981,color:#fff
+```
+
+### Métricas de Fit
+
+| Métrica | Target | Status |
+|---------|--------|--------|
+| Taxa conversão trial → pago | > 25% | 🔄 Validando |
+| Time to value | < 7 dias | 🔄 Validando |
+| NPS | > 50 | 🔄 Validando |
+| Churn | < 5% | 🔄 Validando |
+
+---
+
+## Comparativo de Valor
+
+### Matriz Valor/Preço
+
+| Solução | Valor Percebido | Preço | Ratio |
+|---------|----------------|-------|-------|
+| **WorkConnect** | ⭐⭐⭐⭐⭐ Alto | R$ 149-599/mês |Excelente |
+| ERPs Tradicionais | ⭐⭐⭐⭐ Alto | R$ 5K-50K | Ruim |
+| Sistemas Genéricos | ⭐⭐⭐ Médio | R$ 200-800/mês | Regular |
+| Excel | ⭐ Baixo | "Grátis" | Péssimo |
+
+---
+
+## Próximos Passos
+
+Continue explorando:
+
+- [BM Canvas](./bmc-canvas) - Modelo de negócio completo
+- [Análise Concorrencial](./analise-concorrencial) - Posicionamento
+- [Go-to-Market](./go-to-market) - Estratégia de entrada
+
+---
+
+## Referências
+
+- **Value Proposition Canvas** - Alexander Osterwalder
+- **Lean Customer Validation** -ash Maurya
+- **Jobs to Be Done** - Clayton Christensen
+- **WorkConnect Research** - Dados primários

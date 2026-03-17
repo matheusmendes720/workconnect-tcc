@@ -47,6 +47,14 @@ ChartJS.register(
   Filler
 );
 
+// Helper for canvas gradients
+const createGradient = (ctx: CanvasRenderingContext2D, colorStart: string, colorEnd: string) => {
+  const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+  gradient.addColorStop(0, colorStart);
+  gradient.addColorStop(1, colorEnd);
+  return gradient;
+};
+
 export interface ProjectionChartProps {
   projections: StockProjection[];
   className?: string;
@@ -66,28 +74,38 @@ export function ProjectionChart({
   const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
+    animation: {
+      duration: 2000,
+      easing: 'easeOutQuart',
+    },
     plugins: {
       legend: {
         position: 'top',
         labels: {
           color: '#FFFFFF',
           padding: 15,
-          font: {
-            size: 11,
-          },
+          font: { size: 11, family: "'Inter', sans-serif" },
+          usePointStyle: true,
+          boxWidth: 8,
         },
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        titleColor: '#FFD54F',
-        bodyColor: '#FFFFFF',
-        borderColor: '#FFD54F',
+        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+        titleColor: '#FFFFFF',
+        titleFont: { size: 13, weight: 'bold', family: "'Inter', sans-serif" },
+        bodyColor: '#A0AEC0',
+        bodyFont: { size: 12, family: "'Inter', sans-serif" },
+        borderColor: 'rgba(255,255,255,0.1)',
         borderWidth: 1,
+        padding: 12,
+        cornerRadius: 8,
+        displayColors: true,
+        boxPadding: 6,
         callbacks: {
           label: (context) => {
             const label = context.dataset.label || '';
             const value = context.parsed.y || 0;
-            return `${label}: ${Math.round(value)} unidades`;
+            return `${label}: ${Math.round(value)} unid.`;
           },
         },
       },
@@ -95,25 +113,34 @@ export function ProjectionChart({
     scales: {
       x: {
         ticks: {
-          color: '#B0B0B0',
+          color: '#718096',
           maxRotation: 45,
           minRotation: 45,
-          font: {
-            size: 9,
-          },
+          font: { size: 10, family: "'Inter', sans-serif" },
         },
         grid: {
-          color: 'rgba(255, 255, 255, 0.1)',
+          color: 'rgba(255, 255, 255, 0.05)',
+          display: true,
         },
+        border: { display: false }
       },
       y: {
         ticks: {
-          color: '#B0B0B0',
+          color: '#718096',
+          font: { size: 10, family: "'Inter', sans-serif" },
         },
         grid: {
-          color: 'rgba(255, 255, 255, 0.1)',
+          color: 'rgba(255, 255, 255, 0.05)',
         },
+        border: { 
+          display: false,
+          dash: [5, 5],
+        }
       },
+    },
+    interaction: {
+      mode: 'index',
+      intersect: false,
     },
   };
 
@@ -132,11 +159,19 @@ export function ProjectionChart({
           {
             label: 'Estoque Projetado',
             data: projections.map(p => p.quantidadeProjetada),
-            borderColor: 'rgba(255, 213, 79, 1)',
-            backgroundColor: 'rgba(255, 213, 79, 0.1)',
+            borderColor: '#FFD54F',
+            backgroundColor: (context: any) => {
+              const ctx = context.chart.ctx;
+              return createGradient(ctx, 'rgba(255, 213, 79, 0.4)', 'rgba(255, 213, 79, 0.0)');
+            },
             borderWidth: 3,
             fill: true,
             tension: 0.4,
+            pointBackgroundColor: '#FFD54F',
+            pointBorderColor: '#1A202C',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
           },
         ],
       };
@@ -160,30 +195,48 @@ export function ProjectionChart({
         {
           label: 'Estoque Projetado',
           data: mockData.map(item => item.projectedStock),
-          borderColor: 'rgba(255, 213, 79, 1)',
-          backgroundColor: 'rgba(255, 213, 79, 0.1)',
+          borderColor: '#FFD54F',
+          backgroundColor: (context: any) => {
+            const ctx = context.chart.ctx;
+            return createGradient(ctx, 'rgba(255, 213, 79, 0.4)', 'rgba(255, 213, 79, 0.0)');
+          },
           borderWidth: 3,
           fill: true,
           tension: 0.4,
+          pointBackgroundColor: '#FFD54F',
+          pointBorderColor: '#1A202C',
+          pointBorderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 6,
         },
         {
           label: 'Estoque Real',
           data: mockData.map(item => item.actualStock === null ? null : item.actualStock),
-          borderColor: 'rgba(76, 175, 80, 1)',
-          backgroundColor: 'rgba(76, 175, 80, 0.1)',
+          borderColor: '#00E676',
+          backgroundColor: (context: any) => {
+            const ctx = context.chart.ctx;
+            return createGradient(ctx, 'rgba(0, 230, 118, 0.4)', 'rgba(0, 230, 118, 0.0)');
+          },
           borderWidth: 3,
           fill: true,
           tension: 0.4,
+          pointBackgroundColor: '#00E676',
+          pointBorderColor: '#1A202C',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6,
         },
         {
-          label: 'Demanda',
+          label: 'Demanda Prevista',
           data: mockData.map(item => item.demand),
-          borderColor: 'rgba(244, 67, 54, 1)',
-          backgroundColor: 'rgba(244, 67, 54, 0.1)',
+          borderColor: '#FF5252',
+          backgroundColor: 'transparent',
           borderWidth: 2,
           fill: false,
           tension: 0.4,
           borderDash: [5, 5],
+          pointRadius: 0,
+          pointHoverRadius: 5,
         },
       ],
     };
@@ -211,13 +264,8 @@ export function ProjectionChart({
     );
   }
 
-  if (!projections || projections.length === 0) {
-    return (
-      <div className={`h-64 flex items-center justify-center text-muted-foreground ${className}`}>
-        <p>Nenhum dado disponível</p>
-      </div>
-    );
-  }
+  // Remove the early bailout so mockData is used when projections is empty or null
+
 
   return (
     <div className={`h-64 ${className}`}>

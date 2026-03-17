@@ -37,13 +37,55 @@ export function SupplierChart({
 
     if (!processData || processData.length === 0) {
       processData = [
-        { nome_fantasia: 'TechSupply Pro', valorTotal: 45000, avaliacao: 4.8 },
-        { nome_fantasia: 'Global Components', valorTotal: 38000, avaliacao: 4.5 },
-        { nome_fantasia: 'Industrial Parts', valorTotal: 28000, avaliacao: 3.9 },
-        { nome_fantasia: 'Fast Delivery SA', valorTotal: 21500, avaliacao: 4.2 },
-        { nome_fantasia: 'Eletrônica Master', valorTotal: 18000, avaliacao: 4.7 },
-        { nome_fantasia: 'Metalúrgica ABC', valorTotal: 12000, avaliacao: 3.5 },
-        { nome_fantasia: 'Distribuidora XYZ', valorTotal: 8500, avaliacao: 4.0 },
+        { 
+          fornecedor: { nome_fantasia: 'TechSupply Pro', avaliacao: 4.8 } as any, 
+          valorTotal: 45000, 
+          totalCompras: 120,
+          prazoMedioEntrega: 3,
+          avaliacao: 4.8
+        },
+        { 
+          fornecedor: { nome_fantasia: 'Global Components', avaliacao: 4.5 } as any, 
+          valorTotal: 38000, 
+          totalCompras: 95,
+          prazoMedioEntrega: 5,
+          avaliacao: 4.5
+        },
+        { 
+          fornecedor: { nome_fantasia: 'Industrial Parts', avaliacao: 3.9 } as any, 
+          valorTotal: 28000, 
+          totalCompras: 60,
+          prazoMedioEntrega: 8,
+          avaliacao: 3.9
+        },
+        { 
+          fornecedor: { nome_fantasia: 'Fast Delivery SA', avaliacao: 4.2 } as any, 
+          valorTotal: 21500, 
+          totalCompras: 45,
+          prazoMedioEntrega: 2,
+          avaliacao: 4.2
+        },
+        { 
+          fornecedor: { nome_fantasia: 'Eletrônica Master', avaliacao: 4.7 } as any, 
+          valorTotal: 18000, 
+          totalCompras: 38,
+          prazoMedioEntrega: 4,
+          avaliacao: 4.7
+        },
+        { 
+          fornecedor: { nome_fantasia: 'Metalúrgica ABC', avaliacao: 3.5 } as any, 
+          valorTotal: 12000, 
+          totalCompras: 25,
+          prazoMedioEntrega: 12,
+          avaliacao: 3.5
+        },
+        { 
+          fornecedor: { nome_fantasia: 'Distribuidora XYZ', avaliacao: 4.0 } as any, 
+          valorTotal: 8500, 
+          totalCompras: 18,
+          prazoMedioEntrega: 6,
+          avaliacao: 4.0
+        },
       ];
     }
 
@@ -53,7 +95,7 @@ export function SupplierChart({
 
     return {
       labels: sortedData.map(d => {
-        const nome = d.nome_fantasia || 'Sem Nome';
+        const nome = d.fornecedor.nome_fantasia || 'Sem Nome';
         return nome.length > 15 ? nome.substring(0, 15) + '...' : nome;
       }),
       datasets: [
@@ -63,29 +105,32 @@ export function SupplierChart({
           data: sortedData.map(d => d.avaliacao || 0),
           borderColor: '#FFD54F',
           backgroundColor: '#FFD54F',
-          borderWidth: 2.5,
+          borderWidth: 3,
           tension: 0.4,
-          pointRadius: 4,
-          pointHoverRadius: 8,
+          pointRadius: 5,
+          pointHoverRadius: 9,
           pointBackgroundColor: 'rgba(25, 30, 45, 1)',
+          pointBorderWidth: 2,
+          pointBorderColor: '#FFD54F',
           yAxisID: 'y1',
-          order: 1, // Draw on top
+          order: 1,
         },
         {
           type: 'bar' as const,
-          label: 'Valor Comprado (R$)',
+          label: 'Valor Total Comprado',
           data: sortedData.map(d => d.valorTotal),
           backgroundColor: (context: any) => {
             const chart = context.chart;
             const { ctx, chartArea } = chart;
             if (!chartArea) return 'rgba(88, 86, 214, 0.8)';
             const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-            gradient.addColorStop(0, 'rgba(88, 86, 214, 0.3)');
-            gradient.addColorStop(1, 'rgba(88, 86, 214, 0.9)');
+            gradient.addColorStop(0, 'rgba(88, 86, 214, 0.2)');
+            gradient.addColorStop(1, 'rgba(99, 102, 241, 0.9)');
             return gradient;
           },
-          borderRadius: 6,
-          barPercentage: 0.6,
+          hoverBackgroundColor: 'rgba(99, 102, 241, 1)',
+          borderRadius: 8,
+          barPercentage: 0.5,
           yAxisID: 'y',
           order: 2,
         },
@@ -128,20 +173,30 @@ export function SupplierChart({
         titleFont: { size: 13, weight: 600 as any },
         bodyFont: { size: 12 },
         callbacks: {
-          title: (items) => {
+          title: (items: any[]) => {
             const idx = items[0].dataIndex;
-            return chartData.originalData[idx].nome_fantasia;
+            return chartData.originalData[idx].fornecedor.nome_fantasia;
           },
-          label: (context) => {
+          label: (context: any) => {
             const label = context.dataset.label;
             const value = context.raw as number;
             
             if (context.datasetIndex === 0) {
               return `⭐ Avaliação: ${value.toFixed(1)} / 5.0`;
             } else {
-              if (value >= 1000) return `💰 Compras: R$ ${(value/1000).toFixed(1)}k`;
-              return `💰 Compras: R$ ${value.toFixed(2)}`;
+              const formatted = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(value);
+              return `💰 Compras: ${formatted}`;
             }
+          },
+          afterLabel: (context: any) => {
+            if (context.datasetIndex === 1) {
+              const d = chartData.originalData[context.dataIndex];
+              return [
+                `📦 Compras totais: ${d.totalCompras}`,
+                `⏱️ Prazo médio: ${d.prazoMedioEntrega} dias`
+              ];
+            }
+            return '';
           },
         },
       },
@@ -168,7 +223,7 @@ export function SupplierChart({
         ticks: {
           color: 'rgba(255, 255, 255, 0.3)',
           font: { size: 10 },
-          callback: (val) => `R$${(Number(val) / 1000).toFixed(0)}k`,
+          callback: (val: string | number) => `R$${(Number(val) / 1000).toFixed(0)}k`,
         },
       },
       y1: {
@@ -183,7 +238,7 @@ export function SupplierChart({
           color: '#FFD54F',
           font: { size: 11, weight: 600 as any },
           stepSize: 1,
-          callback: (val) => `${val}⭐`,
+          callback: (val: string | number) => `${val}⭐`,
         },
       },
     },

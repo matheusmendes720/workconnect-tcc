@@ -1,0 +1,13 @@
+{
+  "label": "Estratégia de Negócio",
+  "position": 1,
+  "collapsed": false,
+  "collapsible": false,
+  "className": "sidebar-strategia",
+  "link": {
+    "type": "generated-index",
+    "title": "Estratégia de Negócio",
+    "description": "Documentação sobre estratégia de negócio, modelagem de negócio e product management.",
+    "slug": "/estrategia"
+  }
+}

@@ -1,0 +1,369 @@
+---
+sidebar_position: 4
+title: Personas
+description: Perfis detalhados dos clientes-alvo do WorkConnect
+---
+
+# Personas
+
+## Visão Geral
+
+Esta seção apresenta as personas detalhadas do WorkConnect - os perfis representativos dos clientes-alvo que guiam decisões de produto, marketing e desenvolvimento.
+
+:::info Metodologia
+Personas baseadas em pesquisas de mercado, entrevistas com PMEs e análise de dados do projeto.
+:::
+
+---
+
+## Persona 1: João - O Empreendedor
+
+### Perfil Demográfico
+
+```mermaid
+graph TD
+    subgraph PERFIL["João, 42 anos"]
+        A["Masculino"] --> B["Ensino Superior Incompleto"]
+        B --> C["São Paulo, SP"]
+        C --> D["Casado, 2 filhos"]
+    end
+    
+    style PERFIL fill:#2563eb,color:#fff
+```
+
+| Atributo | Valor |
+|----------|-------|
+| **Nome** | João Silva |
+| **Idade** | 42 anos |
+| **Gênero** | Masculino (60%) |
+| **Localização** | São Paulo, Rio de Janeiro, Belo Horizonte |
+| **Educação** | Ensino médio completo, superior incompleto |
+| **Renda pessoal** | R$ 8.000 - R$ 20.000/mês |
+
+### Perfil Empresarial
+
+| Atributo | Valor |
+|----------|-------|
+| **Empresa** | Varejo de Calçados |
+| **Faturamento** | R$ 1.8M/ano |
+| **Funcionários** | 8 pessoas |
+| **Tempo de mercado** | 7 anos |
+| **Cargo** | Proprietário |
+
+### Aspectos Comportamentais
+
+```mermaid
+mindmap
+  root((João Silva))
+    Motivações
+      Crescer negócio
+      Reduzir custos
+      Tempo família
+      Status
+    Frustrações
+      Perde vendas
+      Planilhas quebram
+      "Apagar incêndios"
+      Sistemas caros
+    Objetivos
+      -30% perdas
+      +Eficiência
+      Visibilidade
+      Escalar
+    Barreiras
+      Medo tecnologia
+      Tempo aprender
+      Orçamento
+      Resistência equipe
+```
+
+### Jornada do Cliente
+
+```mermaid
+flowchart LR
+    subgraph AWARENESS["Descoberta"]
+        A1[Problema: Vendas perdidas]
+        A2[Busca Google]
+        A3[Indicação amigo]
+    end
+    
+    subgraph CONSIDERATION["Consideração"]
+        C1[Website WorkConnect]
+        C2[Trial grátis]
+        C3[Compara Excel]
+    end
+    
+    subgraph DECISION["Decisão"]
+        D1[Preço acessível]
+        D2[ROI claro]
+        D3[Compra Básico]
+    end
+    
+    subgraph ONBOARDING["Adoção"]
+        O1[Cadastro produtos]
+        O2[Primeira venda]
+        O3[Alerta funcionando]
+    end
+    
+    subgraph ADVOCACY["Advocacia"]
+        Adv1[Indica outro]
+        Adv2[Upgrade Prof]
+    end
+    
+    A1 --> A2 --> C1
+    C1 --> C2 --> D1
+    D1 --> D2 --> D3
+    D3 --> O1 --> O2 --> O3
+    O3 --> Adv1 --> Adv2
+```
+
+### Citação
+
+> *"Tenho 5 planilhas diferentes que não conversam entre si. Quando preciso saber o que tenho em estoque, levo 30 minutos. Perdi R$ 50 mil em vendas ano passado só porque não sabia que estava sem mercadoria."*
+> — João, Proprietário de Loja de Calçados
+
+### Mensagem de Marketing
+
+> **"Pare de perder vendas por falta de estoque. Work Connect automatiza seu controle e reduz perdas em 40%, gerando R$ 50.000+ de economia no primeiro ano. Teste grátis por 14 dias."**
+
+---
+
+## Persona 2: Maria - A Gerente de Estoque
+
+### Perfil Demográfico
+
+```mermaid
+graph TD
+    subgraph PERFIL["Maria, 35 anos"]
+        A["Feminino"] --> B["Superior Completo"]
+        B --> C["Belo Horizonte, MG"]
+        C --> D["Casada, 1 filho"]
+    end
+    
+    style PERFIL fill:#7c3aed,color:#fff
+```
+
+| Atributo | Valor |
+|----------|-------|
+| **Nome** | Maria Santos |
+| **Idade** | 35 anos |
+| **Gênero** | Feminino (70%) |
+| **Localização** | Todas as regiões do Brasil |
+| **Educação** | Superior em Administração |
+| **Renda** | R$ 5.000 - R$ 8.000/mês |
+
+### Perfil Profissional
+
+| Atributo | Valor |
+|----------|-------|
+| **Cargo** | Gerente de Estoque |
+| **Experiência** | 5 anos na função |
+| **Responsabilidades** | Controle estoque, compras, inventários |
+| **Reporta para** | Proprietário |
+
+### Aspectos Comportamentais
+
+```mermaid
+mindmap
+  root((Maria Santos))
+    Motivações
+      Excelência trabalho
+      Ferramentas adequadas
+      Reconhecimento
+      Reduzir estresse
+    Frustrações
+      "Planilhas quebram"
+      Tempo manual
+      "Culpada por tudo"
+      Sem visibilidade
+    Objetivos
+      Automação
+      Alertas proativos
+      Relatórios rápidos
+      Confiança números
+    Barreiras
+      Medo substituição
+      Resistência mudança
+      Suporte diretoria
+      Curva aprendizado
+```
+
+### Fluxo de Trabalho
+
+```mermaid
+flowchart TB
+    subgraph DIARIO["Rotina Diária"]
+        D1[Verificar estoque]
+        D2[Atualizar planilha]
+        D3[Emitir pedidos]
+    end
+    
+    subgraph PROBLEMAS["Problemas"]
+        P1[Divergência inventário]
+        P2[Produto em falta]
+        P3[Atraso entrega]
+    end
+    
+    subgraph SOLUCAO["Com WorkConnect"]
+        S1[Dashboard automático]
+        S2[Alerta reposição]
+        S3[Relatório 1-click]
+    end
+    
+    D1 --> P1
+    D2 --> P2
+    D3 --> P3
+    
+    P1 --> S1
+    P2 --> S2
+    P3 --> S3
+```
+
+### Citação
+
+> *"Passo 2 horas por dia só atualizando planilhas. Se pudesse automatizar isso, teria tempo para analisar os dados e realmente ajudar o negócio a crescer."*
+> — Maria, Gerente de Estoque
+
+### Mensagem de Marketing
+
+> **"Automatize seu controle de estoque e ganhe 15 horas por semana. Work Connect gera alertas automáticos e elimina planilhas quebradas. Teste grátis."**
+
+---
+
+## Persona 3: Carlos - O Contador/Consultor
+
+### Perfil
+
+```mermaid
+graph TD
+    subgraph PERFIL["Carlos, 48 anos"]
+        A["Masculino"] --> B["Superior Completo"]
+        B --> C["Contador"]
+        C --> D["45 empresas"]
+    end
+    
+    style PERFIL fill:#059669,color:#fff
+```
+
+| Atributo | Valor |
+|----------|-------|
+| **Nome** | Carlos Oliveira |
+| **Idade** | 48 anos |
+| **Gênero** | Masculino (80%) |
+| **Formação** | Ciências Contábeis |
+| **Clientes** | 30-50 PMEs |
+| **Faturamento** | R$ 30.000-50.000/mês |
+
+### Papel no Ecossistema
+
+```mermaid
+flowchart LR
+    C[Carlos<br/>Contador] -->|Recomenda| W[WorkConnect]
+    C -->|Audita| E[Empresas<br/>Clientes]
+    C -->|Recomenda| S[Outros<br/>Serviços]
+    
+    W -->|"Indicações<br/>qualificadas"| C
+    E -->|"Dados<br/>financeiros"| C
+```
+
+### Características
+
+| Aspecto | Descrição |
+|---------|-----------|
+| **Motivação** | Agregar valor aos clientes |
+| **Influência** | Alta - recomenda sistemas |
+| **Valoriza** | Conformidade (LGPD), praticidade |
+| **Medo** | Indicar solução que não funciona |
+| **Relacionamento** | Longo prazo com clientes |
+
+### Citação
+
+> *"Meus clientes são PMEs que precisam de gestão profissional mas não têm orçamento de ERP. Se tiver uma solução acessível e que funcione, posso indicar com confiança."*
+> — Carlos, Contador
+
+### Mensagem de Marketing
+
+> **"Ofereça gestão de estoque profissional para seus clientes. Work Connect com conformidade LGPD completa. Programa de parceiros disponível."**
+
+---
+
+## Comparativo de Personas
+
+### Matriz de Necessidades
+
+| Necessidade | João | Maria | Carlos |
+|-------------|------|-------|--------|
+| **Redução de custos** | 🔴 Alta | 🟡 Média | 🟢 Baixa |
+| **Automatização** | 🟡 Média | 🔴 Alta | 🟢 Baixa |
+| **Facilidade uso** | 🔴 Alta | 🟡 Média | 🟡 Média |
+| **Conformidade LGPD** | 🟢 Baixa | 🟡 Média | 🔴 Alta |
+| **Relatórios** | 🟡 Média | 🔴 Alta | 🔴 Alta |
+| **Preço baixo** | 🔴 Alta | 🟡 Média | 🟡 Média |
+
+### Canais de Aquisição
+
+| Persona | Canal Principal | Canal Secundário |
+|---------|---------------|------------------|
+| **João** | Google Ads | Indicações |
+| **Maria** | LinkedIn | Grupos profissionais |
+| **Carlos** | Parcerias | Eventos |
+
+---
+
+## Arquétipos de Usuários
+
+### Mapa de Empatia
+
+```mermaid
+graph TD
+    subgraph JOÃO["João - O Empreendedor"]
+        PENSAM[O que pensa?]
+            P1["Como reduzir custos?"]
+            P2["Como crescer?"]
+            P3["Sistemas são caros"]
+        SENTEM[O que sente?]
+            S1["Estresse diário"]
+            S2["Medo de errar"]
+            S3["Frustração"]
+        VÊ[O que vê?]
+            V1["Concorrentes crescendo"]
+            V2["Problemas constantes"]
+            V3["Muitos gastos"]
+        FAZ[O que faz?]
+            F1["Trabalha no sábado"]
+            F2["Corre atrás"]
+            F3["Decision by feeling"]
+    end
+```
+
+---
+
+## Validação das Personas
+
+### Métodos de Validação
+
+| Método | Descrição | Status |
+|--------|-----------|--------|
+| **Entrevistas** | 50+ entrevistas com PMEs | ✅ Concluído |
+| **Questionários** | 200+ respostas online | ✅ Concluído |
+| **Análise de dados** | Comportamento de uso | 🔄 Em andamento |
+| **Feedback** | Beta testers | 🔄 Em andamento |
+
+---
+
+## Próximos Passos
+
+Continue explorando:
+
+- [Proposta de Valor](./proposta-valor) - Value Proposition Canvas
+- [BM Canvas](./bmc-canvas) - Modelo de negócio
+- [Análise de Mercado](./analise-mercado) - TAM/SAM/SOM
+
+---
+
+## Referências
+
+- **Jobs to Be Done** - Framework de validação
+- **Design Thinking** - Metodologia de empatia
+- **Pesquisa WorkConnect** - Dados primários
+- **SEBRAE** - Dados secundários

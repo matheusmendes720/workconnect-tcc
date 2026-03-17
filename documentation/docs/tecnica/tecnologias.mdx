@@ -1,0 +1,234 @@
+---
+sidebar_position: 3
+title: Tecnologias Utilizadas
+description: Stack tecnológico completo do WorkConnect
+---
+
+# Tecnologias Utilizadas
+
+## Visão Geral do Stack
+
+```mermaid
+graph TD
+    subgraph FRONTEND["Frontend"]
+        NEXT[Next.js 14]
+        REACT[React 19]
+        TS[TypeScript]
+        TAIL[Tailwind CSS]
+    end
+    
+    subgraph BACKEND["Backend"]
+        API[Next.js API]
+        PRISMA[Prisma]
+        AUTH[NextAuth]
+    end
+    
+    subgraph DATABASE["Database"]
+        PG[PostgreSQL]
+        SUPABASE[Supabase]
+    end
+    
+    subgraph DEPLOY["Deploy"]
+        VERCEL[Vercel]
+        NETLIFY[Netlify]
+        GIT[GitHub]
+    end
+    
+    FRONTEND --> BACKEND
+    BACKEND --> DATABASE
+    BACKEND --> DEPLOY
+```
+
+## Tabela de Tecnologias
+
+| Categoria | Tecnologia | Versão | Descrição |
+|-----------|------------|--------|------------|
+| **Framework** | Next.js | 14.x | React full-stack |
+| **Linguagem** | TypeScript | 5.x | Tipagem estática |
+| **UI** | Tailwind CSS | 3.x | Utility-first CSS |
+| **Database** | PostgreSQL | 15+ | Banco relacional |
+| **ORM** | Prisma | 5.x | ORM type-safe |
+| **Auth** | NextAuth.js | 4.x | Autenticação |
+| **Forms** | React Hook Form | 7.x | Gerenciamento forms |
+| **Validation** | Zod | 3.x | Schema validation |
+| **Charts** | Chart.js/Recharts | 4.x | Visualização dados |
+| **Icons** | Lucide React | 0.x | Ícones |
+
+## Detalhes por Camada
+
+### Frontend
+
+```mermaid
+mindmap
+  root((Frontend))
+    Next.js
+      App Router
+      Server Components
+      SSG/SSR
+    React
+      Hooks
+      Context API
+      Suspense
+    Tailwind
+      Utility-first
+      Dark mode
+      Responsive
+    TypeScript
+      Type safety
+      Interfaces
+      Generics
+```
+
+#### Componentes UI
+
+| Biblioteca | Uso |
+|------------|-----|
+| **Radix UI** | Componentes acessíveis |
+| **Headless UI** | Componentes sem estilo |
+| **Framer Motion** | Animações |
+| **React Query** | Data fetching |
+
+### Backend
+
+```mermaid
+mindmap
+  root((Backend))
+    Next.js API
+      Route Handlers
+      Middleware
+      Edge Runtime
+    Prisma
+      Schema
+      Migrations
+      Type-safe queries
+    NextAuth
+      Providers
+      JWT
+      Sessions
+```
+
+### Database
+
+```mermaid
+flowchart LR
+    APP["App"] --> PRISMA["Prisma Client"]
+    PRISMA --> POOL["Connection Pool"]
+    POOL --> PG["PostgreSQL"]
+    
+    SUPABASE["Supabase"] --> PG
+    PG --> SUPABASE
+```
+
+#### Modelos Principais
+
+| Modelo | Descrição |
+|--------|-----------|
+| **Company** | Empresa/Organização |
+| **User** | Usuários do sistema |
+| **Product** | Produtos do estoque |
+| **Category** | Categorias de produtos |
+| **Movement** | Movimentações (entrada/saída) |
+| **Alert** | Alertas do sistema |
+| **Report** | Relatórios gerados |
+
+### Deploy
+
+```mermaid
+flowchart LR
+    GIT["GitHub"] --> CI["CI/CD Pipeline"]
+    CI --> TEST["Tests"]
+    TEST --> BUILD["Build"]
+    BUILD --> DEPLOY["Deploy"]
+    
+    DEPLOY --> VERCEL["Vercel"]
+    DEPLOY --> NETLIFY["Netlify"]
+```
+
+## Ferramentas de Desenvolvimento
+
+```mermaid
+pie title "Ferramentas do Desenvolvedor"
+    "VS Code" : 50
+    "Cursor/Windsurf" : 25
+    "GitHub" : 15
+    "Postman/Insomnia" : 5
+    "DBeaver/TablePlus" : 5
+```
+
+| Categoria | Ferramenta |
+|-----------|------------|
+| **IDE** | VS Code, Cursor |
+| **Versionamento** | Git + GitHub |
+| **API Client** | Postman, Insomnia |
+| **DB Client** | DBeaver, TablePlus |
+| **Terminal** | PowerShell, Windows Terminal |
+| **Browser** | Chrome DevTools |
+
+## Bibliotecas Auxiliares
+
+### Utils & Helpers
+
+| Biblioteca | Uso |
+|------------|-----|
+| **date-fns** | Manipulação de datas |
+| **clsx** | Condicional classes |
+| **tailwind-merge** | Merge Tailwind classes |
+| **lodash** | Utilitários JS |
+| **uuid** | Geração de IDs |
+
+### UI Components
+
+| Biblioteca | Uso |
+|------------|-----|
+| **react-hot-toast** | Notificações toast |
+| **react-select** | Select dropdowns |
+| **react-dropzone** | Upload de arquivos |
+| **recharts** | Gráficos |
+
+## Ambiente de Desenvolvimento
+
+```bash
+# Variáveis de ambiente necessárias
+DATABASE_URL=postgresql://...
+NEXTAUTH_SECRET=...
+NEXTAUTH_URL=http://localhost:3000
+
+# Scripts disponíveis
+npm run dev          # Desenvolvimento
+npm run build        # Build produção
+npm run lint        # Verificar código
+npm run db:push     # Sync Prisma
+npm run db:studio   # Studio Prisma
+```
+
+## Padrões de Código
+
+### ESLint + Prettier
+
+```json
+{
+  "extends": [
+    "next/core-web-vitals",
+    "prettier"
+  ],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}
+```
+
+### Conventional Commits
+
+```bash
+# Exemplos de commits
+git commit -m "feat: add product inventory tracking"
+git commit -m "fix: resolve stock alert calculation"
+git commit -m "docs: update API documentation"
+```
+
+## Próximos Passos
+
+- [Introdução Técnica](./intro) - Overview do sistema
+- [Arquitetura](./arquitetura) - Detalhes arquiteturais
+- [BM Canvas](../estrategia/bmc-canvas) - Modelo de negócio

@@ -189,6 +189,7 @@ export interface MockDataEstoque extends StockData {
   getArmazemUtilization(armazemId: number): WarehouseUtilization | null;
   getProdutosExpirando(dias?: number): Product[];
   getSupplierPerformance(fornecedorId: number): SupplierPerformance | null;
+  getReferenceDate(): Date;
 }
 
 // ============================================

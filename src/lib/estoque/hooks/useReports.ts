@@ -63,7 +63,7 @@ export function useReports(data: StockData): UseReportsReturn {
               Armazém: data.armazens.find((a) => a.id === p.armazem_id)?.nome || 'N/A',
             }));
         case 'expiring':
-          const today = new Date();
+          const today = (data as any).getReferenceDate ? (data as any).getReferenceDate() : new Date();
           return data.produtos
             .filter((p) => {
               if (!p.prazo_validade) return false;

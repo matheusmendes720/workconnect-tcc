@@ -5,13 +5,11 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+[build.environment]
+  NODE_VERSION = "20"
+
 [context.production]
   environment = { NODE_ENV = "production" }
 
 [context.deploy-preview]
   command = "npm run lint && npm run build"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200

@@ -1,0 +1,183 @@
+---
+sidebar_position: 6
+title: Análise Concorrencial
+description: Análise detalhada da concorrência e posicionamento competitivo do WorkConnect
+---
+
+# Análise Concorrencial
+
+## Visão Geral
+
+Esta seção apresenta a análise competitiva completa do WorkConnect, identificando concorrentes diretos e indiretos, suas forças e fraquezas, e o posicionamento estratégico.
+
+---
+
+## Mapa Competitivo
+
+### Visão Geral do Mercado
+
+```mermaid
+quadrantChart
+    title Mapa Competitivo - Gestão de Estoque
+    x-axis Baixa Especialização --> Alta Especialização
+    y-axis Baixa Acessibilidade --> Alta Acessibilidade
+    
+    quadrant-1 "Líderes Premium"
+    quadrant-2 "WorkConnect (Oportunidade)"
+    quadrant-3 "Oportunidade de Mercado"
+    quadrant-4 "Massa"
+    
+    "TOTVS": [0.95, 0.1]
+    "Senior": [0.9, 0.15]
+    "Sankhya": [0.85, 0.2]
+    "ContaAzul": [0.6, 0.6]
+    "Bling": [0.55, 0.65]
+    "Tiny": [0.5, 0.7]
+    "NFe.io": [0.4, 0.75]
+    "Excel": [0.05, 0.95]
+    "WorkConnect": [0.9, 0.85]
+```
+
+---
+
+## Concorrentes por Categoria
+
+### 1. ERPs Tradicionais
+
+| Concorrente | Público | Preço | Forte | Fraco |
+|-------------|---------|-------|-------|-------|
+| **TOTVS** | Grandes | R$ 5K-50K | Marca, recursos | Complexo, caro |
+| **Senior** | Médias | R$ 3K-20K | Maturidade | Caro |
+| **Sankhya** | Médias | R$ 2K-15K | Segmento | Complexo |
+
+### 2. Sistemas de Gestão
+
+| Concorrente | Público | Preço | Forte | Fraco |
+|-------------|---------|-------|-------|-------|
+| **ContaAzul** | PMEs | R$ 200-600/mês | Vendas+estoque | Estoque básico |
+| **Bling** | PMEs | R$ 150-500/mês | E-commerce | Estoque limitado |
+| **Tiny** | Micro | R$ 100-300/mês | Preço | Recursos |
+
+### 3. Planilhas (Status Quo)
+
+| Solução | Uso | Forte | Fraco |
+|---------|-----|-------|-------|
+| **Excel** | 68% PMEs | Grátis, flexível | Manual, erro |
+
+---
+
+## Análise SWOTT de Concorrentes
+
+### TOTVS
+
+| Tipo | Análise |
+|------|---------|
+| **Força** | Marca forte, mercado estabelecido, recursos completos |
+| **Fraqueza** | Caro, complexo, implementation longa |
+| **Oportunidade** | PMEs precisam de versão simplificada |
+| **Ameaça** | Perde espaço para SaaS moderno |
+
+### WorkConnect vs TOTVS
+
+```mermaid
+flowchart LR
+    subgraph TOTVS["TOTVS"]
+        T1[Marca]
+        T2[Recursos]
+        T3[Suporte]
+    end
+    
+    subgraph WC["WorkConnect"]
+        W1[Preço 20x menor]
+        W2[Simplicidade]
+        W3[Especialização]
+    end
+    
+    T1 -.->|"Não tem"| W3
+    T2 -.->|"Excesso para"| W2
+    T3 -.->|"Caro"| W1
+```
+
+---
+
+## Diferenciais Competitivos
+
+### Vantagens do WorkConnect
+
+```mermaid
+mindmap
+  root((Diferenciais WorkConnect))
+    Especialização
+      Foco 100% estoque
+      Funcionalidades avançadas
+      Alertas inteligentes
+    Acessibilidade
+      Preço 20x menor
+      Implementação imediata
+      Sem compromisso longo
+    Simplicidade
+      Interface intuitiva
+      Curva aprendizado baixa
+      Mobile first
+    Tecnologia
+      Moderno
+      Atualizações contínuas
+      Cloud native
+    LGPD
+      Conformidade nativa
+      Dados seguros
+      Privacidade
+```
+
+### Matriz de Diferenciação
+
+| Característica | WorkConnect | TOTVS | ContaAzul | Bling | Excel |
+|----------------|-------------|-------|-----------|-------|-------|
+| **Especialização estoque** | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐ |
+| **Preço acessível** | ⭐⭐⭐⭐⭐ | ⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **Facilidade uso** | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ |
+| **LGPD** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐ |
+| **Mobilidade** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐ |
+| **Automação** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐ |
+
+---
+
+## Estratégias Competitivas
+
+### Estratégia de Focus
+
+```mermaid
+graph TD
+    A[Estratégia] --> B[Foco em PMEs]
+    B --> C["Não tentar ser<br/>tudo para todos"]
+    C --> D[Especialização<br/>Estoque]
+    D --> E["Preço acessível<br/>R$ 149-599"]
+    E --> F["Simplicidade<br/>Implementação"]
+```
+
+### Resposta a Concorrentes
+
+| Se o concorrente... | WorkConnect responde... |
+|--------------------|----------------------|
+| Baixa preço | Valor agregado maior |
+| Muitos recursos | Foco e simplicidade |
+| Complexo | Intuitivo e rápido |
+| Lento | Atualizações ágeis |
+
+---
+
+## Próximos Passos
+
+Continue explorando:
+
+- [Go-to-Market](./go-to-market) - Estratégia de entrada
+- [BM Canvas](./bmc-canvas) - Modelo de negócio
+- [Personas](./personas) - Perfis de clientes
+
+---
+
+## Referências
+
+- **Análise de Mercado** - Dados internos
+- **Benchmark Concorrentes** - Pesquisa detalhada
+- **WorkConnect** - Diferenciação estratégica

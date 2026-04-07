@@ -1,0 +1,95 @@
+name: Complete CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  quality-controls:
+    name: Quality Controls
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run Type Checking
+        run: npm run typecheck
+
+      - name: Run Playwright Tests
+        run: |
+          npx playwright install --with-deps
+          npm run screenshots-headless
+
+  deploy:
+    name: Deploy to Netlify
+    needs: quality-controls
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js App
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: Deploy to Netlify Production
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --prod --dir=.next --site=${{ secrets.NETLIFY_SITE_ID }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+  deploy-docs:
+    name: Deploy Docs to Netlify
+    needs: quality-controls
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd documentation && npm install
+
+      - name: Build Docusaurus
+        run: npm run docs:build
+
+      - name: Deploy Docs to Netlify Production
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --prod --dir=documentation/build --site=${{ secrets.NETLIFY_SITE_ID_DOCS }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

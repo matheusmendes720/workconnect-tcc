@@ -9,6 +9,7 @@
     "test": "next lint",
     "start": "next start",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit",
     "serve": "node scripts/server/server.js 3001",
     "setup": "powershell -ExecutionPolicy Bypass -File scripts/setup/create-structure.ps1",
     "migrate": "powershell -ExecutionPolicy Bypass -File scripts/setup/migrate-files.ps1",

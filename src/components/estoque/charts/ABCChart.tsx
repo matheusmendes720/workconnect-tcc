@@ -45,7 +45,7 @@ export const ABCChart = React.memo(function ABCChart({ abcAnalysis, className = 
     return {
       labels: items.map((item) => {
         // Truncate long names
-        const name = item.produto?.nome || item.nome || 'Sem Nome'; // handle fallback with null check
+        const name = item.produto?.nome || (item as any).nome || 'Sem Nome'; // handle fallback with null check
         return name.length > 20 ? name.substring(0, 20) + '...' : name;
       }),
       datasets: [
@@ -106,10 +106,10 @@ export const ABCChart = React.memo(function ABCChart({ abcAnalysis, className = 
           title: (context) => {
             const idx = context[0].dataIndex;
             const item = chartData.originalItems[idx];
-            return `${idx + 1}. ${(item.produto?.nome || item.nome)}`;
+            return `${idx + 1}. ${(item.produto?.nome || (item as any).nome || 'Sem Nome')}`;
           },
           label: (context) => {
-            const value = context.parsed.x;
+            const value = context.parsed.x || 0;
             return `💰 Valor: R$ ${value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
           },
           afterLabel: (context) => {

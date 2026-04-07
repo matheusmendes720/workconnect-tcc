@@ -343,7 +343,7 @@ export const DashboardTab = React.memo(function DashboardTab({
           </div>
           <div className="chart-wrapper">
             {insights?.categoryDistribution ? (
-              <CategoryValueChart categoryDistribution={insights.categoryDistribution} />
+              <CategoryValueChart metrics={insights.categoryDistribution} />
             ) : (
               <div className="flex items-center justify-center h-full text-gray-500"><p>Dados não disponíveis</p></div>
             )}

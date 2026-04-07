@@ -44,7 +44,7 @@ export function ChartExport({
 
       const csvContent = [
         headers.join(','),
-        ...rows.map(row => row.join(','))
+        ...rows.map((row: any[]) => row.join(','))
       ].join('\n');
 
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });

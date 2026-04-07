@@ -578,6 +578,19 @@ export interface Permission {
 // NOTIFICATIONS
 // ============================================
 
+export interface AuditLog {
+  id: string;
+  timestamp: string;
+  action: string;
+  userId?: number | null;
+  userEmail?: string;
+  success: boolean;
+  details?: string;
+  ipAddress?: string;
+  userAgent?: string;
+  sessionId?: string;
+}
+
 export interface Notification {
   id: string;
   type: 'success' | 'error' | 'warning' | 'info';

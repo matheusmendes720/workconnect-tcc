@@ -1,7 +1,7 @@
 'use client'
 
 import React, { createContext, useContext, useEffect, useReducer, useState, ReactNode } from 'react'
-import { User, UserProfile, LoginCredentials, UserUpdateData, PasswordChangeData, LGPDConsent, AuditLog } from '../types/estoque'
+import { User, UserProfile, LoginCredentials, UserUpdateData, PasswordChangeData, LGPDConsent, AuthState, RegisterData } from '../types/estoque'
 import { PasswordUtils } from '../lib/security/passwordUtils'
 import { SecurityUtils } from '../lib/security/securityUtils'
 import { AuditTrail } from '../lib/audit/auditTrail'

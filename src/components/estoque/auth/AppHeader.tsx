@@ -11,7 +11,9 @@ import {
   BarChart3,
   Users,
   Settings,
-  Home
+  Home,
+  Globe,
+  BookOpen
 } from 'lucide-react'
 import { UserMenu } from './UserMenu'
 import { NotificationCenter } from '../ui/NotificationCenter'
@@ -42,6 +44,7 @@ export function AppHeader({
     { id: 'analytics', label: 'Análises', icon: BarChart3, href: '/dashboard?tab=relatorios' },
     { id: 'lp', label: 'Página Inicial', icon: Globe, href: '/lp' },
     { id: 'settings', label: 'Configurações', icon: Settings, href: '/configuracoes' },
+    { id: 'docs', label: 'Documentação', icon: BookOpen, href: 'https://workconnect-tcc-docs.netlify.app', external: true },
   ]
 
   const handleSearch = (query: string) => {
@@ -82,7 +85,13 @@ export function AppHeader({
               {navigationItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => window.location.href = item.href}
+                  onClick={() => {
+                    if (item.external) {
+                      window.open(item.href, '_blank', 'noopener,noreferrer')
+                    } else {
+                      window.location.href = item.href
+                    }
+                  }}
                   className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors"
                 >
                   <item.icon className="w-4 h-4" />
@@ -150,7 +159,13 @@ export function AppHeader({
             {navigationItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => window.location.href = item.href}
+                onClick={() => {
+                  if (item.external) {
+                    window.open(item.href, '_blank', 'noopener,noreferrer')
+                  } else {
+                    window.location.href = item.href
+                  }
+                }}
                 className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors whitespace-nowrap"
               >
                 <item.icon className="w-4 h-4" />

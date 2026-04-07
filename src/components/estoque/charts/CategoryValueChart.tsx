@@ -14,12 +14,12 @@ import {
   Legend,
   ChartOptions,
 } from 'chart.js';
-import type { CategoryMetrics } from '../../../types/estoque';
+import type { CategoryDistribution } from '../../../types/estoque';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export interface CategoryValueChartProps {
-  metrics: CategoryMetrics[];
+  metrics: CategoryDistribution[];
   className?: string;
 }
 
@@ -65,12 +65,12 @@ export const CategoryValueChart = React.memo(function CategoryValueChart({ metri
 
     if (!processMetrics || processMetrics.length === 0) {
       processMetrics = [
-        { categoriaNome: 'Eletrônicos', valorTotal: 45000, quantidadeTotal: 120, produtosAtivos: 10 },
-        { categoriaNome: 'Móveis', valorTotal: 28000, quantidadeTotal: 45, produtosAtivos: 8 },
-        { categoriaNome: 'Alimentos', valorTotal: 15000, quantidadeTotal: 400, produtosAtivos: 25 },
-        { categoriaNome: 'Limpeza', valorTotal: 8500, quantidadeTotal: 850, produtosAtivos: 15 },
-        { categoriaNome: 'Escritório', valorTotal: 5200, quantidadeTotal: 200, produtosAtivos: 12 },
-      ];
+        { categoria: { id: 1, nome: 'Eletrônicos', descricao: '', categoria_pai_id: null, ativo: true, data_criacao: '' }, valorTotal: 45000, quantidadeProdutos: 120, percentual: 45 },
+        { categoria: { id: 2, nome: 'Móveis', descricao: '', categoria_pai_id: null, ativo: true, data_criacao: '' }, valorTotal: 28000, quantidadeProdutos: 45, percentual: 28 },
+        { categoria: { id: 3, nome: 'Alimentos', descricao: '', categoria_pai_id: null, ativo: true, data_criacao: '' }, valorTotal: 15000, quantidadeProdutos: 400, percentual: 15 },
+        { categoria: { id: 4, nome: 'Limpeza', descricao: '', categoria_pai_id: null, ativo: true, data_criacao: '' }, valorTotal: 8500, quantidadeProdutos: 850, percentual: 8.5 },
+        { categoria: { id: 5, nome: 'Escritório', descricao: '', categoria_pai_id: null, ativo: true, data_criacao: '' }, valorTotal: 5200, quantidadeProdutos: 200, percentual: 5.2 },
+      ] as CategoryDistribution[];
     } else {
       processMetrics = [...metrics].sort((a, b) => b.valorTotal - a.valorTotal).slice(0, 6);
     }
@@ -95,7 +95,7 @@ export const CategoryValueChart = React.memo(function CategoryValueChart({ metri
     ];
 
     return {
-      labels: processMetrics.map((m) => m.categoriaNome),
+      labels: processMetrics.map((m) => m.categoria?.nome || 'Sem Nome'),
       datasets: [
         {
           data: processMetrics.map((m) => m.valorTotal),
@@ -153,7 +153,7 @@ export const CategoryValueChart = React.memo(function CategoryValueChart({ metri
             const metric = chartData.originalMetrics[context.dataIndex];
             return [
               ` Participação: ${percentage}%`,
-              ` Itens: ${metric.quantidadeTotal} un.`
+              ` Itens: ${metric.quantidadeProdutos} un.`
             ];
           },
         },

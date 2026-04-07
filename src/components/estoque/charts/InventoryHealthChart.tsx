@@ -126,10 +126,10 @@ export function InventoryHealthChart({
           backgroundColor: (context: any) => {
             const chart = context.chart;
             const { ctx, chartArea } = chart;
-            if (!chartArea) return ['rgba(0, 230, 118, 0.8)', 'rgba(255, 255, 255, 0.05)'];
+            if (!chartArea) return context.dataIndex === 0 ? 'rgba(0, 230, 118, 0.8)' : 'rgba(255, 255, 255, 0.05)';
             
-            // Only apply gradient to the first slice (the score)
-            // Need a radial gradient for the arc, but linear works okay for half-doughnuts if vertical
+            if (context.dataIndex === 1) return 'rgba(255, 255, 255, 0.04)';
+
             const gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
             
             if (score >= 80) {
@@ -146,7 +146,7 @@ export function InventoryHealthChart({
               gradient.addColorStop(1, 'rgba(255, 82, 82, 1)');
             }
 
-            return [gradient, 'rgba(255, 255, 255, 0.04)'];
+            return gradient;
           },
           borderWidth: 0,
           borderRadius: [10, 0], // Round the tip of the score arc
@@ -217,7 +217,7 @@ export function InventoryHealthChart({
       {/* Gauge Chart Area */}
       <div className="flex-1 min-h-[160px] relative flex justify-center items-end pb-4">
         <div className="absolute inset-0 max-h-[180px] mt-auto">
-          <Doughnut data={chartData} options={options} plugins={[gaugeTextPlugin]} />
+          <Doughnut data={chartData} options={options as any} plugins={[gaugeTextPlugin as any]} />
         </div>
       </div>
 
@@ -262,7 +262,7 @@ function HealthMetricCard({ icon, label, value, status }: { icon: React.ReactNod
   return (
     <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 transition-all hover:bg-white/10">
       <div className={`p-2 rounded-lg border ${statusColors[status]}`}>
-        {React.cloneElement(icon as React.ReactElement, { size: 16 })}
+        {React.cloneElement(icon as React.ReactElement, { size: 16 } as any)}
       </div>
       <div>
         <p className="text-[10px] uppercase tracking-wider text-white/50 font-semibold mb-0.5">{label}</p>

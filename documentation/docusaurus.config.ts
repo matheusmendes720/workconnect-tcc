@@ -11,7 +11,7 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://workconnect.example.com',
+  url: 'https://workconnect-tcc-docs.netlify.app',
   baseUrl: '/',
 
   organizationName: 'workconnect-team',

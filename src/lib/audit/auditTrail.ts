@@ -33,7 +33,8 @@ export class AuditTrail {
       details,
       ipAddress: ipAddress || this.getClientIP(),
       userAgent: userAgent || this.getUserAgent(),
-      sessionId: this.getSessionId()
+      sessionId: this.getSessionId(),
+      success: true
     }
 
     this.addLog(logEntry)
@@ -203,9 +204,9 @@ export class AuditTrail {
           log.userId,
           log.action,
           log.timestamp,
-          `"${log.details.replace(/"/g, '""')}"`, // Escape quotes
+          `"${(log.details || '').replace(/"/g, '""')}"`, // Escape quotes
           log.ipAddress,
-          `"${log.userAgent.replace(/"/g, '""')}"`,
+          `"${(log.userAgent || '').replace(/"/g, '""')}"`,
           log.sessionId
         ].join(','))
       ]
@@ -250,7 +251,9 @@ export class AuditTrail {
     
     this.logs.forEach(log => {
       logsByAction[log.action] = (logsByAction[log.action] || 0) + 1
-      logsByUser[log.userId] = (logsByUser[log.userId] || 0) + 1
+      if (log.userId != null) {
+        logsByUser[log.userId] = (logsByUser[log.userId] || 0) + 1
+      }
     })
 
     const recentActivity = this.logs

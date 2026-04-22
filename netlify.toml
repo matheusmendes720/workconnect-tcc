@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm run docs:sync:ci && npm run build"
   publish = ".next"
 
 [[plugins]]
@@ -7,9 +7,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  NEXT_USE_NETLIFY_EDGE = "true"
 
 [context.production]
   environment = { NODE_ENV = "production" }
-
-[context.deploy-preview]
-  command = "npm run lint && npm run build"

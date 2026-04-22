@@ -10,6 +10,7 @@ build/
 *.local
 .next/
 out/
+public/docs/
 app.old.vite/
 tsconfig.tsbuildinfo
 

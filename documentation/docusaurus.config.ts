@@ -11,18 +11,19 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://workconnect-tcc-docs.netlify.app',
-  baseUrl: '/',
+  url: 'https://workconnect-tcc.netlify.app',
+  baseUrl: '/docs/',
 
   organizationName: 'workconnect-team',
   projectName: 'workconnect-tcc',
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
 
   markdown: {
     mermaid: true,
-    hooks: {},
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
 
   i18n: {

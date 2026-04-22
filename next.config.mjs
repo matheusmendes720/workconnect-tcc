@@ -15,10 +15,21 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   // Turbopack configuration (Next.js 16+)
-  // Explicitly set project root to fix workspace detection issue
-  // This tells Next.js where to find the app directory (src/app/)
   turbopack: {
-    root: projectRoot, // Absolute path to project root
+    root: projectRoot,
+  },
+  // Serve Docusaurus documentation as a subpage
+  async rewrites() {
+    return [
+      {
+        source: '/docs',
+        destination: '/docs/index.html',
+      },
+      {
+        source: '/docs/:path*',
+        destination: '/docs/:path*',
+      },
+    ];
   },
 };
 

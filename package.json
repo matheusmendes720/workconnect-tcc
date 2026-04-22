@@ -21,7 +21,9 @@
     "docs:dev": "cd documentation && npm run start",
     "docs:build": "cd documentation && npm run build",
     "docs:serve": "cd documentation && npm run serve",
-    "docs:clear": "cd documentation && npm run clear"
+    "docs:clear": "cd documentation && npm run clear",
+    "docs:sync": "powershell -ExecutionPolicy Bypass -File scripts/setup/sync-docs.ps1",
+    "docs:sync:ci": "cd documentation && npm install && npm run build && cd .. && rm -rf public/docs && mkdir -p public/docs && cp -r documentation/build/* public/docs/"
   },
   "keywords": [
     "dashboard",

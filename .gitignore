@@ -14,6 +14,30 @@ public/docs/
 app.old.vite/
 tsconfig.tsbuildinfo
 
+# === Pitch build source files (presentation/pitch/build/) ===
+# Allow source files (HTML, scripts, JSON, text) but exclude generated artifacts.
+!presentation/pitch/build/
+!presentation/pitch/build/*.html
+!presentation/pitch/build/*.mjs
+!presentation/pitch/build/*.ps1
+!presentation/pitch/build/*.sh
+!presentation/pitch/build/*.json
+!presentation/pitch/build/*.txt
+!presentation/pitch/build/audio/
+!presentation/pitch/build/audio/*.txt
+# Generated audio/video outputs (regenerable via scripts)
+presentation/pitch/build/audio/*.mp3
+presentation/pitch/build/audio/*.wav
+presentation/pitch/build/exports/
+# Generated B-roll sources (raw downloads from Dreamina/MiniMax/Hailuo)
+presentation/pitch/build/exports/*.webm
+presentation/pitch/build/exports/*-raw.mp4
+presentation/pitch/build/exports/dreamina-*.mp4
+# Orphan generated B-roll at pitch root (re-create via Dreamina)
+presentation/pitch/dreamina-*.mp4
+# Generated intermediates and frames
+presentation/pitch/build/frames/
+
 # Environment variables
 .env
 .env.local

@@ -1,0 +1,166 @@
+VOICEOVER VARIAÇÃO A — CLÁSSICA
+=================================
+
+Tom: Institucional sóbrio. Consultor que já resolveu o problema
+duzentas vezes — não impressiona, convence.
+Voz sugerida: masculina 30-45 anos, grave, ritmo pausado.
+Pace alvo: 135 wpm (≈2,25 palavras/seg) com pausas dramáticas.
+Duração total alocada: 2:00 (120s). B-rolls e plots sem fala.
+Total cenas: 22 (5 cold + 4 b-rolls + 9 atos + 2 atos finais + 2 frames densos).
+
+────────────────────────────────────────────────────────────
+BLOCO 1 — COLD OPEN —"O CAOS"  (0:00 → 0:21) · 21s
+────────────────────────────────────────────────────────────
+
+[TC 0:00 — cena cold-01 — Estatística 1]
+Sessenta e oito por cento… das pequenas empresas…
+ainda controlam o estoque… em planilha.
+
+[TC 0:04 — cena cold-02 — Estatística 2]
+Dessas… mais da metade…
+já perdeu… a conta… do que tem… e do que não tem.
+
+[TC 0:08 — cena cold-03 — Estatística 3]
+E quarenta e dois por cento… perdem receita…
+todo mês. Só porque o produto… acabou.
+
+[TC 0:12 — cena cold-04 — Estatística 4]
+Vinte e três minutos… por dia…
+por operador… procurando um SKU…
+que poderia estar… a um clique.
+
+[TC 0:16 — cena cold-05 — Logo WorkConnect]
+Existe um jeito melhor. [pausa 600ms]
+WorkConnect. Gestão de estoque… inteligente.
+
+────────────────────────────────────────────────────────────
+BLOCO 2 — TOUR DE FEATURES  (0:21 → 1:07) · 46s
+────────────────────────────────────────────────────────────
+
+[TC 0:21 — cena br-01 — Data Stream · SEM FALA]
+[trilha sozinha por 4 segundos]
+
+[TC 0:25 — cena a1-dashboard — 5s]
+Tudo que importa — em uma tela.
+O que fazer primeiro… já está aqui.
+
+[TC 0:30 — cena a2-produtos — 4s]
+Cada produto. Quantidade. Mínimo. Status.
+Em uma linha.
+
+[TC 0:34 — cena a3-categorias — 3s]
+Capital por categoria — em um clique.
+
+[TC 0:37 — cena br-02 — Armazém Vivo · SEM FALA]
+[trilha sozinha por 5 segundos]
+
+[TC 0:42 — cena a4-fornecedores — 4s]
+Top entrega em cinco. Pior — em dez.
+Isso é prazo de produção.
+
+[TC 0:46 — cena a5-movs — 4s]
+Cada entrada. Cada saída. Cada NF —
+registrada com timestamp.
+
+[TC 0:50 — cena a6-alertas — 4s · PICO]
+Quatro críticos. Resolvidos em um clique.
+Fila por urgência — não por alfabeto.
+
+[TC 0:54 — cena a7-armazens — 4s]
+Sem superlotar um. Sem ocioso o outro.
+Cada pedido — no endereço certo.
+
+[TC 0:58 — cena a8-vencimentos — 4s]
+Vence amanhã — vendo hoje.
+Em vez de perder.
+
+[TC 1:02 — cena a9-relatorios — 5s]
+Em noventa dias — ruptura caiu oitenta por cento.
+Capital liberado. Quase dez mil.
+
+────────────────────────────────────────────────────────────
+BLOCO 3 — PLOT STORYTELLING  (1:07 → 1:17) · 10s
+────────────────────────────────────────────────────────────
+
+[TC 1:07 — cena plot-story — 10s · 4 plots cumulativos]
+
+(plot 1)
+Doze abaixo do mínimo — hoje, um.
+
+(plot 2)
+Dez mil reais — de volta ao caixa.
+
+(plot 3)
+Cada clique deixa rastro.
+
+(plot 4)
+Catorze horas livres — por semana.
+
+────────────────────────────────────────────────────────────
+BLOCO 4 — SELO LGPD  (1:17 → 1:36) · 19s
+────────────────────────────────────────────────────────────
+
+[TC 1:17 — cena br-03 — Pulso de Rede · SEM FALA]
+[trilha sozinha por 5 segundos]
+
+[TC 1:22 — cena ato4-03 — Selo LGPD — 8s]
+Cada acesso — registrado.
+Cada exportação — consentida.
+Você sabe quem viu o quê… quando.
+Isso vale ouro… numa auditoria.
+
+[TC 1:30 — cena br-04 — Cadeado/Selo · SEM FALA]
+[trilha sozinha por 6 segundos]
+
+────────────────────────────────────────────────────────────
+BLOCO 5 — ENDCARD  (1:36 → 2:00) · 24s
+────────────────────────────────────────────────────────────
+
+[TC 1:36 — cena ato5-02 — Endcard CTA — 24s]
+
+Porque governança…
+não é detalhe.
+É o chão de qualquer PME… que quer crescer.
+
+Quatorze horas por semana — é o que a burocracia devolve.
+Tempo de dono. Não de planilha.
+
+WorkConnect — a gestão de estoque
+que o seu negócio merece.
+Pensada para a realidade
+da pequena e média empresa brasileira.
+Conformidade LGPD… desde o primeiro clique.
+
+workconnect.app.br
+
+[pausa final 800ms — trilha fecha]
+
+════════════════════════════════════════════════════════════
+NOTAS TÉCNICAS DE GRAVAÇÃO — VARIAÇÃO A
+════════════════════════════════════════════════════════════
+
+Microfone: condenser cardioid, gain -6 dB, 48 kHz / 24-bit.
+Loudness alvo: -16 LUFS integrated, true peak -1.5 dBTP.
+
+Sinais de pausas usados:
+  |   = 200 ms (entre palavras)
+  ||  = 400 ms (antes de revelação numérica)
+  …   = 300-500 ms (ênfase / respiração)
+
+Dicas por cena-chave:
+  • cold-01: número primeiro, sem anteceder.
+  • cold-03: "acabou" com peso, pitch descendente.
+  • cold-04: "clique" final segurar 300 ms.
+  • cold-05: pausa ANTES de "WorkConnect" é intencional.
+  • a6-alertas (PICO): "clique" final com pitch ascendente (ação).
+  • ato4-selo: "ouro" segurar 500 ms antes de "auditoria".
+  • ato5-endcard: "sob controle" descendente firme, fim absoluto.
+
+Pace varia por bloco:
+  • Cold open: 130 wpm (calmo, autoritário)
+  • Tour: 140 wpm (eficiente, "rhythm of demo")
+  • Plot: 120 wpm (poético, baixa energia)
+  • Selo + endcard: 130 wpm (fecha como abriu — circular)
+
+Fim previsto da locução: 1:59.8 (sobra 200ms p/ trilha fechar).
+════════════════════════════════════════════════════════════

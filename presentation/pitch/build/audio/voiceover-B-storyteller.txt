@@ -1,0 +1,180 @@
+VOICEOVER VARIAÇÃO B — STORYTELLER
+====================================
+
+Tom: Humano, caloroso. Narrativa com personagem implícito
+(a Marina, dona de uma pequena distribuidora — não nomeamos).
+É a história que alguém tá contando pra você num café.
+Voz sugerida: feminina 30-40 anos, média, com vida e sorriso.
+Pace alvo: 130 wpm (≈2,15 palavras/seg) com pausas emotivas.
+Duração total alocada: 2:00 (120s).
+
+Foco emocional: COMO seria o dia-a-dia ANTES e DEPOIS do sistema.
+Diferente da variação A (que fala DO sistema), esta fala DA pessoa.
+
+────────────────────────────────────────────────────────────
+BLOCO 1 — COLD OPEN — "A SEMANA DELA" (0:00 → 0:21) · 21s
+────────────────────────────────────────────────────────────
+
+[TC 0:00 — cena cold-01 — Estatística 1]
+Era uma segunda de manhã. A Marina abriu a planilha —
+e a planilha já tinha três mil linhas desatualizadas.
+
+[TC 0:04 — cena cold-02 — Estatística 2]
+Ela ligou pro fornecedor… pra cancelar uma compra…
+de produto que ainda tinha… vinte caixas no fundo do estoque.
+
+[TC 0:08 — cena cold-03 — Estatística 3]
+E o pior — quarta-feira, faltou peça.
+O cliente foi embora.
+E ela ficou explicando… por que não tinha.
+
+[TC 0:12 — cena cold-04 — Estatística 4]
+Vinte e três minutos por dia,
+só caçando SKU numa coluna errada.
+Tempo que ela podia… ter usado pra crecer.
+
+[TC 0:16 — cena cold-05 — Logo]
+Até o dia em que ela testou… outra coisa.
+[pausa 600ms]
+WorkConnect.
+
+────────────────────────────────────────────────────────────
+BLOCO 2 — TOUR DE FEATURES (0:21 → 1:07) · 46s
+────────────────────────────────────────────────────────────
+
+[TC 0:21 — cena br-01 — Data Stream · SEM FALA]
+[trilha sozinha por 4 segundos]
+
+[TC 0:25 — cena a1-dashboard — 5s]
+Hoje, de manhã, ela abriu o painel.
+E num relance — viu o que importava.
+Sem caçar nada.
+
+[TC 0:30 — cena a2-produtos — 4s]
+Os produtos estão lá. Cada um.
+Na linha, com tudo que importa.
+
+[TC 0:34 — cena a3-categorias — 3s]
+Separou por categoria — e o capital apareceu.
+
+[TC 0:37 — cena br-02 — Armazém Vivo · SEM FALA]
+[trilha sozinha por 5 segundos]
+
+[TC 0:42 — cena a4-fornecedores — 4s]
+Os fornecedores — ela sabe quem entrega rápido.
+E quem promete e atrasa.
+
+[TC 0:46 — cena a5-movs — 4s]
+Cada movimento… registrado.
+Tudo com hora. Tudo com nome.
+
+[TC 0:50 — cena a6-alertas — 4s · PICO]
+E o melhor — os alertas na fila.
+Não no e-mail, não no WhatsApp.
+Ali… esperando ela decidir.
+
+[TC 0:54 — cena a7-armazens — 4s]
+Ela já redistribui o que precisa…
+sem encher um depósito… deixando outro vazio.
+
+[TC 0:58 — cena a8-vencimentos — 4s]
+Vence amanhã? Ela vê hoje.
+E vende. Não perde.
+
+[TC 1:02 — cena a9-relatorios — 5s]
+Quatro relatórios. Ela entende em cinco minutos.
+Não precisa abrir vinte abas.
+
+────────────────────────────────────────────────────────────
+BLOCO 3 — PLOT STORYTELLING (1:07 → 1:17) · 10s
+────────────────────────────────────────────────────────────
+
+[TC 1:07 — cena plot-story — 10s]
+
+(ela mede o que importava)
+Antes — doze itens críticos. Hoje — um.
+
+(devolveu capital)
+Nove mil e oitocentos… voltaram pro caixa.
+
+(compliance que ela não sabia que precisava)
+Hoje ela sabe — quem viu o quê.
+
+(o tempo que ela reaviu)
+Catorze horas por semana. Voltaram pra ela.
+
+────────────────────────────────────────────────────────────
+BLOCO 4 — SELO LGPD (1:17 → 1:36) · 19s
+────────────────────────────────────────────────────────────
+
+[TC 1:17 — cena br-03 — Pulso de Rede · SEM FALA]
+[trilha sozinha por 5 segundos]
+
+[TC 1:22 — cena ato4-03 — Selo LGPD — 8s]
+O melhor de tudo?
+Quando o auditor pediu o relatório de acesso,
+ela abriu a tela… e mostrou.
+Em dois cliques. Sem planilha. Sem e-mail.
+
+[TC 1:30 — cena br-04 — Cadeado/Selo · SEM FALA]
+[trilha sozinha por 6 segundos]
+
+────────────────────────────────────────────────────────────
+BLOCO 5 — ENDCARD (1:36 → 2:00) · 24s
+────────────────────────────────────────────────────────────
+
+[TC 1:36 — cena ato5-02 — Endcard CTA — 24s]
+
+A Marina… não voltou a usar planilha.
+
+E nem voltou a perder cliente por falta de peça.
+Nem passou mais uma noite…
+refazendo o que o sistema já fazia por ela.
+
+Hoje — ela tá expandindo.
+Abrindo a segunda loja.
+Com a mesma paz.
+
+Você é pequena ou média empresa?
+E tá deixando dinheiro… em planilha?
+
+[pausa]
+
+WorkConnect.
+A gestão de estoque… que devolve tempo.
+E capital. E cliente.
+
+workconnect.app.br
+
+[pausa final 800ms — trilha fecha com leve "respiro"]
+
+════════════════════════════════════════════════════════════
+NOTAS TÉCNICAS DE GRAVAÇÃO — VARIAÇÃO B
+════════════════════════════════════════════════════════════
+
+Microfone: condenser cardioid, gain -6 dB, 48 kHz / 24-bit.
+Loudness alvo: -16 LUFS integrated, true peak -1.5 dBTP.
+
+Direção de acting (essencial pra esta variação):
+  • Nunca soe como vendedor. Soe como AMIGA explicando.
+  • "A Marina" é uma pessoa real pra você, não personagem.
+  • Use microvariação de pitch — não leia, narre.
+  • Sorria ao dizer "WorkConnect" e "workconnect.app.br".
+  • Nas pausas (|), deixe o ouvinte sentir o que você tá dizendo.
+
+Pace varia por bloco:
+  • Cold open: 120 wpm (devagar, evocativo, "memória")
+  • Tour: 145 wpm (energia leve, descoberta)
+  • Plot: 115 wpm (mais lento que o resto, respiro)
+  • Selo + endcard: 125 wpm (humaniza o CTA — não é jingle)
+
+Sinais de pausas usados:
+  |   = 180-250 ms
+  ||  = 350-450 ms
+  …   = "respiro dramático" — duração a critério do locutor
+
+CRÍTICO: a Marina nunca é nomeada de forma expositiva.
+Ela aparece como "ela" — pra audiencia construir mentalmente.
+
+Fim previsto da locução: 1:58 (2s sobra p/ trilha fechar).
+════════════════════════════════════════════════════════════

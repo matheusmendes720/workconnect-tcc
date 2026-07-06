@@ -1,0 +1,54 @@
+{
+  "$comment": "Edit Decision List — WorkConnect Pitch v3 (2:00). 22 cenas: 5 cold + 4 B-rolls + 9 frames densos (A1..A9) + 1 PLOT cumulativo + 2 atos finais (selo + endcard) + 1 br-04.",
+  "project": {
+    "name": "WorkConnect Pitch v3",
+    "resolution": { "w": 1920, "h": 1080 },
+    "fps": 30,
+    "duration_s": 120,
+    "audio": {
+      "voice": "build/audio/voice.mp3",
+      "track": "build/audio/track.mp3",
+      "lufs_target": -16
+    }
+  },
+  "scenes": [
+    { "id": "cold-01",     "start": 0,   "duration": 4,  "type": "stat",     "transition_in": "fade", "transition_out": "fade", "label": "Estatística 1" },
+    { "id": "cold-02",     "start": 4,   "duration": 4,  "type": "stat",     "transition_in": "fade", "transition_out": "fade", "label": "Estatística 2" },
+    { "id": "cold-03",     "start": 8,   "duration": 4,  "type": "stat",     "transition_in": "fade", "transition_out": "fade", "label": "Estatística 3" },
+    { "id": "cold-04",     "start": 12,  "duration": 4,  "type": "stat",     "transition_in": "fade", "transition_out": "fade", "label": "Estatística 4" },
+    { "id": "cold-05",     "start": 16,  "duration": 5,  "type": "logo",     "transition_in": "fade", "transition_out": "cross-dissolve" },
+    { "id": "br-01",       "start": 21,  "duration": 4,  "type": "broll",    "transition_in": "cross-dissolve", "transition_out": "cross-dissolve", "label": "Data Stream" },
+    { "id": "a1-dashboard","start": 25,  "duration": 5,  "type": "frame",    "transition_in": "cross-dissolve", "transition_out": "fade", "label": "Dashboard denso" },
+    { "id": "a2-produtos", "start": 30,  "duration": 4,  "type": "frame",    "transition_in": "fade", "transition_out": "fade", "label": "Produtos — Catálogo" },
+    { "id": "a3-categorias","start": 34, "duration": 3,  "type": "frame",    "transition_in": "fade", "transition_out": "fade", "label": "Categorias — Organização" },
+    { "id": "br-02",       "start": 37,  "duration": 5,  "type": "broll",    "transition_in": "fade", "transition_out": "cross-dissolve", "label": "Armazém Vivo" },
+    { "id": "a4-fornecedores","start": 42, "duration": 4, "type": "frame",   "transition_in": "cross-dissolve", "transition_out": "fade", "label": "Fornecedores — Ranking" },
+    { "id": "a5-movs",     "start": 46,  "duration": 4,  "type": "frame",    "transition_in": "fade", "transition_out": "fade", "label": "Movimentações" },
+    { "id": "a6-alertas",  "start": 50,  "duration": 4,  "type": "frame",    "transition_in": "fade", "transition_out": "fade", "label": "Alertas — PICO" },
+    { "id": "a7-armazens", "start": 54,  "duration": 4,  "type": "frame",    "transition_in": "fade", "transition_out": "fade", "label": "Armazéns — Locais" },
+    { "id": "a8-vencimentos","start": 58, "duration": 4, "type": "frame",    "transition_in": "fade", "transition_out": "fade", "label": "Vencimentos — Prazos" },
+    { "id": "a9-relatorios","start": 62, "duration": 5,  "type": "frame",   "transition_in": "fade", "transition_out": "fade", "label": "Relatórios" },
+    { "id": "plot-story",  "start": 67,  "duration": 10, "type": "plot",     "transition_in": "fade", "transition_out": "fade", "label": "Storytelling — 4 plots cumulativos" },
+    { "id": "br-03",       "start": 77,  "duration": 5,  "type": "broll",    "transition_in": "fade", "transition_out": "cross-dissolve", "label": "Pulso de Rede" },
+    { "id": "ato4-selo",   "start": 82,  "duration": 8,  "type": "seal",     "transition_in": "cross-dissolve", "transition_out": "fade-to-black", "label": "Selo LGPD" },
+    { "id": "br-04",       "start": 90,  "duration": 6,  "type": "broll",    "transition_in": "fade-to-black", "transition_out": "cross-dissolve", "label": "Cadeado/Selo" },
+    { "id": "ato5-endcard","start": 96,  "duration": 24, "type": "endcard",  "transition_in": "cross-dissolve", "transition_out": "fade-to-black", "label": "Endcard — CTA" }
+  ],
+  "transitions_legend": {
+    "fade": "300 ms in/out",
+    "cross-dissolve": "400 ms",
+    "fade-to-black": "500 ms + scale-in do próximo"
+  },
+  "totals_check": {
+    "cenas": 21,
+    "duration_s": 120,
+    "breakdown": {
+      "cold_open": "21s (5 cenas)",
+      "tour_features": "37s (9 cenas A1..A9)",
+      "plot_cumulativo": "10s (1 cena)",
+      "selo_lgpd": "8s (1 cena)",
+      "endcard_cta": "24s (1 cena)",
+      "b_rolls": "20s (4 cenas)"
+    }
+  }
+}

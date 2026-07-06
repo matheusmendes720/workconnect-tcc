@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, initial-scale=1" />
+<title>WorkConnect — Pitch Cinematográfico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --gold: #ffd54f;
+    --gold-soft: rgba(255, 213, 79, 0.85);
+    --red: #ff5252;
+    --green: #00e676;
+    --orange: #ff9100;
+    --gray: #374151;
+    --gray-light: #9ca3af;
+    --gray-soft: rgba(156, 163, 175, 0.5);
+    --panel: #111111;
+    --panel-2: #1a1a1a;
+    --border: rgba(255, 255, 255, 0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    background: var(--bg);
+    color: #fff;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow: hidden;
+    cursor: none;
+  }
+  #stage {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    perspective: 1200px;
+  }
+  .scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 800ms ease-in-out;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .scene.active {
+    opacity: 1;
+  }
+  /* ---------- COLD OPEN ---------- */
+  .stat-screen {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    padding: 0 80px;
+    max-width: 1500px;
+  }
+  .stat-screen .number {
+    font-size: 220px;
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1;
+    letter-spacing: -4px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 80px rgba(255, 82, 82, 0.3);
+  }
+  .stat-screen .percent { color: var(--red); }
+  .stat-screen .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #f3f4f6;
+    line-height: 1.45;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .stat-screen .label .accent { color: var(--gold); font-weight: 600; }
+  /* ---------- LOGO ---------- */
+  .logo-screen {
+    flex-direction: column;
+    gap: 32px;
+    background: radial-gradient(circle at 50% 50%, #1a1500 0%, #0a0a0a 60%);
+  }
+  .logo-mark {
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid var(--gold);
+    border-radius: 48px;
+    box-shadow: 0 0 120px rgba(255, 213, 79, 0.4);
+    animation: logoIn 1.6s ease-out;
+  }
+  .logo-mark .dot {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 60px var(--gold);
+  }
+  .logo-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 120px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: -2px;
+    text-shadow: 0 0 60px rgba(255, 213, 79, 0.25);
+  }
+  .logo-sub {
+    font-size: 28px;
+    color: var(--gray-light);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+  }
+  @keyframes logoIn {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  /* ---------- DASHBOARD MOCK ---------- */
+  .dash {
+    width: 100%;
+    height: 100%;
+    padding: 60px 80px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 32px;
+  }
+  .dash-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+  }
+  .dash-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .dash-sub {
+    font-size: 22px;
+    color: var(--gray-light);
+    margin-top: 6px;
+  }
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px;
+    background: rgba(0, 230, 118, 0.12);
+    border: 1px solid var(--green);
+    border-radius: 24px;
+    color: var(--green);
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .live-badge .dot {
+    width: 12px;
+    height: 12px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 14px var(--green);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.85); }
+  }
+  /* hero metrics */
+  .hero-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  .hero {
+    background: linear-gradient(160deg, var(--panel) 0%, var(--panel-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--accent, var(--gold));
+    box-shadow: 0 0 24px var(--accent, var(--gold));
+  }
+  .hero.crit { --accent: var(--red); }
+  .hero.ok { --accent: var(--green); }
+  .hero.warn { --accent: var(--orange); }
+  .hero.live { --accent: var(--gold); }
+  .hero-label {
+    font-size: 18px;
+    color: var(--gray-light);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+  }
+  .hero-value {
+    font-family: 'Poppins', sans-serif;
+    font-size: 92px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--accent, var(--gold));
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 18px;
+    color: var(--gray-light);
+  }
+  .spark {
+    width: 100%;
+    height: 48px;
+  }
+  /* chart mock */
+  .chart-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .chart-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .chart-area {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    padding: 24px 8px 8px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .bar {
+    flex: 1;
+    background: linear-gradient(180deg, var(--gold) 0%, rgba(255, 213, 79, 0.4) 100%);
+    border-radius: 6px 6px 0 0;
+    min-height: 8px;
+    position: relative;
+  }
+  .bar.b { background: linear-gradient(180deg, var(--orange) 0%, rgba(255, 145, 0, 0.4) 100%); }
+  .bar.c { background: linear-gradient(180deg, #6b7280 0%, rgba(107, 114, 128, 0.4) 100%); }
+  .pareto-line {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 60%;
+    pointer-events: none;
+  }
+  /* alerts grid */
+  .alerts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 100%;
+    padding: 60px 80px;
+  }
+  .alert {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--gray);
+    border-radius: 12px;
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 24px;
+  }
+  .alert.urg { border-left-color: var(--red); }
+  .alert.alt { border-left-color: var(--orange); }
+  .alert.med { border-left-color: #facc15; }
+  .alert.chk { border-left-color: var(--green); }
+  .alert-check {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--gray);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+    font-size: 24px;
+  }
+  .alert-check.checked {
+    border-color: var(--green);
+    background: rgba(0, 230, 118, 0.1);
+  }
+  .alert-text .ttl {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .alert-text .sub {
+    font-size: 16px;
+    color: var(--gray-light);
+    margin-top: 4px;
+  }
+  .alert-tag {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+  .alert-tag.urg { background: rgba(255, 82, 82, 0.16); color: var(--red); }
+  .alert-tag.alt { background: rgba(255, 145, 0, 0.16); color: var(--orange); }
+  .alert-tag.med { background: rgba(250, 204, 21, 0.16); color: #facc15; }
+  /* toast */
+  .toast {
+    position: absolute;
+    bottom: 60px;
+    right: 80px;
+    background: rgba(0, 230, 118, 0.12);
+    border: 1px solid var(--green);
+    color: var(--green);
+    padding: 18px 28px;
+    border-radius: 14px;
+    font-size: 22px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    animation: toastIn 0.6s ease-out;
+  }
+  @keyframes toastIn {
+    from { transform: translateX(80px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  /* supplier bars */
+  .supplier-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+  .supplier {
+    display: grid;
+    grid-template-columns: 320px 1fr 220px 120px;
+    align-items: center;
+    gap: 32px;
+    padding: 22px 28px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .supplier.bad {
+    border-color: var(--red);
+    box-shadow: 0 0 30px rgba(255, 82, 82, 0.25);
+  }
+  .supplier .name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .supplier .bar-track {
+    height: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+  }
+  .supplier .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--orange));
+    border-radius: 999px;
+  }
+  .supplier .bar-fill.bad {
+    background: linear-gradient(90deg, var(--red), #b91c1c);
+  }
+  .supplier .meta {
+    font-size: 18px;
+    color: var(--gray-light);
+  }
+  .supplier .stars {
+    color: var(--gold);
+    font-size: 22px;
+    letter-spacing: 2px;
+  }
+  .supplier .stars.bad { color: var(--red); }
+  /* login */
+  .login {
+    width: 700px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .login h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 42px;
+    color: #fff;
+  }
+  .login .sub {
+    color: var(--gray-light);
+    font-size: 18px;
+  }
+  .login .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .login .field label {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray-light);
+  }
+  .login .field .box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 18px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .login .field .box.filled { border-color: var(--gold); color: var(--gold); }
+  .login .btn {
+    margin-top: 12px;
+    background: var(--gold);
+    color: #000;
+    text-align: center;
+    padding: 18px;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+  }
+  /* LGPD seal */
+  .seal {
+    flex-direction: column;
+    gap: 28px;
+    background: radial-gradient(circle at 50% 50%, #1a1500 0%, #0a0a0a 60%);
+  }
+  .seal-mark {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 4px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 38px;
+    color: var(--gold);
+    text-align: center;
+    box-shadow: 0 0 100px rgba(255, 213, 79, 0.3);
+    animation: logoIn 1.6s ease-out;
+  }
+  .seal-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .seal-sub {
+    color: var(--gray-light);
+    font-size: 22px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  /* end card */
+  .endcard {
+    flex-direction: column;
+    text-align: center;
+    gap: 18px;
+  }
+  .endcard .big {
+    font-family: 'Poppins', sans-serif;
+    font-size: 110px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: -2px;
+  }
+  .endcard .line2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 36px;
+    color: #fff;
+    font-weight: 400;
+    max-width: 1400px;
+  }
+  .endcard .credits {
+    margin-top: 36px;
+    font-size: 22px;
+    color: var(--gray-light);
+    letter-spacing: 2px;
+  }
+  /* watermark */
+  .watermark {
+    position: absolute;
+    right: 32px;
+    bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.45);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+  .watermark .dot {
+    width: 10px;
+    height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--gold);
+  }
+  /* typewriter */
+  .typewriter .label {
+    border-right: 2px solid var(--gold);
+    animation: caret 0.8s steps(2) infinite;
+  }
+  @keyframes caret {
+    50% { border-color: transparent; }
+  }
+  /* progressive focus */
+  .focus-ring {
+    outline: 4px solid var(--gold);
+    outline-offset: 12px;
+    border-radius: 16px;
+  }
+  .focus-ring.red {
+    outline-color: var(--red);
+  }
+  /* utility */
+  .wipe {
+    position: absolute;
+    inset: 0;
+    background: #0a0a0a;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .wipe.on { animation: wipeIn 600ms ease-out forwards; }
+  @keyframes wipeIn {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  .center { display:flex; align-items:center; justify-content:center; }
+  .col { flex-direction: column; gap: 24px; }
+  .stage-label {
+    position: absolute;
+    top: 32px;
+    left: 60px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .stage-label .accent { color: var(--gray-light); margin-left: 12px; }
+
+  /* ===== B-ROLL base ===== */
+  .scene.broll { background: radial-gradient(ellipse at center, #1a1500 0%, var(--bg) 70%); }
+  .scene.broll::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* BR-01 — Data Stream (80 barras + onda) */
+  .br01-bars rect { transform-origin: bottom; animation: br01-grow 0.9s ease-out both; }
+  @keyframes br01-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  .br01-wave { stroke-dasharray: 2400; stroke-dashoffset: 2400; animation: br01-wave 3s ease-in-out 0.3s forwards; }
+  @keyframes br01-wave { to { stroke-dashoffset: 0; } }
+
+  /* BR-02 — Armazém Vivo (grid 6×14) */
+  .br02-grid {
+    position: absolute; inset: 0; margin: auto;
+    width: min(1500px, 78vw); height: min(880px, 82vh);
+    display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: repeat(6, 1fr);
+    gap: 14px; transform: scale(1); animation: br02-kenburns 5s ease-in-out forwards;
+  }
+  @keyframes br02-kenburns { from { transform: scale(1); } to { transform: scale(1.08); } }
+  .br02-cell {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    transition: background 200ms;
+  }
+  .br02-cell.gold { border: 2px solid var(--gold); box-shadow: 0 0 24px rgba(255,213,79,0.55); animation: br02-pulse-gold 2s ease-in-out infinite; }
+  .br02-cell.red  { border: 2px solid var(--red);  box-shadow: 0 0 28px rgba(255,82,82,0.7);  animation: br02-pulse-red 1.2s ease-in-out infinite; }
+  @keyframes br02-pulse-gold { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+  @keyframes br02-pulse-red  { 0%,100% { transform: scale(1); box-shadow: 0 0 24px rgba(255,82,82,0.6);} 50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(255,82,82,0.9);} }
+
+  /* BR-03 — Pulso de Rede */
+  .br03-svg { animation: br03-rotate 5s ease-in-out forwards; transform-origin: center; }
+  @keyframes br03-rotate { from { transform: rotate(0deg); } to { transform: rotate(2deg); } }
+  .br03-node { fill: var(--gray-light); stroke: var(--bg); stroke-width: 3; }
+  .br03-node.gold { fill: var(--gold); filter: drop-shadow(0 0 12px rgba(255,213,79,0.7)); }
+  .br03-node.green { fill: var(--green); filter: drop-shadow(0 0 14px rgba(0,230,118,0.7)); }
+  .br03-link { stroke: rgba(255,213,79,0.35); stroke-width: 1.4; }
+  .br03-pulse { fill: none; stroke: var(--gold); stroke-width: 2; transform-origin: center; opacity: 0; animation: br03-pulse 2.6s ease-out infinite; }
+  @keyframes br03-pulse {
+    0%   { transform: scale(0.4); opacity: 0.9; }
+    100% { transform: scale(2.6); opacity: 0; }
+  }
+
+  /* BR-04 — Cadeado/Selo */
+  .br04-center {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 36px;
+  }
+  .br04-shield { filter: drop-shadow(0 0 30px rgba(255,213,79,0.5)); animation: br04-zoom 1s ease-out forwards; transform-origin: center; }
+  @keyframes br04-zoom { from { transform: scale(0); } to { transform: scale(1); } }
+  .br04-sub {
+    font-family: 'Inter', sans-serif; font-size: 18px;
+    color: var(--gray-light); letter-spacing: 6px; text-transform: uppercase;
+    opacity: 0; animation: br04-fadein 1.2s ease-out 0.6s forwards;
+  }
+  @keyframes br04-fadein { to { opacity: 0.85; } }
+  .br04-ticks { position: absolute; inset: 0; pointer-events: none; }
+  .br04-ticks span {
+    position: absolute; left: 50%; top: 50%;
+    font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 700;
+    color: var(--gold); opacity: 0;
+    animation: br04-tick 1.4s ease-out forwards;
+  }
+  .br04-ticks span:nth-child(1) { animation-delay: 0.2s; }
+  .br04-ticks span:nth-child(2) { animation-delay: 0.3s; }
+  .br04-ticks span:nth-child(3) { animation-delay: 0.4s; }
+  .br04-ticks span:nth-child(4) { animation-delay: 0.5s; }
+  .br04-ticks span:nth-child(5) { animation-delay: 0.6s; }
+  .br04-ticks span:nth-child(6) { animation-delay: 0.7s; }
+  @keyframes br04-tick {
+    from { transform: translate(-50%,-50%) translate(var(--tx),var(--ty)) scale(1.4); opacity: 0; }
+    to   { transform: translate(-50%,-50%) translate(calc(var(--tx) * 0.4), calc(var(--ty) * 0.4)) scale(1); opacity: 0.9; }
+  }
+
+  /* =================================================================
+     FRAMES DENSOS — 9 features + plot cumulativo (A1..A9 + PLOT)
+     ================================================================= */
+  /* Usa vars já definidos no :root global
+     (--bg --gold --red --green --orange --gray-light --panel etc.) */
+
+  /* Scene que contém .frame-head ocupa o canvas todo com padding */
+  .scene:has(.frame-head),
+  .scene:has(.plot-grid),
+  .scene:has(.table-card),
+  .scene:has(.sup-table) {
+    display: block;
+    padding: 36px 0 24px;
+  }
+
+  /* cabeçalho padrão de cada frame denso */
+  .frame-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    padding: 30px 60px 18px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 18px;
+  }
+  .frame-title {
+    font-family: var(--font-display, 'Poppins', sans-serif); font-weight: 700;
+    font-size: 34px; color: var(--gold); margin-bottom: 4px; line-height: 1.1;
+  }
+  .frame-sub {
+    font-family: var(--font-body, 'Inter', sans-serif); font-size: 16px; color: var(--gray-light);
+  }
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 14px; color: var(--gray-light);
+    padding: 6px 14px; border-radius: 999px; background: rgba(0, 230, 118, 0.08);
+    border: 1px solid rgba(0,230,118,0.3);
+  }
+  .live-badge .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 8px var(--green); animation: blink 1.4s infinite;
+  }
+  @keyframes blink { 50% { opacity: 0.3; } }
+
+  /* layout 60/40 genérico */
+  .frame-6040 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; padding: 0 60px; }
+  .frame-4060 { display: grid; grid-template-columns: 1fr 1.5fr; gap: 24px; padding: 0 60px; }
+
+  /* A1 — Dashboard denso */
+  .metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+  .metric {
+    background: var(--panel); border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px; padding: 14px 18px;
+  }
+  .metric.crit { border-left: 3px solid var(--red); }
+  .metric.warn { border-left: 3px solid var(--orange); }
+  .metric.ok   { border-left: 3px solid var(--green); }
+  .metric.live { border-left: 3px solid var(--gold); }
+  .m-label { font-size: 12px; color: var(--gray-light); text-transform: uppercase; letter-spacing: 0.05em; }
+  .m-val { font-family: var(--font-display, 'Poppins', sans-serif); font-weight: 800; font-size: 32px; color: #fff; line-height: 1.1; margin: 4px 0; }
+  .m-meta { font-size: 12px; color: var(--gray-light); }
+  .m-meta b { color: var(--green); }
+  .m-meta.down b { color: var(--red); }
+
+  .spark-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+  .spark-card { background: var(--panel); border-radius: 12px; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.05); }
+  .sc-label { font-size: 12px; color: var(--gray-light); text-transform: uppercase; }
+  .sc-val { font-family: var(--font-display, 'Poppins', sans-serif); font-weight: 700; font-size: 18px; color: #fff; }
+  .spark-svg { width: 100%; height: 50px; display: block; margin-top: 6px; }
+
+  .mini-abc {
+    background: var(--panel); border-radius: 12px; padding: 16px 18px; border: 1px solid rgba(255,255,255,0.05);
+  }
+  .abc-label { font-size: 13px; color: var(--gray-light); margin-bottom: 8px; }
+  .abc-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; }
+  .abc-a { background: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #1a1a1a; }
+  .abc-b { background: #6b7280; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #fff; }
+  .abc-c { background: #2a2a2a; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: var(--gray-light); }
+  .abc-legend { display: flex; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--gray-light); }
+
+  /* decision panel (lado direito) */
+  .decision-panel {
+    background: var(--panel); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 22px 24px; height: 100%;
+    display: flex; flex-direction: column;
+  }
+  .dp-title {
+    font-family: var(--font-display, 'Poppins', sans-serif); font-size: 14px;
+    color: var(--gold); letter-spacing: 0.1em; margin-bottom: 16px;
+  }
+  .dp-item {
+    display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    align-items: flex-start;
+  }
+  .dp-item:last-child { border-bottom: none; }
+  .dp-rank {
+    width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .dp-item.crit .dp-rank { background: rgba(255,82,82,0.15); color: var(--red); }
+  .dp-item.alt .dp-rank { background: rgba(255,209,79,0.15); color: var(--gold); }
+  .dp-text { flex: 1; }
+  .dp-text b { font-size: 16px; color: #fff; display: block; margin-bottom: 2px; }
+  .dp-text span { font-size: 13px; color: var(--gray-light); }
+  .dp-meta { margin-top: 6px; font-size: 11px; color: var(--gray-light); font-family: monospace; }
+  .dp-tag {
+    flex-shrink: 0; font-size: 11px; padding: 4px 10px; border-radius: 999px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .dp-tag.crit { background: rgba(255,82,82,0.15); color: var(--red); }
+  .dp-tag.alt { background: rgba(255,209,79,0.15); color: var(--gold); }
+
+  /* A2 — Tabela densa de produtos */
+  .table-card {
+    background: var(--panel); border-radius: 14px; padding: 4px 0; margin: 0 60px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .t-head, .t-row { display: flex; padding: 14px 24px; align-items: center; }
+  .t-head { font-size: 11px; color: var(--gray-light); text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .t-row { font-size: 15px; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .t-row:last-child { border-bottom: none; }
+  .t-row.crit { background: rgba(255,82,82,0.04); }
+  .s-chip { font-size: 12px; padding: 4px 10px; border-radius: 6px; }
+  .s-chip.crit { background: rgba(255,82,82,0.18); color: var(--red); }
+  .s-chip.ok { background: rgba(0,230,118,0.12); color: var(--green); }
+  .s-chip.warn { background: rgba(255,145,0,0.12); color: var(--orange); }
+  .t-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 60px; color: var(--gray-light); font-size: 13px;
+  }
+  .t-foot-act { color: var(--gold); font-weight: 600; }
+
+  /* A3 — Categorias */
+  .tree-panel {
+    background: var(--panel); border-radius: 14px; padding: 22px 26px; border: 1px solid rgba(255,255,255,0.05);
+  }
+  .tree-node { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: default; }
+  .tree-node:last-child { border-bottom: none; }
+  .tree-node.active .t-label { color: var(--gold); }
+  .tree-node .t-label { font-weight: 700; font-size: 16px; color: #fff; margin-bottom: 4px; }
+  .tree-node .t-meta { font-size: 12px; color: var(--gray-light); margin-bottom: 8px; }
+  .tree-children { padding-left: 18px; margin-top: 8px; border-left: 1px solid rgba(255,255,255,0.06); }
+  .tree-leaf { font-size: 13px; color: #fff; padding: 4px 0; }
+  .cat-selected {
+    background: var(--panel); border-radius: 14px; padding: 24px 28px;
+    border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column;
+  }
+  .cs-title { font-family: var(--font-display, 'Poppins', sans-serif); font-size: 26px; color: var(--gold); margin-bottom: 4px; }
+  .cs-meta { font-size: 14px; color: var(--gray-light); margin-bottom: 18px; }
+  .cs-bar { display: flex; height: 22px; border-radius: 6px; overflow: hidden; margin-bottom: 18px; }
+  .cs-a { background: var(--gold); }
+  .cs-b { background: #6b7280; }
+  .cs-c { background: #2a2a2a; }
+  .cs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+  .cs-cell {
+    background: rgba(255,255,255,0.04); border-radius: 8px; padding: 12px 14px;
+    font-family: var(--font-display, 'Poppins', sans-serif); font-weight: 700;
+    color: #fff; text-align: center;
+  }
+  .cs-cell span { display: block; font-size: 11px; color: var(--gray-light); font-weight: 400; margin-top: 2px; }
+  .cs-extra { font-size: 13px; color: var(--gold); }
+
+  /* A4 — Fornecedores */
+  .sup-table {
+    background: var(--panel); border-radius: 14px; margin: 0 60px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .sup-row { display: flex; padding: 14px 24px; align-items: center; font-size: 15px; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .sup-row.head { font-size: 11px; color: var(--gray-light); text-transform: uppercase; letter-spacing: 0.08em; }
+  .sup-row.top { background: rgba(0,230,118,0.05); }
+  .sup-row.bad { background: rgba(255,82,82,0.07); }
+  .sup-bar { height: 14px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+  .sb { height: 100%; border-radius: 4px; }
+  .sb.ok { background: linear-gradient(90deg, var(--green), #00c853); }
+  .sb.warn { background: linear-gradient(90deg, var(--orange), #f57c00); }
+  .sb.bad { background: linear-gradient(90deg, var(--red), #c62828); }
+  .star { color: #ffd54f; font-weight: 700; }
+  .star.bad { color: var(--orange); }
+  .sup-spark {
+    display: flex; align-items: center; gap: 18px; padding: 22px 60px;
+    background: var(--panel); margin: 16px 60px 0; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .ss-label { font-size: 13px; color: var(--gray-light); }
+  .spark-svg-wide { flex: 1; height: 50px; }
+  .ss-delta { font-size: 14px; color: var(--green); font-weight: 700; }
+
+  /* A5 — Movs timeline */
+  .mov-feed { margin: 0 60px; background: var(--panel); border-radius: 14px; padding: 8px 0; border: 1px solid rgba(255,255,255,0.05); }
+  .mov-row {
+    display: flex; align-items: center; gap: 16px; padding: 14px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px;
+  }
+  .mov-row:last-child { border-bottom: none; }
+  .mov-time { font-family: monospace; color: var(--gray-light); width: 100px; font-size: 13px; }
+  .mov-icon {
+    width: 64px; height: 30px; border-radius: 6px; display: flex; align-items: center;
+    justify-content: center; font-weight: 800; font-size: 14px;
+  }
+  .mov-icon.in { background: rgba(0,230,118,0.15); color: var(--green); }
+  .mov-icon.out { background: rgba(255,82,82,0.15); color: var(--red); }
+  .mov-detail { flex: 1; color: #fff; }
+  .mov-detail b { color: var(--gold); }
+  .mov-tag {
+    font-size: 11px; padding: 4px 10px; border-radius: 6px; text-transform: uppercase;
+  }
+  .mov-tag.in { background: rgba(0,230,118,0.12); color: var(--green); }
+  .mov-tag.out { background: rgba(255,82,82,0.12); color: var(--red); }
+  .mov-spark { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 16px 60px 0; }
+  .ms-card {
+    background: var(--panel); border-radius: 10px; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.05);
+  }
+  .ms-label { font-size: 12px; color: var(--gray-light); text-transform: uppercase; margin-bottom: 6px; }
+
+  /* A6 — Alertas PICO */
+  .alerts-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 0 60px 14px;
+  }
+  .alert {
+    display: flex; gap: 14px; align-items: center; padding: 14px 18px;
+    background: var(--panel); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
+    border-left: 4px solid;
+  }
+  .alert.urg { border-left-color: var(--red); }
+  .alert.alt { border-left-color: var(--orange); }
+  .alert.med { border-left-color: #facc15; }
+  .alert-check {
+    width: 22px; height: 22px; border: 2px solid var(--gray-light); border-radius: 4px; flex-shrink: 0;
+  }
+  .alert-text { flex: 1; }
+  .alert-text .ttl { font-size: 15px; color: #fff; font-weight: 600; }
+  .alert-text .sub { font-size: 13px; color: var(--gray-light); margin-top: 2px; }
+  .alert-tag {
+    flex-shrink: 0; font-size: 11px; padding: 5px 12px; border-radius: 6px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .alert-tag.urg { background: rgba(255,82,82,0.18); color: var(--red); }
+  .alert-tag.alt { background: rgba(255,145,0,0.18); color: var(--orange); }
+  .alert-tag.med { background: rgba(250,204,21,0.18); color: #facc15; }
+  .bulk-bar {
+    margin: 6px 60px 0; padding: 14px 22px; background: rgba(255,213,79,0.06);
+    border: 1px solid rgba(255,213,79,0.25); border-radius: 12px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .bb-label { color: var(--gold); font-weight: 600; font-size: 14px; }
+  .bb-btn {
+    background: var(--gold); color: #1a1a1a; padding: 8px 18px;
+    border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer;
+  }
+  .bb-btn.ghost { background: transparent; color: var(--gray-light); border: 1px solid rgba(255,255,255,0.1); }
+  .bb-hint { font-size: 12px; color: var(--gray-light); margin-left: auto; font-style: italic; }
+
+  /* A7 — Armazéns */
+  .wh-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding: 0 60px;
+  }
+  .wh-card {
+    background: var(--panel); border-radius: 14px; padding: 22px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .wh-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .wh-name { font-weight: 700; font-size: 17px; color: #fff; }
+  .wh-cap { font-family: var(--font-display, 'Poppins', sans-serif); font-weight: 800; font-size: 26px; }
+  .wh-cap.ok { color: var(--green); }
+  .wh-cap.warn { color: var(--orange); }
+  .wh-bar { height: 12px; background: rgba(255,255,255,0.05); border-radius: 6px; overflow: hidden; margin-bottom: 10px; }
+  .wb { height: 100%; border-radius: 6px; }
+  .wb.ok { background: linear-gradient(90deg, var(--green), #00c853); }
+  .wb.warn { background: linear-gradient(90deg, var(--orange), #f57c00); }
+  .wh-meta {
+    display: flex; justify-content: space-between; font-size: 12px;
+    color: var(--gray-light); margin-bottom: 14px;
+  }
+  .wh-heat { display: grid; grid-template-columns: repeat(14, 1fr); gap: 3px; }
+  .wh-cell { aspect-ratio: 1; border-radius: 2px; }
+  .wh-cell.full { background: var(--gold); }
+  .wh-cell.mid { background: var(--orange); }
+  .wh-cell.empty { background: rgba(255,255,255,0.06); }
+  .heat-legend {
+    display: flex; align-items: center; gap: 24px; padding: 18px 60px 0;
+    font-size: 13px; color: var(--gray-light);
+  }
+  .hl-hint { margin-left: auto; color: var(--gold); }
+
+  /* A8 — Vencimentos */
+  .exp-list { padding: 0 60px; }
+  .exp-row {
+    display: flex; align-items: center; gap: 22px; padding: 14px 18px;
+    background: var(--panel); border-radius: 12px; margin-bottom: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .exp-day { display: flex; flex-direction: column; align-items: center; width: 70px; flex-shrink: 0; }
+  .day-num { font-family: var(--font-display, 'Poppins', sans-serif); font-weight: 800; font-size: 36px; color: #fff; line-height: 1; }
+  .day-label { font-size: 11px; color: var(--gray-light); text-transform: uppercase; }
+  .exp-bar { flex: 1; height: 12px; background: rgba(255,255,255,0.05); border-radius: 6px; overflow: hidden; }
+  .eb { height: 100%; border-radius: 6px; }
+  .eb.urg { background: linear-gradient(90deg, var(--red), #ff7b7b); }
+  .eb.alt { background: linear-gradient(90deg, var(--orange), #ffb74d); }
+  .eb.med { background: linear-gradient(90deg, #facc15, #ffe082); }
+  .eb.ok { background: linear-gradient(90deg, var(--green), #69f0ae); }
+  .exp-detail { flex: 1.5; }
+  .ed-lote { font-size: 15px; color: #fff; }
+  .ed-lote b { color: var(--gold); }
+  .ed-act { font-size: 13px; color: var(--gray-light); margin-top: 2px; }
+  .exp-day-amt {
+    font-family: var(--font-display, 'Poppins', sans-serif); font-weight: 700;
+    color: var(--gold); font-size: 18px; width: 120px; text-align: right; flex-shrink: 0;
+  }
+  .exp-footer {
+    display: flex; align-items: center; gap: 22px; padding: 18px 60px 0; font-size: 13px;
+    color: var(--gray-light);
+  }
+  .ef-stat b { font-weight: 700; }
+  .ef-hint { margin-left: auto; color: #fff; }
+  .ef-hint b { color: var(--gold); }
+
+  /* A9 — Relatórios */
+  .rep-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; padding: 0 60px; }
+  .rep-plot { background: var(--panel); border-radius: 14px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
+  .rep-svg { width: 100%; height: 380px; display: block; }
+  .rep-kpis { display: flex; flex-direction: column; gap: 10px; }
+  .rep-kpi {
+    background: var(--panel); border-radius: 12px; padding: 16px 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .rk-label { font-size: 11px; color: var(--gray-light); text-transform: uppercase; letter-spacing: 0.08em; }
+  .rk-val { font-family: var(--font-display, 'Poppins', sans-serif); font-weight: 800; font-size: 32px; line-height: 1.1; margin: 4px 0; }
+  .rk-val.crit { color: var(--red); }
+  .rk-val.ok { color: var(--green); }
+  .rk-meta { font-size: 12px; color: var(--gray-light); }
+  .rep-final {
+    background: rgba(255,213,79,0.08); border: 1px solid rgba(255,213,79,0.3);
+    border-radius: 12px; padding: 16px 20px; text-align: center;
+  }
+  .rf-line { font-family: var(--font-display, 'Poppins', sans-serif); font-size: 18px; color: #fff; }
+  .rf-line.gold { font-size: 22px; color: var(--gold); font-weight: 700; margin-top: 4px; }
+
+  /* PLOT — Cumulativo em 4 quadrantes */
+  .plot-cumulativo { padding-bottom: 30px; }
+  .plot-title {
+    text-align: center; font-family: var(--font-display, 'Poppins', sans-serif);
+    font-size: 26px; color: #fff; margin: 0 auto 24px; font-weight: 600;
+  }
+  .plot-title b { color: var(--gold); font-weight: 700; }
+  .plot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; padding: 0 60px; }
+  .plot-quad {
+    background: var(--panel); border-radius: 16px; padding: 24px 28px;
+    border: 1px solid rgba(255,255,255,0.07); opacity: 0; transform: translateY(20px);
+    animation: plotIn 0.6s forwards;
+  }
+  .plot-quad[data-plot="1"] { animation-delay: 0.4s; }
+  .plot-quad[data-plot="2"] { animation-delay: 2.4s; }
+  .plot-quad[data-plot="3"] { animation-delay: 4.4s; }
+  .plot-quad[data-plot="4"] { animation-delay: 6.4s; }
+  @keyframes plotIn { to { opacity: 1; transform: translateY(0); } }
+  .pq-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .pq-tag {
+    display: inline-block; font-size: 11px; padding: 5px 12px; border-radius: 6px;
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
+  }
+  .pq-tag.op { background: rgba(0,230,118,0.15); color: var(--green); }
+  .pq-tag.fin { background: rgba(255,213,79,0.15); color: var(--gold); }
+  .pq-tag.tech { background: rgba(96,165,250,0.15); color: #60a5fa; }
+  .pq-tag.org { background: rgba(255,145,0,0.15); color: var(--orange); }
+  .pq-num {
+    font-family: var(--font-display, 'Poppins', sans-serif); font-weight: 800;
+    font-size: 42px; color: #fff; line-height: 1.1; margin-bottom: 4px;
+  }
+  .pq-label { font-size: 14px; color: var(--gray-light); margin-bottom: 14px; }
+  .pq-svg { width: 100%; height: 80px; display: block; }
+  .pq-foot { font-size: 13px; color: #e5e7eb; line-height: 1.5; margin-top: 12px; }
+
+  /* dentro do plot cumulativo, animação das linhas */
+  .plot-quad[data-plot="1"] .pq-path { stroke-dasharray: 400; stroke-dashoffset: 400; animation: drawPath 1.5s 1s forwards; }
+  @keyframes drawPath { to { stroke-dashoffset: 0; } }
+
+  /* toast de sucesso do alerce (caso apareça em cenas) */
+  .toast-success {
+    position: absolute; top: 50px; right: 60px; background: rgba(0,230,118,0.12);
+    border: 1px solid var(--green); color: var(--green); padding: 10px 18px;
+    border-radius: 10px; font-size: 14px; font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- Watermark em todas as cenas -->
+  <div class="watermark"><span class="dot"></span>WorkConnect</div>
+
+  <!-- ===== COLD OPEN (0:00 – 0:25) ===== -->
+  <section class="scene" data-scene="cold-01" data-duration="4000">
+    <div class="stage-label">01 <span class="accent">O Caos</span></div>
+    <div class="stat-screen">
+      <div class="number"><span class="percent">68%</span></div>
+      <div class="label">
+        das PMEs controlam seu estoque em planilha —
+        <span class="accent">e perdem o sono por causa disso</span>.
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" data-scene="cold-02" data-duration="4000">
+    <div class="stage-label">01 <span class="accent">O Caos</span></div>
+    <div class="stat-screen">
+      <div class="number"><span class="percent">55%</span></div>
+      <div class="label">
+        dessas empresas têm divergência entre o estoque
+        <span class="accent">físico</span> e o
+        <span class="accent">registrado</span>.
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" data-scene="cold-03" data-duration="4000">
+    <div class="stage-label">01 <span class="accent">O Caos</span></div>
+    <div class="stat-screen">
+      <div class="number"><span class="percent">42%</span></div>
+      <div class="label">
+        perdem receita todo mês por
+        <span class="accent">ruptura de estoque</span>.
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" data-scene="cold-04" data-duration="4000">
+    <div class="stage-label">01 <span class="accent">O Caos</span></div>
+    <div class="stat-screen">
+      <div class="number" style="font-size:160px">23<span style="font-size:80px;color:var(--gray-light);margin-left:20px">min/dia</span></div>
+      <div class="label">
+        por operador, procurando um SKU que poderia estar a um clique.
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" data-scene="cold-05" data-duration="5000">
+    <div class="logo-screen center col">
+      <div class="logo-mark"><div class="dot"></div></div>
+      <div class="logo-name">WorkConnect</div>
+      <div class="logo-sub">Sistema de Gestão de Estoque Inteligente</div>
+    </div>
+  </section>
+
+  <!-- ===== A1 Dashboard denso (0:25 – 0:30 · 5s) ===== -->
+  <section class="scene" data-scene="a1-dashboard" data-duration="5000">
+    <div class="stage-label">A1 <span class="accent">Dashboard · Visão geral</span></div>
+    <div class="frame-head">
+      <div>
+        <div class="frame-title">Tudo que importa, em uma tela</div>
+        <div class="frame-sub">Atualizado em tempo real · 22 produtos · 4 categorias</div>
+      </div>
+      <div class="live-badge"><span class="dot"></span>Live</div>
+    </div>
+    <div class="frame-6040">
+      <div class="frame-left">
+        <div class="metric-row">
+          <div class="metric live"><div class="m-label">SKUs</div><div class="m-val">22</div><div class="m-meta">📈 ativos</div></div>
+          <div class="metric crit"><div class="m-label">Críticos</div><div class="m-val">5</div><div class="m-meta">📉 abaixo do mín</div></div>
+          <div class="metric ok"><div class="m-label">Valor</div><div class="m-val">R$ 8.842</div><div class="m-meta">📈 capital giro</div></div>
+          <div class="metric warn"><div class="m-label">Alertas</div><div class="m-val">6</div><div class="m-meta">📉 fila 24h</div></div>
+        </div>
+        <div class="spark-row">
+          <div class="spark-card"><div class="sc-label">Ruptura · 7d</div><svg viewBox="0 0 200 50" class="spark-svg"><polyline points="0,15 30,18 60,22 90,28 120,32 150,38 200,42" fill="none" stroke="var(--red)" stroke-width="2"/><polyline points="0,42 30,38 60,32 90,28 120,22 150,15 200,10" fill="none" stroke="var(--green)" stroke-width="2" stroke-dasharray="3,2"/></svg></div>
+          <div class="spark-card"><div class="sc-label">Giro · 7d</div><svg viewBox="0 0 200 50" class="spark-svg"><polyline points="0,35 30,30 60,28 90,20 120,15 150,12 200,8" fill="none" stroke="var(--green)" stroke-width="2"/></svg></div>
+          <div class="spark-card"><div class="sc-label">Capital · 30d</div><svg viewBox="0 0 200 50" class="spark-svg"><polyline points="0,40 30,38 60,30 90,22 120,18 150,12 200,10" fill="none" stroke="var(--gold)" stroke-width="2"/></svg></div>
+        </div>
+        <div class="mini-abc">
+          <div class="abc-label">Pareto ABC · capital concentrado</div>
+          <div class="abc-bar"><div class="abc-a" style="width:22%"></div><div class="abc-b" style="width:48%"></div><div class="abc-c" style="width:30%"></div></div>
+          <div class="abc-legend"><span><b style="color:var(--gold)">●</b> 4 SKUs A · 80% do valor</span><span><b style="color:var(--orange)">●</b> 8 SKUs B</span><span><b style="color:var(--gray-light)">●</b> 10 SKUs C</span></div>
+        </div>
+      </div>
+      <div class="frame-right">
+        <div class="decision-panel">
+          <div class="dp-title">O QUE FAZER AGORA?</div>
+          <div class="dp-item crit">
+            <div class="dp-rank">1</div>
+            <div><div class="dp-text">Reabastecer <b>RES-100K</b></div><div class="dp-meta">Estoque 8 / mín 50 · vence em 18 dias</div></div>
+            <div class="dp-tag">urgente</div>
+          </div>
+          <div class="dp-item alt">
+            <div class="dp-rank">2</div>
+            <div><div class="dp-text">Conferir lote <b>CAP-450</b></div><div class="dp-meta">Lote RX-9921 · 120 un. · vence em 5 dias</div></div>
+            <div class="dp-tag alt">alta</div>
+          </div>
+          <div class="dp-item alt">
+            <div class="dp-rank">3</div>
+            <div><div class="dp-text">Renegociar <b>Segurança Total</b></div><div class="dp-meta">Prazo médio 10 dias · impacta produção</div></div>
+            <div class="dp-tag alt">alta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== B-ROLL 01 — Data Stream (Dreamina real footage) ===== -->
+  <section class="scene broll" data-scene="br-01" data-duration="4000">
+    <video class="broll-video" autoplay muted playsinline preload="auto"
+           src="exports/br-01.mp4"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+  </section>
+
+  <!-- ===== B-ROLL 02 — Operador reabastece (Dreamina real footage) ===== -->
+  <section class="scene broll" data-scene="br-02" data-duration="5000">
+    <video class="broll-video" autoplay muted playsinline preload="auto"
+           src="exports/br-02.mp4"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+  </section>
+
+  <!-- ===== ATO 2 — Pareto, projeção, prevenção (0:42 – 1:10) ===== -->
+  <section class="scene" data-scene="ato2-01" data-duration="12000">
+    <div class="stage-label">Ato 2 <span class="accent">Pareto</span></div>
+    <div class="chart-card" style="width: 1400px; height: 800px; margin: auto;">
+      <h3>Análise ABC — 20% dos SKUs concentram 80% do valor</h3>
+      <div class="chart-area">
+        <div class="bar" style="height: 90%"></div>
+        <div class="bar" style="height: 80%"></div>
+        <div class="bar" style="height: 72%"></div>
+        <div class="bar" style="height: 65%"></div>
+        <div class="bar b" style="height: 58%"></div>
+        <div class="bar b" style="height: 52%"></div>
+        <div class="bar b" style="height: 46%"></div>
+        <div class="bar b" style="height: 40%"></div>
+        <div class="bar c" style="height: 34%"></div>
+        <div class="bar c" style="height: 28%"></div>
+        <div class="bar c" style="height: 22%"></div>
+        <div class="bar c" style="height: 18%"></div>
+        <div class="bar c" style="height: 14%"></div>
+        <div class="bar c" style="height: 12%"></div>
+        <div class="bar c" style="height: 10%"></div>
+        <div class="bar c" style="height: 8%"></div>
+        <svg class="pareto-line" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <polyline points="0,100 6,55 12,30 18,18 25,10 35,6 50,3 70,2 100,1"
+            fill="none" stroke="var(--red)" stroke-width="2" />
+          <line x1="33" y1="0" x2="33" y2="100" stroke="var(--gold)" stroke-dasharray="2,2" stroke-width="0.8" />
+          <text x="36" y="6" fill="var(--gold)" font-size="6" font-family="Poppins">80%</text>
+        </svg>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:18px;color:var(--gray-light);">
+        <span><span style="color:var(--gold)">●</span> Categoria A — top 20%</span>
+        <span><span style="color:var(--orange)">●</span> Categoria B — meio</span>
+        <span><span style="color:var(--gray-light)">●</span> Categoria C — cauda</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" data-scene="ato2-03" data-duration="8000">
+    <div class="stage-label">Ato 2 <span class="accent">Projeção</span></div>
+    <div class="chart-card" style="width: 1400px; height: 800px; margin: auto;">
+      <h3>E o que vai acontecer se nada mudar?</h3>
+      <div class="chart-area" style="position:relative;">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none"
+             style="position:absolute;inset:0;width:100%;height:100%;">
+          <defs>
+            <linearGradient id="proj" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,82,82,0.6)" />
+              <stop offset="100%" stop-color="rgba(255,82,82,0)" />
+            </linearGradient>
+          </defs>
+          <polyline points="0,10 8,12 16,18 24,24 32,32 40,42 48,52 56,62 64,72 72,82 80,90 88,95 100,98"
+            fill="url(#proj)" stroke="var(--red)" stroke-width="0.8" />
+          <line x1="0" y1="98" x2="100" y2="98" stroke="var(--gray)" stroke-dasharray="2,2" stroke-width="0.4" />
+        </svg>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:18px;color:var(--gray-light);">
+        <span>Hoje</span><span>+30 dias</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" data-scene="ato2-05" data-duration="8000">
+    <div class="stage-label">Ato 2 <span class="accent">Vencimentos</span></div>
+    <div class="chart-card" style="width:1500px;height:700px;margin:auto;">
+      <h3>Linha do tempo de vencimentos — 1 lote vence amanhã</h3>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-top:24px;">
+        <div style="display:grid;grid-template-columns:300px 1fr 200px;align-items:center;gap:24px;">
+          <div style="font-family:Poppins,sans-serif;font-size:22px;">Lote RX-9921</div>
+          <div style="height:32px;background:rgba(255,82,82,0.85);border-radius:8px;animation:pulse 1s infinite;"></div>
+          <div style="color:var(--red);font-weight:700;font-size:22px;">vence amanhã</div>
+        </div>
+        <div style="display:grid;grid-template-columns:300px 1fr 200px;align-items:center;gap:24px;">
+          <div style="font-family:Poppins,sans-serif;font-size:22px;">Lote CAP-450</div>
+          <div style="height:32px;background:var(--orange);border-radius:8px;width:60%;"></div>
+          <div style="color:var(--orange);font-size:22px;">vence em 5 dias</div>
+        </div>
+        <div style="display:grid;grid-template-columns:300px 1fr 200px;align-items:center;gap:24px;">
+          <div style="font-family:Poppins,sans-serif;font-size:22px;">Lote SOL-220</div>
+          <div style="height:32px;background:#facc15;border-radius:8px;width:40%;"></div>
+          <div style="color:#facc15;font-size:22px;">vence em 7 dias</div>
+        </div>
+        <div style="display:grid;grid-template-columns:300px 1fr 200px;align-items:center;gap:24px;">
+          <div style="font-family:Poppins,sans-serif;font-size:22px;">Lote IND-118</div>
+          <div style="height:32px;background:var(--green);border-radius:8px;width:30%;"></div>
+          <div style="color:var(--green);font-size:22px;">vence em 12 dias</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== A2 Produtos (0:30 · 4s) ===== -->
+  <section class="scene" data-scene="a2-produtos" data-duration="4000">
+    <div class="stage-label">A2 <span class="accent">Produtos · Catálogo</span></div>
+    <div class="frame-head">
+      <div>
+        <div class="frame-title">22 produtos · 4 categorias · busca em 0,3s</div>
+        <div class="frame-sub">Cada SKU com quantidade, mínimo e status em uma linha</div>
+      </div>
+      <div class="live-badge"><span class="dot"></span>22 SKUs</div>
+    </div>
+    <div class="table-card">
+      <div class="t-head">
+        <div style="width:140px">SKU</div><div style="flex:1">Produto</div>
+        <div style="width:90px">Qtd</div><div style="width:90px">Mín</div>
+        <div style="width:140px">Status</div><div style="width:130px">Preço</div>
+      </div>
+      <div class="t-row crit"><div style="width:140px">RES-100K-001</div><div style="flex:1">Resistor 100kΩ 1%</div><div style="width:90px">8</div><div style="width:90px">50</div><div style="width:140px"><span class="s-chip crit">🔴 CRÍTICO</span></div><div style="width:130px">R$ 0,12</div></div>
+      <div class="t-row crit"><div style="width:140px">CAP-450-050</div><div style="flex:1">Capacitor 450µF 50V</div><div style="width:90px">120</div><div style="width:90px">80</div><div style="width:140px"><span class="s-chip ok">🟢 OK</span></div><div style="width:130px">R$ 0,45</div></div>
+      <div class="t-row crit"><div style="width:140px">LED-080-DIF</div><div style="flex:1">LED difuso 80mm branco</div><div style="width:90px">280</div><div style="width:90px">100</div><div style="width:140px"><span class="s-chip ok">🟢 OK</span></div><div style="width:130px">R$ 1,20</div></div>
+      <div class="t-row crit"><div style="width:140px">MOV-330-VR</div><div style="flex:1">Varistor 330V SMD</div><div style="width:90px">45</div><div style="width:90px">40</div><div style="width:140px"><span class="s-chip warn">🟡 ATENÇÃO</span></div><div style="width:130px">R$ 2,80</div></div>
+      <div class="t-row crit"><div style="width:140px">SOL-220-100</div><div style="flex:1">Solda 220°C 100g</div><div style="width:90px">18</div><div style="width:90px">30</div><div style="width:140px"><span class="s-chip crit">🔴 CRÍTICO</span></div><div style="width:130px">R$ 8,50</div></div>
+      <div class="t-row crit"><div style="width:140px">IND-118-UH</div><div style="flex:1">Indutor 118µH axial</div><div style="width:90px">102</div><div style="width:90px">80</div><div style="width:140px"><span class="s-chip ok">🟢 OK</span></div><div style="width:130px">R$ 1,45</div></div>
+      <div class="t-row crit"><div style="width:140px">CAB-015-MM</div><div style="flex:1">Cabo flexível 1,5mm²</div><div style="width:90px">560</div><div style="width:90px">200</div><div style="width:140px"><span class="s-chip ok">🟢 OK</span></div><div style="width:130px">R$ 0,80</div></div>
+    </div>
+    <div class="t-foot">
+      <span>📊 5 acima do mín · 2 abaixo · 0 zerados</span>
+      <span class="t-foot-act">+ Cadastrar SKU · busca por nome/SKU/QR</span>
+    </div>
+  </section>
+
+  <!-- ===== A3 Categorias (0:34 · 3s) ===== -->
+  <section class="scene" data-scene="a3-categorias" data-duration="3000">
+    <div class="stage-label">A3 <span class="accent">Categorias · Organização</span></div>
+    <div class="frame-head">
+      <div>
+        <div class="frame-title">Capital organizado por categoria</div>
+        <div class="frame-sub">Drilldown até o produto · distribuição ABC por nó</div>
+      </div>
+    </div>
+    <div class="frame-4060">
+      <div class="tree-panel">
+        <div class="tree-node active">
+          <div class="t-label">▾ Componentes Eletrônicos</div>
+          <div class="t-meta">12 produtos · R$ 5.430 · 4 SKUs A</div>
+          <div class="tree-children">
+            <div class="tree-leaf">Resistores · 4 SKUs · R$ 1.840</div>
+            <div class="tree-leaf">Capacitores · 3 SKUs · R$ 1.420</div>
+            <div class="tree-leaf">LEDs · 2 SKUs · R$ 1.180</div>
+            <div class="tree-leaf">Variadores · 3 SKUs · R$ 990</div>
+          </div>
+        </div>
+        <div class="tree-node">
+          <div class="t-label">▸ Cabos e Conexões</div>
+          <div class="t-meta">4 produtos · R$ 2.180 · 1 SKU A</div>
+        </div>
+        <div class="tree-node">
+          <div class="t-label">▸ Solda e Acessórios</div>
+          <div class="t-meta">6 produtos · R$ 1.232 · 0 SKU A</div>
+        </div>
+      </div>
+      <div class="cat-selected">
+        <div class="cs-title">Componentes Eletrônicos</div>
+        <div class="cs-meta">12 produtos · R$ 5.430 · 4 SKUs A · 6 B · 2 C</div>
+        <div class="cs-bar">
+          <div class="cs-a" style="width:33%"></div>
+          <div class="cs-b" style="width:50%"></div>
+          <div class="cs-c" style="width:17%"></div>
+        </div>
+        <div class="cs-grid">
+          <div class="cs-cell">RES<span>4 SKUs</span></div>
+          <div class="cs-cell">CAP<span>3 SKUs</span></div>
+          <div class="cs-cell">LED<span>2 SKUs</span></div>
+          <div class="cs-cell">MOV<span>3 SKUs</span></div>
+        </div>
+        <div class="cs-extra">⏱ Atualizado em tempo real · 22 SKUs em 4 categorias</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== A4 Fornecedores (0:42 · 4s) ===== -->
+  <section class="scene" data-scene="a4-fornecedores" data-duration="4000">
+    <div class="stage-label">A4 <span class="accent">Fornecedores · Parceiros</span></div>
+    <div class="frame-head">
+      <div>
+        <div class="frame-title">4 ativos · ranking por prazo e rating</div>
+        <div class="frame-sub">Veja quem entrega rápido — e quem está atrasando</div>
+      </div>
+    </div>
+    <div class="sup-table">
+      <div class="sup-row head">
+        <div style="flex:1">Fornecedor</div>
+        <div style="width:180px">Volume (mês)</div>
+        <div style="width:280px">Prazo</div>
+        <div style="width:140px">Prazo</div>
+        <div style="width:120px">Rating</div>
+      </div>
+      <div class="sup-row top">
+        <div style="flex:1">★ Eletrônica XYZ</div>
+        <div style="width:180px">R$ 12.480</div>
+        <div style="width:280px"><div class="sup-bar"><div class="sb ok" style="width:96%"></div></div></div>
+        <div style="width:140px;color:var(--green);font-weight:700">5 dias</div>
+        <div style="width:120px"><span class="star">★ 4.8</span></div>
+      </div>
+      <div class="sup-row">
+        <div style="flex:1">★ Componentes Alpha</div>
+        <div style="width:180px">R$ 9.320</div>
+        <div style="width:280px"><div class="sup-bar"><div class="sb ok" style="width:88%"></div></div></div>
+        <div style="width:140px;color:var(--green);font-weight:700">6 dias</div>
+        <div style="width:120px"><span class="star">★ 4.7</span></div>
+      </div>
+      <div class="sup-row">
+        <div style="flex:1">★ Distribuidora Sul</div>
+        <div style="width:180px">R$ 7.110</div>
+        <div style="width:280px"><div class="sup-bar"><div class="sb warn" style="width:78%"></div></div></div>
+        <div style="width:140px;color:var(--gold);font-weight:700">7 dias</div>
+        <div style="width:120px"><span class="star">★ 4.5</span></div>
+      </div>
+      <div class="sup-row bad">
+        <div style="flex:1">⚠ Segurança Total</div>
+        <div style="width:180px">R$ 3.840</div>
+        <div style="width:280px"><div class="sup-bar"><div class="sb bad" style="width:42%"></div></div></div>
+        <div style="width:140px;color:var(--red);font-weight:700">10 dias ⚠</div>
+        <div style="width:120px"><span class="star bad">★ 4.0</span></div>
+      </div>
+    </div>
+    <div class="sup-spark">
+      <span class="ss-label">Tendência prazo médio · 7 dias</span>
+      <svg viewBox="0 0 600 50" class="spark-svg-wide"><polyline points="0,30 60,28 120,32 180,35 240,30 300,28 360,26 420,24 480,20 540,18 600,15" fill="none" stroke="var(--red)" stroke-width="2" stroke-dasharray="4,3"/><polyline points="0,40 60,38 120,34 180,30 240,28 300,24 360,22 420,20 480,18 540,16 600,14" fill="none" stroke="var(--green)" stroke-width="3"/></svg>
+      <span class="ss-delta">−2,3 dias · tendência ↓</span>
+    </div>
+  </section>
+
+  <!-- ===== A5 Movs (0:46 · 4s) ===== -->
+  <section class="scene" data-scene="a5-movs" data-duration="4000">
+    <div class="stage-label">A5 <span class="accent">Movimentações · Entradas e saídas</span></div>
+    <div class="frame-head">
+      <div>
+        <div class="frame-title">Cada unidade rastreada · cada NF com timestamp</div>
+        <div class="frame-sub">Hoje: +5 entradas · −8 saídas · 7 produtos tocados</div>
+      </div>
+    </div>
+    <div class="mov-feed">
+      <div class="mov-row in">
+        <div class="mov-time">14:32</div>
+        <div class="mov-icon in">+200</div>
+        <div class="mov-detail"><b>RES-100K-001</b> · Pedido #4521 · NF 88.102</div>
+        <div class="mov-tag in">RECEBIDO</div>
+      </div>
+      <div class="mov-row out">
+        <div class="mov-time">09:15</div>
+        <div class="mov-icon out">−45</div>
+        <div class="mov-detail"><b>RES-100K-001</b> · Ordem produção #330</div>
+        <div class="mov-tag out">SAÍDA</div>
+      </div>
+      <div class="mov-row in">
+        <div class="mov-time">08:00</div>
+        <div class="mov-icon in">+120</div>
+        <div class="mov-detail"><b>CAP-450-050</b> · NF 88.103</div>
+        <div class="mov-tag in">RECEBIDO</div>
+      </div>
+      <div class="mov-row out">
+        <div class="mov-time">ontem 16:45</div>
+        <div class="mov-icon out">−12</div>
+        <div class="mov-detail"><b>LED-080-DIF</b> · Venda balcão #1203</div>
+        <div class="mov-tag out">VENDIDO</div>
+      </div>
+      <div class="mov-row out">
+        <div class="mov-time">2d atrás</div>
+        <div class="mov-icon out">−8</div>
+        <div class="mov-detail"><b>SOL-220-100</b> · Oficina #98</div>
+        <div class="mov-tag out">CONSUMO</div>
+      </div>
+    </div>
+    <div class="mov-spark">
+      <div class="ms-card"><div class="ms-label">Entradas 7d</div><svg viewBox="0 0 200 40" class="spark-svg"><polyline points="0,30 30,28 60,25 90,22 120,18 150,12 200,8" fill="none" stroke="var(--green)" stroke-width="2.5"/></svg></div>
+      <div class="ms-card"><div class="ms-label">Saídas 7d</div><svg viewBox="0 0 200 40" class="spark-svg"><polyline points="0,10 30,14 60,18 90,20 120,22 150,18 200,12" fill="none" stroke="var(--orange)" stroke-width="2.5"/></svg></div>
+      <div class="ms-card"><div class="ms-label">Saldo</div><svg viewBox="0 0 200 40" class="spark-svg"><polyline points="0,25 30,22 60,18 90,16 120,12 150,8 200,5" fill="none" stroke="var(--gold)" stroke-width="2.5"/></svg></div>
+    </div>
+  </section>
+
+  <!-- ===== A6 Alertas (0:50 · 4s) — PICO do pitch ===== -->
+  <section class="scene" data-scene="a6-alertas" data-duration="4000">
+    <div class="stage-label">A6 <span class="accent">Alertas · Fila priorizada</span></div>
+    <div class="frame-head">
+      <div>
+        <div class="frame-title">6 alertas · ordenada por urgência, não por alfabeto</div>
+        <div class="frame-sub">Nenhum passa de 24 horas · clique em lote resolve 4 de uma vez</div>
+      </div>
+      <div class="live-badge"><span class="dot"></span>0 atrasados</div>
+    </div>
+    <div class="alerts-grid">
+      <div class="alert urg"><div class="alert-check"></div><div class="alert-text"><div class="ttl">RES-100K-001 abaixo do mínimo</div><div class="sub">Estoque 8 / mín 50 · afeta 3 linhas de produção</div></div><div class="alert-tag urg">URGENTE</div></div>
+      <div class="alert urg"><div class="alert-check"></div><div class="alert-text"><div class="ttl">CAP-450 vence em 5 dias</div><div class="sub">Lote RX-9921 · 120 un.</div></div><div class="alert-tag urg">URGENTE</div></div>
+      <div class="alert alt"><div class="alert-check"></div><div class="alert-text"><div class="ttl">MOV-330 sem giro há 45 dias</div><div class="sub">Capital parado R$ 1.240 · ação: promoção</div></div><div class="alert-tag alt">ALTA</div></div>
+      <div class="alert alt"><div class="alert-check"></div><div class="alert-text"><div class="ttl">Fornecedor Segurança Total atrasou</div><div class="sub">Prazo médio subiu para 10 dias · renegociar</div></div><div class="alert-tag alt">ALTA</div></div>
+      <div class="alert med"><div class="alert-check"></div><div class="alert-text"><div class="ttl">SOL-220 vence em 7 dias</div><div class="sub">Considerar promoção cruzada com LED-080</div></div><div class="alert-tag med">MÉDIA</div></div>
+      <div class="alert med"><div class="alert-check"></div><div class="alert-text"><div class="ttl">Reabastecimento LED-080 previsto</div><div class="sub">Pedido sugerido: 200 un. · gera NF automaticamente</div></div><div class="alert-tag med">MÉDIA</div></div>
+    </div>
+    <div class="bulk-bar">
+      <span class="bb-label">▶ Ações em lote:</span>
+      <span class="bb-btn">Resolver 4 alertas</span>
+      <span class="bb-btn ghost">Ver todos</span>
+      <span class="bb-hint">1 clique → toast verde → feed atualizado</span>
+    </div>
+  </section>
+
+  <!-- ===== A7 Armazéns (0:54 · 4s) ===== -->
+  <section class="scene" data-scene="a7-armazens" data-duration="4000">
+    <div class="stage-label">A7 <span class="accent">Armazéns · Locais de estoque</span></div>
+    <div class="frame-head">
+      <div>
+        <div class="frame-title">3 armazéns · 22 endereços · ocupação média 55%</div>
+        <div class="frame-sub">Cada pedido vai para o endereço certo · sem superlotar um, sem ocioso o outro</div>
+      </div>
+    </div>
+    <div class="wh-grid">
+      <div class="wh-card">
+        <div class="wh-head"><span class="wh-name">Armazém A · Matriz</span><span class="wh-cap ok">78%</span></div>
+        <div class="wh-bar"><div class="wb ok" style="width:78%"></div></div>
+        <div class="wh-meta"><span>1.870 / 2.400 un.</span><span>14 endereços · R$ 6.220</span></div>
+        <div class="wh-heat">
+          <span class="wh-cell full"></span><span class="wh-cell full"></span><span class="wh-cell full"></span><span class="wh-cell full"></span><span class="wh-cell full"></span><span class="wh-cell full"></span><span class="wh-cell full"></span>
+          <span class="wh-cell full"></span><span class="wh-cell full"></span><span class="wh-cell full"></span><span class="wh-cell mid"></span><span class="wh-cell mid"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span>
+        </div>
+      </div>
+      <div class="wh-card">
+        <div class="wh-head"><span class="wh-name">Armazém B · Filial</span><span class="wh-cap warn">35%</span></div>
+        <div class="wh-bar"><div class="wb warn" style="width:35%"></div></div>
+        <div class="wh-meta"><span>680 / 2.000 un.</span><span>8 endereços · R$ 2.100</span></div>
+        <div class="wh-heat">
+          <span class="wh-cell full"></span><span class="wh-cell mid"></span><span class="wh-cell mid"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span>
+          <span class="wh-cell mid"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span>
+        </div>
+      </div>
+      <div class="wh-card">
+        <div class="wh-head"><span class="wh-name">Armazém C · E-com</span><span class="wh-cap ok">52%</span></div>
+        <div class="wh-bar"><div class="wb ok" style="width:52%"></div></div>
+        <div class="wh-meta"><span>520 / 1.000 un.</span><span>4 endereços · R$ 1.880</span></div>
+        <div class="wh-heat">
+          <span class="wh-cell full"></span><span class="wh-cell full"></span><span class="wh-cell mid"></span><span class="wh-cell empty"></span>
+          <span class="wh-cell full"></span><span class="wh-cell mid"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span>
+          <span class="wh-cell mid"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span>
+          <span class="wh-cell mid"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span><span class="wh-cell empty"></span>
+        </div>
+      </div>
+    </div>
+    <div class="heat-legend">
+      <span><b style="color:var(--gold)">●</b> cheio</span>
+      <span><b style="color:var(--orange)">●</b> médio</span>
+      <span><b style="color:var(--gray-light)">●</b> vazio</span>
+      <span class="hl-hint">⏱ Mapa atualizado em tempo real · 22 endereços</span>
+    </div>
+  </section>
+
+  <!-- ===== A8 Vencimentos (0:58 · 4s) ===== -->
+  <section class="scene" data-scene="a8-vencimentos" data-duration="4000">
+    <div class="stage-label">A8 <span class="accent">Vencimentos · Prazos</span></div>
+    <div class="frame-head">
+      <div>
+        <div class="frame-title">1 lote vence amanhã · zero perda por vencimento</div>
+        <div class="frame-sub">Cada lote tem destino sugerido automaticamente</div>
+      </div>
+    </div>
+    <div class="exp-list">
+      <div class="exp-row urg">
+        <div class="exp-day"><div class="day-num">1</div><div class="day-label">dia</div></div>
+        <div class="exp-bar"><div class="eb urg" style="width:96%"></div></div>
+        <div class="exp-detail"><div class="ed-lote">Lote <b>RX-9921</b> · RES-100K-001 · 120 un.</div><div class="ed-act">⚡ Vender com 15% off (margem 12%) ou cross-sell com LED-080</div></div>
+        <div class="exp-day-amt">R$ 14,40</div>
+      </div>
+      <div class="exp-row alt">
+        <div class="exp-day"><div class="day-num">5</div><div class="day-label">dias</div></div>
+        <div class="exp-bar"><div class="eb alt" style="width:60%"></div></div>
+        <div class="exp-detail"><div class="ed-lote">Lote <b>CAP-450</b> · CAP-450-050 · 200 un.</div><div class="ed-act">↻ Usar primeiro nas próximas 2 ordens de produção</div></div>
+        <div class="exp-day-amt">R$ 90,00</div>
+      </div>
+      <div class="exp-row med">
+        <div class="exp-day"><div class="day-num">7</div><div class="day-label">dias</div></div>
+        <div class="exp-bar"><div class="eb med" style="width:40%"></div></div>
+        <div class="exp-detail"><div class="ed-lote">Lote <b>SOL-220</b> · SOL-220-100 · 80 un.</div><div class="ed-act">📦 Promoção cruzada · embalagem sortida</div></div>
+        <div class="exp-day-amt">R$ 680,00</div>
+      </div>
+      <div class="exp-row ok">
+        <div class="exp-day"><div class="day-num">12</div><div class="day-label">dias</div></div>
+        <div class="exp-bar"><div class="eb ok" style="width:30%"></div></div>
+        <div class="exp-detail"><div class="ed-lote">Lote <b>IND-118</b> · 100 un.</div><div class="ed-act">✅ Sem ação · janela de uso ampla</div></div>
+        <div class="exp-day-amt">R$ 145,00</div>
+      </div>
+    </div>
+    <div class="exp-footer">
+      <span class="ef-stat"><b style="color:var(--red)">🔴</b> 1 vence em 1 dia</span>
+      <span class="ef-stat"><b style="color:var(--orange)">🟠</b> 1 vence em 5 dias</span>
+      <span class="ef-stat"><b style="color:#facc15">🟡</b> 1 vence em 7 dias</span>
+      <span class="ef-stat"><b style="color:var(--green)">🟢</b> 1 vence em 12+ dias</span>
+      <span class="ef-hint">Capital em risco: <b>R$ 929,40</b> · destino sugerido para 100%</span>
+    </div>
+  </section>
+
+  <!-- ===== A9 Relatórios (1:02 · 5s) ===== -->
+  <section class="scene" data-scene="a9-relatorios" data-duration="5000">
+    <div class="stage-label">A9 <span class="accent">Relatórios · Análises</span></div>
+    <div class="frame-head">
+      <div>
+        <div class="frame-title">90 dias · 4 indicadores · 1 gráfico</div>
+        <div class="frame-sub">Mostra o combinado — não a planilha</div>
+      </div>
+      <div class="live-badge"><span class="dot"></span>90 dias</div>
+    </div>
+    <div class="rep-grid">
+      <div class="rep-plot">
+        <svg viewBox="0 0 900 400" class="rep-svg">
+          <!-- eixos -->
+          <line x1="60" y1="350" x2="850" y2="350" stroke="#374151" stroke-width="1"/>
+          <line x1="60" y1="50" x2="60" y2="350" stroke="#374151" stroke-width="1"/>
+          <text x="20" y="60" fill="#9CA3AF" font-size="14">R$ 12k</text>
+          <text x="20" y="200" fill="#9CA3AF" font-size="14">R$ 6k</text>
+          <text x="20" y="345" fill="#9CA3AF" font-size="14">R$ 0</text>
+          <!-- barras vermelhas (ruptura) -->
+          <rect x="100" y="280" width="60" height="70" fill="#FF5252" opacity="0.55"/>
+          <rect x="280" y="240" width="60" height="110" fill="#FF5252" opacity="0.55"/>
+          <rect x="460" y="180" width="60" height="170" fill="#FF5252" opacity="0.55"/>
+          <rect x="640" y="120" width="60" height="230" fill="#FF5252" opacity="0.55"/>
+          <rect x="820" y="80" width="60" height="270" fill="#FF5252" opacity="0.85"/>
+          <!-- linha capital (gold) -->
+          <polyline points="100,330 280,290 460,240 640,180 820,120" fill="none" stroke="#FFD54F" stroke-width="3"/>
+          <!-- linha alertas resolvidos (verde) -->
+          <polyline points="100,340 280,310 460,270 640,220 820,160" fill="none" stroke="#00E676" stroke-width="3" stroke-dasharray="6,4"/>
+          <!-- labels X -->
+          <text x="130" y="380" fill="#9CA3AF" font-size="14" text-anchor="middle">T-90d</text>
+          <text x="310" y="380" fill="#9CA3AF" font-size="14" text-anchor="middle">T-75d</text>
+          <text x="490" y="380" fill="#9CA3AF" font-size="14" text-anchor="middle">T-45d</text>
+          <text x="670" y="380" fill="#9CA3AF" font-size="14" text-anchor="middle">T-15d</text>
+          <text x="850" y="380" fill="#FFD54F" font-size="16" text-anchor="middle" font-weight="700">Hoje</text>
+          <!-- legenda -->
+          <rect x="100" y="20" width="14" height="14" fill="#FF5252"/>
+          <text x="120" y="32" fill="#fff" font-size="13">rupturas/mês</text>
+          <rect x="240" y="20" width="14" height="14" fill="#FFD54F"/>
+          <text x="260" y="32" fill="#fff" font-size="13">capital liberado</text>
+          <line x1="380" y1="28" x2="410" y2="28" stroke="#00E676" stroke-width="3" stroke-dasharray="6,4"/>
+          <text x="416" y="32" fill="#fff" font-size="13">alertas resolvidos</text>
+        </svg>
+      </div>
+      <div class="rep-kpis">
+        <div class="rep-kpi"><div class="rk-label">RUPTURA</div><div class="rk-val crit">−82%</div><div class="rk-meta">12 → 2 produtos/mês</div></div>
+        <div class="rep-kpi"><div class="rk-label">CAPITAL LIBERADO</div><div class="rk-val ok">R$ 9.660</div><div class="rk-meta">giro otimizado</div></div>
+        <div class="rep-kpi"><div class="rk-label">ALERTAS NO PRAZO</div><div class="rk-val ok">+340%</div><div class="rk-meta">resolvidos até 24h</div></div>
+        <div class="rep-kpi"><div class="rk-label">CONFORMIDADE</div><div class="rk-val ok">100%</div><div class="rk-meta">LGPD · auditável</div></div>
+        <div class="rep-final">
+          <div class="rf-line">Tudo num único painel.</div>
+          <div class="rf-line gold">Sob controle.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PLOT Storytelling cumulativo (1:07 · 10s) ===== -->
+  <section class="scene plot-cumulativo" data-scene="plot-story" data-duration="10000">
+    <div class="stage-label">PLOT <span class="accent">Storytelling com dados</span></div>
+    <div class="plot-title">Em 90 dias · quatro decisões, quatro medidas</div>
+    <div class="plot-grid">
+      <div class="plot-quad q-op" data-plot="1">
+        <div class="pq-head"><span class="pq-tag op">OPERACIONAL</span></div>
+        <div class="pq-num">12 → 1</div>
+        <div class="pq-label">produto abaixo do mínimo</div>
+        <svg viewBox="0 0 300 80" class="pq-svg"><polyline class="pq-path" points="0,70 75,55 150,30 225,15 300,8" fill="none" stroke="#FF5252" stroke-width="3"/></svg>
+        <div class="pq-foot">a linha vermelha despenca. e com ela, as paradas não-planejadas.</div>
+      </div>
+      <div class="plot-quad q-fin" data-plot="2">
+        <div class="pq-head"><span class="pq-tag fin">FINANCEIRO</span></div>
+        <div class="pq-num">R$ 12.840 → R$ 3.180</div>
+        <div class="pq-label">capital parado em baixo giro</div>
+        <svg viewBox="0 0 300 80" class="pq-svg"><rect x="0" y="60" width="80" height="20" fill="#FF5252"/><rect x="220" y="65" width="80" height="15" fill="#00E676"/></svg>
+        <div class="pq-foot">quase dez mil voltaram a girar. dinheiro que financia o próximo pedido.</div>
+      </div>
+      <div class="plot-quad q-tech" data-plot="3">
+        <div class="pq-head"><span class="pq-tag tech">TÉCNICO-ADMIN</span></div>
+        <div class="pq-num">100%</div>
+        <div class="pq-label">acessos auditados (LGPD)</div>
+        <svg viewBox="0 0 300 80" class="pq-svg">
+          <rect x="20" y="40" width="60" height="40" fill="#FFD54F" opacity="0.85"/>
+          <rect x="100" y="60" width="60" height="20" fill="#374151"/>
+          <rect x="180" y="55" width="60" height="25" fill="#9CA3AF" opacity="0.7"/>
+          <text x="50" y="36" fill="#FFD54F" font-size="11" text-anchor="middle">Admin</text>
+          <text x="130" y="56" fill="#9CA3AF" font-size="11" text-anchor="middle">Operador</text>
+          <text x="210" y="51" fill="#9CA3AF" font-size="11" text-anchor="middle">Visual.</text>
+        </svg>
+        <div class="pq-foot">quem viu o quê · quando · por quê. ouro numa auditoria.</div>
+      </div>
+      <div class="plot-quad q-org" data-plot="4">
+        <div class="pq-head"><span class="pq-tag org">ORGANIZACIONAL</span></div>
+        <div class="pq-num">18 → 4 h/sem</div>
+        <div class="pq-label">tempo gasto em burocracia</div>
+        <svg viewBox="0 0 300 80" class="pq-svg">
+          <circle cx="80" cy="40" r="32" fill="none" stroke="#FF5252" stroke-width="6" stroke-dasharray="201 0"/>
+          <circle cx="220" cy="40" r="14" fill="none" stroke="#00E676" stroke-width="6" stroke-dasharray="88 0"/>
+          <text x="80" y="46" fill="#FF5252" font-size="22" font-weight="700" text-anchor="middle">18h</text>
+          <text x="220" y="46" fill="#00E676" font-size="14" font-weight="700" text-anchor="middle">4h</text>
+        </svg>
+        <div class="pq-foot">catorze horas por semana livres. tempo de dono, não de planilha.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== B-ROLL 03 — Equipe resolve alerta (Hailuo real footage) ===== -->
+  <section class="scene broll" data-scene="br-03" data-duration="6000">
+    <video class="broll-video" autoplay muted playsinline preload="auto"
+           src="exports/br-03.mp4"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"
+         style="position:absolute;inset:0;width:100%;height:100%;" class="br03-svg">
+      <g class="br03-links"></g>
+      <g class="br03-nodes"></g>
+      <g class="br03-pulses"></g>
+    </svg>
+  </section>
+
+  <!-- ===== ATO 3 — Decisão em um clique (1:15 – 1:36) ===== -->
+  <section class="scene" data-scene="ato3-01" data-duration="8000">
+    <div class="stage-label">Ato 3 <span class="accent">Alertas</span></div>
+    <div class="alerts">
+      <div class="alert urg">
+        <div class="alert-check"></div>
+        <div class="alert-text"><div class="ttl">RES-100K-001 abaixo do mínimo</div><div class="sub">Estoque: 8 • Mínimo: 50</div></div>
+        <div class="alert-tag urg">Urgente</div>
+      </div>
+      <div class="alert urg">
+        <div class="alert-check"></div>
+        <div class="alert-text"><div class="ttl">CAP-450 vence em 5 dias</div><div class="sub">Lote de capacitores — 120 un.</div></div>
+        <div class="alert-tag urg">Urgente</div>
+      </div>
+      <div class="alert alt">
+        <div class="alert-check"></div>
+        <div class="alert-text"><div class="ttl">MOV-330 sem giro há 45 dias</div><div class="sub">Capital parado: R$ 1.240</div></div>
+        <div class="alert-tag alt">Alta</div>
+      </div>
+      <div class="alert alt">
+        <div class="alert-check"></div>
+        <div class="alert-text"><div class="ttl">Fornecedor Segurança Total atrasou</div><div class="sub">Prazo médio subiu para 10 dias</div></div>
+        <div class="alert-tag alt">Alta</div>
+      </div>
+      <div class="alert med">
+        <div class="alert-check"></div>
+        <div class="alert-text"><div class="ttl">SOL-220 vencendo em 7 dias</div><div class="sub">Considerar promoção</div></div>
+        <div class="alert-tag med">Média</div>
+      </div>
+      <div class="alert med">
+        <div class="alert-check"></div>
+        <div class="alert-text"><div class="ttl">Reabastecimento LED-080 previsto</div><div class="sub">Pedido sugerido: 200 un.</div></div>
+        <div class="alert-tag med">Média</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" data-scene="ato3-04" data-duration="6000">
+    <div class="stage-label">Ato 3 <span class="accent">1 clique</span></div>
+    <div class="center col">
+      <div style="font-family:Poppins,sans-serif;font-size:88px;font-weight:700;color:var(--green);">
+        4 alertas resolvidos
+      </div>
+      <div style="font-size:30px;color:var(--gray-light);">em um único clique.</div>
+    </div>
+    <div class="toast">✓ 4 alerta(s) resolvido(s)!</div>
+  </section>
+
+  <section class="scene" data-scene="ato3-05" data-duration="7000">
+    <div class="stage-label">Ato 3 <span class="accent">Fornecedores</span></div>
+    <div class="supplier-list">
+      <div class="supplier">
+        <div class="name">Eletrônica XYZ</div>
+        <div class="bar-track"><div class="bar-fill" style="width:96%"></div></div>
+        <div class="meta">5 dias • R$ 12.480</div>
+        <div class="stars">★ 4.8</div>
+      </div>
+      <div class="supplier">
+        <div class="name">Componentes Alpha</div>
+        <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+        <div class="meta">6 dias • R$ 9.320</div>
+        <div class="stars">★ 4.7</div>
+      </div>
+      <div class="supplier">
+        <div class="name">Distribuidora Sul</div>
+        <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+        <div class="meta">7 dias • R$ 7.110</div>
+        <div class="stars">★ 4.5</div>
+      </div>
+      <div class="supplier bad">
+        <div class="name">Segurança Total</div>
+        <div class="bar-track"><div class="bar-fill bad" style="width:42%"></div></div>
+        <div class="meta">10 dias • R$ 3.840</div>
+        <div class="stars bad">★ 4.0</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ATO 4 — A prova institucional (1:36 – 1:44) ===== -->
+  <section class="scene" data-scene="ato4-03" data-duration="8000">
+    <div class="stage-label">Ato 4 <span class="accent">Selo</span></div>
+    <div class="seal center col">
+      <div class="seal-mark">LGPD<br/>CONFORME</div>
+      <div class="seal-text">Governança não é detalhe</div>
+      <div class="seal-sub">é o chão de qualquer PME que quer crescer</div>
+    </div>
+  </section>
+
+  <!-- ===== B-ROLL 04 — Cadeado LGPD (Dreamina real footage) ===== -->
+  <section class="scene broll" data-scene="br-04" data-duration="5000">
+    <video class="broll-video" autoplay muted playsinline preload="auto"
+           src="exports/br-04.mp4"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+  </section>
+
+  <!-- ===== ATO 5 — Cartão de visita + créditos (1:49 – 2:00) ===== -->
+  <section class="scene" data-scene="ato5-02" data-duration="11000">
+    <div class="endcard center col">
+      <div class="big">WorkConnect.</div>
+      <div class="line2">Sistema de Gestão de Estoque Inteligente.</div>
+      <div class="credits">TCC SENAI 2024–2025 · matheus mendes · workconnect-tcc.netlify.app</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* =============== B-ROLL generators =============== */
+(function () {
+  // BR-01 — 80 barras verticais
+  const barsSvg = document.querySelector('.br01-bars');
+  if (barsSvg) {
+    const colors = ['#FFD54F', '#FFD54F', '#FFD54F', '#6B7280', '#FF5252'];
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < 80; i++) {
+      const x = (1920 / 80) * i + 4;
+      const w = (1920 / 80) - 8;
+      const h = 60 + Math.random() * 920;
+      const y = 1080 - h;
+      const c = colors[Math.floor(Math.random() * colors.length)];
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', x); rect.setAttribute('y', y);
+      rect.setAttribute('width', w); rect.setAttribute('height', h);
+      rect.setAttribute('fill', c); rect.setAttribute('rx', 3);
+      rect.style.animationDelay = (i * 0.012) + 's';
+      fragment.appendChild(rect);
+    }
+    barsSvg.appendChild(fragment);
+  }
+
+  // BR-02 — grid 6×14 com 4 gold + 1 red
+  const grid = document.querySelector('.br02-grid');
+  if (grid) {
+    const goldPositions = new Set([16, 27, 53, 76]);
+    const redPosition = 38;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 84; i++) {
+      const div = document.createElement('div');
+      div.className = 'br02-cell';
+      if (goldPositions.has(i)) div.classList.add('gold');
+      if (i === redPosition) div.classList.add('red');
+      frag.appendChild(div);
+    }
+    grid.appendChild(frag);
+  }
+
+  // BR-03 — 12 nós hexagonais + 18 links + 3 pulsos
+  const linksSvg = document.querySelector('.br03-links');
+  const nodesSvg = document.querySelector('.br03-nodes');
+  const pulsesSvg = document.querySelector('.br03-pulses');
+  if (nodesSvg && linksSvg && pulsesSvg) {
+    // Posições hexagonais distribuídas em torno do centro (960,540) com raio 360
+    const nodes = [];
+    const ring1 = 5; const ring2 = 7;
+    for (let i = 0; i < ring1; i++) {
+      const a = (i / ring1) * Math.PI * 2 - Math.PI / 2;
+      nodes.push({ x: 960 + Math.cos(a) * 220, y: 540 + Math.sin(a) * 220 });
+    }
+    for (let i = 0; i < ring2; i++) {
+      const a = (i / ring2) * Math.PI * 2 - Math.PI / 2 + Math.PI / ring2;
+      nodes.push({ x: 960 + Math.cos(a) * 380, y: 540 + Math.sin(a) * 380 });
+    }
+    // Gold nodes: indices 0, 4, 7 (ring1 + ring2 misto)
+    const goldIdx = new Set([0, 4, 7]);
+    const greenIdx = 2;
+    // Links: cada gold conectado a 3-4 vizinhos
+    const fragL = document.createDocumentDocumentFragment || document.createDocumentFragment();
+    const linkCount = 18;
+    const usedPairs = new Set();
+    let attempts = 0;
+    while (usedPairs.size < linkCount && attempts < 200) {
+      const a = Math.floor(Math.random() * nodes.length);
+      const b = Math.floor(Math.random() * nodes.length);
+      if (a === b) { attempts++; continue; }
+      const key = a < b ? `${a}-${b}` : `${b}-${a}`;
+      if (usedPairs.has(key)) { attempts++; continue; }
+      usedPairs.add(key);
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', nodes[a].x); line.setAttribute('y1', nodes[a].y);
+      line.setAttribute('x2', nodes[b].x); line.setAttribute('y2', nodes[b].y);
+      line.setAttribute('class', 'br03-link');
+      fragL.appendChild(line);
+      attempts++;
+    }
+    linksSvg.appendChild(fragL);
+
+    const fragN = document.createDocumentFragment();
+    nodes.forEach((n, i) => {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', n.x); c.setAttribute('cy', n.y);
+      c.setAttribute('r', 14);
+      let cls = 'br03-node';
+      if (goldIdx.has(i)) cls += ' gold';
+      if (i === greenIdx) cls += ' green';
+      c.setAttribute('class', cls);
+      fragN.appendChild(c);
+    });
+    nodesSvg.appendChild(fragN);
+
+    // 3 ondas concêntricas saindo dos gold
+    const fragP = document.createDocumentFragment();
+    Array.from(goldIdx).forEach((idx, i) => {
+      const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      pulse.setAttribute('cx', nodes[idx].x);
+      pulse.setAttribute('cy', nodes[idx].y);
+      pulse.setAttribute('r', 60);
+      pulse.setAttribute('class', 'br03-pulse');
+      pulse.style.animationDelay = (i * 0.5) + 's';
+      fragP.appendChild(pulse);
+    });
+    pulsesSvg.appendChild(fragP);
+  }
+})();
+
+/* =============== Auto-advance engine =============== */
+(function () {
+  const scenes = Array.from(document.querySelectorAll('.scene'));
+  let idx = 0;
+
+  function getDur(el) {
+    const ms = parseInt(el.dataset.duration || '5000', 10);
+    return Math.max(500, ms);
+  }
+
+  function show(i) {
+    scenes.forEach(s => s.classList.remove('active'));
+    const target = scenes[i];
+    if (target) target.classList.add('active');
+    // Reset/Play any video tag inside the active scene
+    if (target) {
+      const vids = target.querySelectorAll('video.broll-video');
+      vids.forEach(v => { try { v.currentTime = 0; v.play(); } catch(e) {} });
+    }
+  }
+
+  function tick() {
+    show(idx);
+    const dur = getDur(scenes[idx]);
+    idx = (idx + 1) % scenes.length;
+    setTimeout(tick, dur);
+  }
+
+  // Expor API para captura programática de cena específica
+  window.__gotoScene = function (id) {
+    const i = scenes.findIndex(s => s.dataset.scene === id);
+    if (i >= 0) { idx = i; show(i); return true; }
+    return false;
+  };
+  window.__listScenes = function () {
+    return scenes.map((s, i) => ({ id: s.dataset.scene, idx: i, duration: getDur(s) }));
+  };
+  window.__pause = function () { window.__paused = true; };
+  window.__resume = function () { window.__paused = false; tick(); };
+
+  // Inicia
+  show(0);
+  setTimeout(tick, 800);
+})();
+</script>
+</body>
+</html>

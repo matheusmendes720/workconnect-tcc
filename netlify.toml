@@ -13,6 +13,12 @@
   NEXT_USE_NETLIFY_EDGE = "true"
   # Tell Next.js not to skip type-check despite typescript.ignoreBuildErrors.
   TYPESCRIPT_IGNORE_BUILD_ERRORS = "false"
+  # Netlify's production context sets NODE_ENV=production, which makes
+  # `npm install` skip devDependencies. But Turbopack's PostCSS pipeline
+  # requires tailwindcss/postcss/autoprefixer (all in devDeps) to compile
+  # globals.css and friends. Force-install devDeps at install time so the
+  # build doesn't fail with "Cannot find module 'tailwindcss'".
+  NPM_CONFIG_PRODUCTION = "false"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

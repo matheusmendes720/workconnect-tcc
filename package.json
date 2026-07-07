@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "test": "next lint",
+    "test": "eslint .",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "serve": "node scripts/server/server.js 3001",
     "setup": "powershell -ExecutionPolicy Bypass -File scripts/setup/create-structure.ps1",
@@ -40,6 +40,8 @@
   "devDependencies": {
     "@playwright/test": "^1.57.0",
     "autoprefixer": "^10.4.27",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.10",
     "postcss": "^8.5.8",
     "tailwindcss": "^3.4.19",
     "vite": "^5.0.0"

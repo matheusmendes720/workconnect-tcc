@@ -1,10 +1,93 @@
 ---
 sidebar_position: 2
 title: Product Manager Canvas (PM Canvas)
-description: Product Manager Canvas do WorkConnect - Estratégia de Produto e Product Market Fit
+description: Sequoia Product Strategy + StoryBrand Solution - como construímos o produto que entrega a transformação
 ---
 
 # Product Manager Canvas (PM Canvas)
+
+> **TL;DR** · 5 problemas mapeados → 5 soluções priorizadas em **3 fases de 12 meses**. **MVP focado** em cadastro + movimentação + dashboard (P0). **Diferencial sustentável**: LGPD nativo desde dia 1 + parceria SENAI (12-24 meses para copiar) + roadmap de ML preditivo (18-36 meses para copiar). **PMF score atual**: 0.7 (sólido, meta 0.8).
+
+:::info Onde estamos no Sequoia Pitch
+Este doc responde o slot **Solution** (em detalhe) + **Why Us** (parte do edge competitivo) da Sequoia pitch structure. É o "como transformamos a proposta [Proposta de Valor](./proposta-valor) em features concretas".
+:::
+
+---
+
+## Layer 1 — A Estratégia de Produto em 60 Segundos
+
+```mermaid
+flowchart TB
+    subgraph PROBLEMAS["Problemas (Personas)"]
+        P1[Fragmentação 68%]
+        P2[Erros humanos 55%]
+        P3[Ruptura 42%]
+        P4[Obsolescência 38%]
+        P5[Tempo desperdiçado 72%]
+    end
+
+    subgraph SOLUCOES["Soluções (Features)"]
+        S1[Centralização]
+        S2[Captura automática]
+        S3[Alertas proativos]
+        S4[Controle validade]
+        S5[Dashboard tempo real]
+    end
+
+    subgraph FASES["Roadmap (3 Fases)"]
+        F1[Fase 1<br/>MVP P0]
+        F2[Fase 2<br/>Inteligência P1]
+        F3[Fase 3<br/>ML Preditivo P2]
+    end
+
+    PROBLEMAS --> SOLUCOES --> FASES
+
+    style PROBLEMAS fill:#fee2e2
+    style SOLUCOES fill:#dcfce7
+    style FASES fill:#dbeafe
+```
+
+---
+
+## Layer 2 — StoryBrand Solution (mecanismo técnico)
+
+StoryBrand pergunta: *"qual é o plano?"*. Aqui está o plano técnico que entrega a transformação prometida no [PMS](./problema-mecanismo-solucao):
+
+| Step | User Action | Sistema Faz | Resultado |
+|------|-------------|-------------|-----------|
+| 1 | Cadastra 2 minutos, sem cartão | Onboarding guiado | Conta ativa |
+| 2 | Importa produtos via planilha ou código de barras | ETL automático | Banco populado |
+| 3 | Registra movimentações (entrada/saída) | Baixa automática + log LGPD | Estoque real-time |
+| 4 | Recebe alertas de validade/reposição | Push + email | Evita ruptura |
+| 5 | Consulta dashboard em qualquer device | Renderização responsiva | Decisão em 5s |
+
+---
+
+## Layer 3 — Sequoia Product Strategy (Edge Competitivo)
+
+Sequoia pergunta: *"qual é seu unfair advantage?"*. São **3 vantagens** que somam para uma barreira defensável:
+
+```mermaid
+mindmap
+  root((Unfair Advantage))
+    LGPD Nativo
+      Auditoria em 2 cliques
+      Logs imutáveis
+      Compliance desde commit 1
+      18-36 meses para concorrente copiar
+    Parceria SENAI
+      Validação acadêmica
+      Network de PMEs beta
+      Credibilidade institucional
+      12-24 meses para replicar
+    Roadmap ML Preditivo
+      Previsão de demanda
+      Análise de sazonalidade
+      Otimização automática
+      18-36 meses para copiar
+```
+
+---
 
 ## Visão Geral
 
@@ -101,7 +184,7 @@ graph TD
     P1["Problema 1:<br/>Falta de visibilidade"] --> S1["Solução 1:<br/>Dashboard em Tempo Real"]
     P2["Problema 2:<br/>Desperdício por validade"] --> S2["Solução 2:<br/>Alertas de Validade"]
     P3["Problema 3:<br/>Decisões por intuição"] --> S3["Solução 3:<br/>Relatórios Analíticos"]
-    P4["Problema 4:<br/>Processos manuais"] --> S4["Solução 4:<br/>Automação de流程"]
+    P4["Problema 4:<br/>Processos manuais"] --> S4["Solução 4:<br/>Automação de Processos"]
     P5["Problema 5:<br/>Custo de estoque parado"] --> S5["Solução 5:<br/>Previsão de Demanda"]
     
     S1 --> F1["Feature: Painel Gerencial"]
@@ -181,10 +264,10 @@ flowchart LR
 | **Retenção** | MRR Churn Rate | < 5% |
 | **Retenção** | Net Revenue Churn | < 3% |
 | **Retenção** | LTV / CAC | > 3:1 |
-| **Receita** | MRR Inicial | R$ 10.000/mês |
-| **Receita** | ARPU | R$ 197,00 |
+| **Receita** | MRR Mês 12 | R$ 40.000/mês |
+| **Receita** | ARPU Inicial | R$ 200,00 |
 
-###Dashboard de Métricas:
+### Dashboard de Métricas
 
 ```mermaid
 gauge
@@ -272,7 +355,7 @@ mindmap
 | Parceria SENAI | Relacionamento | 12-24 meses |
 | Base de Dados de Previsão | Dados | 18-36 meses |
 | Algoritmos de ML | Tecnologia | 6-12 meses |
-| Time Experience | Equipe | Imediato (hard de复制) |
+| Time Experience | Equipe | Imediato (difícil de reter) |
 | Marca/Reputação | Marca | 24-48 meses |
 
 ---
@@ -385,10 +468,10 @@ flowchart TB
     REC --> SUB[Assinatura Recorrente]
     REC --> ONE[One-time]
     REC --> SER[Serviços]
-    
-    SUB -->|R$ 97| BASICO["Plano Básico<br/>até 3 usuários"]
-    SUB -->|R$ 197| PRO["Plano Profissional<br/>até 10 usuários"]
-    SUB -->|R$ 497| ENTER["Enterprise<br/>usuários ilimitados"]
+
+    SUB -->|R$ 149| BASICO["Plano Básico<br/>até 3 usuários"]
+    SUB -->|R$ 299| PRO["Plano Profissional<br/>até 10 usuários"]
+    SUB -->|R$ 599| ENTER["Enterprise<br/>usuários ilimitados"]
     
     ONE -->|R$ 500| IMP["Implementação"]
     ONE -->|R$ 300| TRE["Treinamento"]
@@ -403,12 +486,14 @@ flowchart TB
 
 ### Projeção de Revenue:
 
-| Mês | Assinaturas |MRR |Serviços | Total |
-|-----|-------------|-----|---------|-------|
-| 1 | 10 | R$ 1.970 | R$ 0 | R$ 1.970 |
-| 3 | 30 | R$ 5.910 | R$ 1.000 | R$ 6.910 |
-| 6 | 80 | R$ 15.760 | R$ 3.000 | R$ 18.760 |
-| 12 | 200 | R$ 39.400 | R$ 8.000 | R$ 47.400 |
+| Mês | Clientes | MRR (ARPU ~R$ 200) | Serviços | Total |
+|-----|----------|--------------------|----------|-------|
+| 1 | 10 | R$ 2.000 | R$ 0 | R$ 2.000 |
+| 3 | 30 | R$ 6.000 | R$ 1.000 | R$ 7.000 |
+| 6 | 80 | R$ 16.000 | R$ 3.000 | R$ 19.000 |
+| 12 | 200 | R$ 40.000 | R$ 8.000 | R$ 48.000 |
+
+> **Premissa de ARPU:** Média ponderada entre os planos (R$ 149 / R$ 299 / R$ 599), com mix inicial concentrado em **Básico** (~70%) e **Profissional** (~25%), evoluindo gradualmente conforme upsell ao longo dos 12 meses. Por isso ARPU ~R$ 200 no primeiro ano (vs. R$ 314 que seria a média ponderada com a mix madura de 30/50/20 descrita no [BM Canvas](./bmc-canvas)).
 
 ---
 
@@ -490,6 +575,13 @@ O PM Canvas nos ajuda a:
 
 ## Próximos Passos
 
+Para entender a estratégia de produto no contexto mais amplo:
+
+- [Problema → Mecanismo → Solução](./problema-mecanismo-solucao) - A narrativa central de negócio
+- [Análise de Mercado](./analise-mercado) - TAM/SAM/SOM
+- [BM Canvas](./bmc-canvas) - Modelo de negócio
+- [Viabilidade Econômica](./viabilidade-economica) - Business case financeiro
+
 Para entender a implementação técnica:
 
 - [Arquitetura do Sistema](../tecnica/arquitetura) - Visão técnica da implementação
@@ -497,9 +589,23 @@ Para entender a implementação técnica:
 
 ---
 
+## Próximo Passo na Narrativa
+
+| Se você quer... | Vá para |
+|-----------------|---------|
+| Entender **a estratégia de produto** (visão geral) | [Proposta de Valor →](./proposta-valor) |
+| Ver **o plano de aquisição** de clientes | [Go-to-Market →](./go-to-market) |
+| Conhecer **o business model** que sustenta tudo | [BM Canvas →](./bmc-canvas) |
+| Ver **a viabilidade financeira** | [Viabilidade Econômica →](./viabilidade-economica) |
+| Voltar à **narrativa central** do pitch | [Problema → Mecanismo → Solução →](./problema-mecanismo-solucao) |
+
+---
+
 ## Referências
 
-- **Product Manager Canvas** - Inspired by Roman Pichler
-- **The Lean Product Playbook** - Dan Olsen
-- **Inspired: How to Create Tech Products Customers Love** - Marty Cagan
-- **Running Lean** - Ash Maurya
+- **Product Manager Canvas** — Inspired by Roman Pichler
+- **The Lean Product Playbook** — Dan Olsen
+- **Inspired: How to Create Tech Products Customers Love** — Marty Cagan
+- **Running Lean** — Ash Maurya
+- **Sequoia pitch structure** — Solution + Why Us slots
+- **Building a StoryBrand** — Donald Miller (Plan framework)

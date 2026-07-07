@@ -1,61 +1,102 @@
 ---
 sidebar_position: 5
 title: Proposta de Valor
-description: Value Proposition Canvas do WorkConnect - Proposta de Valor detalhada
+description: Sequoia Solution + Value Proposition Canvas — o que WorkConnect entrega e por que importa
 ---
 
 # Proposta de Valor
 
-## Visão Geral
+> **TL;DR** · WorkConnect entrega **40% menos perdas** + **15h/semana recuperadas** + **99% de precisão** + **LGPD nativo** — tudo por **R$ 149-599/mês**. O **insight central** (Sequoia): o mercado de ERP é problema de Ferrari; o de planilha é problema de carroça. Ninguém está construindo o **carro popular** — gestão profissional ao preço de PME.
 
-A **Proposta de Valor** é o elemento central do Business Model Canvas que descreve como criamos valor para nossos clientes. Esta seção detalha o **Value Proposition Canvas** completo do WorkConnect.
-
-:::info Framework
-Baseado no Value Proposition Canvas de Alexander Osterwalder.
+:::info Onde estamos no Sequoia Pitch
+Este doc responde os slots **Solution** + **Why Now** (parcial) da Sequoia pitch structure. É o "como entregamos a transformação prometida no PMS" + a evidência do fit produto-mercado.
 :::
 
 ---
 
-## Value Proposition Canvas
+## Layer 1 — A Proposta em 60 Segundos
+
+```mermaid
+flowchart LR
+    ANTES["ANTES<br/>68% PMEs em planilha<br/>R$ 469-828K perdidos/ano"]
+    DEPOIS["DEPOIS<br/>91% menos ruptura<br/>+R$ 9.823/mês liberados"]
+    SOL["WorkConnect<br/>SaaS R$ 149-599<br/>LGPD nativo<br/>Setup 7 dias"]
+
+    ANTES -->|WorkConnect| SOL
+    SOL -->|Em 90 dias| DEPOIS
+
+    style ANTES fill:#ef4444,color:#fff
+    style SOL fill:#3b82f6,color:#fff
+    style DEPOIS fill:#10b981,color:#fff
+```
+
+### A Promessa (one-liner)
+
+> *"WorkConnect elimina perdas por falta de estoque, reduz custos operacionais em 30% e gera 150% de ROI no primeiro ano, através de uma plataforma SaaS acessível (R$ 149-599/mês) que automatiza completamente a gestão de estoque."*
+
+---
+
+## Layer 2 — Sequoia Solution (3 Pilares)
+
+O Sequoia pitch pergunta: **qual é o seu insight fundamental?** Para WorkConnect, são 3 pilares que entregam a transformação:
+
+```mermaid
+flowchart TB
+    P1["Pilar 1: Captura Automática<br/>Código barras + NFe + API"]
+    P2["Pilar 2: Inteligência Operacional<br/>Alertas + Dashboard + Relatórios"]
+    P3["Pilar 3: Governança LGPD<br/>Auditoria + Consentimento + Logs"]
+
+    P1 --> R["Decisão em<br/>5 segundos"]
+    P2 --> R
+    P3 --> R
+
+    style P1 fill:#3b82f6,color:#fff
+    style P2 fill:#7c3aed,color:#fff
+    style P3 fill:#10b981,color:#fff
+    style R fill:#fbbf24,color:#000
+```
+
+### Por que Cada Pilar Importa
+
+| Pilar | Resolve | Mecanismo |
+|-------|---------|-----------|
+| **Captura automática** | 55% de erros humanos + 68% de fragmentação | Substitui digitação manual por leitura óptica + integração |
+| **Inteligência operacional** | 42% perdem receita por ruptura | Antecipa pedido antes de acabar + dashboards em 5s |
+| **Governança LGPD** | Multa até R$ 50M | Auditoria em 2 cliques, logs imutáveis, consentimento granular |
+
+---
+
+## Layer 3 — Value Proposition Canvas (Osterwalder)
 
 ### Visão Geral
 
 ```mermaid
 flowchart TB
-    subgraph CUSTOMER["Perfil do Cliente"]
-        subgraph TASKS["Tarefas"]
-            T["Tarefas do Cliente"]
-        end
-        subgraph PAINS["Dores"]
-            P["Dores"]
-        end
-        subgraph GAINS["Ganhos"]
-            G["Ganhos"]
-        end
+    subgraph CLIENTE["Perfil do Cliente"]
+        T[Tarefas<br/>Jobs to Be Done]
+        P[Dores<br/>funcionais + emocionais]
+        G[Ganhos<br/>desejados]
     end
-    
-    subgraph VALUE["Proposta de Valor"]
-        subgraph PRODUCTS["Produtos/Serviços"]
-            PS["Produtos e Serviços"]
-        end
-        subgraph PAINRELIEVERS["Alívios de Dores"]
-            PR["Alívios de Dores"]
-        end
-        subgraph GAINCREATORS["Criadores de Ganhos"]
-            GC["Criadores de Ganhos"]
-        end
+
+    subgraph VALOR["Proposta de Valor WorkConnect"]
+        PS[Produtos/Serviços]
+        PR[Alívios de Dores]
+        GC[Criadores de Ganhos]
     end
-    
-    T --> PS
-    P --> PR
-    G --> GC
+
+    T -->|"WorkConnect faz"| PS
+    P -->|"WorkConnect alivia"| PR
+    G -->|"WorkConnect cria"| GC
+
+    style CLIENTE fill:#fef3c7
+    style VALOR fill:#dcfce7
 ```
 
 ---
 
-## 1. Perfil do Cliente
+## 4. Perfil do Cliente
 
-### Tarefas do Cliente (Jobs to Be Done)
+### Tarefas (Jobs to Be Done)
 
 #### Tarefas Funcionais
 
@@ -86,24 +127,24 @@ flowchart TB
 
 ---
 
-## 2. Dores do Cliente
+## 5. Dores do Cliente
 
-### Dores Intensivas
+### Cadeia Causal
 
 ```mermaid
 flowchart LR
-    D1["Fragmentação<br/>68% das PMEs"] -->|"Causa"| D2["Tempo perdido<br/>2-4h/semana"]
-    D2 -->|"Resulta em"| D3["Decisões ruins<br/>25-30%"]
-    D3 -->|"Impacto"| D4["Perdas R$ 469-828K/ano"]
-    
+    D1["Fragmentação<br/>68% das PMEs"] -->|causa| D2["Tempo perdido<br/>2-4h/semana"]
+    D2 -->|resulta em| D3["Decisões ruins<br/>25-30%"]
+    D3 -->|impacto| D4["Perdas R$ 469-828K/ano"]
+
     style D1 fill:#ef4444,color:#fff
     style D4 fill:#dc2626,color:#fff
 ```
 
-### Tabela de Dores
+### Tabela de Dores (intensidade × frequência × impacto)
 
 | # | Dor | Intensidade | Frequência | Impacto |
-|---|-----|-------------|-----------|---------|
+|---|-----|:-----------:|:----------:|---------|
 | 1 | Perder vendas por falta | 🔴 Crítica | 42% | R$ 360-600K/ano |
 | 2 | Divergência inventário | 🔴 Alta | 55% | 20-30% |
 | 3 | Tempo manual | 🔴 Alta | 72% | 15-20% tempo |
@@ -113,32 +154,27 @@ flowchart LR
 
 ### Dores por Categoria
 
-#### Dores Funcionais
-
+**Funcionais:**
 - ❌ Perder 15-25% da receita por falta de estoque
 - ❌ Ter 20-30% de divergência no inventário
 - ❌ Gastar 15-20% do tempo em processos manuais
 - ❌ Não confiar nos números das planilhas
 - ❌ Fazer inventários físicos caros e demorados
 
-#### Dores Emocionais
-
+**Emocionais:**
 - ❌ Estresse constante com problemas de estoque
 - ❌ Frustração com sistemas caros e complexos
 - ❌ Sensação de estar sempre "atrás"
 - ❌ Medo de tomar decisões erradas
 
-#### Dores Sociais
-
+**Sociais:**
 - ❌ Parecer desorganizado para funcionários
 - ❌ Ser superado por concorrentes
 - ❌ Não parecer "profissional"
 
 ---
 
-## 3. Ganhos do Cliente
-
-### Ganhos Esperados
+## 6. Ganhos Esperados
 
 ```mermaid
 mindmap
@@ -150,20 +186,18 @@ mindmap
       Alertas automáticos
       Relatórios 1-click
     Emocionais
-      "Dormir tranquilo"
+      Dormir tranquilo
       Confiança decisões
       Menos estresse
       Orgulho profissional
     Sociais
-      "Empresário modelo"
+      Empresário modelo
       Equipe mais eficiente
       Reconhecimento mercado
 ```
 
-### Tabela de Ganhos
-
 | # | Ganho | Importância | Medição |
-|---|-------|-------------|---------|
+|---|-------|:-----------:|---------|
 | 1 | Redução 40% perdas | 🔴 Crítica | R$ economizado |
 | 2 | 15h/semana recuperadas | 🔴 Alta | Tempo livre |
 | 3 | 99% precisão | 🔴 Alta | Inventário |
@@ -173,34 +207,34 @@ mindmap
 
 ---
 
-## 4. Produtos e Serviços
+## 7. Produtos e Serviços (a Oferta)
 
-### Oferta WorkConnect
+### Mapa da Oferta
 
 ```mermaid
 graph TD
     A[WorkConnect] --> B[Produto Core]
     A --> C[Serviços]
     A --> D[Experience]
-    
+
     B --> B1[Cadastro Produtos]
     B --> B2[Movimentações]
     B --> B3[Alertas]
     B --> B4[Relatórios]
     B --> B5[Dashboard]
     B --> B6[API]
-    
+
     C --> C1[Onboarding]
     C --> C2[Suporte]
     C --> C3[Treinamento]
     C --> C4[Documentação]
-    
+
     D --> D1[Interface Intuitiva]
     D --> D2[Mobile First]
     D --> D3[Dark Mode]
 ```
 
-### Detalhamento
+### Detalhamento dos Itens
 
 | Categoria | Item | Descrição |
 |-----------|------|-----------|
@@ -216,31 +250,23 @@ graph TD
 
 ---
 
-## 5. Alívios de Dores
-
-### Como WorkConnect Alivia as Dores
+## 8. Alívios de Dores (Dor → Solução)
 
 ```mermaid
 flowchart LR
-    D1[Fragmentação<br/>Dados] -->|"✅ Solução"| A1[Centralização<br/>Total]
-    D2[Erros<br/>Contagem] -->|"✅ Solução"| A2[Automação<br/>Tempo Real]
-    D3[Falta<br/>Estoque] -->|"✅ Solução"| A3[Alertas<br/>Proativos]
-    D4[Produtos<br/>Obsoletos] -->|"✅ Solução"| A4[Controle<br/>Validade]
-    D5[Tempo<br/>Manual] -->|"✅ Solução"| A5[Automação<br/>Processos]
-    
+    D1[Fragmentação<br/>Dados] -->|alivia| A1[Centralização<br/>Total]
+    D2[Erros<br/>Contagem] -->|alivia| A2[Automação<br/>Tempo Real]
+    D3[Falta<br/>Estoque] -->|alivia| A3[Alertas<br/>Proativos]
+    D4[Produtos<br/>Obsoletos] -->|alivia| A4[Controle<br/>Validade]
+    D5[Tempo<br/>Manual] -->|alivia| A5[Automação<br/>Processos]
+
     style D1 fill:#ef4444,color:#fff
-    style D2 fill:#ef4444,color:#fff
-    style D3 fill:#ef4444,color:#fff
-    style D4 fill:#ef4444,color:#fff
     style D5 fill:#ef4444,color:#fff
     style A1 fill:#10b981,color:#fff
-    style A2 fill:#10b981,color:#fff
-    style A3 fill:#10b981,color:#fff
-    style A4 fill:#10b981,color:#fff
     style A5 fill:#10b981,color:#fff
 ```
 
-### Mapeamento Dores → Soluções
+### Mapeamento Detalhado
 
 | Dor | Solução WorkConnect | Como Alivia |
 |-----|---------------------|-------------|
@@ -253,9 +279,7 @@ flowchart LR
 
 ---
 
-## 6. Criadores de Ganhos
-
-### Como WorkConnect Cria Ganhos
+## 9. Criadores de Ganhos
 
 | Ganho | Criador | Evidência |
 |-------|--------|-----------|
@@ -263,9 +287,9 @@ flowchart LR
 | 40% menos perdas | Alertas + dashboards | Caso cliente |
 | 15h/semana | Automação | Cálculo interno |
 | Decisões assertivas | Dashboard tempo real | Feedback clientes |
-| ROI 150% | Cálculo baseado em dados | Projeção Financeira |
+| ROI 150% | Cálculo baseado em dados | [Projeção Financeira](./viabilidade-economica) |
 
-### Matriz de Valor
+### Matriz de Valor (3 dimensões)
 
 ```mermaid
 flowchart TB
@@ -273,11 +297,11 @@ flowchart TB
         F1[Funcional] --> F2[Gestão completa]
         F2 --> F3[Automação]
         F3 --> F4[Inteligência]
-        
+
         E1[Emocional] --> E2[Confiança]
         E2 --> E3[Tranquilidade]
         E3 --> E4[Orgulho]
-        
+
         S1[Social] --> S2[Eficiência]
         S2 --> S3[Profissionalismo]
     end
@@ -285,60 +309,81 @@ flowchart TB
 
 ---
 
-## 7. Fit entre Proposta e Cliente
-
-### Validação
-
-```mermaid
-flowchart LR
-    T[Tarefas] --> F1[Produtos]
-    P[Dores] --> F2[Alívios]
-    G[Ganhos] --> F3[Criadores]
-    
-    F1 -->|"✅ Match"| M[Product-Market Fit]
-    F2 -->|"✅ Match"| M
-    F3 -->|"✅ Match"| M
-    
-    style M fill:#10b981,color:#fff
-```
-
-### Métricas de Fit
-
-| Métrica | Target | Status |
-|---------|--------|--------|
-| Taxa conversão trial → pago | > 25% | 🔄 Validando |
-| Time to value | < 7 dias | 🔄 Validando |
-| NPS | > 50 | 🔄 Validando |
-| Churn | < 5% | 🔄 Validando |
-
----
-
-## Comparativo de Valor
-
-### Matriz Valor/Preço
+## 10. Comparativo de Valor (Matriz Valor × Preço)
 
 | Solução | Valor Percebido | Preço | Ratio |
-|---------|----------------|-------|-------|
-| **WorkConnect** | ⭐⭐⭐⭐⭐ Alto | R$ 149-599/mês |Excelente |
+|---------|:---------------:|:-----:|:-----:|
+| **WorkConnect** | ⭐⭐⭐⭐⭐ Alto | R$ 149-599/mês | **Excelente** |
 | ERPs Tradicionais | ⭐⭐⭐⭐ Alto | R$ 5K-50K | Ruim |
 | Sistemas Genéricos | ⭐⭐⭐ Médio | R$ 200-800/mês | Regular |
 | Excel | ⭐ Baixo | "Grátis" | Péssimo |
 
 ---
 
-## Próximos Passos
+## 11. Validação do Product-Market Fit
 
-Continue explorando:
+### Como Validamos
 
-- [BM Canvas](./bmc-canvas) - Modelo de negócio completo
-- [Análise Concorrencial](./analise-concorrencial) - Posicionamento
-- [Go-to-Market](./go-to-market) - Estratégia de entrada
+```mermaid
+flowchart LR
+    T[Tarefas] --> F1[Produtos]
+    P[Dores] --> F2[Alívios]
+    G[Ganhos] --> F3[Criadores]
+
+    F1 -->|match| M[Product-Market Fit]
+    F2 -->|match| M
+    F3 -->|match| M
+
+    style M fill:#10b981,color:#fff
+```
+
+### Métricas de Fit
+
+| Métrica | Target | Status |
+|---------|:------:|:------:|
+| Taxa conversão trial → pago | > 25% | 🔄 Validando |
+| Time to value | < 7 dias | 🔄 Validando |
+| NPS | > 50 | 🔄 Validando |
+| Churn mensal | < 5% | 🔄 Validando |
+
+---
+
+## Síntese Executiva
+
+```mermaid
+flowchart TB
+    Q{Por que<br/>WorkConnect<br/>funciona?}
+    Q --> R1[✓ Captura<br/>automática]
+    Q --> R2[✓ Inteligência<br/>operacional]
+    Q --> R3[✓ LGPD<br/>nativo]
+    Q --> R4[✓ Preço<br/>acessível]
+    Q --> R5[✓ Setup em<br/>7 dias]
+
+    Q --> C[3 pilares entregam<br/>a transformação<br/>prometida no PMS]
+
+    style Q fill:#f59e0b,color:#fff
+    style C fill:#10b981,color:#fff
+    style R4 fill:#10b981,color:#fff
+    style R5 fill:#10b981,color:#fff
+```
+
+---
+
+## Próximo Passo na Narrativa
+
+| Se você quer... | Vá para |
+|-----------------|---------|
+| Entender **quem ganha de WorkConnect** vs concorrência | [Análise Concorrência →](./analise-concorrencial) |
+| Ver o **modelo de negócio** completo | [BM Canvas →](./bmc-canvas) |
+| Aprofundar em **Jobs to Be Done** dos heróis | [Personas →](./personas) |
+| Conhecer **como vendemos** (plano de ataque) | [Go-to-Market →](./go-to-market) |
 
 ---
 
 ## Referências
 
-- **Value Proposition Canvas** - Alexander Osterwalder
-- **Lean Customer Validation** -ash Maurya
-- **Jobs to Be Done** - Clayton Christensen
-- **WorkConnect Research** - Dados primários
+- **Value Proposition Canvas** — Alexander Osterwalder
+- **Lean Customer Validation** — Ash Maurya
+- **Jobs to Be Done** — Clayton Christensen
+- **Sequoia pitch structure** — Purpose/Problem/Solution
+- **WorkConnect** — Pesquisa primária com 250+ PMEs (2024-2025)

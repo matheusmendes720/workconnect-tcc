@@ -1,39 +1,25 @@
-VOICEOVER VARIAÇÃO A — CLÁSSICA
+VOICEOVER — ROTEIRO FINAL (ELEVENLABS · DANIEL · PT-BR)
 ════════════════════════════════════════════════════════════════
 
-TOM: Institucional sóbrio. Consultor que já resolveu o problema
-duzentas vezes — não impressiona, convence.
-Voz: masculina, 30–45 anos, grave, ritmo pausado.
-Ritmo alvo: 135 wpm (≈ 2,25 palavras/seg).
-Duração: 2:00. B-rolls e plots sem fala.
+Texto enviado para ElevenLabs em 5 blocos via generate-voice.mjs.
+Voz: Daniel (onwK4e9ZLuTAKqWW03F9) · eleven_multilingual_v2.
+Ritmo alvo: 135 wpm. Duração: 2:00.
 
 ════════════════════════════════════════════════════════════════
-BLOCO 1 — COLD OPEN · "O CAOS"  (0:00 → 0:21)
+BLOCO 1 — COLD OPEN  (0:00 → 0:21)
 ════════════════════════════════════════════════════════════════
 
 [0:00]
-Sessenta e oito por cento…
-das pequenas empresas…
-ainda controlam o estoque… em planilha.
-
-[0:04]
-Dessas… mais da metade…
-já perdeu… a conta…
-do que tem… e do que não tem.
-
-[0:08]
-E quarenta e dois por cento… perdem receita… todo mês.
-Só porque o produto… acabou.
-
-[0:12]
-Vinte e três minutos… por dia…
-por operador… procurando um SKU…
-que poderia estar… a um clique.
+Uma em cada três pequenas empresas… perde dinheiro em estoque parado.
+Quase metade… não sabe o que vence amanhã.
+E a grande maioria dos empresarios… ainda controlam tudo em planilha.
+E no fim do mês… sobra menos do que deveria.
 
 [0:16]
 Existe um jeito melhor.
 [pausa 600 ms]
-WorkConnect. Gestão de estoque… inteligente.
+
+WorkConnect.
 
 ════════════════════════════════════════════════════════════════
 BLOCO 2 — TOUR DE FEATURES  (0:21 → 1:07)
@@ -47,22 +33,20 @@ Tudo que importa — em uma tela.
 O que fazer primeiro… já está aqui.
 
 [0:30]
-Cada produto. Quantidade. Mínimo. Status.
-Em uma linha.
+Cada produto. Quantidade. Mínimo. Status. Em uma linha.
 
 [0:34]
 Capital por categoria — em um clique.
 
 [0:37]
-[trilha sozinha · 5 s]
+Na prática — conferir, separar, reabastecer — sem planilha.
 
 [0:42]
-Top: entrega em cinco. Pior: em dez.
+Top entrega em cinco. Pior — em dez.
 Isso é prazo de produção.
 
 [0:46]
-Cada entrada. Cada saída. Cada NF —
-registrada com timestamp.
+Cada entrada. Cada saída. Cada Nota Fiscal — registrada com data e hora.
 
 [0:50]
 Quatro críticos. Resolvidos em um clique.
@@ -73,8 +57,7 @@ Sem superlotar um. Sem ocioso o outro.
 Cada pedido — no endereço certo.
 
 [0:58]
-Vence amanhã — vendo hoje.
-Em vez de perder.
+Vence amanhã — vendo hoje. Em vez de perder.
 
 [1:02]
 Em noventa dias — ruptura caiu oitenta por cento.
@@ -85,8 +68,7 @@ BLOCO 3 — PLOT STORYTELLING  (1:07 → 1:17)
 ════════════════════════════════════════════════════════════════
 
 [1:07]
-(plot 1 — voz baixa, contemplativa)
-Doze abaixo do mínimo. Hoje, um.
+Doze abaixo do mínimo — hoje, um.
 
 [1:09]
 Dez mil reais — de volta ao caixa.
@@ -98,37 +80,33 @@ Cada clique deixa rastro.
 Catorze horas livres — por semana.
 
 ════════════════════════════════════════════════════════════════
-BLOCO 4 — SELO LGPD  (1:17 → 1:36)
+BLOCO 4 — SELO LGPD  (1:17 → 1:30)
 ════════════════════════════════════════════════════════════════
 
 [1:17]
-[trilha sozinha · 5 s]
+E quando o alerta chega — a equipe age. Não espera segunda.
 
 [1:22]
 Cada acesso — registrado.
 Cada exportação — consentida.
-Você sabe quem viu o quê… quando.
+Você sabe quem viu o quê, quando.
 Isso vale ouro… numa auditoria.
 
-[1:30]
-[trilha sozinha · 6 s]
+════════════════════════════════════════════════════════════════
+BLOCO 5 — ENDCARD  (1:30 → 2:00)
+════════════════════════════════════════════════════════════════
 
-════════════════════════════════════════════════════════════════
-BLOCO 5 — ENDCARD  (1:36 → 2:00)
-════════════════════════════════════════════════════════════════
+[1:30]
+O dado do seu cliente — protegido.
+Não como letra miúda. Como arquitetura.
 
 [1:36]
-Porque governança… não é detalhe.
-É o chão de qualquer PME… que quer crescer.
-
 Quatorze horas por semana — é o que a burocracia devolve.
 Tempo de dono. Não de planilha.
 
-WorkConnect — a gestão de estoque
-que o seu negócio merece.
-Pensada para a realidade
-da pequena e média empresa brasileira.
-Conformidade LGPD… desde o primeiro clique.
+WorkConnect — a gestão de estoque que o seu negócio merece.
+Pensada para a realidade da pequena e média empresa brasileira.
+Conformidade LGPD desde o primeiro clique.
 
 workconnect.app.br
 

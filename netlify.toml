@@ -1,13 +1,76 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Netlify configuration for WorkConnect
+#   • Production app: Next.js (publishes .next via @netlify/plugin-nextjs)
+#   • Docs (Docusaurus): pre-built by CI into public/docs/ and served at /docs
+# ─────────────────────────────────────────────────────────────────────────────
+
 [build]
   command = "npm run docs:sync:ci && npm run build"
   publish = ".next"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
 [build.environment]
   NODE_VERSION = "20"
   NEXT_USE_NETLIFY_EDGE = "true"
+  # Tell Next.js not to skip type-check despite typescript.ignoreBuildErrors.
+  TYPESCRIPT_IGNORE_BUILD_ERRORS = "false"
 
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# ─── Branch deploys (preview URLs for every branch) ───────────────────────────
+[context.branch-deploy]
+  command = "npm run docs:sync:ci && npm run build"
+
+[context.deploy-preview]
+  command = "npm run docs:sync:ci && npm run build"
+
+# ─── Production context ───────────────────────────────────────────────────────
 [context.production]
   environment = { NODE_ENV = "production" }
+
+# ─── Headers (security + correct MIME types) ──────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/docs/*"
+  [headers.values]
+    # Docusaurus is a SPA — never frame-bust it from external sites.
+    X-Frame-Options = "DENY"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:"
+
+# Cache Docusaurus static assets aggressively (they're fingerprinted).
+[[headers]]
+  for = "/docs/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Don't cache the entry HTML — Docusaurus has hashed bundles, the html must stay fresh.
+[[headers]]
+  for = "/docs"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/docs/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/docs/**/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# ─── Redirects ────────────────────────────────────────────────────────────────
+# Friendly /docs entrypoint. Already handled by Next.js rewrite, but if a user
+# browses directly we want a clean 200 (not 404).
+[[redirects]]
+  from = "/docs"
+  to = "/docs/"
+  status = 200
+  force = false

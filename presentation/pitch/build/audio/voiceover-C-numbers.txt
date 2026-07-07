@@ -1,131 +1,132 @@
 VOICEOVER VARIAÇÃO C — HARD NUMBERS
-====================================
+════════════════════════════════════════════════════════════════
 
-Tom: Business case convincente. Tom de consultor financeiro.
-Cada claim tem número. Sem adjetivo vazio.
-Voz sugerida: masculina 35-50 anos, neutra, articulada.
-Pace alvo: 145 wpm (≈2,4 palavras/seg) — levemente mais rápido
+TOM: Business case convincente. Cada claim tem número.
+Sem adjetivo vazio. Tom de consultor financeiro.
+Voz: masculina, 35–50 anos, neutra, articulada.
+Ritmo alvo: 145 wpm (≈ 2,4 palavras/seg) — levemente mais rápido
 porque cada palavra traz densidade.
-Duração total alocada: 2:00 (120s).
+Duração: 2:00. B-rolls e plots sem fala.
 
-Diferente de A e B — esta variação não tem cold open emocional.
-Vai DIRETO ao número. O "gancho" é ROY, não história.
+Diferente de A e B — não tem cold open emocional.
+Vai DIRETO ao número. O gancho é ROY, não história.
 
-────────────────────────────────────────────────────────────
-BLOCO 1 — COLD OPEN — "OS NÚMEROS DO CAOS" (0:00 → 0:21) · 21s
-────────────────────────────────────────────────────────────
+════════════════════════════════════════════════════════════════
+BLOCO 1 — COLD OPEN · "OS NÚMEROS DO CAOS"  (0:00 → 0:21)
+════════════════════════════════════════════════════════════════
 
-[TC 0:00 — cena cold-01]
+[0:00]
 Sessenta e oito por cento — pequenas empresas —
 em planilha. Zero automação.
 
-[TC 0:04 — cena cold-02]
-Dessas, cinquenta e cinco por cento — estoque
-desatualizado. Em média, oito por cento —
+[0:04]
+Dessas, cinquenta e cinco por cento — estoque desatualizado.
+Em média, oito por cento —
 
-[TC 0:08 — cena cold-03]
+[0:08]
 — perdido em ruptura de estoque. Por mês.
 Quarenta e dois por cento das PMEs perdem receita.
 
-[TC 0:12 — cena cold-04]
+[0:12]
 Vinte e três minutos diários. Por operador.
 Buscando SKU. Oito horas semanais — por cabeça.
 
-[TC 0:16 — cena cold-05 — Logo]
+[0:16]
 Em noventa dias — esses números mudam.
-[pausa 600ms]
+[pausa 600 ms]
 WorkConnect.
 
-────────────────────────────────────────────────────────────
-BLOCO 2 — TOUR DE FEATURES (0:21 → 1:07) · 46s
-────────────────────────────────────────────────────────────
+════════════════════════════════════════════════════════════════
+BLOCO 2 — TOUR DE FEATURES  (0:21 → 1:07)
+════════════════════════════════════════════════════════════════
 
-[TC 0:21 — cena br-01 — Data Stream · SEM FALA]
-[trilha sozinha por 4 segundos]
+[0:21]
+[trilha sozinha · 4 s]
 
-[TC 0:25 — cena a1-dashboard — 5s]
+[0:25]
 Um painel. Três segundos pra abrir.
 Duas telas? Não. Uma. Decisão em cinco segundos.
 
-[TC 0:30 — cena a2-produtos — 4s]
+[0:30]
 Vinte e dois SKUs. Todos visíveis.
 Busca em meio segundo. Filtros — quatro.
 
-[TC 0:34 — cena a3-categorias — 3s]
+[0:34]
 Sete categorias. Capital distribuído —
 visível em um clique.
 
-[TC 0:37 — cena br-02 — Armazém Vivo · SEM FALA]
-[trilha sozinha por 5 segundos]
+[0:37]
+[trilha sozinha · 5 s]
 
-[TC 0:42 — cena a4-fornecedores — 4s]
+[0:42]
 Cinco dias. Top. Dez dias. Pior.
 Diferença de cem por cento. Decisão — em segundos.
 
-[TC 0:46 — cena a5-movs — 4s]
+[0:46]
 Cada movimento — com timestamp.
 Cada NF — registrada. Auditoria em um clique.
 
-[TC 0:50 — cena a6-alertas — 4s · PICO]
+[0:50]
 Quatro alertas. Em uma fila.
 Resolvidos — quatro cliques. Tempo — quinze segundos.
 
-[TC 0:54 — cena a7-armazens — 4s]
+[0:54]
 Quatro armazéns. Sete endereços lógicos.
 Otimização — automática. Por SKU.
 
-[TC 0:58 — cena a8-vencimentos — 4s]
+[0:58]
 Vence amanhã. Quarenta e oito horas —
 pra vender. Não perder.
 
-[TC 1:02 — cena a9-relatorios — 5s]
+[1:02]
 Quatro relatórios. Em cinco minutos — ler tudo.
 Decisão — uma hora. Não um dia.
 
-────────────────────────────────────────────────────────────
-BLOCO 3 — PLOT STORYTELLING (1:07 → 1:17) · 10s
-────────────────────────────────────────────────────────────
+════════════════════════════════════════════════════════════════
+BLOCO 3 — PLOT STORYTELLING  (1:07 → 1:17)
+════════════════════════════════════════════════════════════════
 
-[TC 1:07 — cena plot-story — 10s]
-
+[1:07]
 (Resultado um)
 Onze itens críticos. Virou um.
 Redução de noventa e um por cento.
 
+[1:09]
 (Resultado dois)
 Nove mil oitocentos e vinte e três reais —
 de capital devolvido. Por mês.
 
+[1:12]
 (Resultado três)
 Quatorze horas semanais — recuperadas.
 Em quatro meses — cinquenta e seis horas. Mensais.
 
+[1:14]
 (Resultado quatro)
 Zero não-conformidades LGPD. Em três auditorias.
 
-────────────────────────────────────────────────────────────
-BLOCO 4 — SELO LGPD (1:17 → 1:36) · 19s
-────────────────────────────────────────────────────────────
+════════════════════════════════════════════════════════════════
+BLOCO 4 — SELO LGPD  (1:17 → 1:36)
+════════════════════════════════════════════════════════════════
 
-[TC 1:17 — cena br-03 — Pulso de Rede · SEM FALA]
-[trilha sozinha por 5 segundos]
+[1:17]
+[trilha sozinha · 5 s]
 
-[TC 1:22 — cena ato4-03 — Selo LGPD — 8s]
+[1:22]
 Cada acesso — logado.
 Cada exportação — consentida.
 Cada query — auditável.
 Vinte e quatro por cento mais barato —
 que a multa mínima LGPD.
 
-[TC 1:30 — cena br-04 — Cadeado/Selo · SEM FALA]
-[trilha sozinha por 6 segundos]
+[1:30]
+[trilha sozinha · 6 s]
 
-────────────────────────────────────────────────────────────
-BLOCO 5 — ENDCARD (1:36 → 2:00) · 24s
-────────────────────────────────────────────────────────────
+════════════════════════════════════════════════════════════════
+BLOCO 5 — ENDCARD  (1:36 → 2:00)
+════════════════════════════════════════════════════════════════
 
-[TC 1:36 — cena ato5-02 — Endcard CTA — 24s]
-
+[1:36]
 Três meses. Uma PME média.
 O que muda:
 
@@ -144,40 +145,4 @@ Zero não-conformidade — garantida.
 
 workconnect.app.br
 
-[pausa final 800ms — trilha fecha]
-
-════════════════════════════════════════════════════════════
-NOTAS TÉCNICAS DE GRAVAÇÃO — VARIAÇÃO C
-════════════════════════════════════════════════════════════
-
-Microfone: condenser cardioid, gain -6 dB, 48 kHz / 24-bit.
-Loudness alvo: -16 LUFS integrated, true peak -1.5 dBTP.
-
-Direção de acting:
-  • Locutor soa como CFO apresentando business case, não como ator.
-  • Velocidade levemente acima do natural — transmite "informação densa".
-  • Números emendados sem pausa — pra soar "data", não "discurso".
-  • "Zero" dito com firmeza absoluta (3x no roteiro).
-
-Densidade de números por minuto:
-  • Bloco 1 (cold): 12 números em 21s = 34/min
-  • Bloco 2 (tour): 18 números em 46s = 23/min
-  • Bloco 3 (plot): 11 números em 10s = 66/min (PIÇO de densidade)
-  • Bloco 4 (selo): 5 números em 8s = 38/min
-  • Bloco 5 (endcard): 14 números em 24s = 35/min
-
-Sinais de pausas usados:
-  |   = 150-200 ms (sem quebrar ritmo rápido)
-  ||  = 350 ms (apenas entre blocos, não entre claims)
-  …   = "ponto final" — duração a critério do locutor
-
-ATENÇÃO — Pronúncia:
-  • "R$ 9.823" = "nove mil oitocentos e vinte e três reais"
-    (NUNCA "nove ponto oito" — sounds imprecise)
-  • "30%" = "trinta por cento" (sempre por extenso)
-  • "82%" = "oitenta e dois por cento"
-  • "120 dias" = "cento e vinte dias" (acento no "cen")
-  • "400%" = "quatrocentos por cento"
-
-Fim previsto da locução: 1:59.2 (sobra 800ms p/ trilha fechar).
-════════════════════════════════════════════════════════════
+[pausa 800 ms — trilha fecha]

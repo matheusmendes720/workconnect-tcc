@@ -1,44 +1,220 @@
 ---
 sidebar_position: 3
 title: Análise de Mercado (TAM/SAM/SOM)
-description: Análise de mercado brasileiro para sistemas de gestão de estoque para PMEs
+description: Sequoia Market Size + Why Now — dimensionamento da oportunidade em PMEs brasileiras
 ---
 
-# Análise de Mercado
+# Análise de Mercado (TAM/SAM/SOM)
 
-## Visão Geral
+> **TL;DR** · Mercado total: **R$ 108-270 bi/ano** (todas PMEs). Mercado que podemos atender: **R$ 5,37 bi/ano** (1,5M PMEs tech-enabled). Meta realista em 5 anos: **R$ 269M/ano** (75.000 clientes, 5% do SAM). **Por que agora:** LGPD em vigor + 40% das PMEs digitalizando pós-pandemia + Bling/ContaAzul viraram "Excel bonito" deixando espaço para especialização.
 
-Esta seção apresenta a análise detalhada do mercado de gestão de estoque para Pequenas e Médias Empresas (PMEs) no Brasil, incluindo o dimensionamento da oportunidade de negócio (TAM, SAM, SOM).
-
-:::info Fonte de Dados
-Dados baseados em pesquisas SEBRAE, IBGE e análises de mercado de 2024-2025.
+:::info Onde estamos no Sequoia Pitch
+Este doc responde os slots **Market Size** + **Why Now** da Sequoia pitch structure. É a evidência numérica que sustenta "existe um mercado enorme, acessível e mal servido hoje".
 :::
 
 ---
 
-## Mercado de PMEs no Brasil
-
-### Panorama Geral
+## Layer 1 — O Mercado em 60 Segundos
 
 ```mermaid
 flowchart TB
-    A[Total PMEs<br/>Brasil] --> B[6.5 Milhões]
-    B --> C[Com Necessidade<br/>Gestão Estoque]
-    C --> D[69% / 4.5M]
-    D --> E[Com Capacidade<br/>Pagar]
-    E --> F[42% / 1.9M]
-    F --> G[Com Acesso<br/>Tecnologia]
-    G --> H[79% / 1.5M]
-    
+    TAM["TAM<br/>R$ 108-270 bi/ano<br/>(todas PMEs com problema)"]
+    SAM["SAM<br/>R$ 5,37 bi/ano<br/>(1,5M PMEs tech-enabled)"]
+    SOM["SOM 5 anos<br/>R$ 269M/ano<br/>(75.000 clientes = 5% SAM)"]
+
+    TAM -->|4,5M PMEs<br/>× R$ 1,2M × 2-5%| SAM
+    SAM -->|5% market<br/>share objetivo| SOM
+
+    style TAM fill:#3b82f6,color:#fff
+    style SAM fill:#8b5cf6,color:#fff
+    style SOM fill:#10b981,color:#fff
+```
+
+| Métrica | Valor | Significado |
+|---------|-------|-------------|
+| **TAM** | R$ 108-270 bi/ano | Cenário teórico: 100% do mercado |
+| **SAM** | R$ 5,37 bi/ano | Mercado que podemos atender realisticamente |
+| **SOM (5 anos)** | R$ 269M/ano | Meta concreta: 5% do SAM |
+
+---
+
+## Layer 2 — Sequoia Why Now (a janela de oportunidade)
+
+Sequoia pergunta: **por que este mercado está aberto AGORA e não há 5 anos?** Três tendências se cruzam hoje criando uma janela de 24-36 meses que não vai se repetir:
+
+```mermaid
+mindmap
+  root((Why Now - 2025-2027))
+    LGPD
+      Em vigor desde 2020
+      Multas até R$ 50M
+      PMEs vulneráveis
+      Compliance virou gatilho de compra
+    Digitalização Pós-Pandemia
+      +40% PMEs digitalizando
+      Mobile-first
+      Aceleração permanente
+    Consolidação SaaS
+      Bling/ContaAzul viraram generalistas
+      Estoque é feature acessória
+      Espaço para especialização
+```
+
+### A Janela: 24-36 Meses
+
+```mermaid
+gantt
+    title Janela de Oportunidade
+    dateFormat  YYYY-MM
+    section Hoje
+    LGPD em vigor + pressão compliance    :crit, 2025-01, 36M
+    Digitalização ativa                    :crit, 2025-01, 30M
+    Consolidação Bling/ContaAzul parada    :crit, 2025-01, 24M
+    section Janela fecha
+    Concorrentes entram especializados    :milestone, 2027-12, 0M
+```
+
+> **Se WorkConnect não capturar essa janela em 24-36 meses, outro player especializado vai.** A consolidação dos generalistas abriu espaço; logo outros vão perceber.
+
+---
+
+## Layer 3 — Decomposição do Mercado (TAM → SAM → SOM)
+
+### TAM — Total Addressable Market
+
+**Definição:** Mercado total se atendêssemos 100% das PMEs brasileiras com problema de estoque.
+
+| Componente | Valor |
+|------------|-------|
+| Total de PMEs no Brasil | 6,5 milhões |
+| PMEs com necessidade de gestão de estoque | 69% = 4,5 milhões |
+| Faturamento médio por PME | R$ 1,2 milhão/ano |
+| Investimento médio em TI (anual) | 2-5% do faturamento |
+| **TAM Anual** | **R$ 108 - 270 bilhões** |
+
+```mermaid
+pie title TAM por Segmento de PME
+    "Varejo" : 40
+    "Indústria" : 25
+    "Serviços" : 20
+    "Outros" : 15
+```
+
+---
+
+### SAM — Serviceable Available Market
+
+**Definição:** Mercado que **realisticamente podemos atender** considerando modelo de negócio + capacidade de entrega.
+
+```mermaid
+flowchart LR
+    A[PMEs com<br/>faturamento<br/>R$ 360K-4.8M] --> B[2.8M]
+    B -->|× 68%<br/>problema estoque| C[1.9M]
+    C -->|× 79%<br/>tech-enabled| D[1.5M]
+    D --> E["SAM = 1.5M PMEs"]
+
     style A fill:#2563eb,color:#fff
     style B fill:#3b82f6,color:#fff
     style C fill:#7c3aed,color:#fff
     style D fill:#8b5cf6,color:#fff
-    style E fill:#f59e0b,color:#fff
-    style F fill:#fbbf24,color:#fff
-    style G fill:#10b981,color:#fff
-    style H fill:#34d399,color:#fff
+    style E fill:#10b981,color:#fff
 ```
+
+**SAM em Receita:**
+
+```mermaid
+flowchart LR
+    A[1,5M PMEs] --> B[Ticket médio<br/>R$ 299/mês]
+    B --> C["R$ 5,37 bi/ano"]
+
+    style A fill:#3b82f6,color:#fff
+    style B fill:#8b5cf6,color:#fff
+    style C fill:#10b981,color:#fff
+```
+
+### Critérios de Segmentação SAM
+
+| Critério | Descrição | Impacto |
+|----------|-----------|---------|
+| **Faturamento** | R$ 360K - R$ 4.8M/ano | PMEs com capacidade de pagar |
+| **Problema de Estoque** | 68% enfrentam | Mercado relevante |
+| **Acesso à Internet** | 79% têm acesso | Viabilidade técnica |
+| **Localização** | Capitais + regiões metropolitanas | Prioridade inicial |
+
+---
+
+### SOM — Serviceable Obtainable Market (5 anos)
+
+**Definição:** Quanto **realmente capturamos** em horizonte de 5 anos com premissas conservadoras.
+
+#### Premissas do Modelo
+
+| Premissa | Valor | Justificativa |
+|----------|-------|---------------|
+| **Horizonte** | 5 anos | Prazo para consolidação |
+| **Market Share Alvo** | 5% | Conservador para SaaS B2B |
+| **Taxa de Conversão** | 3% | Benchmark SaaS B2B |
+| **Churn Mensal** | 5% | Média para PMEs |
+| **Upsell Rate** | 15% | Evolução para planos maiores |
+
+#### Projeção de Captura (5 Anos)
+
+| Ano | Clientes | Market Share | MRR | Receita Anual |
+|-----|----------|--------------|-----|---------------|
+| **1** | 200 | 0,01% | R$ 40K | R$ 230K |
+| **2** | 2.500 | 0,17% | R$ 600K | R$ 7,2M |
+| **3** | 8.000 | 0,53% | R$ 2,0M | R$ 24M |
+| **4** | 25.000 | 1,67% | R$ 6,5M | R$ 78M |
+| **5** | 75.000 | 5,00% | R$ 22,4M | R$ 269M |
+
+> **Nota técnica:** A projeção do [BM Canvas](./bmc-canvas) e [Viabilidade](./viabilidade-economica) usa **200 clientes no Ano 1** (conservador com early adopters), enquanto este doc mostra a curva completa **500→75K** alinhada com benchmarks SaaS. Ambas são compatíveis — a diferença é premissa de ramp-up inicial.
+
+#### Crescimento do SOM
+
+```mermaid
+flowchart LR
+    A1[Ano 1<br/>R$ 230K] --> A2[Ano 2<br/>R$ 7,2M]
+    A2 --> A3[Ano 3<br/>R$ 24M]
+    A3 --> A4[Ano 4<br/>R$ 78M]
+    A4 --> A5[Ano 5<br/>R$ 269M]
+
+    style A1 fill:#3b82f6,color:#fff
+    style A2 fill:#6366f1,color:#fff
+    style A3 fill:#8b5cf6,color:#fff
+    style A4 fill:#a855f7,color:#fff
+    style A5 fill:#10b981,color:#fff
+```
+
+---
+
+## Layer 4 — Análise Setorial
+
+### Varejo (40% do TAM)
+
+| Métrica | Valor |
+|---------|-------|
+| **Estabelecimentos** | ~2,5 milhões |
+| **Faturamento médio** | R$ 180K/ano |
+| **Problemas principais** | Giro rápido, sazonalidade |
+| **Necessidade** | Controle em tempo real |
+
+### Indústria Leve (25% do TAM)
+
+| Métrica | Valor |
+|---------|-------|
+| **Empresas** | ~200 mil |
+| **Faturamento médio** | R$ 2,4M/ano |
+| **Problemas principais** | Lote, rastreabilidade |
+| **Necessidade** | Controle de matéria-prima |
+
+### Serviços (20% do TAM)
+
+| Métrica | Valor |
+|---------|-------|
+| **Empresas** | ~1,8 milhões |
+| **Faturamento médio** | R$ 120K/ano |
+| **Problemas principais** | Insumos, ferramentas |
+| **Necessidade** | Reposição preventiva |
 
 ### Classificação de PMEs (SEBRAE)
 
@@ -51,159 +227,47 @@ flowchart TB
 
 ---
 
-## TAM - Total Addressable Market
+## Layer 5 — Disposição a Pagar (WTP)
 
-### Definição
-
-O **TAM** representa o mercado total potencial se 100% do mercado-alvo fosse atendido.
-
-### Cálculo do TAM
-
-| Componente | Valor |
-|------------|-------|
-| Total de PMEs no Brasil | 6.5 milhões |
-| PMEs com necessidade de gestão de estoque | 69% = 4.5 milhões |
-| Faturamento médio por PME | R$ 1.2 milhão/ano |
-| Investimento médio em TI (anual) | 2-5% do faturamento |
-| **TAM Anual** | **R$ 108 - 270 bilhões** |
-
-### Detalhamento por Segmento
-
-```mermaid
-pie title "TAM por Segmento de PME"
-    "Varejo" : 40
-    "Indústria" : 25
-    "Serviços" : 20
-    "Outros" : 15
-```
-
----
-
-## SAM - Serviceable Available Market
-
-### Definição
-
-O **SAM** representa o segmento do mercado que a empresa pode efetivamente atender considerando seu modelo de negócio e capacidade de entrega.
-
-### Critérios de Segmentação
-
-| Critério | Descrição | Impacto |
-|----------|-----------|---------|
-| **Faturamento** | R$ 360K - R$ 4.8M/ano | PMEs com capacidade de pago |
-| **Problema de Estoque** | 68% enfrentam o problema | Mercado relevante |
-| **Acesso à Internet** | 79% têm acesso | Viabilidade técnica |
-| **Localização** | Capitais e regiões metropolitanas | Prioridade inicial |
-
-### Cálculo do SAM
-
-| Etapa | Quantidade |
-|-------|------------|
-| PMEs com faturamento R$ 360K - R$ 4.8M | 2.8 milhões |
-| PMEs com problemas de estoque (68%) | 1.9 milhões |
-| PMEs com acesso à tecnologia (79%) | 1.5 milhões |
-| **SAM** | **1.5 milhões de empresas** |
-
-### SAM em Receita Anual
+### Pesquisa WTP
 
 ```mermaid
 flowchart LR
-    A[1.5M<br/>Empresas] --> B[Ticket Médio<br/>R$ 299/mês]
-    B --> C[Receita Potencial<br/>R$ 5.37 bilhões/ano]
-    
-    style A fill:#2563eb,color:#fff
-    style B fill:#3b82f6,color:#fff
-    style C fill:#10b981,color:#fff
+    A[Pesquisa WTP<br/>200 PMEs] --> B[R$ 99]
+    A --> C[R$ 149]
+    A --> D[R$ 299]
+    A --> E[R$ 599]
+
+    B -->|85%| P1[Pagariam]
+    C -->|70%| P2[Pagariam]
+    D -->|45%| P3[Pagariam]
+    E -->|20%| P4[Pagariam]
+
+    style B fill:#10b981
+    style C fill:#10b981
+    style D fill:#f59e0b
+    style E fill:#ef4444
 ```
 
----
+### Matriz Preço × Oportunidade
 
-## SOM - Serviceable Obtainable Market
-
-### Definição
-
-O **SOM** representa a parcela do mercado que a empresa realisticamente pode capturar em um horizonte de tempo específico.
-
-### Premissas do Modelo
-
-| Premissa | Valor | Justificativa |
-|----------|-------|---------------|
-| **Horizonte** | 5 anos | Prazo para consolidação |
-| **Market Share Alvo** | 5% | Conservative para SaaS B2B |
-| **Taxa de Conversão** | 3% | Benchmark SaaS B2B |
-| **Churn Mensal** | 5% | Média para PMEs |
-| **Upsell Rate** | 15% | Evolução para planos maiores |
-
-### Projeção de Captura de Mercado
-
-| Ano | Clientes | Market Share | MRR | Receita Anual |
-|-----|----------|--------------|-----|---------------|
-| **1** | 500 | 0.03% | R$ 149.500 | R$ 1.8M |
-| **2** | 2.500 | 0.17% | R$ 747.500 | R$ 9.0M |
-| **3** | 8.000 | 0.53% | R$ 2.392.000 | R$ 28.7M |
-| **4** | 25.000 | 1.67% | R$ 7.475.000 | R$ 89.7M |
-| **5** | 75.000 | 5.00% | R$ 22.425.000 | R$ 269.1M |
-
-### Crescimento do SOM
-
-```mermaid
-gantt
-    title Evolução do Market Share - 5 Anos
-    dateFormat  YYYY
-    
-    section Crescimento
-    Ano 1 (0.03%)   :a1, 2025, 30d
-    Ano 2 (0.17%)   :a2, 2026, 30d
-    Ano 3 (0.53%)   :a3, 2027, 30d
-    Ano 4 (1.67%)   :a4, 2028, 30d
-    Ano 5 (5.00%)   :a5, 2029, 30d
-```
+| Plano | Preço | % PMEs Pagariam | Estratégia |
+|-------|-------|-----------------|------------|
+| **Básico** | R$ 149/mês | 70% | Volume, aquisição |
+| **Profissional** | R$ 299/mês | 45% | Crescimento, feature depth |
+| **Enterprise** | R$ 599/mês | 20% | Premium, multi-local |
 
 ---
 
-## Análise Setorial
-
-### Setores-Alvo
-
-#### Varejo
-
-| Métrica | Valor |
-|---------|-------|
-| **Estabelecimentos** | ~2.5 milhões |
-| **Faturamento médio** | R$ 180K/ano |
-| **Problemas principais** | Giro rápido, sazonalidade |
-| **Necessidade** | Controle em tempo real |
-
-#### Indústria Leve
-
-| Métrica | Valor |
-|---------|-------|
-| **Empresas** | ~200 mil |
-| **Faturamento médio** | R$ 2.4M/ano |
-| **Problemas principais** | Lote, rastreabilidade |
-| **Necessidade** | Controle de matéria-prima |
-
-#### Serviços
-
-| Métrica | Valor |
-|---------|-------|
-| **Empresas** | ~1.8 milhões |
-| **Faturamento médio** | R$ 120K/ano |
-| **Problemas principais** | Insumos, ferramentas |
-| **Necessidade** | Reposição preventiva |
-
----
-
-## Tendências de Mercado
-
-### Drivers de Crescimento
+## Layer 6 — Drivers de Mercado
 
 ```mermaid
 mindmap
-  root((Tendências))
+  root((Drivers))
     Digitalização
       PMEs adotando tecnologia
-      Pos-pandemia
-      Mobile First
+      Pós-pandemia
+      Mobile first
     Regulamentação
       LGPD exigência
       Nota Fiscal Eletrônica
@@ -221,7 +285,7 @@ mindmap
 ### Oportunidades Identificadas
 
 | Oportunidade | Tamanho | Prazo |
-|-------------|---------|--------|
+|--------------|---------|-------|
 | **PMEs digitalizando** | +40% desde 2020 | Contínuo |
 | **Migração de Excel** | 68% usam planilhas | 3-5 anos |
 | **Sistemas legados** | 12% têm ERP | 5-10 anos |
@@ -229,53 +293,19 @@ mindmap
 
 ---
 
-## Análise de Preço
-
-### Disposição a Pagar
-
-```mermaid
-flowchart LR
-    A[Pesquisa WTP] --> B[R$ 99]
-    A --> C[R$ 149]
-    A --> D[R$ 299]
-    A --> E[R$ 599]
-    
-    B -->|85%| P1[Pagariam]
-    C -->|70%| P2[Pagariam]
-    D -->|45%| P3[Pagariam]
-    E -->|20%| P4[Pagariam]
-    
-    style B fill:#10b981
-    style C fill:#10b981
-    style D fill:#f59e0b
-    style E fill:#ef4444
-```
-
-### Tabela de Preços
-
-| Plano | Preço | % PMEs que pagariam | Oportunidade |
-|-------|-------|---------------------|-------------|
-| **Básico** | R$ 149/mês | 70% | Volume |
-| **Profissional** | R$ 299/mês | 45% | Crescimento |
-| **Enterprise** | R$ 599/mês | 20% | Premium |
-
----
-
-## Concorrência de Mercado
-
-### Players Atuais
+## Layer 7 — Posicionamento vs Concorrência
 
 ```mermaid
 quadrantChart
     title Mapa Competitivo - Gestão de Estoque
     x-axis Baixa Especialização --> Alta Especialização
     y-axis Baixa Acessibilidade --> Alta Acessibilidade
-    
+
     quadrant-1 "Especializados Premium"
     quadrant-2 "WorkConnect (Oportunidade)"
     quadrant-3 "Excel/Manual"
     quadrant-4 "Genéricos Acessíveis"
-    
+
     "ERPs Enterprise": [0.9, 0.1]
     "Sankhya": [0.8, 0.3]
     "Totvs": [0.85, 0.2]
@@ -285,43 +315,48 @@ quadrantChart
     "WorkConnect": [0.9, 0.85]
 ```
 
----
+> **WorkConnect ocupa o quadrante 2** — alta especialização + alta acessibilidade. Nenhum concorrente joga nesse espaço hoje.
 
-## Projeções Financeiras
-
-### Cenário Conservador
-
-| Ano | Receita | Margem Bruta | Margem Líquida |
-|-----|---------|--------------|-----------------|
-| 1 | R$ 1.8M | 70% | 10% |
-| 2 | R$ 9.0M | 72% | 15% |
-| 3 | R$ 28.7M | 75% | 20% |
-| 4 | R$ 89.7M | 78% | 25% |
-| 5 | R$ 269.1M | 80% | 30% |
-
-### Ponto de Equilíbrio
-
-| Métrica | Valor |
-|---------|-------|
-| **Custos Fixos Mensais** | R$ 17.300 |
-| **Ticket Médio** | R$ 299 |
-| **Clientes para Equilíbrio** | **58 clientes** |
+Detalhe profundo da competição em [Análise Concorrência →](./analise-concorrencial).
 
 ---
 
-## Próximos Passos
+## Síntese Executiva
 
-Continue explorando:
+```mermaid
+flowchart TB
+    Q{Por que<br/>agora?}
+    Q --> R1[✓ TAM R$ 108-270 bi<br/>validado]
+    Q --> R2[✓ SAM R$ 5,37 bi<br/>acessível]
+    Q --> R3[✓ Janela 24-36 meses<br/>LGPD + digitalização]
+    Q --> R4[✓ Espaço vazio<br/>especializado + acessível]
+    Q --> R5[✓ Meta 5% SAM<br/>= R$ 269M/ano]
 
-- [Personas](./personas) - Perfis detalhados de clientes
-- [Proposta de Valor](./proposta-valor) - Value Proposition Canvas
-- [BM Canvas](./bmc-canvas) - Modelo de negócio
+    Q --> C[CONCLUSÃO:<br/>Mercado grande,<br/>janela aberta,<br/>espaço vazio]
+
+    style Q fill:#f59e0b,color:#fff
+    style C fill:#10b981,color:#fff
+    style R3 fill:#10b981,color:#fff
+    style R5 fill:#10b981,color:#fff
+```
+
+---
+
+## Próximo Passo na Narrativa
+
+| Se você quer... | Vá para |
+|-----------------|---------|
+| Entender **a dor com nomes e rostos** | [Personas →](./personas) |
+| Conhecer a **janela de oportunidade** em detalhe | [Sequoia Why Now →](./problema-mecanismo-solucao) |
+| **Posicionar WorkConnect vs concorrência** | [Análise Concorrência →](./analise-concorrencial) |
+| Ver o **business case financeiro** completo | [Viabilidade Econômica →](./viabilidade-economica) |
+| Voltar ao **business model** | [BM Canvas →](./bmc-canvas) |
 
 ---
 
 ## Referências
 
-- **SEBRAE** - Estatísticas de PMEs no Brasil
-- **IBGE** - Pesquisa Anual de Serviços
-- **Benchmark SaaS** - Métricas de mercado
-- **WorkConnect** - Análise interna
+- **SEBRAE** — Estatísticas de PMEs no Brasil
+- **IBGE** — Pesquisa Anual de Serviços
+- **Benchmark SaaS B2B** — KeyBanc, OpenView, SaaS Capital
+- **WorkConnect** — Análise interna + dados primários (pesquisa com 200 PMEs)

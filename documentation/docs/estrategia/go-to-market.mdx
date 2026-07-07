@@ -1,183 +1,112 @@
 ---
 sidebar_position: 7
 title: Go-to-Market (GTM)
-description: Estratégia Go-to-Market do WorkConnect
+description: Sequoia Plan of Attack + StoryBrand CTA — como capturamos o mercado fase a fase
 ---
 
 # Go-to-Market (GTM)
 
-## Visão Geral
+> **TL;DR** · **3 fases, 5 anos, R$ 269M/ano de receita.** Fase 1 (M1-6): validar com 10 betas. Fase 2 (M6-12): adquirir 100 clientes via Google Ads + LinkedIn + contadores. Fase 3 (A2-5): escalar para 75.000 via canais + parcerias. **CAC R$ 200, LTV R$ 4.000, payback 4 meses.**
 
-Esta seção apresenta a estratégia completa de Go-to-Market do WorkConnect, definindo como我们将进入市场并获取客户。
+:::info Onde estamos no Sequoia Pitch
+Este doc responde o slot **Traction + Plan** da Sequoia pitch structure. É o **"como capturamos o mercado"** — Sequoia pergunta: *"qual é seu plano concreto para chegar aos primeiros 100 clientes?"*
+:::
 
 ---
 
-## Estratégia de Entrada no Mercado
-
-### Abordagem em Fases
+## Layer 1 — O Plano em 60 Segundos
 
 ```mermaid
-flowchart TB
-    F1["Fase 1<br/>Validação"] --> F2["Fase 2<br/>Aquisição"]
-    F2 --> F3["Fase 3<br/>Escala"]
-    
-    F1 -->|"Meses 1-3"| V1[MVP]
-    F1 -->|"Meses 3-6"| B1[10 Beta]
-    
-    F2 -->|"Meses 6-12"| C1[100 Clientes]
-    F2 -->|"Meses 6-12"| M1[Marketing]
-    
-    F3 -->|"Anos 2-5"| S1[1000+ Clientes]
-    F3 -->|"Anos 2-5"| P1[Parcerias]
+flowchart LR
+    F1["Fase 1<br/>Meses 1-6<br/>Validar"]
+    F2["Fase 2<br/>Meses 6-12<br/>Adquirir"]
+    F3["Fase 3<br/>Anos 2-5<br/>Escalar"]
+
+    F1 -->|10 betas<br/>R$ 0| F2
+    F2 -->|100 clientes<br/>R$ 200 CAC| F3
+    F3 -->|75.000 clientes<br/>R$ 100 CAC| DONE[75K clientes<br/>R$ 269M ARR]
+
+    style F1 fill:#3b82f6,color:#fff
+    style F2 fill:#7c3aed,color:#fff
+    style F3 fill:#10b981,color:#fff
+    style DONE fill:#fbbf24,color:#000
 ```
 
 ---
 
-## Fase 1: Validação (Meses 1-6)
+## Layer 2 — StoryBrand Call-to-Action (Por Persona)
+
+StoryBrand separa **CTA direto** (alta conversão) de **CTA transicional** (baixo risco). WorkConnect usa os dois para cada persona:
+
+| Persona | CTA Transicional (Topo de Funil) | CTA Direto (Fundo de Funil) |
+|---------|----------------------------------|----------------------------|
+| **João** (dono PME) | "Veja o vídeo de 2 min mostrando como reduzir ruptura em 91%" | "Comece teste grátis de 14 dias — sem cartão" |
+| **Maria** (gerente) | "Baixe o checklist de 5 sintomas de estoque desorganizado" | "Agende demo de 15 min com nosso time" |
+| **Carlos** (contador) | "Veja como o programa de parceiros funciona" | "Cadastre-se como parceiro — 30% comissão" |
+
+---
+
+## Layer 3 — Fase 1: Validação (Meses 1-6)
 
 ### Objetivos
 
 | Meta | Target | Métrica |
 |------|--------|---------|
-| Validar produto | 10 beta testers | Feedback |
-| Calibrar precificação | 3 planos | Conversão |
-| Ajustar features | Priorização | Uso |
+| Validar produto | 10 beta testers | Feedback qualitativo |
+| Calibrar precificação | 3 planos | Conversão trial→pago |
+| Ajustar features | Priorização P0/P1 | Uso por feature |
 
-### Canais de Validação
+### Canais de Validação (Zero custo)
 
 ```mermaid
 flowchart LR
-    C1["Indicações<br/>Pessoais"] -->|"60%"| V1[10 Beta]
-    C2["LinkedIn<br/>Ads"] -->|"30%"| V1
-    C3["Parceria<br/>SENAI"] -->|"10%"| V1
+    C1["Indicações<br/>Pessoais<br/>60%"] --> V1[10 Beta]
+    C2["LinkedIn<br/>Ads<br/>30%"] --> V1
+    C3["Parceria<br/>SENAI<br/>10%"] --> V1
+
+    style C1 fill:#10b981,color:#fff
+    style V1 fill:#3b82f6,color:#fff
 ```
 
-### Táticas
+### Táticas-Chave
 
 | Tática | Descrição | Investimento |
 |--------|-----------|--------------|
-| Beta gratuito | 10 empresas selecionadas | Tempo |
-| Pesquisa contínua | Entrevistas quinzenais | Tempo |
-| Ajuste de preço | Testes A/B | Zero |
+| **Beta gratuito** | 10 empresas selecionadas a dedo | Tempo |
+| **Entrevistas quinzenais** | 30 min com cada beta | Tempo |
+| **NPS + CSAT semanal** | Medir satisfação continuamente | Tempo |
+| **Teste de preço A/B** | 3 níveis de preço diferentes | Zero |
 
 ---
 
-## Fase 2: Aquisição (Meses 6-12)
+## Layer 4 — Fase 2: Aquisição (Meses 6-12)
 
 ### Objetivos
 
 | Meta | Target | Métrica |
 |------|--------|---------|
-| Clientes pagos | 100 | MRR |
-| CAC | R$ 200 | Custo aquisição |
-| Conversão trial | > 25% | Taxa |
+| **Clientes pagos** | 100 (até M12) | MRR |
+| **CAC** | R$ 200 | Custo / cliente |
+| **Conversão trial** | > 25% | Taxa |
+| **Churn mensal** | < 5% | Retenção |
 
-### Canais de Aquisição
-
-```mermaid
-mindmap
-  root((Canais))
-    Marketing Digital
-      Google Ads
-      LinkedIn Ads
-      Content Marketing
-      SEO
-    Parcerias
-      SENAI
-      Contadores
-      Consultores
-    Vendas
-      Site
-      Chat
-      Email
-```
-
-### Investimento em Marketing
-
-| Canal | % Budget | Valor Mensal |
-|-------|----------|--------------|
-| Google Ads | 40% | R$ 4.000 |
-| LinkedIn | 25% | R$ 2.500 |
-| Content | 20% | R$ 2.000 |
-| SEO | 15% | R$ 1.500 |
-| **Total** | 100% | **R$ 10.000** |
-
----
-
-## Fase 3: Escala (Anos 2-5)
-
-### Objetivos
-
-| Meta | Ano 2 | Ano 3 | Ano 5 |
-|------|-------|-------|-------|
-| Clientes | 2.500 | 8.000 | 75.000 |
-| MRR | R$ 750K | R$ 2.4M | R$ 22M |
-| CAC | R$ 150 | R$ 120 | R$ 100 |
-
-### Estratégia de Escala
-
-```mermaid
-flowchart LR
-    E1[Volume] --> E2[Eficiência]
-    E2 --> E3[Parcerias]
-    E3 --> E4[Expansão]
-    
-    E1 -->|"Escala<br/>marketing"| E2
-    E2 -->|"Ganha<br/>escala"| E3
-    E3 -->|"Novos<br/>segmentos"| E4
-```
-
----
-
-## Precificação
-
-### Estratégia de Preços
-
-```mermaid
-pie title "Estratégia de Preços"
-    "Penetração (Baixo)" : 40
-    "Valor (Médio)" : 40
-    "Premium (Alto)" : 20
-```
-
-### Planos
-
-| Plano | Preço | Usuários | Ideal para |
-|-------|-------|----------|------------|
-| **Básico** | R$ 149/mês | até 3 | Micro empresas |
-| **Profissional** | R$ 299/mês | até 10 | Pequenas |
-| **Enterprise** | R$ 599/mês | ilimitados | Médias |
-
-### Evolução de Preços
-
-| Ano | Ajuste | Justificativa |
-|-----|--------|---------------|
-| 1 | Base | Validar mercado |
-| 2 | +10% | Demanda aumenta |
-| 3 | +15% | Valor comprovado |
-| 5 | +20% | Líder mercado |
-
----
-
-## Funil de Vendas
-
-### Funil Detalhado
+### Funil de Aquisição (TOFU → MOFU → BOFU)
 
 ```mermaid
 flowchart TB
-    subgraph TOFU["Topo de Funil"]
-        TF1[Visitantes] -->|"30%"| TF2[Leads]
+    subgraph TOFU["Topo de Funil — Awareness"]
+        TF1[10.000 visitantes<br/>Google Ads + SEO] -->|"30%"| TF2[3.000 leads<br/>email capturado]
     end
-    
-    subgraph MOFU["Meio de Funil"]
-        TF2 -->|"20%"| TF3[Trials]
+
+    subgraph MOFU["Meio de Funil — Consideração"]
+        TF2 -->|"20%"| TF3[600 trials<br/>14 dias grátis]
     end
-    
-    subgraph BOFU["Fundo de Funil"]
-        TF3 -->|"30%"| TF4[Pagantes]
-        TF4 -->|"15%"| TF5[Retidos]
+
+    subgraph BOFU["Fundo de Funil — Decisão"]
+        TF3 -->|"30%"| TF4[180 pagantes<br/>Básico + Pro]
+        TF4 -->|"85% retenção"| TF5[153 retidos<br/>Mês 2]
     end
-    
+
     style TF1 fill:#2563eb,color:#fff
     style TF2 fill:#3b82f6,color:#fff
     style TF3 fill:#7c3aed,color:#fff
@@ -185,91 +114,219 @@ flowchart TB
     style TF5 fill:#059669,color:#fff
 ```
 
-### Conversão
+### Canais de Aquisição (Mix Mensal R$ 10K)
 
-| Etapa | Conversão | Tempo |
-|-------|-----------|-------|
-| Visitante → Lead | 30% | Instantâneo |
-| Lead → Trial | 20% | 7 dias |
-| Trial → Pago | 30% | 14 dias |
-| Retido | 85% | Mensal |
+```mermaid
+mindmap
+  root((R$ 10K/mês))
+    Marketing Digital
+      Google Ads R$ 4K
+      LinkedIn Ads R$ 2.5K
+      Content R$ 2K
+      SEO R$ 1.5K
+    Parcerias
+      SENAI (gratuito)
+      Contadores (gratuito)
+      Consultores (gratuito)
+    Vendas
+      Site (incluso)
+      Chat (incluso)
+      Email (incluso)
+```
 
----
+### Investimento Detalhado em Marketing
 
-## Operações
-
-### Estrutura de Time
-
-| Função | Fase 1 | Fase 2 | Fase 3 |
-|--------|--------|--------|--------|
-| Desenvolvedor | 2 | 3 | 5 |
-| Marketing | 0 | 1 | 3 |
-| Vendas | 0 | 1 | 2 |
-| Suporte | 0 | 1 | 2 |
-
-### Ferramentas
-
-| Função | Ferramenta |
-|--------|------------|
-| CRM | HubSpot Free |
-| Email | Mailchimp |
-| Analytics | GA4 |
-| Ads | Google/LinkedIn |
-| Suporte | Chat |
+| Canal | % Budget | Valor Mensal | CAC Esperado |
+|-------|----------|--------------|--------------|
+| **Google Ads** | 40% | R$ 4.000 | R$ 200 |
+| **LinkedIn Ads** | 25% | R$ 2.500 | R$ 250 |
+| **Content Marketing** | 20% | R$ 2.000 | R$ 62 |
+| **SEO + Orgânico** | 15% | R$ 1.500 | R$ 62 |
+| **Total** | 100% | **R$ 10.000** | **R$ 163 (média)** |
 
 ---
 
-## Métricas e KPIs
+## Layer 5 — Fase 3: Escala (Anos 2-5)
 
-### KPIs Principais
+### Crescimento Ano a Ano
 
-| KPI | Fórmula | Target Ano 1 |
-|-----|---------|--------------|
-| **CAC** | Marketing + Vendas / Clientes | R$ 200 |
-| **LTV** | Ticket × 1/Churn | R$ 3.000 |
-| **LTV/CAC** | LTV / CAC | 15x |
-| **MRR** | Clientes × Ticket | R$ 150K |
-| **Churn** | Cancelados / Total | < 8% |
-| **NPS** | Pesquisa | > 40 |
+| Métrica | Ano 1 | Ano 2 | Ano 3 | Ano 5 |
+|---------|:-----:|:-----:|:-----:|:-----:|
+| **Clientes** | 100 | 2.500 | 8.000 | 75.000 |
+| **MRR** | R$ 20K | R$ 600K | R$ 2.0M | R$ 22.4M |
+| **CAC** | R$ 200 | R$ 150 | R$ 120 | R$ 100 |
+| **Time total** | 3 | 8 | 18 | 45 |
+
+### Estratégia de Escala (4 Movimentos)
+
+```mermaid
+flowchart LR
+    E1[Volume] --> E2[Eficiência]
+    E2 --> E3[Parcerias]
+    E3 --> E4[Expansão]
+
+    E1 -->|mais canais| E2
+    E2 -->|LTV/CAC<br/>sobe| E3
+    E3 -->|canais gratuitos| E4
+
+    style E1 fill:#3b82f6,color:#fff
+    style E2 fill:#7c3aed,color:#fff
+    style E3 fill:#10b981,color:#fff
+    style E4 fill:#fbbf24,color:#000
+```
+
+### 4 Movimentos-Chave da Escala
+
+| Movimento | Quando | Como |
+|-----------|--------|------|
+| **Volume** | Ano 2 | Escalar Google Ads + abrir canal de conteúdo |
+| **Eficiência** | Ano 3 | Reduzir CAC de R$ 200 para R$ 120 com SEO + indicação |
+| **Parcerias** | Ano 3-4 | Programa de contadores (Carlos) gera 30% dos leads |
+| **Expansão** | Ano 4-5 | Novos segmentos (indústria, serviços) + novos planos |
 
 ---
 
-## Cronograma de Execução
+## Layer 6 — Estratégia de Preços
+
+### Mix de Planos Projetado
+
+```mermaid
+pie title Mix de Planos - Early Stage (Ano 1)
+    "Básico R$ 149" : 70
+    "Profissional R$ 299" : 25
+    "Enterprise R$ 599" : 5
+```
+
+```mermaid
+pie title Mix de Planos - Maduro (Ano 3+)
+    "Básico R$ 149" : 30
+    "Profissional R$ 299" : 50
+    "Enterprise R$ 599" : 20
+```
+
+### Tabela de Planos
+
+| Plano | Preço | Usuários | Ideal Para | % Mix (Mês 12) |
+|-------|-------|----------|------------|:--------------:|
+| **Básico** | R$ 149/mês | até 3 | Micro empresa | 70% |
+| **Profissional** | R$ 299/mês | até 10 | PME com equipe | 25% |
+| **Enterprise** | R$ 599/mês | ilimitados | Média multi-local | 5% |
+
+### Evolução de Preços ao Longo do Tempo
+
+| Ano | Ajuste | Justificativa |
+|-----|--------|---------------|
+| 1 | Preço base | Validar willingness to pay |
+| 2 | +10% | Demanda validada |
+| 3 | +15% | Valor comprovado pelos cases |
+| 5 | +20% | Líder de mercado estabelecido |
+
+---
+
+## Layer 7 — Estrutura do Time
+
+### Headcount por Fase
+
+| Função | Fase 1 | Fase 2 | Fase 3 (Ano 3) |
+|--------|:------:|:------:|:--------------:|
+| **Desenvolvedor** | 2 | 3 | 5 |
+| **Marketing** | 0 | 1 | 3 |
+| **Vendas** | 0 | 1 | 2 |
+| **Suporte** | 0 | 1 | 2 |
+| **TOTAL** | 2 | 6 | 12 |
+
+> Ver cronograma completo de execução e marcos em [Project Model Canvas →](./project-model-canvas).
+
+---
+
+## Layer 8 — KPIs Norte (Métricas de Sucesso)
+
+| KPI | Fórmula | Target Ano 1 | Benchmark SaaS |
+|-----|---------|:------------:|:--------------:|
+| **CAC** | Marketing + Vendas / Clientes | R$ 200 | R$ 200-400 |
+| **LTV** | ARPU × 1/Churn mensal | R$ 4.000 | R$ 3.000-6.000 |
+| **LTV/CAC** | LTV / CAC | **20×** | >3× |
+| **MRR Mês 12** | Clientes × Ticket | R$ 20K | R$ 15-50K |
+| **Churn mensal** | Cancelados / Total | < 5% | < 5% |
+| **NPS** | Pesquisa | > 50 | > 40 |
+| **Conversão trial** | Trials → Pagos | > 25% | > 20% |
+
+---
+
+## Layer 9 — Cronograma Visual
 
 ```mermaid
 gantt
     title Go-to-Market - 5 Anos
     dateFormat  YYYY-MM
-    
+
     section Fase 1
-    MVP                     :2025-01, 90d
-    Beta Testers           :2025-03, 90d
-    Validação              :2025-06, 90d
-    
+    MVP                    :a1, 2025-01, 90d
+    Beta Testers           :a2, 2025-03, 90d
+    Validação              :a3, 2025-06, 90d
+
     section Fase 2
-    Lançamento Público     :2025-07, 30d
-    Aquisição Inicial      :2025-08, 180d
-    100 Clientes           :2026-01, 60d
-    
+    Lançamento Público     :b1, 2025-07, 30d
+    Aquisição Inicial      :b2, 2025-08, 180d
+    100 Clientes           :milestone, 2026-01, 0d
+
     section Fase 3
-    Escala Marketing       :2026-07, 180d
-    1000 Clientes          :2027-06, 365d
-    10000 Clientes         :2029-06, 730d
+    Escala Marketing       :c1, 2026-07, 180d
+    1.000 Clientes         :milestone, 2027-06, 0d
+    10.000 Clientes        :milestone, 2029-06, 0d
+    75.000 Clientes        :milestone, 2030-12, 0d
 ```
 
 ---
 
-## Próximos Passos
+## Layer 10 — Riscos do Plano e Mitigações
 
-- [BM Canvas](./bmc-canvas) - Modelo de negócio
-- [Análise de Mercado](./analise-mercado) - TAM/SAM/SOM
-- [Personas](./personas) - Perfis detalhados
+| Risco | Probabilidade | Impacto | Mitigação |
+|-------|:-------------:|:-------:|-----------|
+| CAC ficar acima de R$ 300 | Média | Alto | Pivotar para canais orgânicos (SEO + indicação) |
+| Churn > 8% mensal | Média | Alto | Onboarding reforçado + check-in semanal nos 90 primeiros dias |
+| Concorrente entrar com preço menor | Baixa | Médio | Reforçar valor agregado (LGPD + especialização) |
+| Beta travar feedback negativo | Baixa | Alto | Ajustar escopo antes do lançamento público |
+| Demora no cadastro de produto | Alta | Médio | Importação via planilha + código de barras |
+
+---
+
+## Síntese Executiva
+
+```mermaid
+flowchart TB
+    Q{Como<br/>crescemos?}
+    Q --> R1[✓ Fase 1<br/>10 betas R$ 0]
+    Q --> R2[✓ Fase 2<br/>100 clientes R$ 200 CAC]
+    Q --> R3[✓ Fase 3<br/>75K clientes R$ 100 CAC]
+    Q --> R4[✓ LTV/CAC 20×<br/>saudável]
+    Q --> R5[✓ Payback 4 meses<br/>curto]
+
+    Q --> C[Plano executável<br/>+ riscos mapeados]
+
+    style Q fill:#f59e0b,color:#fff
+    style C fill:#10b981,color:#fff
+    style R4 fill:#10b981,color:#fff
+    style R5 fill:#10b981,color:#fff
+```
+
+---
+
+## Próximo Passo na Narrativa
+
+| Se você quer... | Vá para |
+|-----------------|---------|
+| Entender **quem somos** (time, execução) | [Project Model Canvas →](./project-model-canvas) |
+| Ver a **viabilidade financeira** do plano | [Viabilidade Econômica →](./viabilidade-economica) |
+| Conhecer **a estratégia de produto** (o que construímos) | [PM Canvas →](./pm-canvas) |
+| Voltar à **narrativa central** do pitch | [Problema → Mecanismo → Solução →](./problema-mecanismo-solucao) |
 
 ---
 
 ## Referências
 
-- **SaaS Metrics** - David Skok
-- **Traction** - Gabriel Weinberg
-- **Play Bigger** - Al Ramadan
-- **WorkConnect** - Estratégia interna
+- **SaaS Metrics 2.0** — David Skok (Matrix Partners)
+- **Traction** — Gabriel Weinberg (19 canais testáveis)
+- **Play Bigger** — Al Ramadan (categoria novos)
+- **Building a StoryBrand** — Donald Miller (CTA framework)
+- **WorkConnect** — Estratégia interna (2025)

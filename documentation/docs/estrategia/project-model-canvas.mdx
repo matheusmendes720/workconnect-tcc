@@ -1,111 +1,149 @@
 ---
 sidebar_position: 2
 title: Project Model Canvas (PMC)
-description: Planejamento do Projeto WorkConnect - Metodologia José Finocchio Jr.
+description: Sequoia Team + Ask — quem somos, como executamos, o que precisamos
 ---
 
 # Project Model Canvas (PMC)
 
-## Visão Geral
+> **TL;DR** · 2 devs SENAI full-stack, **R$ 15K de investimento**, **6 meses para MVP**, **metodologia Scrum**. **Perguntas que o PMC responde:** Por quê? (5 problemas PMEs). O quê? (SaaS gestão estoque). Quem? (time + stakeholders). Como? (ágil + MVP). Quando? (6 meses / 6 marcos). Quanto? (R$ 15K → ROI 230%+).
 
-O **Project Model Canvas** (ou **PMC**) é uma ferramenta de planejamento de projetos criada por **José Finocchio Jr.** que permite organizar, visualizar e comunicar o plano de um projeto em uma única página. Diferente do PMBOK ou metodologias tradicionais, o PMC foca no alinhamento rápido entre stakeholders usando post-its ou blocos visuais.
-
-Este documento apresenta o PMC completo do projeto **WorkConnect** - Sistema de Gestão de Estoque Inteligente para PMEs.
-
-:::info Metodologia
-Baseado na metodologia **Project Model Canvas** de José Finocchio Jr., apresentada no livro "Guia Definitivo do Project Model Canvas".
+:::info Onde estamos no Sequoia Pitch
+Este doc responde os slots **Team** + **Ask** da Sequoia pitch structure. Sequoia pergunta: *"quem são vocês e por que vão ganhar?"* + *"o que precisam para executar?"*
 :::
 
 ---
 
-## Os 13 Blocos do Project Model Canvas
-
-### Visão Completa do Projeto
+## Layer 1 — O Projeto em 60 Segundos
 
 ```mermaid
 flowchart TB
-    subgraph PORQUE["POR QUÊ?"]
-        J1[Justificativa]
-        J2[Problemas]
-        J3[Benefícios]
+    subgraph WHY["POR QUÊ?"]
+        P[5 problemas PMEs<br/>R$ 469-828K perdidos/ano]
     end
-    
-    subgraph OQUE["O QUÊ?"]
-        O1[Produto]
-        O2[Requisitos]
-        O3[Entregas]
+
+    subgraph WHAT["O QUÊ?"]
+        S[SaaS Gestão Estoque<br/>+ LGPD nativo]
     end
-    
-    subgraph QUEM["QUEM?"]
-        Q1[Patrocinador]
-        Q2[Equipe]
-        Q3[Stakeholders]
+
+    subgraph WHO["QUEM?"]
+        T[2 devs SENAI<br/>+ Patrocínio institucional]
     end
-    
-    subgraph COMO["COMO?"]
-        C1[Atividades]
-        C2[Premissas]
-        C3[Restrições]
-        C4[Riscos]
+
+    subgraph HOW["COMO?"]
+        M[Metodologia Ágil<br/>+ MVP focado]
     end
-    
-    subgraph QUANDO["QUANDO?"]
-        T1[Cronograma]
-        T2[Marcos]
-        T3[Recursos]
+
+    subgraph WHEN["QUANDO?"]
+        C[6 meses<br/>6 marcos]
     end
-    
-    subgraph QUANTO["QUANTO?"]
-        M1[Orçamento]
-        M2[Custos]
-        M3[Investimento]
+
+    subgraph MUCH["QUANTO?"]
+        B["R$ 15.000<br/>ROI 230%+"]
     end
-    
-    J1 --> O1
-    O1 --> Q1
-    Q1 --> C1
-    C1 --> T1
-    T1 --> M1
+
+    WHY --> WHAT --> WHO --> HOW --> WHEN --> MUCH
+
+    style WHY fill:#ef4444,color:#fff
+    style WHAT fill:#3b82f6,color:#fff
+    style WHO fill:#7c3aed,color:#fff
+    style HOW fill:#10b981,color:#fff
+    style WHEN fill:#f59e0b,color:#000
+    style MUCH fill:#10b981,color:#fff
 ```
 
 ---
 
-## 1. Por Quê? - Justificativa
+## Layer 2 — Sequoia Team (Quem Somos)
 
-### Problema Central
+Sequoia investe em **times**, não em ideias. A pergunta que fazemos aqui: **por que esse time vai ganhar?**
 
-PMEs brasileiras enfrentam **5 problemas críticos** de gestão de estoque:
+| Atributo | Resposta | Evidência |
+|----------|----------|-----------|
+| **Capacidade técnica** | 2 devs full-stack SENAI | Stack moderno dominado |
+| **Credibilidade** | Patrocínio institucional SENAI | Validação acadêmica + network |
+| **Foco** | 100% no projeto (TCC) | Sem distração de outros jobs |
+| **Velocidade** | Time pequeno = decisões rápidas | 2 pessoas, zero burocracia |
+| **Custo** | Bootstrap-friendly | Salários compatíveis com early-stage |
+
+```mermaid
+graph TD
+    subgraph PATROCINADOR["Patrocinador"]
+        DIR[Direção SENAI<br/>validação acadêmica]
+    end
+
+    subgraph TIME["Time WorkConnect"]
+        PM[Product Manager<br/>Matheus]
+        DEV[Desenvolvedor Full-Stack<br/>Colega]
+        DES[Designer UI/UX<br/>兼职]
+        QA[QA Tester<br/>Compartilhado]
+    end
+
+    subgraph USUARIOS["Usuários Validadores"]
+        GER[Gerentes PME]
+        OPE[Operadores]
+        CONT[Contadores]
+    end
+
+    DIR --> PM
+    PM --> DEV
+    DEV --> QA
+    QA --> OPE
+    PM --> GER
+    GER --> CONT
+```
+
+### Papéis e Alocação
+
+| Papel | Responsabilidade | Alocação |
+|-------|-----------------|:--------:|
+| **Patrocinador (SENAI)** | Recursos, aprovação estratégica | 10% |
+| **Product Manager** | Roadmap, priorização, stakeholder management | 100% |
+| **Desenvolvedor Full-Stack** | Frontend + backend + infra | 100% |
+| **Designer UI/UX** | Interface, experiência | 30% |
+| **QA Tester** | Qualidade, testes | 20% |
+
+---
+
+## Layer 3 — Por Quê? Justificativa (o Problema)
+
+### Os 5 Problemas Críticos das PMEs
 
 | Problema | Prevalência | Impacto Financeiro |
-|----------|-------------|-------------------|
-| Fragmentação de Dados | 68% | R$ 1.2K-2.4K/mês |
-| Erros de Contagem | 55% | R$ 6K-32K/ano |
-| Falta de Estoque | 42% | R$ 360K-600K/ano |
-| Produtos Obsoletos | 38% | R$ 40K-70K imobilizados |
-| Tempo Desperdiçado | 72% | R$ 48K-96K/ano |
+|----------|:-----------:|-------------------|
+| **Fragmentação de Dados** | 68% | R$ 1,2K-2,4K/mês |
+| **Erros de Contagem** | 55% | R$ 6K-32K/ano |
+| **Falta de Estoque (Ruptura)** | 42% | R$ 360K-600K/ano |
+| **Produtos Obsoletos** | 38% | R$ 40K-70K imobilizados |
+| **Tempo Desperdiçado** | 72% | R$ 48K-96K/ano |
 
-### Benefícios Esperados
+> Detalhe completo em [Problema → Mecanismo → Solução →](./problema-mecanismo-solucao).
+
+### Benefícios da Solução
 
 ```mermaid
 flowchart LR
-    B1[Redução 40%<br/>nas perdas] -->|"150% ROI<br/>1º ano"| R1[Economia<br/>R$ 187-331K/ano]
-    B2[Automação<br/>Processos] -->|"15h/semana"| R2[Tempo<br/>recuperado]
-    B3[Dashboard<br/>Tempo Real] -->|"99%<br/>precisão"| R3[Decisões<br/>assertivas]
-    B4[Alertas<br/>Proativos] -->|"60%<br/>antecipação"| R4[Problemas<br/>previstos]
+    B1[Redução 40%<br/>nas perdas] -->|150% ROI<br/>1º ano| R1[Economia<br/>R$ 187-331K/ano]
+    B2[Automação<br/>Processos] -->|15h/semana| R2[Tempo<br/>recuperado]
+    B3[Dashboard<br/>Tempo Real] -->|99%<br/>precisão| R3[Decisões<br/>assertivas]
+    B4[Alertas<br/>Proativos] -->|60%<br/>antecipação| R4[Problemas<br/>previstos]
+
+    style B1 fill:#10b981,color:#fff
+    style B4 fill:#10b981,color:#fff
 ```
 
 ---
 
-## 2. O Quê? - Escopo
+## Layer 4 — O Quê? Escopo
 
 ### Produto Final
 
-**WorkConnect** - Sistema SaaS de Gestão de Estoque Inteligente para PMEs brasileiras
+**WorkConnect** — SaaS de Gestão de Estoque Inteligente para PMEs brasileiras, com governança LGPD nativa.
 
-### Requisitos Principais
+### Requisitos por Prioridade
 
 | Categoria | Requisito | Prioridade |
-|-----------|-----------|------------|
+|-----------|-----------|:----------:|
 | **Cadastro** | Produtos, categorias, fornecedores | 🔴 Alta |
 | **Movimentação** | Entrada/saída com controle de lote | 🔴 Alta |
 | **Alertas** | Reposição, validade, estoque mínimo | 🔴 Alta |
@@ -127,7 +165,7 @@ mindmap
         Configurações
       Backend API
         REST API
-        Autenticação
+        Autenticação LGPD
         Processamento Dados
       Infraestrutura
         Cloud Deploy
@@ -143,152 +181,100 @@ mindmap
       FAQ
 ```
 
----
-
-## 3. Quem? - Stakeholders
-
-### Estrutura de Stakeholders
-
-```mermaid
-graph TD
-    subgraph PATROCINADOR["Patrocinador"]
-        DIR[Direção SENAI]
-    end
-    
-    subgraph EQUIPE["Equipe do Projeto"]
-        PM[Product Manager]
-        DEV[Desenvolvedores]
-        DES[Designer]
-        QA[QA Tester]
-    end
-    
-    subgraph USUARIOS["Usuários Finais"]
-        GER[Gerentes]
-        OPE[Operadores]
-        CONT[Contadores]
-    end
-    
-    subgraph STAKEHOLDERS["Stakeholders Adicionais"]
-        LEG[Jurídico]
-        FIN[Financeiro]
-    end
-    
-    DIR --> PM
-    PM --> DEV
-    DEV --> QA
-    QA --> OPE
-    PM --> GER
-    GER --> CONT
-```
-
-### Papéis e Responsabilidades
-
-| Papel | Responsabilidade | Alocação |
-|-------|-----------------|----------|
-| **Patrocinador** | Recursos, aprovação estratégica | 10% |
-| **Product Manager** | Roadmap, priorização, stakeholder management | 100% |
-| **Desenvolvedor Full-Stack** | Desenvolvimento frontend/backend | 100% |
-| **Designer UI/UX** | Interface, experiência do usuário | 30% |
-| **QA Tester** | Testes, qualidade | 20% |
+> Detalhe da estratégia de produto em [PM Canvas →](./pm-canvas).
 
 ---
 
-## 4. Como? - Execução
+## Layer 5 — Como? Execução (Metodologia)
 
-### Abordagem de Execução
+### Stack Tecnológico
 
 ```mermaid
 flowchart LR
     subgraph METODOLOGIA["Metodologia"]
         AGIL[Ágil - Scrum]
-        SPRINT[Sprints de 2 semanas]
+        SPRINT[Sprints 2 semanas]
         DAILY[Daily 15 min]
         RETRO[Retrospectiva]
     end
-    
+
     subgraph PRATICAS["Práticas"]
         CODE[Code Review]
         TEST[Testes Automatizados]
         DOC[Documentação Contínua]
         DEPLOY[Deploy Contínuo]
     end
-    
+
     AGIL --> CODE
     CODE --> TEST
     TEST --> DOC
     DOC --> DEPLOY
 ```
 
-### Premissas
+### Premissas do Projeto
 
-| Premissa | Descrição | Impacto |
-|----------|-----------|---------|
-| **P1** | Equipe técnica disponível | Crítico |
-| **P2** | Acesso à internet estável | Alto |
-| **P3** | Hardware adequado para desenvolvimento | Médio |
-| **P4** | Universidade disponíveis para validação | Médio |
-| **P5** | Acesso a PMEs para testes | Alto |
+| # | Premissa | Impacto |
+|---|----------|:-------:|
+| P1 | Equipe técnica disponível | 🔴 Crítico |
+| P2 | Acesso à internet estável | 🟡 Alto |
+| P3 | Hardware adequado | 🟢 Médio |
+| P4 | Universidade SENAI para validação | 🟢 Médio |
+| P5 | Acesso a PMEs para testes | 🟡 Alto |
 
 ### Restrições
 
-| Restrição | Descrição | Mitigação |
-|-----------|-----------|-----------|
-| **R1** | Orçamento limitado (TCC) | Priorizar funcionalidades MVP |
-| **R2** | Prazo acadêmico (6 meses) | Escopo fechado |
-| **R3** | Equipe reduzida (1-2 pessoas) | Automatização |
-| **R4** | Sem investimento externo | Bootstrap |
+| # | Restrição | Mitigação |
+|---|-----------|-----------|
+| R1 | Orçamento limitado (TCC) | Priorizar funcionalidades MVP |
+| R2 | Prazo acadêmico (6 meses) | Escopo fechado em 3 fases |
+| R3 | Equipe reduzida (2 pessoas) | Automatização + priorização |
+| R4 | Sem investimento externo | Bootstrap com R$ 15K |
 
 ### Riscos e Mitigações
 
 ```mermaid
 flowchart TB
-    R1[Escopo<br/>Crescimento] --> M1[Escopo fechado<br/>Priorização]
+    R1[Escopo<br/>Crescimento] --> M1[Escopo fechado<br/>+ Priorização]
     R2[Tecnologia<br/>Nova] --> M2[Tech stack<br/>conhecida]
     R3[Recursos<br/>Limitados] --> M3[Priorização<br/>MVP]
     R4[Prazo<br/>Ajustado] --> M4[Metodologia<br/>ágil]
     R5[Qualidade<br/>Code] --> M5[Testes<br/>automáticos]
-    
+
     style R1 fill:#f59e0b,color:#fff
-    style R2 fill:#f59e0b,color:#fff
     style R3 fill:#ef4444,color:#fff
-    style R4 fill:#f59e0b,color:#fff
-    style R5 fill:#f59e0b,color:#fff
     style M1 fill:#10b981,color:#fff
-    style M2 fill:#10b981,color:#fff
     style M3 fill:#10b981,color:#fff
-    style M4 fill:#10b981,color:#fff
-    style M5 fill:#10b981,color:#fff
 ```
 
 ---
 
-## 5. Quando? - Cronograma
+## Layer 6 — Quando? Cronograma (6 Meses)
 
-### Roadmap do Projeto
+### Roadmap Visual
 
 ```mermaid
 gantt
-    title Cronograma WorkConnect - 6 Meses
+    title Cronograma WorkConnect - 6 Meses (TCC SENAI)
     dateFormat  YYYY-MM-DD
-    
-    section Fase 1
+
+    section Fase 1 - Fundação
     Planejamento           :p1, 2025-01-01, 15d
     Design UI/UX          :p2, after p1, 20d
     Setup Infraestrutura  :p3, after p2, 10d
-    
-    section Fase 2
+
+    section Fase 2 - Construção
     Backend Core          :p4, after p3, 30d
     Frontend MVP          :p5, after p4, 30d
     Integração            :p6, after p5, 15d
-    
-    section Fase 3
+
+    section Fase 3 - Validação
     Testes                :p7, after p6, 15d
     Documentação          :p8, after p7, 10d
     Deploy Produção       :p9, after p8, 5d
     Validação             :p10, after p9, 15d
 ```
 
-### Marcos (Milestones)
+### Os 6 Marcos (Milestones)
 
 | Marco | Data | Critério de Sucesso |
 |-------|------|---------------------|
@@ -301,12 +287,12 @@ gantt
 
 ---
 
-## 6. Quanto? - Custos
+## Layer 7 — Quanto? Orçamento
 
-### Orçamento Total
+### Distribuição do Investimento
 
 ```mermaid
-pie title "Investimento Total Estimado"
+pie title Investimento Total Estimado
     "Infraestrutura (6 meses)" : 30
     "Ferramentas/Software" : 20
     "Hardware" : 15
@@ -317,15 +303,15 @@ pie title "Investimento Total Estimado"
 
 ### Detalhamento de Custos
 
-| Categoria | Item | Custo Unitário | Quantidade | Total |
-|-----------|------|----------------|------------|-------|
-| **Infraestrutura** | Cloud (Vercel Pro) | R$ 200/mês | 6 | R$ 1.200 |
+| Categoria | Item | Custo Unitário | Qtd | Total |
+|-----------|------|---------------:|:---:|------:|
+| **Infraestrutura** | Vercel Pro | R$ 200/mês | 6 | R$ 1.200 |
 | **Infraestrutura** | Supabase Pro | R$ 250/mês | 6 | R$ 1.500 |
 | **Ferramentas** | Domínio + SSL | R$ 200/ano | 1 | R$ 200 |
 | **Ferramentas** | GitHub Pro | R$ 600/ano | 1 | R$ 600 |
-| **Hardware** | Notebook | R$ 4.000 | 2 | R$ 8.000 |
-| **Marketing** | Anúncios | R$ 500/mês | 3 | R$ 1.500 |
-| **Contingência** | Imprevistos | - | - | R$ 2.000 |
+| **Hardware** | Notebooks | R$ 4.000 | 2 | R$ 8.000 |
+| **Marketing** | Anúncios beta | R$ 500/mês | 3 | R$ 1.500 |
+| **Contingência** | Imprevistos | — | — | R$ 2.000 |
 | **TOTAL** | | | | **R$ 15.000** |
 
 ### Retorno Esperado
@@ -334,72 +320,115 @@ pie title "Investimento Total Estimado"
 |---------|-------|
 | **Investimento Inicial** | R$ 15.000 |
 | **Receita Ano 1 (projeção)** | R$ 50.000 - R$ 180.000 |
-| **ROI Estimado** | 230% - 1100% |
+| **ROI Estimado** | 230% - 1.100% |
+| **Payback** | ~4 meses |
+
+> Detalhe completo em [Viabilidade Econômica →](./viabilidade-economica).
 
 ---
 
-## Matriz de Resumo PMC
+## Layer 8 — Sequoia Ask (O que Precisamos)
+
+Sequoia termina o pitch com **Ask** — o que pedimos e por quê:
+
+| Necessidade | Hoje | Solicitado | Uso |
+|-------------|:----:|:----------:|-----|
+| **Seed money** | R$ 15K (já captado) | R$ 200K Series-Angel | Escala 18 meses |
+| **Mentoria** | — | Conexões com SaaS B2B Brasil | Estratégia GTM |
+| **Beta partners** | 10 atuais | 100 PMEs pagantes | Validação Product-Market Fit |
+| **Indicações contadores** | — | Programa de parceiros | Canal de aquisição #1 |
+
+### Próximos 18 Meses com Investimento Series-Angel
 
 ```mermaid
-blockDiagram
-    block JUSTIFICATIVA["POR QUÊ?"]
-        direction LR
-        block PROBLEMAS["5 Problemas PMEs"]
-        block BENEFICIOS["40% menos perdas<br/>ROI 150%"]
-    end
-    
-    block ESCOPO["O QUÊ?"]
-        direction LR
-        block PRODUTO["SaaS Gestão Estoque"]
-        block MVP["Funcionalidades MVP"]
-    end
-    
-    block EQUIPE["QUEM?"]
-        direction LR
-        block PATROCINADOR["Patrocinador SENAI"]
-        block TIME["1-2 Desenvolvedores"]
-    end
-    
-    block EXECUCAO["COMO?"]
-        direction LR
-        block AGIL["Metodologia Ágil"]
-        block RISCO["Gestão Riscos"]
-    end
-    
-    block CRONO["QUANDO?"]
-        direction LR
-        block MESES["6 Meses"]
-        block MARCOS["6 Marcos"]
-    end
-    
-    block ORCAMENTO["QUANTO?"]
-        direction LR
-        block INVEST["R$ 15.000"]
-        block RETORNO["ROI 230%+"]
-    end
-    
-    JUSTIFICATIVA --> ESCOPO
-    ESCOPO --> EQUIPE
-    EQUIPE --> EXECUCAO
-    EXECUCAO --> CRONO
-    CRONO --> ORCAMENTO
+gantt
+    title Roadmap Pós-Investimento (18 meses)
+    dateFormat  YYYY-MM
+    section Mês 1-6
+    Atingir 100 clientes    :a1, 2025-07, 180d
+    section Mês 7-12
+    Atingir 500 clientes    :a2, 2026-01, 180d
+    section Mês 13-18
+    Atingir 1.500 clientes :a3, 2026-07, 180d
 ```
 
 ---
 
-## Próximos Passos
+## Layer 9 — Matriz Resumo do PMC
 
-Continue explorando:
+```mermaid
+flowchart TB
+    subgraph JUSTIFICATIVA["POR QUÊ?"]
+        PROBLEMAS["5 Problemas PMEs"]
+        BENEFICIOS["40% menos perdas<br/>ROI 150%"]
+    end
 
-- [Análise de Mercado](./analise-mercado) - Oportunidade de mercado
-- [Personas](./personas) - Perfis de clientes
-- [BM Canvas](./bmc-canvas) - Modelo de negócio
+    subgraph ESCOPO["O QUÊ?"]
+        PRODUTO["SaaS Gestão Estoque"]
+        MVP["Funcionalidades MVP"]
+    end
+
+    subgraph EQUIPE["QUEM?"]
+        PATROCINADOR["Patrocinador SENAI"]
+        TIME["2 Desenvolvedores"]
+    end
+
+    subgraph EXECUCAO["COMO?"]
+        AGIL["Metodologia Ágil"]
+        RISCO["Gestão Riscos"]
+    end
+
+    subgraph CRONO["QUANDO?"]
+        MESES["6 Meses"]
+        MARCOS["6 Marcos"]
+    end
+
+    subgraph ORCAMENTO["QUANTO?"]
+        INVEST["R$ 15.000"]
+        RETORNO["ROI 230%+"]
+    end
+
+    JUSTIFICATIVA --> ESCOPO --> EQUIPE --> EXECUCAO --> CRONO --> ORCAMENTO
+```
+
+---
+
+## Síntese Executiva
+
+```mermaid
+flowchart TB
+    Q{Por que esse<br/>time vai<br/>ganhar?}
+    Q --> R1[✓ Capacidade técnica<br/>SENAI full-stack]
+    Q --> R2[✓ Custo baixo<br/>R$ 15K total]
+    Q --> R3[✓ Velocidade<br/>2 pessoas decidem rápido]
+    Q --> R4[✓ Credibilidade<br/>Patrocínio institucional]
+    Q --> R5[✓ Foco total<br/>100% no projeto]
+
+    Q --> C[Time pequeno,<br/>rápido, barato<br/>e competente]
+
+    style Q fill:#f59e0b,color:#fff
+    style C fill:#10b981,color:#fff
+    style R2 fill:#10b981,color:#fff
+    style R5 fill:#10b981,color:#fff
+```
+
+---
+
+## Próximo Passo na Narrativa
+
+| Se você quer... | Vá para |
+|-----------------|---------|
+| Entender **a estratégia de produto** que vamos construir | [PM Canvas →](./pm-canvas) |
+| Ver **o business model** completo | [BM Canvas →](./bmc-canvas) |
+| Conhecer **o plano de aquisição** de clientes | [Go-to-Market →](./go-to-market) |
+| Aprofundar **a viabilidade financeira** | [Viabilidade Econômica →](./viabilidade-economica) |
+| Voltar à **narrativa central** | [Problema → Mecanismo → Solução →](./problema-mecanismo-solucao) |
 
 ---
 
 ## Referências
 
-- **Project Model Canvas** - José Finocchio Jr.
-- **Guia Definitivo do Project Model Canvas** - Project Builder
-- **Metodologia Ágil** - Scrum / Kanban
-- **WorkConnect** - TCC SENAI 2025
+- **Project Model Canvas** — José Finocchio Jr.
+- **Sequoia pitch structure** — Team + Ask slots
+- **Metodologia Ágil** — Scrum / Kanban
+- **WorkConnect** — TCC SENAI 2025

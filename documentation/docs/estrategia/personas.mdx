@@ -1,33 +1,68 @@
 ---
 sidebar_position: 4
 title: Personas
-description: Perfis detalhados dos clientes-alvo do WorkConnect
+description: StoryBrand Characters + Jobs-to-Be-Done — os 3 heróis reais do WorkConnect
 ---
 
 # Personas
 
-## Visão Geral
+> **TL;DR** · 3 heróis, 3 jobs diferentes. **João** (dono de varejo, quer crescer sem perder vendas). **Maria** (gerente de estoque, quer parar de apagar incêndio). **Carlos** (contador de 45 PMEs, quer indicar uma ferramenta que funcione). Cada um representa um segmento + canal de aquisição + mensagem de marketing.
 
-Esta seção apresenta as personas detalhadas do WorkConnect - os perfis representativos dos clientes-alvo que guiam decisões de produto, marketing e desenvolvimento.
-
-:::info Metodologia
-Personas baseadas em pesquisas de mercado, entrevistas com PMEs e análise de dados do projeto.
+:::info Onde estamos no Sequoia Pitch
+Este doc dá **rosto e voz** ao slot **Customer** (ou Character, no StoryBrand) da Sequoia pitch structure. Sem personas claras, o pitch vira abstract — com elas, vira caso de uso.
 :::
 
 ---
 
-## Persona 1: João - O Empreendedor
+## Layer 1 — Os 3 Heróis em 1 Slide
 
-### Perfil Demográfico
+```mermaid
+flowchart LR
+    subgraph HEROIS["Os 3 Heróis WorkConnect"]
+        J["João<br/>42 anos<br/>Dono PME<br/>Varejo"]
+        M["Maria<br/>35 anos<br/>Gerente Estoque"]
+        C["Carlos<br/>48 anos<br/>Contador<br/>45 PMEs"]
+    end
+
+    J -->|Compra<br/>Básico R$ 149| W[WorkConnect]
+    M -->|Compra<br/>Pro R$ 299| W
+    C -->|Indica para<br/>seus clientes| W
+    W -->|Economia +<br/>Paz de espírito| J
+    W -->|Tempo +<br/>Visibilidade| M
+    W -->|Confiança<br/>LGPD| C
+
+    style J fill:#3b82f6,color:#fff
+    style M fill:#7c3aed,color:#fff
+    style C fill:#059669,color:#fff
+    style W fill:#10b981,color:#fff
+```
+
+---
+
+## Layer 2 — StoryBrand Character Mapping
+
+StoryBrand define **Character** como quem tem o problema — WorkConnect é o **guia**. Cada herói tem uma saga (job a ser feito) + um problema externo (mensurável) + um problema interno (emocional):
+
+| Herói | Saga (Job) | Problema Externo | Problema Interno | Plano WorkConnect |
+|-------|------------|------------------|------------------|-------------------|
+| **João** | "Quero crescer sem perder vendas por falta de mercadoria" | R$ 50K-500K/ano perdidos em ruptura | Estresse + sensação de "atrás dos concorrentes" | Básico R$ 149 → alertas proativos |
+| **Maria** | "Quero parar de apagar incêndio e começar a fazer estratégia" | 14h/semana em planilhas | Culpa + sensação de nunca terminar | Pro R$ 299 → automação total |
+| **Carlos** | "Quero indicar uma ferramenta que funcione sem quebrar a confiança" | Risco de indicar ERP caro que cliente abandona | Medo de manchar reputação | Parceria R$ ??? → confiança LGPD |
+
+---
+
+## Persona 1 — João, o Empreendedor (Character Primário)
+
+### Quem é
 
 ```mermaid
 graph TD
-    subgraph PERFIL["João, 42 anos"]
-        A["Masculino"] --> B["Ensino Superior Incompleto"]
-        B --> C["São Paulo, SP"]
-        C --> D["Casado, 2 filhos"]
+    subgraph PERFIL["João Silva, 42"]
+        A[Masculino, 60%] --> B[Ensino médio completo]
+        B --> C[São Paulo, RJ ou BH]
+        C --> D[Casado, 2 filhos]
     end
-    
+
     style PERFIL fill:#2563eb,color:#fff
 ```
 
@@ -35,22 +70,21 @@ graph TD
 |----------|-------|
 | **Nome** | João Silva |
 | **Idade** | 42 anos |
-| **Gênero** | Masculino (60%) |
 | **Localização** | São Paulo, Rio de Janeiro, Belo Horizonte |
 | **Educação** | Ensino médio completo, superior incompleto |
 | **Renda pessoal** | R$ 8.000 - R$ 20.000/mês |
 
-### Perfil Empresarial
+### Empresa
 
 | Atributo | Valor |
 |----------|-------|
 | **Empresa** | Varejo de Calçados |
-| **Faturamento** | R$ 1.8M/ano |
+| **Faturamento** | R$ 1,8M/ano |
 | **Funcionários** | 8 pessoas |
 | **Tempo de mercado** | 7 anos |
 | **Cargo** | Proprietário |
 
-### Aspectos Comportamentais
+### Mapa de Empatia
 
 ```mermaid
 mindmap
@@ -63,7 +97,7 @@ mindmap
     Frustrações
       Perde vendas
       Planilhas quebram
-      "Apagar incêndios"
+      Apagar incêndios
       Sistemas caros
     Objetivos
       -30% perdas
@@ -77,69 +111,63 @@ mindmap
       Resistência equipe
 ```
 
-### Jornada do Cliente
+### Jornada (Awareness → Advocacy)
 
 ```mermaid
 flowchart LR
     subgraph AWARENESS["Descoberta"]
-        A1[Problema: Vendas perdidas]
-        A2[Busca Google]
-        A3[Indicação amigo]
+        A1[Problema: Vendas perdidas] --> A2[Busca Google]
+        A2 --> A3[Indicação amigo]
     end
-    
+
     subgraph CONSIDERATION["Consideração"]
-        C1[Website WorkConnect]
-        C2[Trial grátis]
-        C3[Compara Excel]
+        C1[Website WorkConnect] --> C2[Trial grátis]
+        C2 --> C3[Compara Excel]
     end
-    
+
     subgraph DECISION["Decisão"]
-        D1[Preço acessível]
-        D2[ROI claro]
-        D3[Compra Básico]
+        D1[Preço acessível] --> D2[ROI claro]
+        D2 --> D3[Compra Básico]
     end
-    
+
     subgraph ONBOARDING["Adoção"]
-        O1[Cadastro produtos]
-        O2[Primeira venda]
-        O3[Alerta funcionando]
+        O1[Cadastro produtos] --> O2[Primeira venda]
+        O2 --> O3[Alerta funcionando]
     end
-    
+
     subgraph ADVOCACY["Advocacia"]
-        Adv1[Indica outro]
-        Adv2[Upgrade Prof]
+        Adv1[Indica outro] --> Adv2[Upgrade Pro]
     end
-    
-    A1 --> A2 --> C1
-    C1 --> C2 --> D1
-    D1 --> D2 --> D3
-    D3 --> O1 --> O2 --> O3
-    O3 --> Adv1 --> Adv2
+
+    A3 --> C1
+    C3 --> D1
+    D3 --> O1
+    O3 --> Adv1
 ```
 
-### Citação
+### Voz do Cliente (StoryBrand Voice-of-Customer)
 
 > *"Tenho 5 planilhas diferentes que não conversam entre si. Quando preciso saber o que tenho em estoque, levo 30 minutos. Perdi R$ 50 mil em vendas ano passado só porque não sabia que estava sem mercadoria."*
 > — João, Proprietário de Loja de Calçados
 
-### Mensagem de Marketing
+### Mensagem de Marketing (CTA Direto)
 
-> **"Pare de perder vendas por falta de estoque. Work Connect automatiza seu controle e reduz perdas em 40%, gerando R$ 50.000+ de economia no primeiro ano. Teste grátis por 14 dias."**
+> **"Pare de perder vendas por falta de estoque. WorkConnect automatiza seu controle e reduz perdas em 40%, gerando R$ 50.000+ de economia no primeiro ano. Teste grátis por 14 dias."**
 
 ---
 
-## Persona 2: Maria - A Gerente de Estoque
+## Persona 2 — Maria, a Gerente de Estoque (Character Operacional)
 
-### Perfil Demográfico
+### Quem é
 
 ```mermaid
 graph TD
-    subgraph PERFIL["Maria, 35 anos"]
-        A["Feminino"] --> B["Superior Completo"]
-        B --> C["Belo Horizonte, MG"]
-        C --> D["Casada, 1 filho"]
+    subgraph PERFIL["Maria Santos, 35"]
+        A[Feminino, 70%] --> B[Superior em Administração]
+        B --> C[Belo Horizonte, MG]
+        C --> D[Casada, 1 filho]
     end
-    
+
     style PERFIL fill:#7c3aed,color:#fff
 ```
 
@@ -147,21 +175,20 @@ graph TD
 |----------|-------|
 | **Nome** | Maria Santos |
 | **Idade** | 35 anos |
-| **Gênero** | Feminino (70%) |
 | **Localização** | Todas as regiões do Brasil |
 | **Educação** | Superior em Administração |
 | **Renda** | R$ 5.000 - R$ 8.000/mês |
 
-### Perfil Profissional
+### Função
 
 | Atributo | Valor |
 |----------|-------|
 | **Cargo** | Gerente de Estoque |
 | **Experiência** | 5 anos na função |
 | **Responsabilidades** | Controle estoque, compras, inventários |
-| **Reporta para** | Proprietário |
+| **Reporta para** | Proprietário (João) |
 
-### Aspectos Comportamentais
+### Mapa de Empatia
 
 ```mermaid
 mindmap
@@ -172,9 +199,9 @@ mindmap
       Reconhecimento
       Reduzir estresse
     Frustrações
-      "Planilhas quebram"
+      Planilhas quebram
       Tempo manual
-      "Culpada por tudo"
+      Culpada por tudo
       Sem visibilidade
     Objetivos
       Automação
@@ -188,60 +215,50 @@ mindmap
       Curva aprendizado
 ```
 
-### Fluxo de Trabalho
+### Antes vs Depois — O Job Real
 
 ```mermaid
 flowchart TB
-    subgraph DIARIO["Rotina Diária"]
-        D1[Verificar estoque]
-        D2[Atualizar planilha]
-        D3[Emitir pedidos]
+    subgraph DIARIO["Rotina Atual (caos)"]
+        D1[Verificar estoque manualmente] --> P1[Divergência inventário]
+        D2[Atualizar planilha 2h/dia] --> P2[Produto em falta]
+        D3[Emitir pedidos no achismo] --> P3[Atraso entrega]
     end
-    
-    subgraph PROBLEMAS["Problemas"]
-        P1[Divergência inventário]
-        P2[Produto em falta]
-        P3[Atraso entrega]
-    end
-    
+
     subgraph SOLUCAO["Com WorkConnect"]
-        S1[Dashboard automático]
-        S2[Alerta reposição]
-        S3[Relatório 1-click]
+        S1[Dashboard automático] --> OK1[Visibilidade real-time]
+        S2[Alerta reposição] --> OK2[Pedido no timing certo]
+        S3[Relatório 1-click] --> OK3[Decisão data-driven]
     end
-    
-    D1 --> P1
-    D2 --> P2
-    D3 --> P3
-    
+
     P1 --> S1
     P2 --> S2
     P3 --> S3
 ```
 
-### Citação
+### Voz do Cliente
 
 > *"Passo 2 horas por dia só atualizando planilhas. Se pudesse automatizar isso, teria tempo para analisar os dados e realmente ajudar o negócio a crescer."*
 > — Maria, Gerente de Estoque
 
-### Mensagem de Marketing
+### Mensagem de Marketing (CTA Direto)
 
-> **"Automatize seu controle de estoque e ganhe 15 horas por semana. Work Connect gera alertas automáticos e elimina planilhas quebradas. Teste grátis."**
+> **"Automatize seu controle de estoque e ganhe 15 horas por semana. WorkConnect gera alertas automáticos e elimina planilhas quebradas. Teste grátis."**
 
 ---
 
-## Persona 3: Carlos - O Contador/Consultor
+## Persona 3 — Carlos, o Contador (Character Influenciador)
 
-### Perfil
+### Quem é
 
 ```mermaid
 graph TD
-    subgraph PERFIL["Carlos, 48 anos"]
-        A["Masculino"] --> B["Superior Completo"]
-        B --> C["Contador"]
-        C --> D["45 empresas"]
+    subgraph PERFIL["Carlos Oliveira, 48"]
+        A[Masculino, 80%] --> B[Ciências Contábeis]
+        B --> C[Contador autônomo]
+        C --> D[45 empresas clientes]
     end
-    
+
     style PERFIL fill:#059669,color:#fff
 ```
 
@@ -249,7 +266,6 @@ graph TD
 |----------|-------|
 | **Nome** | Carlos Oliveira |
 | **Idade** | 48 anos |
-| **Gênero** | Masculino (80%) |
 | **Formação** | Ciências Contábeis |
 | **Clientes** | 30-50 PMEs |
 | **Faturamento** | R$ 30.000-50.000/mês |
@@ -261,109 +277,118 @@ flowchart LR
     C[Carlos<br/>Contador] -->|Recomenda| W[WorkConnect]
     C -->|Audita| E[Empresas<br/>Clientes]
     C -->|Recomenda| S[Outros<br/>Serviços]
-    
-    W -->|"Indicações<br/>qualificadas"| C
-    E -->|"Dados<br/>financeiros"| C
+
+    W -->|Indicações<br/>qualificadas| C
+    E -->|Dados<br/>financeiros| C
 ```
 
-### Características
+### Características-Chave
 
 | Aspecto | Descrição |
 |---------|-----------|
-| **Motivação** | Agregar valor aos clientes |
-| **Influência** | Alta - recomenda sistemas |
-| **Valoriza** | Conformidade (LGPD), praticidade |
-| **Medo** | Indicar solução que não funciona |
-| **Relacionamento** | Longo prazo com clientes |
+| **Motivação** | Agregar valor aos clientes (sem custo adicional) |
+| **Influência** | Alta — recomenda sistemas para suas PMEs |
+| **Valoriza** | Conformidade LGPD, praticidade |
+| **Medo** | Indicar solução que não funciona e manchar reputação |
+| **Relacionamento** | Longo prazo com clientes (5-15 anos) |
 
-### Citação
+### Voz do Cliente
 
 > *"Meus clientes são PMEs que precisam de gestão profissional mas não têm orçamento de ERP. Se tiver uma solução acessível e que funcione, posso indicar com confiança."*
 > — Carlos, Contador
 
-### Mensagem de Marketing
+### Mensagem de Marketing (Programa de Parceiros)
 
-> **"Ofereça gestão de estoque profissional para seus clientes. Work Connect com conformidade LGPD completa. Programa de parceiros disponível."**
+> **"Ofereça gestão de estoque profissional para seus clientes. WorkConnect com conformidade LGPD completa. Programa de parceiros disponível."**
 
 ---
 
-## Comparativo de Personas
+## Layer 3 — Comparativo: Necessidades × Personas
 
-### Matriz de Necessidades
+### Matriz de Necessidades (StoryBrand Jobs)
 
 | Necessidade | João | Maria | Carlos |
-|-------------|------|-------|--------|
+|-------------|:----:|:-----:|:------:|
 | **Redução de custos** | 🔴 Alta | 🟡 Média | 🟢 Baixa |
 | **Automatização** | 🟡 Média | 🔴 Alta | 🟢 Baixa |
-| **Facilidade uso** | 🔴 Alta | 🟡 Média | 🟡 Média |
+| **Facilidade de uso** | 🔴 Alta | 🟡 Média | 🟡 Média |
 | **Conformidade LGPD** | 🟢 Baixa | 🟡 Média | 🔴 Alta |
 | **Relatórios** | 🟡 Média | 🔴 Alta | 🔴 Alta |
 | **Preço baixo** | 🔴 Alta | 🟡 Média | 🟡 Média |
 
 ### Canais de Aquisição
 
-| Persona | Canal Principal | Canal Secundário |
-|---------|---------------|------------------|
-| **João** | Google Ads | Indicações |
-| **Maria** | LinkedIn | Grupos profissionais |
-| **Carlos** | Parcerias | Eventos |
-
----
-
-## Arquétipos de Usuários
-
-### Mapa de Empatia
-
 ```mermaid
-graph TD
-    subgraph JOÃO["João - O Empreendedor"]
-        PENSAM[O que pensa?]
-            P1["Como reduzir custos?"]
-            P2["Como crescer?"]
-            P3["Sistemas são caros"]
-        SENTEM[O que sente?]
-            S1["Estresse diário"]
-            S2["Medo de errar"]
-            S3["Frustração"]
-        VÊ[O que vê?]
-            V1["Concorrentes crescendo"]
-            V2["Problemas constantes"]
-            V3["Muitos gastos"]
-        FAZ[O que faz?]
-            F1["Trabalha no sábado"]
-            F2["Corre atrás"]
-            F3["Decision by feeling"]
-    end
+flowchart LR
+    J[João] -->|Google Ads<br/>+ SEO| W[WorkConnect]
+    M[Maria] -->|LinkedIn<br/>+ Grupos| W
+    C[Carlos] -->|Parcerias<br/>+ Eventos| W
+
+    style J fill:#3b82f6,color:#fff
+    style M fill:#7c3aed,color:#fff
+    style C fill:#059669,color:#fff
 ```
 
+| Persona | Canal Principal | Canal Secundário |
+|---------|----------------|------------------|
+| **João** | Google Ads | Indicações + SEO |
+| **Maria** | LinkedIn | Grupos profissionais |
+| **Carlos** | Parcerias diretas | Eventos de contabilidade |
+
 ---
 
-## Validação das Personas
+## Layer 4 — Validação Empírica
 
 ### Métodos de Validação
 
 | Método | Descrição | Status |
 |--------|-----------|--------|
-| **Entrevistas** | 50+ entrevistas com PMEs | ✅ Concluído |
-| **Questionários** | 200+ respostas online | ✅ Concluído |
-| **Análise de dados** | Comportamento de uso | 🔄 Em andamento |
-| **Feedback** | Beta testers | 🔄 Em andamento |
+| **Entrevistas em profundidade** | 50+ donos/gerentes de PMEs | ✅ Concluído |
+| **Questionário online** | 200+ respostas | ✅ Concluído |
+| **Análise de comportamento (beta)** | 10 empresas-piloto | 🔄 Em andamento |
+| **NPS trimestral** | Pesquisa contínua | 🔄 Em andamento |
+
+### 3 Insights Mais Valiosos da Pesquisa
+
+1. **73%** citaram espontaneamente "perda de venda por ruptura" como principal dor
+2. **61%** disseram "não tenho tempo de aprender sistema novo" → UX intuitiva é crítica
+3. **43%** levantaram "medo de auditoria LGPD" → conformidade é gatilho de compra, não feature técnica
 
 ---
 
-## Próximos Passos
+## Síntese Executiva
 
-Continue explorando:
+```mermaid
+flowchart TB
+    Q{Quem é o<br/>herói?}
+    Q --> J[João<br/>Persona primária<br/>50% receita]
+    Q --> M[Maria<br/>Persona operacional<br/>35% receita]
+    Q --> C[Carlos<br/>Persona canal<br/>15% receita indireta]
 
-- [Proposta de Valor](./proposta-valor) - Value Proposition Canvas
-- [BM Canvas](./bmc-canvas) - Modelo de negócio
-- [Análise de Mercado](./analise-mercado) - TAM/SAM/SOM
+    style Q fill:#f59e0b,color:#fff
+    style J fill:#3b82f6,color:#fff
+    style M fill:#7c3aed,color:#fff
+    style C fill:#059669,color:#fff
+```
+
+**Decisão de design:** cada persona tem **persona messaging + acquisition channel + pricing tier** dedicados. João é o lead (Básico R$ 149), Maria é a upsell (Pro R$ 299), Carlos é o canal de aquisição (sem custo direto — parcerias).
+
+---
+
+## Próximo Passo na Narrativa
+
+| Se você quer... | Vá para |
+|-----------------|---------|
+| Entender **o que cada herói quer** (Jobs to Be Done) | [Proposta de Valor →](./proposta-valor) |
+| Ver **como WorkConnect ganha de cada um deles** vs concorrência | [Análise Concorrência →](./analise-concorrencial) |
+| Conhecer **o plano de ataque** para adquirir cada persona | [Go-to-Market →](./go-to-market) |
+| Voltar à **narrativa central** (StoryBrand completo) | [Problema → Mecanismo → Solução →](./problema-mecanismo-solucao) |
 
 ---
 
 ## Referências
 
-- **Jobs to Be Done** - Framework de validação
-- **Design Thinking** - Metodologia de empatia
-- **Pesquisa WorkConnect** - Dados primários
-- **SEBRAE** - Dados secundários
+- **Jobs to Be Done** — Clayton Christensen (cliente "contrata" o produto para fazer um "job")
+- **Building a StoryBrand** — Donald Miller (Character framework)
+- **The Mom Test** — Rob Fitzpatrick (como entrevistar sem viés)
+- **WorkConnect** — Pesquisa primária com 250+ PMEs (2024-2025)

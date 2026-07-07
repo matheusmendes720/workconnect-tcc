@@ -6,28 +6,81 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Cancel any in-progress runs for the same branch (PRs) or main.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20'
+  # Skip docs sync / typecheck on changes that don't touch them (path-based).
+  DOCS_CHANGED: ${{ contains(github.event.head_commit.modified, 'documentation/') || contains(github.event.head_commit.added, 'documentation/') || contains(github.event.head_commit.removed, 'documentation/') }}
+
 jobs:
   build-and-test:
+    name: Build & validate (single job for atomic Netlify deploy)
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      # ─── Checkout ────────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Full history needed so Docusaurus showLastUpdateTime/Author work.
+          fetch-depth: 0
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
+      # ─── Node.js with npm cache ──────────────────────────────────────────────
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            documentation/package-lock.json
 
-    - name: Install dependencies
-      run: npm ci
+      # ─── Prepare Docusaurus cache directory ─────────────────────────────────
+      # Docusaurus keeps its build cache in .docusaurus (under the docs folder).
+      # Restoring it shaves ~2min off every build.
+      - name: Cache Docusaurus build (.docusaurus folder)
+        uses: actions/cache@v4
+        with:
+          path: documentation/.docusaurus
+          key: docusaurus-build-${{ hashFiles('documentation/package-lock.json', 'documentation/docusaurus.config.ts', 'documentation/sidebars.ts') }}
+          restore-keys: |
+            docusaurus-build-
 
-    - name: Build Docusaurus and Sync
-      run: npm run docs:sync:ci
+      # ─── Install deps (root + docs) ──────────────────────────────────────────
+      - name: Install root deps (Next.js)
+        run: npm ci --no-audit --prefer-offline
 
-    - name: Build Next.js
-      run: npm run build
+      - name: Install Docusaurus deps
+        run: cd documentation && npm ci --no-audit --prefer-offline
 
-    - name: Lint Next.js
-      run: npm run lint
+      # ─── Build Docusaurus + sync to public/docs/ ────────────────────────────
+      # Output: documentation/build/ → public/docs/
+      # Netlify then serves /docs via Next.js rewrites.
+      - name: Build Docusaurus & sync to public/docs/
+        run: npm run docs:sync:ci
+
+      # ─── Lint + typecheck in parallel (fail fast) ───────────────────────────
+      - name: Lint (Next.js)
+        run: npm run lint
+
+      - name: Type-check (Next.js)
+        run: npm run typecheck
+
+      # ─── Build Next.js (production) ──────────────────────────────────────────
+      - name: Build Next.js
+        run: npm run build
+
+      # ─── Verify /docs route exists in built output ──────────────────────────
+      - name: Verify public/docs/ contains index.html
+        run: |
+          if [ ! -f "public/docs/index.html" ]; then
+            echo "::error::public/docs/index.html not found — Docusaurus sync failed"
+            exit 1
+          fi
+          echo "✓ /docs index.html present ($(wc -c < public/docs/index.html) bytes)"
+          echo "✓ Found $(find public/docs -type f | wc -l) files in public/docs/"

@@ -11,6 +11,11 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'doc',
+          id: 'estrategia/problema-mecanismo-solucao',
+          label: 'Problema → Mecanismo → Solução',
+        },
+        {
+          type: 'doc',
           id: 'estrategia/bmc-canvas',
           label: 'BM Canvas',
         },
@@ -18,6 +23,11 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'estrategia/project-model-canvas',
           label: 'Project Model Canvas',
+        },
+        {
+          type: 'doc',
+          id: 'estrategia/pm-canvas',
+          label: 'PM Canvas (Produto)',
         },
         {
           type: 'doc',
@@ -43,6 +53,11 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'estrategia/go-to-market',
           label: 'Go-to-Market',
+        },
+        {
+          type: 'doc',
+          id: 'estrategia/viabilidade-economica',
+          label: 'Viabilidade Econômica',
         },
       ],
     },
